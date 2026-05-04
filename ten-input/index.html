@@ -3,404 +3,508 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 경영 대시보드 신청 · 텐베거 파트너스</title>
+  <title>AI 경영 대시보드 · 텐베거 파트너스</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; color: #1a1a1a; background: #fff; }
+    body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f0f4f8; color: #1a1a1a; min-height: 100vh; }
 
     /* 네비게이션 */
-    .nav { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 2rem; border-bottom: 1px solid #e8e8e8; background: #fff; position: sticky; top: 0; z-index: 100; }
-    .logo { font-size: 16px; font-weight: 700; color: #1a1a1a; }
-    .logo-sub { font-size: 10px; color: #888; margin-top: 1px; }
-    .btn-nav { background: #185FA5; color: #fff; border: none; border-radius: 8px; padding: 8px 18px; font-size: 13px; cursor: pointer; font-weight: 600; }
-    .btn-nav:hover { background: #0C447C; }
+    .nav { background: #0C447C; color: #fff; padding: 0.8rem 1.5rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 200; }
+    .nav-logo { font-size: 15px; font-weight: 700; }
+    .nav-sub { font-size: 10px; opacity: 0.7; margin-top: 2px; }
+    .nav-tabs { display: flex; gap: 6px; }
+    .tab-btn { background: rgba(255,255,255,0.15); color: #fff; border: none; border-radius: 6px; padding: 7px 16px; font-size: 13px; cursor: pointer; font-weight: 600; }
+    .tab-btn.active { background: #FAC775; color: #1a1a1a; }
+    .tab-btn:hover:not(.active) { background: rgba(255,255,255,0.25); }
 
-    /* 히어로 */
-    .hero { background: linear-gradient(135deg, #0C447C 0%, #185FA5 60%, #2a7fd4 100%); padding: 5rem 2rem 4rem; text-align: center; color: #fff; }
-    .hero-badge { display: inline-block; background: rgba(255,255,255,0.2); color: #fff; font-size: 12px; padding: 5px 16px; border-radius: 20px; margin-bottom: 1.2rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.3); }
-    .hero h1 { font-size: 36px; font-weight: 800; line-height: 1.35; max-width: 600px; margin: 0 auto 1rem; }
-    .hero h1 span { color: #FAC775; }
-    .hero p { font-size: 16px; color: rgba(255,255,255,0.85); max-width: 500px; margin: 0 auto 2rem; line-height: 1.8; }
-    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { background: #FAC775; color: #1a1a1a; border: none; border-radius: 8px; padding: 14px 30px; font-size: 15px; cursor: pointer; font-weight: 700; }
-    .btn-primary:hover { background: #f5b94d; }
-    .btn-secondary { background: rgba(255,255,255,0.15); color: #fff; border: 2px solid rgba(255,255,255,0.5); border-radius: 8px; padding: 14px 30px; font-size: 15px; cursor: pointer; font-weight: 600; }
-    .btn-secondary:hover { background: rgba(255,255,255,0.25); }
+    /* 페이지 전환 */
+    .page { display: none; padding: 1.5rem; max-width: 1100px; margin: 0 auto; }
+    .page.active { display: block; }
 
-    /* 통계 바 */
-    .stats { background: #f8fafc; border-bottom: 1px solid #eaf0f8; padding: 2rem; }
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); max-width: 800px; margin: 0 auto; gap: 1rem; text-align: center; }
-    .stat-num { font-size: 28px; font-weight: 800; color: #185FA5; }
-    .stat-label { font-size: 12px; color: #888; margin-top: 3px; }
+    /* 카드 공통 */
+    .card { background: #fff; border-radius: 14px; padding: 1.4rem; border: 1px solid #e4edf7; margin-bottom: 1rem; }
+    .card-title { font-size: 14px; font-weight: 700; color: #0C447C; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 2px solid #E6F1FB; display: flex; align-items: center; gap: 6px; }
 
-    /* 공통 섹션 */
-    .section { padding: 4rem 2rem; }
-    .section-title { font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 0.5rem; color: #111; }
-    .section-sub { font-size: 14px; color: #777; text-align: center; margin-bottom: 2.5rem; line-height: 1.7; max-width: 540px; margin-left: auto; margin-right: auto; }
-    .section-alt { background: #f8fafc; border-top: 1px solid #eaf0f8; border-bottom: 1px solid #eaf0f8; }
+    /* ── 입력 페이지 ── */
+    .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .input-section { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .input-section.col3 { grid-template-columns: 1fr 1fr 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 4px; }
+    .form-group label { font-size: 11px; color: #777; font-weight: 600; }
+    .form-group input, .form-group select { padding: 9px 10px; border: 1px solid #dde5ef; border-radius: 8px; font-size: 13px; background: #fafbfd; font-family: inherit; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: #185FA5; background: #fff; }
+    .month-selector { display: flex; gap: 8px; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; }
+    .month-selector select { padding: 8px 12px; border: 1px solid #dde5ef; border-radius: 8px; font-size: 13px; background: #fff; }
+    .btn-save { background: #185FA5; color: #fff; border: none; border-radius: 8px; padding: 10px 24px; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .btn-save:hover { background: #0C447C; }
+    .btn-dash { background: #27ae60; color: #fff; border: none; border-radius: 8px; padding: 10px 24px; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .biz-info-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .save-msg { font-size: 13px; color: #27ae60; font-weight: 600; display: none; }
 
-    /* 서비스 카드 */
-    .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 860px; margin: 0 auto; }
-    .svc-card { background: #fff; border: 1px solid #e4edf7; border-radius: 16px; padding: 2rem 1.5rem; }
-    .svc-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 14px; }
-    .icon-blue { background: #EBF4FF; }
-    .icon-green { background: #EDFAF5; }
-    .icon-yellow { background: #FFF8E7; }
-    .icon-purple { background: #F3F0FF; }
-    .svc-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: #111; }
-    .svc-card p { font-size: 13px; color: #666; line-height: 1.7; }
+    /* ── 대시보드 ── */
+    .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 1rem; }
+    .summary-card { background: #fff; border-radius: 12px; padding: 1.1rem 1.2rem; border: 1px solid #e4edf7; }
+    .summary-label { font-size: 11px; color: #888; margin-bottom: 4px; }
+    .summary-value { font-size: 22px; font-weight: 800; color: #111; }
+    .summary-value.blue { color: #185FA5; }
+    .summary-value.green { color: #27ae60; }
+    .summary-value.red { color: #e74c3c; }
+    .summary-sub { font-size: 11px; color: #aaa; margin-top: 2px; }
 
-    /* 프로세스 */
-    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 760px; margin: 0 auto; }
-    .proc-card { text-align: center; padding: 1.5rem 1rem; }
-    .proc-num { width: 44px; height: 44px; border-radius: 50%; background: #185FA5; color: #fff; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
-    .proc-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: #111; }
-    .proc-desc { font-size: 13px; color: #666; line-height: 1.6; }
+    /* 신호등 */
+    .signal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .signal-item { border-radius: 10px; padding: 0.9rem 1rem; font-size: 13px; }
+    .signal-red { background: #FFF5F5; border: 1px solid #feb2b2; }
+    .signal-yellow { background: #FFFFF0; border: 1px solid #f6e05e; }
+    .signal-green { background: #F0FFF4; border: 1px solid #9ae6b4; }
+    .signal-icon { font-size: 16px; margin-bottom: 4px; }
+    .signal-title { font-weight: 700; font-size: 12px; margin-bottom: 2px; }
+    .signal-desc { font-size: 11px; color: #666; line-height: 1.5; }
 
-    /* 신청 폼 */
-    .form-wrap { max-width: 660px; margin: 0 auto; background: #fff; border: 1px solid #e4edf7; border-radius: 16px; padding: 2.5rem; }
-    .form-section-title { font-size: 14px; font-weight: 700; color: #185FA5; margin: 1.6rem 0 1rem; padding-bottom: 6px; border-bottom: 2px solid #E6F1FB; }
-    .form-section-title:first-child { margin-top: 0; }
-    .form-row { margin-bottom: 1rem; }
-    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1rem; }
-    .form-label { font-size: 12px; color: #555; display: block; margin-bottom: 5px; font-weight: 600; }
-    .req { color: #e74c3c; margin-left: 2px; }
-    .form-input, .form-select, .form-textarea { width: 100%; padding: 10px 12px; border: 1px solid #dde5ef; border-radius: 8px; font-size: 13px; background: #fafbfd; color: #1a1a1a; font-family: inherit; }
-    .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #185FA5; background: #fff; }
-    .form-textarea { height: 90px; resize: vertical; }
+    /* 월별 카드 그리드 */
+    .month-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .month-card { border-radius: 12px; padding: 1rem; border: 1px solid #e4edf7; background: #fff; }
+    .month-card.profit-ok { background: #EBF8FF; border-color: #90cdf4; }
+    .month-card.profit-bad { background: #FFF5F5; border-color: #feb2b2; }
+    .month-card.empty { background: #fafbfd; border-color: #eaf0f8; opacity: 0.6; }
+    .month-name { font-size: 13px; font-weight: 700; color: #0C447C; margin-bottom: 8px; }
+    .month-row { display: flex; justify-content: space-between; font-size: 12px; color: #555; margin-bottom: 3px; }
+    .month-row span:last-child { font-weight: 600; color: #111; }
+    .month-profit { display: flex; justify-content: space-between; font-size: 13px; font-weight: 800; margin-top: 8px; padding-top: 6px; border-top: 1px solid #e0e8f0; }
+    .month-empty-msg { font-size: 12px; color: #bbb; text-align: center; padding: 1rem 0; }
 
-    /* 체크박스 그리드 */
-    .check-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .check-item { display: flex; align-items: center; gap: 8px; background: #f8fafc; border: 1px solid #e4edf7; border-radius: 8px; padding: 9px 12px; cursor: pointer; font-size: 13px; color: #444; }
-    .check-item input[type="checkbox"] { width: 15px; height: 15px; accent-color: #185FA5; flex-shrink: 0; }
-    .check-item:has(input:checked) { background: #E6F1FB; border-color: #B5D4F4; color: #0C447C; font-weight: 600; }
-
-    /* 제출 버튼 */
-    .btn-submit { width: 100%; background: #185FA5; color: #fff; border: none; border-radius: 10px; padding: 15px; font-size: 16px; cursor: pointer; font-weight: 700; margin-top: 1.2rem; }
-    .btn-submit:hover { background: #0C447C; }
-    .form-notice { font-size: 11px; color: #aaa; text-align: center; margin-top: 10px; line-height: 1.6; }
-
-    /* 푸터 */
-    .footer { background: #f4f8fd; border-top: 1px solid #e4edf7; padding: 2rem; text-align: center; }
-    .footer-copy { font-size: 11px; color: #bbb; }
+    /* 차트 */
+    .chart-wrap { position: relative; height: 220px; }
 
     /* 반응형 */
-    @media (max-width: 640px) {
-      .hero h1 { font-size: 26px; }
-      .hero { padding: 3rem 1.2rem 2.5rem; }
-      .section { padding: 3rem 1.2rem; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .process-grid { grid-template-columns: 1fr; }
-      .form-wrap { padding: 1.5rem; }
-      .form-row-2 { grid-template-columns: 1fr; }
-      .check-grid { grid-template-columns: 1fr; }
+    @media (max-width: 768px) {
+      .input-grid, .biz-info-grid, .summary-grid { grid-template-columns: 1fr 1fr; }
+      .input-section.col3 { grid-template-columns: 1fr 1fr; }
+      .month-grid { grid-template-columns: repeat(2, 1fr); }
+      .signal-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .summary-grid, .input-grid, .biz-info-grid { grid-template-columns: 1fr; }
+      .month-grid { grid-template-columns: 1fr; }
+      .nav-tabs .tab-btn { font-size: 11px; padding: 6px 10px; }
     }
   </style>
 </head>
 <body>
 
-<!-- 네비게이션 -->
 <nav class="nav">
   <div>
-    <div class="logo">텐베거 파트너스</div>
-    <div class="logo-sub">AI 경영 대시보드 신청</div>
+    <div class="nav-logo">텐베거 파트너스</div>
+    <div class="nav-sub">AI 경영 대시보드</div>
   </div>
-  <button class="btn-nav" onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})">지금 신청하기</button>
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showPage('input')">📝 데이터 입력</button>
+    <button class="tab-btn" onclick="showPage('dashboard')">📊 경영 대시보드</button>
+  </div>
 </nav>
 
-<!-- 히어로 -->
-<section class="hero">
-  <div class="hero-badge">소상공인 전용 · AI 경영 분석 플랫폼</div>
-  <h1>내 사업의 <span>진짜 수익</span>을<br>AI가 분석해 드립니다</h1>
-  <p>매출·매입·고정비를 AI가 자동 분석하여<br>한눈에 보이는 경영 대시보드를 무료로 제공합니다.</p>
-  <div class="hero-btns">
-    <button class="btn-primary" onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})">무료 경영 진단 신청</button>
-    <button class="btn-secondary" onclick="document.getElementById('service').scrollIntoView({behavior:'smooth'})">서비스 자세히 보기</button>
-  </div>
-</section>
+<!-- ───────── 입력 페이지 ───────── -->
+<div class="page active" id="page-input">
 
-<!-- 통계 -->
-<div class="stats">
-  <div class="stats-grid">
-    <div>
-      <div class="stat-num">평균 14%</div>
-      <div class="stat-label">고정비 절감률</div>
+  <div class="card">
+    <div class="card-title">🏢 사업자 정보</div>
+    <div class="biz-info-grid">
+      <div class="form-group"><label>업체명</label><input id="biz-name" placeholder="예) 홍길동 치킨"></div>
+      <div class="form-group"><label>대표자명</label><input id="biz-owner" placeholder="홍길동"></div>
+      <div class="form-group"><label>업종</label>
+        <select id="biz-industry">
+          <option>음식점·카페</option><option>소매·유통</option><option>서비스업</option>
+          <option>제조·생산</option><option>미용·뷰티</option><option>기타</option>
+        </select>
+      </div>
+      <div class="form-group"><label>담당 슈퍼바이져</label><input id="biz-sv" placeholder="담당자명"></div>
     </div>
-    <div>
-      <div class="stat-num">연 400만원↑</div>
-      <div class="stat-label">평균 비용 절감액</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📅 월 선택</div>
+    <div class="month-selector">
+      <select id="sel-year">
+        <option>2025</option><option selected>2026</option><option>2027</option>
+      </select>
+      <select id="sel-month">
+        <option value="1">1월</option><option value="2">2월</option><option value="3">3월</option>
+        <option value="4">4월</option><option value="5" selected>5월</option><option value="6">6월</option>
+        <option value="7">7월</option><option value="8">8월</option><option value="9">9월</option>
+        <option value="10">10월</option><option value="11">11월</option><option value="12">12월</option>
+      </select>
+      <button class="btn-save" onclick="loadMonth()" style="background:#6c757d">불러오기</button>
     </div>
-    <div>
-      <div class="stat-num">3일 이내</div>
-      <div class="stat-label">첫 분석 리포트 제공</div>
+  </div>
+
+  <div class="input-grid">
+    <!-- 매출 -->
+    <div class="card">
+      <div class="card-title">💰 매출</div>
+      <div class="input-section">
+        <div class="form-group"><label>카드 매출</label><input id="rev-card" type="number" placeholder="0"></div>
+        <div class="form-group"><label>현금 매출</label><input id="rev-cash" type="number" placeholder="0"></div>
+        <div class="form-group"><label>배달앱 매출</label><input id="rev-delivery" type="number" placeholder="0"></div>
+        <div class="form-group"><label>기타 매출</label><input id="rev-other" type="number" placeholder="0"></div>
+      </div>
     </div>
-    <div>
-      <div class="stat-num">6개 AI</div>
-      <div class="stat-label">전담 에이전트 배정</div>
+
+    <!-- 매입·재료비 -->
+    <div class="card">
+      <div class="card-title">🛒 매입 · 재료비</div>
+      <div class="input-section">
+        <div class="form-group"><label>식재료비</label><input id="cost-material" type="number" placeholder="0"></div>
+        <div class="form-group"><label>소모품비</label><input id="cost-supplies" type="number" placeholder="0"></div>
+        <div class="form-group"><label>포장재비</label><input id="cost-package" type="number" placeholder="0"></div>
+        <div class="form-group"><label>기타 매입</label><input id="cost-other" type="number" placeholder="0"></div>
+      </div>
     </div>
+
+    <!-- 인건비 -->
+    <div class="card">
+      <div class="card-title">👥 인건비</div>
+      <div class="input-section">
+        <div class="form-group"><label>정규직 급여</label><input id="labor-full" type="number" placeholder="0"></div>
+        <div class="form-group"><label>파트타임 급여</label><input id="labor-part" type="number" placeholder="0"></div>
+        <div class="form-group"><label>4대보험 (사업주)</label><input id="labor-insure" type="number" placeholder="0"></div>
+        <div class="form-group"><label>퇴직충당금</label><input id="labor-retire" type="number" placeholder="0"></div>
+      </div>
+    </div>
+
+    <!-- 고정비 -->
+    <div class="card">
+      <div class="card-title">🏠 고정비</div>
+      <div class="input-section col3">
+        <div class="form-group"><label>임대료</label><input id="fix-rent" type="number" placeholder="0"></div>
+        <div class="form-group"><label>관리비</label><input id="fix-manage" type="number" placeholder="0"></div>
+        <div class="form-group"><label>통신비</label><input id="fix-telecom" type="number" placeholder="0"></div>
+        <div class="form-group"><label>세무기장료</label><input id="fix-tax" type="number" placeholder="0"></div>
+        <div class="form-group"><label>보험료</label><input id="fix-insure" type="number" placeholder="0"></div>
+        <div class="form-group"><label>렌탈료</label><input id="fix-rental" type="number" placeholder="0"></div>
+        <div class="form-group"><label>이자비용</label><input id="fix-interest" type="number" placeholder="0"></div>
+        <div class="form-group"><label>POS·결제수수료</label><input id="fix-pos" type="number" placeholder="0"></div>
+        <div class="form-group"><label>기타 고정비</label><input id="fix-other" type="number" placeholder="0"></div>
+      </div>
+    </div>
+
+    <!-- 변동비 -->
+    <div class="card">
+      <div class="card-title">📢 변동비</div>
+      <div class="input-section">
+        <div class="form-group"><label>광고·마케팅비</label><input id="var-ad" type="number" placeholder="0"></div>
+        <div class="form-group"><label>배달앱 수수료</label><input id="var-delivery-fee" type="number" placeholder="0"></div>
+        <div class="form-group"><label>수선·유지비</label><input id="var-repair" type="number" placeholder="0"></div>
+        <div class="form-group"><label>기타 변동비</label><input id="var-other" type="number" placeholder="0"></div>
+      </div>
+    </div>
+
+    <!-- 목표 -->
+    <div class="card">
+      <div class="card-title">🎯 이번 달 목표</div>
+      <div class="input-section">
+        <div class="form-group"><label>매출 목표</label><input id="goal-rev" type="number" placeholder="0"></div>
+        <div class="form-group"><label>순수익 목표</label><input id="goal-profit" type="number" placeholder="0"></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:10px;align-items:center;margin-top:0.5rem">
+    <button class="btn-save" onclick="saveMonth()">💾 저장하기</button>
+    <button class="btn-dash" onclick="saveMonth();showPage('dashboard')">📊 대시보드 보기</button>
+    <span class="save-msg" id="save-msg">✅ 저장됐습니다!</span>
   </div>
 </div>
 
-<!-- 서비스 소개 -->
-<section class="section" id="service">
-  <div class="section-title">대시보드가 해드리는 것</div>
-  <div class="section-sub">매달 담당 슈퍼바이져가 데이터를 분석하고 수익성 개선 피드백을 드립니다</div>
-  <div class="service-grid">
-    <div class="svc-card">
-      <div class="svc-icon icon-blue">📊</div>
-      <h3>12개월 수익 구조 분석</h3>
-      <p>카드·현금·배달 매출을 구분하고 고정비·변동비를 자동 분류하여 월별 순수익을 산출합니다.</p>
+<!-- ───────── 대시보드 페이지 ───────── -->
+<div class="page" id="page-dashboard">
+
+  <!-- 사업체 헤더 -->
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+    <div>
+      <div style="font-size:20px;font-weight:800;color:#0C447C" id="dash-biz-name">업체명</div>
+      <div style="font-size:12px;color:#888;margin-top:2px">대표: <span id="dash-biz-owner">-</span> | 담당 SV: <span id="dash-biz-sv">-</span></div>
     </div>
-    <div class="svc-card">
-      <div class="svc-icon icon-green">💰</div>
-      <h3>고정비 최적화</h3>
-      <p>통신·렌탈·보험·세무 등 항목별 지출을 시장 평균과 비교하여 즉시 절감 가능한 금액을 제시합니다.</p>
-    </div>
-    <div class="svc-card">
-      <div class="svc-icon icon-yellow">🚦</div>
-      <h3>경영 신호등 알림</h3>
-      <p>광고비 효율 급감, 임대료 비중 상승 등 위험 신호를 조기에 감지하여 선제 대응을 도와드립니다.</p>
-    </div>
-    <div class="svc-card">
-      <div class="svc-icon icon-purple">🏢</div>
-      <h3>부동산 권리 분석</h3>
-      <p>인근 실거래가와 수익성을 결합하여 현재 사업의 권리금 추정치와 최적 매각·확장 시점을 안내합니다.</p>
+    <div style="font-size:12px;color:#aaa">최종 업데이트: <span id="dash-updated">-</span></div>
+  </div>
+
+  <!-- 요약 카드 -->
+  <div class="summary-grid" id="summary-grid">
+    <div class="summary-card"><div class="summary-label">올해 누적 매출</div><div class="summary-value blue" id="sum-rev">-</div></div>
+    <div class="summary-card"><div class="summary-label">올해 누적 순수익</div><div class="summary-value green" id="sum-profit">-</div></div>
+    <div class="summary-card"><div class="summary-label">평균 순수익률</div><div class="summary-value" id="sum-margin">-</div></div>
+    <div class="summary-card"><div class="summary-label">입력된 월 수</div><div class="summary-value" id="sum-months">-</div></div>
+  </div>
+
+  <!-- 경영 신호등 -->
+  <div class="card">
+    <div class="card-title">🚦 경영 신호등</div>
+    <div class="signal-grid" id="signal-grid">
+      <div class="signal-item signal-green"><div class="signal-icon">🟢</div><div class="signal-title">데이터를 입력하면</div><div class="signal-desc">AI가 경영 신호를 분석합니다</div></div>
     </div>
   </div>
-</section>
 
-<!-- 이용 절차 -->
-<section class="section section-alt">
-  <div class="section-title">신청부터 리포트까지</div>
-  <div class="section-sub">복잡한 서류 없이 3단계로 완료됩니다</div>
-  <div class="process-grid">
-    <div class="proc-card">
-      <div class="proc-num">1</div>
-      <div class="proc-title">사업 정보 입력</div>
-      <div class="proc-desc">아래 양식에 사업체 현황과 주요 고민을 입력합니다</div>
+  <!-- 연간 차트 -->
+  <div class="card">
+    <div class="card-title">📈 12개월 매출 · 순수익 추이</div>
+    <div class="chart-wrap"><canvas id="annual-chart"></canvas></div>
+  </div>
+
+  <!-- 비용 구조 차트 -->
+  <div class="input-grid">
+    <div class="card">
+      <div class="card-title">🥧 비용 구조 (최근 월)</div>
+      <div class="chart-wrap"><canvas id="cost-chart"></canvas></div>
     </div>
-    <div class="proc-card">
-      <div class="proc-num">2</div>
-      <div class="proc-title">전담 슈퍼바이져 배정</div>
-      <div class="proc-desc">AI가 1차 분석 후 전담 SV가 3일 이내 연락드립니다</div>
-    </div>
-    <div class="proc-card">
-      <div class="proc-num">3</div>
-      <div class="proc-title">AI 경영 대시보드 제공</div>
-      <div class="proc-desc">맞춤형 경영 분석 리포트와 대시보드를 무료로 받아보세요</div>
+    <div class="card">
+      <div class="card-title">📊 매출 구성 (최근 월)</div>
+      <div class="chart-wrap"><canvas id="rev-chart"></canvas></div>
     </div>
   </div>
-</section>
 
-<!-- 신청 폼 -->
-<section class="section" id="apply">
-  <div class="section-title">AI 경영 진단 신청</div>
-  <div class="section-sub">아래 정보를 입력하시면 담당 슈퍼바이져가 3일 이내 연락드립니다</div>
-  <div class="form-wrap">
-
-    <div class="form-section-title">① 사업자 기본 정보</div>
-    <div class="form-row-2">
-      <div>
-        <label class="form-label">업체명 <span class="req">*</span></label>
-        <input class="form-input" id="f-biz" type="text" placeholder="예) 홍길동 치킨">
-      </div>
-      <div>
-        <label class="form-label">대표자명 <span class="req">*</span></label>
-        <input class="form-input" id="f-name" type="text" placeholder="홍길동">
-      </div>
-    </div>
-    <div class="form-row-2">
-      <div>
-        <label class="form-label">사업자 유형 <span class="req">*</span></label>
-        <select class="form-select" id="f-type">
-          <option value="">선택</option>
-          <option>개인사업자</option>
-          <option>법인사업자</option>
-        </select>
-      </div>
-      <div>
-        <label class="form-label">업종 <span class="req">*</span></label>
-        <select class="form-select" id="f-industry">
-          <option value="">선택</option>
-          <option>음식점·카페</option>
-          <option>소매·유통</option>
-          <option>서비스업</option>
-          <option>제조·생산</option>
-          <option>미용·뷰티</option>
-          <option>의료·헬스</option>
-          <option>교육</option>
-          <option>기타</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-row">
-      <label class="form-label">사업장 주소</label>
-      <input class="form-input" id="f-addr" type="text" placeholder="예) 서울시 강남구 역삼동">
-    </div>
-
-    <div class="form-section-title">② 사업 현황</div>
-    <div class="form-row-2">
-      <div>
-        <label class="form-label">월 평균 매출 규모 <span class="req">*</span></label>
-        <select class="form-select" id="f-revenue">
-          <option value="">선택</option>
-          <option>1천만원 미만</option>
-          <option>1천~3천만원</option>
-          <option>3천~5천만원</option>
-          <option>5천만원~1억</option>
-          <option>1억원 이상</option>
-        </select>
-      </div>
-      <div>
-        <label class="form-label">직원 수</label>
-        <select class="form-select" id="f-staff">
-          <option value="">선택</option>
-          <option>대표자 혼자</option>
-          <option>1~3명</option>
-          <option>4~9명</option>
-          <option>10명 이상</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-row-2">
-      <div>
-        <label class="form-label">주요 결제 방식</label>
-        <select class="form-select" id="f-payment">
-          <option value="">선택</option>
-          <option>카드 위주</option>
-          <option>현금 위주</option>
-          <option>배달앱 위주</option>
-          <option>혼합</option>
-        </select>
-      </div>
-      <div>
-        <label class="form-label">현재 사용 POS</label>
-        <select class="form-select" id="f-pos">
-          <option value="">선택</option>
-          <option>토스 포스</option>
-          <option>KIS 정보통신</option>
-          <option>포스뱅크</option>
-          <option>기타 POS</option>
-          <option>미사용</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-section-title">③ 관심 서비스 (복수 선택)</div>
-    <div class="check-grid">
-      <label class="check-item"><input type="checkbox" value="AI 경영 대시보드"> AI 경영 대시보드</label>
-      <label class="check-item"><input type="checkbox" value="고정비 절감 컨설팅"> 고정비 절감 컨설팅</label>
-      <label class="check-item"><input type="checkbox" value="포스기 교체"> 포스기 교체</label>
-      <label class="check-item"><input type="checkbox" value="마케팅 전략"> 마케팅 전략</label>
-      <label class="check-item"><input type="checkbox" value="부동산 권리 분석"> 부동산 권리 분석</label>
-      <label class="check-item"><input type="checkbox" value="세무 절세 전략"> 세무·절세 전략</label>
-    </div>
-
-    <div class="form-section-title">④ 현재 가장 큰 고민</div>
-    <div class="form-row">
-      <textarea class="form-textarea" id="f-concern" placeholder="예) 매출은 유지되는데 남는 게 없어요 / 고정비가 너무 많이 나가요 / 배달앱 수수료가 부담돼요"></textarea>
-    </div>
-
-    <div class="form-section-title">⑤ 연락처</div>
-    <div class="form-row-2">
-      <div>
-        <label class="form-label">연락처 <span class="req">*</span></label>
-        <input class="form-input" id="f-phone" type="tel" placeholder="010-0000-0000">
-      </div>
-      <div>
-        <label class="form-label">이메일</label>
-        <input class="form-input" id="f-email" type="email" placeholder="example@email.com">
-      </div>
-    </div>
-    <div class="form-row">
-      <label class="form-label">상담 가능 시간</label>
-      <select class="form-select" id="f-time">
-        <option value="">선택 안 함</option>
-        <option>평일 오전 (9시~12시)</option>
-        <option>평일 오후 (13시~18시)</option>
-        <option>평일 저녁 (18시~21시)</option>
-        <option>주말 오전</option>
-        <option>주말 오후</option>
-        <option>언제든 가능</option>
-      </select>
-    </div>
-
-    <button class="btn-submit" onclick="submitForm()">AI 경영 진단 무료 신청하기</button>
-    <p id="form-msg" style="text-align:center;margin-top:12px;font-size:13px;display:none"></p>
-    <p class="form-notice">입력하신 정보는 경영 진단 목적으로만 활용되며, 외부에 제공되지 않습니다.</p>
+  <!-- 12개월 카드 -->
+  <div class="card">
+    <div class="card-title">📅 월별 경영 현황</div>
+    <div class="month-grid" id="month-grid"></div>
   </div>
-</section>
-
-<!-- 푸터 -->
-<footer class="footer">
-  <div class="footer-copy">© 2026 텐베거 파트너스 · 대표 유성환. All rights reserved.</div>
-</footer>
+</div>
 
 <script>
-function submitForm() {
-  var biz      = document.getElementById('f-biz').value.trim();
-  var name     = document.getElementById('f-name').value.trim();
-  var type     = document.getElementById('f-type').value;
-  var industry = document.getElementById('f-industry').value;
-  var addr     = document.getElementById('f-addr').value.trim();
-  var revenue  = document.getElementById('f-revenue').value;
-  var staff    = document.getElementById('f-staff').value;
-  var payment  = document.getElementById('f-payment').value;
-  var pos      = document.getElementById('f-pos').value;
-  var concern  = document.getElementById('f-concern').value.trim();
-  var phone    = document.getElementById('f-phone').value.trim();
-  var email    = document.getElementById('f-email').value.trim();
-  var time     = document.getElementById('f-time').value;
-  var msg      = document.getElementById('form-msg');
+var SHEET_URL = 'https://script.google.com/macros/s/AKfycbzRXMl-8yYhyZkYoR9TpO2YkJOXoM7jFYQh7buWADfwyo2g00NFIk8y9gIIjFVzggupgw/exec';
+var MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+var annualChart, costChart, revChart;
 
-  var services = [];
-  document.querySelectorAll('.check-item input:checked').forEach(function(el) {
-    services.push(el.value);
-  });
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('page-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (id === 'dashboard') renderDashboard();
+}
 
-  if (!biz || !name || !type || !industry || !revenue || !phone) {
-    msg.style.display = 'block';
-    msg.style.color = '#c0392b';
-    msg.textContent = '필수 항목(업체명, 대표자명, 사업자유형, 업종, 매출규모, 연락처)을 입력해 주세요.';
-    return;
-  }
+function n(id) { return parseFloat(document.getElementById(id).value) || 0; }
+function fmt(v) { return (v/10000).toFixed(0) + '만원'; }
+function fmtM(v) { return Math.round(v/10000) + '만'; }
 
-  var btn = document.querySelector('.btn-submit');
-  btn.disabled = true;
-  btn.textContent = '전송 중...';
-  msg.style.display = 'none';
+function getKey() {
+  return document.getElementById('sel-year').value + '-' + document.getElementById('sel-month').value;
+}
 
-  var url = 'https://script.google.com/macros/s/AKfycbzRXMl-8yYhyZkYoR9TpO2YkJOXoM7jFYQh7buWADfwyo2g00NFIk8y9gIIjFVzggupgw/exec';
+function getData() {
+  return {
+    bizName: document.getElementById('biz-name').value,
+    bizOwner: document.getElementById('biz-owner').value,
+    bizIndustry: document.getElementById('biz-industry').value,
+    bizSv: document.getElementById('biz-sv').value,
+    revCard: n('rev-card'), revCash: n('rev-cash'), revDelivery: n('rev-delivery'), revOther: n('rev-other'),
+    costMaterial: n('cost-material'), costSupplies: n('cost-supplies'), costPackage: n('cost-package'), costOther: n('cost-other'),
+    laborFull: n('labor-full'), laborPart: n('labor-part'), laborInsure: n('labor-insure'), laborRetire: n('labor-retire'),
+    fixRent: n('fix-rent'), fixManage: n('fix-manage'), fixTelecom: n('fix-telecom'), fixTax: n('fix-tax'),
+    fixInsure: n('fix-insure'), fixRental: n('fix-rental'), fixInterest: n('fix-interest'), fixPos: n('fix-pos'), fixOther: n('fix-other'),
+    varAd: n('var-ad'), varDeliveryFee: n('var-delivery-fee'), varRepair: n('var-repair'), varOther: n('var-other'),
+    goalRev: n('goal-rev'), goalProfit: n('goal-profit')
+  };
+}
 
-  fetch(url, {
-    method: 'POST',
-    mode: 'no-cors',
+function calcProfit(d) {
+  var revenue = d.revCard + d.revCash + d.revDelivery + d.revOther;
+  var cogs = d.costMaterial + d.costSupplies + d.costPackage + d.costOther;
+  var labor = d.laborFull + d.laborPart + d.laborInsure + d.laborRetire;
+  var fixed = d.fixRent + d.fixManage + d.fixTelecom + d.fixTax + d.fixInsure + d.fixRental + d.fixInterest + d.fixPos + d.fixOther;
+  var variable = d.varAd + d.varDeliveryFee + d.varRepair + d.varOther;
+  var totalCost = cogs + labor + fixed + variable;
+  var profit = revenue - totalCost;
+  return { revenue: revenue, cogs: cogs, labor: labor, fixed: fixed, variable: variable, totalCost: totalCost, profit: profit };
+}
+
+function saveMonth() {
+  var key = getKey();
+  var d = getData();
+  localStorage.setItem('dash-' + key, JSON.stringify(d));
+  localStorage.setItem('dash-biz', JSON.stringify({ name: d.bizName, owner: d.bizOwner, industry: d.bizIndustry, sv: d.bizSv }));
+  var msg = document.getElementById('save-msg');
+  msg.style.display = 'inline';
+  setTimeout(function(){ msg.style.display = 'none'; }, 2000);
+
+  // 구글 시트에도 저장
+  var c = calcProfit(d);
+  var year = document.getElementById('sel-year').value;
+  var month = document.getElementById('sel-month').value;
+  fetch(SHEET_URL, {
+    method: 'POST', mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      sheetName: 'ten-input',
-      업체명: biz, 대표자명: name, 사업자유형: type, 업종: industry,
-      사업장주소: addr, 월매출규모: revenue, 직원수: staff,
-      결제방식: payment, POS: pos, 관심서비스: services.join(', '),
-      고민사항: concern, 연락처: phone, 이메일: email, 상담가능시간: time
-    })
-  })
-  .then(function() {
-    btn.textContent = '신청 완료!';
-    btn.style.background = '#27ae60';
-    msg.style.display = 'block';
-    msg.style.color = '#27ae60';
-    msg.textContent = '신청이 완료됐습니다! 담당 슈퍼바이져가 3일 이내 연락드리겠습니다.';
-    document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(function(el){ el.value=''; });
-    document.querySelectorAll('.check-item input').forEach(function(el){ el.checked=false; });
-  })
-  .catch(function() {
-    btn.disabled = false;
-    btn.textContent = 'AI 경영 진단 무료 신청하기';
-    msg.style.display = 'block';
-    msg.style.color = '#c0392b';
-    msg.textContent = '오류가 발생했습니다. 잠시 후 다시 시도해 주세요.';
+    body: JSON.stringify(Object.assign({ sheetName: 'ten-input', year: year, month: month,
+      totalRevenue: c.revenue, totalCost: c.totalCost, netProfit: c.profit }, d))
   });
 }
+
+function loadMonth() {
+  var key = getKey();
+  var raw = localStorage.getItem('dash-' + key);
+  if (!raw) { alert('저장된 데이터가 없습니다.'); return; }
+  var d = JSON.parse(raw);
+  var fields = ['rev-card','rev-cash','rev-delivery','rev-other',
+    'cost-material','cost-supplies','cost-package','cost-other',
+    'labor-full','labor-part','labor-insure','labor-retire',
+    'fix-rent','fix-manage','fix-telecom','fix-tax','fix-insure','fix-rental','fix-interest','fix-pos','fix-other',
+    'var-ad','var-delivery-fee','var-repair','var-other','goal-rev','goal-profit'];
+  var keys = ['revCard','revCash','revDelivery','revOther',
+    'costMaterial','costSupplies','costPackage','costOther',
+    'laborFull','laborPart','laborInsure','laborRetire',
+    'fixRent','fixManage','fixTelecom','fixTax','fixInsure','fixRental','fixInterest','fixPos','fixOther',
+    'varAd','varDeliveryFee','varRepair','varOther','goalRev','goalProfit'];
+  fields.forEach(function(f, i){ document.getElementById(f).value = d[keys[i]] || ''; });
+  document.getElementById('biz-name').value = d.bizName || '';
+  document.getElementById('biz-owner').value = d.bizOwner || '';
+  document.getElementById('biz-sv').value = d.bizSv || '';
+}
+
+function renderDashboard() {
+  var year = document.getElementById('sel-year').value;
+  var biz = JSON.parse(localStorage.getItem('dash-biz') || '{}');
+  document.getElementById('dash-biz-name').textContent = biz.name || '업체명 미입력';
+  document.getElementById('dash-biz-owner').textContent = biz.owner || '-';
+  document.getElementById('dash-biz-sv').textContent = biz.sv || '-';
+  document.getElementById('dash-updated').textContent = new Date().toLocaleDateString('ko-KR');
+
+  var monthData = [];
+  var totalRev = 0, totalProfit = 0, filledMonths = 0;
+  for (var m = 1; m <= 12; m++) {
+    var raw = localStorage.getItem('dash-' + year + '-' + m);
+    if (raw) {
+      var d = JSON.parse(raw);
+      var c = calcProfit(d);
+      monthData.push({ month: m, data: d, calc: c });
+      totalRev += c.revenue;
+      totalProfit += c.profit;
+      filledMonths++;
+    } else {
+      monthData.push(null);
+    }
+  }
+
+  // 요약
+  document.getElementById('sum-rev').textContent = fmt(totalRev);
+  document.getElementById('sum-profit').textContent = fmt(totalProfit);
+  document.getElementById('sum-margin').textContent = totalRev > 0 ? (totalProfit/totalRev*100).toFixed(1) + '%' : '-';
+  document.getElementById('sum-months').textContent = filledMonths + '개월';
+
+  // 신호등
+  renderSignals(monthData, totalRev, totalProfit, filledMonths);
+
+  // 연간 차트
+  renderAnnualChart(monthData);
+
+  // 최근 월 비용/매출 차트
+  var recent = null;
+  for (var i = 11; i >= 0; i--) { if (monthData[i]) { recent = monthData[i]; break; } }
+  if (recent) {
+    renderCostChart(recent.calc);
+    renderRevChart(recent.data);
+  }
+
+  // 월별 카드
+  renderMonthCards(monthData);
+}
+
+function renderSignals(monthData, totalRev, totalProfit, filledMonths) {
+  var signals = [];
+  if (filledMonths === 0) {
+    signals.push({ type: 'green', icon: '🟢', title: '데이터를 입력해 주세요', desc: '입력 탭에서 매출·비용 데이터를 입력하면 분석이 시작됩니다.' });
+  } else {
+    var margin = totalRev > 0 ? totalProfit / totalRev : 0;
+    if (margin < 0.05) signals.push({ type: 'red', icon: '🔴', title: '순수익률 위험', desc: '순수익률이 5% 미만입니다. 비용 구조 점검이 필요합니다.' });
+    else if (margin < 0.15) signals.push({ type: 'yellow', icon: '🟡', title: '순수익률 주의', desc: '순수익률 ' + (margin*100).toFixed(1) + '%. 업종 평균(15%) 대비 낮습니다.' });
+    else signals.push({ type: 'green', icon: '🟢', title: '순수익률 양호', desc: '순수익률 ' + (margin*100).toFixed(1) + '%. 안정적인 수익 구조입니다.' });
+
+    var lastFilled = null;
+    for (var i = 11; i >= 0; i--) { if (monthData[i]) { lastFilled = monthData[i]; break; } }
+    if (lastFilled) {
+      var c = lastFilled.calc;
+      var adRatio = c.revenue > 0 ? lastFilled.data.varAd / c.revenue : 0;
+      var rentRatio = c.revenue > 0 ? lastFilled.data.fixRent / c.revenue : 0;
+      if (adRatio > 0.1) signals.push({ type: 'red', icon: '🔴', title: '광고비 과다', desc: '광고비가 매출의 ' + (adRatio*100).toFixed(0) + '%입니다. 10% 이하 조정을 권장합니다.' });
+      if (rentRatio > 0.2) signals.push({ type: 'yellow', icon: '🟡', title: '임대료 비중 높음', desc: '임대료가 매출의 ' + (rentRatio*100).toFixed(0) + '%입니다. 주변 시세 재협상을 검토하세요.' });
+      if (lastFilled.data.goalProfit > 0 && c.profit >= lastFilled.data.goalProfit)
+        signals.push({ type: 'green', icon: '🟢', title: '목표 순수익 달성', desc: '이번 달 목표 순수익을 달성했습니다!' });
+    }
+    if (signals.length === 0) signals.push({ type: 'green', icon: '🟢', title: '현금 흐름 안정', desc: '전반적인 경영 상태가 양호합니다.' });
+  }
+
+  document.getElementById('signal-grid').innerHTML = signals.map(function(s){
+    return '<div class="signal-item signal-'+s.type+'"><div class="signal-icon">'+s.icon+'</div><div class="signal-title">'+s.title+'</div><div class="signal-desc">'+s.desc+'</div></div>';
+  }).join('');
+}
+
+function renderAnnualChart(monthData) {
+  var revData = monthData.map(function(d){ return d ? Math.round(d.calc.revenue/10000) : null; });
+  var profitData = monthData.map(function(d){ return d ? Math.round(d.calc.profit/10000) : null; });
+  if (annualChart) annualChart.destroy();
+  annualChart = new Chart(document.getElementById('annual-chart'), {
+    type: 'bar',
+    data: {
+      labels: MONTHS,
+      datasets: [
+        { label: '매출(만원)', data: revData, backgroundColor: 'rgba(24,95,165,0.6)', borderRadius: 4 },
+        { label: '순수익(만원)', data: profitData, type: 'line', borderColor: '#27ae60', backgroundColor: 'rgba(39,174,96,0.1)', tension: 0.4, fill: true, pointRadius: 4 }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { font: { size: 11 } } } }, scales: { y: { ticks: { font: { size: 10 } } }, x: { ticks: { font: { size: 10 } } } } }
+  });
+}
+
+function renderCostChart(c) {
+  if (costChart) costChart.destroy();
+  costChart = new Chart(document.getElementById('cost-chart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['재료·매입', '인건비', '고정비', '변동비'],
+      datasets: [{ data: [c.cogs, c.labor, c.fixed, c.variable].map(function(v){ return Math.round(v/10000); }),
+        backgroundColor: ['#185FA5','#27ae60','#e67e22','#8e44ad'], borderWidth: 2 }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8 } } } }
+  });
+}
+
+function renderRevChart(d) {
+  if (revChart) revChart.destroy();
+  revChart = new Chart(document.getElementById('rev-chart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['카드', '현금', '배달앱', '기타'],
+      datasets: [{ data: [d.revCard, d.revCash, d.revDelivery, d.revOther].map(function(v){ return Math.round(v/10000); }),
+        backgroundColor: ['#3498db','#2ecc71','#e74c3c','#f39c12'], borderWidth: 2 }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8 } } } }
+  });
+}
+
+function renderMonthCards(monthData) {
+  var html = monthData.map(function(item, i) {
+    if (!item) return '<div class="month-card empty"><div class="month-name">' + MONTHS[i] + '</div><div class="month-empty-msg">데이터 없음</div></div>';
+    var c = item.calc;
+    var ok = item.data.goalProfit > 0 ? c.profit >= item.data.goalProfit : c.profit > 0;
+    var cls = ok ? 'profit-ok' : (c.profit < 0 ? 'profit-bad' : '');
+    return '<div class="month-card ' + cls + '">' +
+      '<div class="month-name">' + MONTHS[i] + ' 분석</div>' +
+      '<div class="month-row"><span>총 매출</span><span>' + fmtM(c.revenue) + '만</span></div>' +
+      '<div class="month-row"><span>재료·매입</span><span>' + fmtM(c.cogs) + '만</span></div>' +
+      '<div class="month-row"><span>인건비</span><span>' + fmtM(c.labor) + '만</span></div>' +
+      '<div class="month-row"><span>고정비</span><span>' + fmtM(c.fixed) + '만</span></div>' +
+      '<div class="month-row"><span>변동비</span><span>' + fmtM(c.variable) + '만</span></div>' +
+      '<div class="month-profit"><span>예상 순수익</span><span style="color:' + (c.profit >= 0 ? '#185FA5' : '#e74c3c') + '">' + fmtM(c.profit) + '만</span></div>' +
+      '</div>';
+  }).join('');
+  document.getElementById('month-grid').innerHTML = html;
+}
+
+// 초기화
+window.onload = function() {
+  var biz = JSON.parse(localStorage.getItem('dash-biz') || '{}');
+  if (biz.name) document.getElementById('biz-name').value = biz.name;
+  if (biz.owner) document.getElementById('biz-owner').value = biz.owner;
+  if (biz.sv) document.getElementById('biz-sv').value = biz.sv;
+};
 </script>
 </body>
 </html>
