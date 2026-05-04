@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>텐베거 파트너스 · AI 사업기획 슈퍼바이져</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; color: #1a1a1a; background: #fff; line-height: 1.5; }
+
+    /* 네비게이션 */
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 2rem; border-bottom: 1px solid #e8e8e8; background: #fff; position: sticky; top: 0; z-index: 100; }
+    .logo-wrap { display: flex; flex-direction: column; }
+    .logo { font-size: 16px; font-weight: 700; color: #1a1a1a; text-decoration: none;}
+    .logo-sub { font-size: 10px; color: #888; margin-top: 1px; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { font-size: 13px; color: #555; text-decoration: none; cursor: pointer; font-weight: 500;}
+    .nav-links a:hover { color: #185FA5; }
+    .btn-nav { background: #185FA5; color: #fff; border: none; border-radius: 8px; padding: 8px 18px; font-size: 13px; cursor: pointer; font-weight: 600; transition: background 0.2s; }
+    .btn-nav:hover { background: #0C447C; }
+
+    /* 히어로 */
+    .hero { background: #f4f8fd; padding: 6rem 2rem 5rem; text-align: center; border-bottom: 1px solid #e4edf7; }
+    .hero-badge { display: inline-block; background: #B5D4F4; color: #0C447C; font-size: 12px; padding: 6px 16px; border-radius: 20px; margin-bottom: 1.5rem; font-weight: 600; letter-spacing: -0.5px;}
+    .hero h1 { font-size: 42px; font-weight: 800; line-height: 1.3; max-width: 650px; margin: 0 auto 1.2rem; color: #111; letter-spacing: -1px;}
+    .hero h1 span { color: #185FA5; }
+    .hero p { font-size: 17px; color: #555; max-width: 520px; margin: 0 auto 0.8rem; line-height: 1.7; font-weight: 400;}
+    .hero-ceo { font-size: 13px; color: #999; margin: 1rem 0 2.2rem; font-weight: 400;}
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: #185FA5; color: #fff; border: none; border-radius: 8px; padding: 16px 35px; font-size: 16px; cursor: pointer; font-weight: 700; transition: background 0.2s; box-shadow: 0 2px 4px rgba(24,95,165,0.2); }
+    .btn-primary:hover { background: #0C447C; }
+    .btn-secondary { background: #fff; color: #185FA5; border: 2px solid #185FA5; border-radius: 8px; padding: 14px 33px; font-size: 16px; cursor: pointer; font-weight: 600; transition: background 0.2s; }
+    .btn-secondary:hover { background: #f0f6ff; }
+
+    /* 공통 섹션 */
+    .section { padding: 5rem 2rem; }
+    .section-title { font-size: 28px; font-weight: 800; text-align: center; margin-bottom: 0.8rem; color: #111; letter-spacing: -0.5px;}
+    .section-sub { font-size: 15px; color: #666; text-align: center; margin-bottom: 3.5rem; line-height: 1.7; max-width: 600px; margin-left: auto; margin-right: auto; font-weight: 400;}
+    .section-alt { background: #f8fafc; border-top: 1px solid #eaf0f8; border-bottom: 1px solid #eaf0f8; }
+
+    /* 수익화 솔루션 (이미지 강조 버전) */
+    .solution-container { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 3rem; }
+    
+    .solution-item { display: flex; align-items: center; gap: 3rem; background: #fff; border: 1px solid #e4edf7; border-radius: 20px; padding: 3rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: transform 0.3s, box-shadow 0.3s; }
+    .solution-item:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.05); }
+    .solution-item.reverse { flex-direction: row-reverse; }
+
+    .solution-img-w { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; }
+    .solution-img-w::before { content:''; position: absolute; width: 120%; height: 120%; background: radial-gradient(circle, rgba(24,95,165,0.05) 0%, rgba(255,255,255,0) 70%); border-radius: 50%; z-index: 0; }
+    
+    /* SVG 아이콘 스타일 */
+    .sol-icon { width: 100%; max-width: 280px; height: auto; position: relative; z-index: 1; display: block; }
+    
+    /* 수익화 1 애니메이션 (데이터 흐름) */
+    @keyframes dataFlow { 0% { stroke-dashoffset: 20; } 100% { stroke-dashoffset: 0; } }
+    .sol-icon-1 .data-line { stroke-dasharray: 4; animation: dataFlow 0.5s linear infinite; }
+    
+    /* 수익화 2 애니메이션 (차트 상승) */
+    @keyframes chartUp { 0% { transform: scaleY(0); } 100% { transform: scaleY(1); } }
+    .sol-icon-2 .chart-bar { transform-origin: bottom; animation: chartUp 1s ease-out forwards; }
+    .sol-icon-2 .chart-bar-1 { animation-delay: 0.1s; }
+    .sol-icon-2 .chart-bar-2 { animation-delay: 0.3s; }
+    .sol-icon-2 .chart-bar-3 { animation-delay: 0.5s; }
+    
+    /* 수익화 3 애니메이션 (톱니바퀴 회전) */
+    @keyframes gearRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .sol-icon-3 .gear { transform-origin: center; animation: gearRotate 4s linear infinite; }
+    .sol-icon-3 .gear-reverse { animation-direction: reverse; animation-duration: 3s;}
+
+    .solution-info { flex: 1; }
+    .sol-num { display: inline-block; background: #E6F1FB; color: #0C447C; font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 12px; margin-bottom: 12px; letter-spacing: -0.3px;}
+    .solution-info h3 { font-size: 22px; font-weight: 800; margin-bottom: 12px; color: #111; letter-spacing: -0.5px; line-height: 1.3;}
+    .solution-info p { font-size: 15px; color: #666; line-height: 1.8; margin-bottom: 1.5rem; font-weight: 400;}
+    .sol-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag { background: #f0f4f8; color: #555; font-size: 12px; padding: 5px 12px; border-radius: 12px; border: 1px solid #dde5ef; font-weight: 500;}
+
+    /* AI 에이전트 */
+    .agent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
+    .agent-card { background: #fff; border: 1px solid #e4edf7; border-radius: 16px; padding: 1.8rem; transition: border-color 0.3s; }
+    .agent-card:hover { border-color: #B5D4F4; }
+    .agent-av { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; margin-bottom: 15px; }
+    .av-ceo { background: #B5D4F4; color: #0C447C; }
+    .av-mgr { background: #9FE1CB; color: #085041; }
+    .av-analyst { background: #FAC775; color: #412402; }
+    .av-staff { background: #F5C4B3; color: #712B13; }
+    .av-mkt { background: #CECBF6; color: #3C3489; }
+    .av-right { background: #C0DD97; color: #27500A; }
+    .ai-badge { display: inline-flex; align-items: center; gap: 6px; background: #E6F1FB; color: #0C447C; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 12px; border: 1px solid #B5D4F4; margin-bottom: 10px; }
+    .ai-dot { width: 7px; height: 7px; border-radius: 50%; background: #185FA5; }
+    .agent-name { font-size: 16px; font-weight: 700; margin-bottom: 4px; color: #111; }
+    .agent-role { font-size: 13px; color: #185FA5; margin-bottom: 8px; font-weight: 600; }
+    .agent-desc { font-size: 13px; color: #666; line-height: 1.7; font-weight: 400;}
+
+    /* 이용 절차 */
+    .wf-wrap { max-width: 700px; margin: 0 auto; }
+    .wf-item { display: flex; gap: 20px; align-items: flex-start; }
+    .wf-line-wrap { display: flex; flex-direction: column; align-items: center; }
+    .wf-dot { width: 36px; height: 36px; border-radius: 50%; background: #185FA5; color: #fff; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 4px rgba(24,95,165,0.2); }
+    .wf-connector { width: 2px; height: 40px; background: #c8dff5; }
+    .wf-body { padding-bottom: 28px; flex: 1; }
+    .wf-title { font-size: 17px; font-weight: 700; margin-bottom: 6px; color: #111; }
+    .wf-desc { font-size: 14px; color: #666; line-height: 1.8; font-weight: 400;}
+
+    /* 문의 양식 */
+    .contact-wrap { max-width: 550px; margin: 0 auto; background: #fff; border: 1px solid #e4edf7; border-radius: 20px; padding: 3rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+    .form-row { margin-bottom: 1.2rem; }
+    .form-label { font-size: 13px; color: #555; display: block; margin-bottom: 8px; font-weight: 600; }
+    .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 15px; border: 1px solid #dde5ef; border-radius: 10px; font-size: 14px; background: #fafbfd; color: #1a1a1a; font-family: inherit; transition: border-color 0.2s, background 0.2s; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #185FA5; background: #fff; box-shadow: 0 0 0 3px rgba(24,95,165,0.1); }
+    .form-textarea { height: 110px; resize: vertical; }
+    .btn-submit { width: 100%; background: #185FA5; color: #fff; border: none; border-radius: 10px; padding: 16px; font-size: 16px; cursor: pointer; font-weight: 700; margin-top: 10px; transition: background 0.2s; box-shadow: 0 2px 4px rgba(24,95,165,0.2); }
+    .btn-submit:hover { background: #0C447C; }
+
+    /* 푸터 */
+    .footer { background: #f4f8fd; border-top: 1px solid #e4edf7; padding: 3rem 2rem; text-align: center; }
+    .footer-links { display: flex; gap: 1.8rem; justify-content: center; margin-bottom: 1rem; flex-wrap: wrap; }
+    .footer-links a { font-size: 13px; color: #777; text-decoration: none; font-weight: 500;}
+    .footer-links a:hover { color: #185FA5; }
+    .footer-copy { font-size: 12px; color: #bbb; font-weight: 400;}
+
+    /* 반응형 */
+    @media (max-width: 900px) {
+      .solution-item, .solution-item.reverse { flex-direction: column; text-align: center; padding: 2rem; gap: 2rem; }
+      .sol-img-w { max-width: 240px; margin: 0 auto; }
+      .sol-tags { justify-content: center; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .nav { padding: 0.8rem 1.2rem; }
+      .hero { padding: 4rem 1.2rem 3rem; }
+      .hero h1 { font-size: 30px; }
+      .hero p { font-size: 15px; }
+      .hero-btns { flex-direction: column; gap: 10px; }
+      .btn-primary, .btn-secondary { width: 100%; padding: 14px; font-size: 15px; }
+      .section { padding: 3.5rem 1.2rem; }
+      .section-title { font-size: 24px; }
+      .solution-info h3 { font-size: 19px; }
+      .agent-grid { grid-template-columns: 1fr; }
+      .contact-wrap { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#" class="logo-wrap">
+    <div class="logo">텐베거 파트너스</div>
+    <div class="logo-sub">대표 유성환 · AI 사업기획 슈퍼바이져</div>
+  </a>
+  <div class="nav-links">
+    <a href="#service">솔루션</a>
+    <a href="#agents">AI 팀</a>
+    <a href="#process">절차</a>
+    <a href="#contact">문의</a>
+  </div>
+  <button class="btn-nav" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">무료 진단 신청</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">소상공인 전용 · AI 기반 사업 성장 파트너</div>
+  <h1>매출은 <span>늘리고</span><br>비용은 <span>줄이는</span><br>AI 사업 슈퍼바이져</h1>
+  <p>개인사업자·법인사업자를 위한 데이터 기반 수익 극대화 컨설팅.<br>AI 에이전트가 사업 전반을 분석하고, 실행까지 함께합니다.</p>
+  <div class="hero-ceo">유성환 대표 · 텐베거 파트너스</div>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">무료 사업 진단 받기</button>
+    <button class="btn-secondary" onclick="document.getElementById('service').scrollIntoView({behavior:'smooth'})">솔루션 자세히 보기</button>
+  </div>
+</section>
+
+<section class="section" id="service">
+  <div class="section-title">3가지 수익화 솔루션</div>
+  <div class="section-sub">데이터 수집부터 실행까지, AI가 사업의 모든 단계를 커버하여 실질적인 수익 향상을 만들어냅니다.</div>
+  
+  <div class="solution-container">
+    
+    <div class="solution-item">
+      <div class="solution-img-w">
+        <svg class="sol-icon sol-icon-1" viewBox="0 0 280 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="30" width="200" height="160" rx="15" fill="white" stroke="#E4EDF7" stroke-width="2"/>
+          <path class="data-line" d="M70 70 H210 M70 100 H180 M70 130 H210 M70 160 H150" stroke="#B5D4F4" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="210" cy="110" r="40" fill="#185FA5"/>
+          <path d="M200 100 L210 120 L225 95" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M40 160 C40 176.569 53.4315 190 70 190 H210 C226.569 190 240 176.569 240 160" stroke="#E4EDF7" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="solution-info">
+        <div class="sol-num">소상공인혁식 AI</div>
+        <h3>사업 기획 · 수익 구체화 컨설팅</h3>
+        <p>막연한 사업 아이디어를 숫자로 증명합니다. 사업 데이터를 정밀 수집·분석하여 최적의 수익 모델을 설계하고, 즉시 실행 가능한 구체적인 사업 기획안을 제시합니다.</p>
+        <div class="sol-tags">
+          <span class="tag">데이터 기반 분석</span>
+          <span class="tag">수익 모델 설계</span>
+          <span class="tag">실행 기획안 수립</span>
+          <span class="tag">타겟 시장 분석</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="solution-item reverse">
+      <div class="solution-img-w">
+        <svg class="sol-icon sol-icon-2" viewBox="0 0 280 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 170 L110 110 L160 140 L230 60" stroke="#B5D4F4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="230" cy="60" r="10" fill="#185FA5"/>
+          <rect class="chart-bar chart-bar-1" x="70" y="130" width="20" height="40" rx="3" fill="#185FA5" opacity="0.3"/>
+          <rect class="chart-bar chart-bar-2" x="120" y="90" width="20" height="80" rx="3" fill="#185FA5" opacity="0.6"/>
+          <rect class="chart-bar chart-bar-3" x="170" y="50" width="20" height="120" rx="3" fill="#185FA5"/>
+          <path d="M40 180 H240" stroke="#E4EDF7" stroke-width="2" stroke-linecap="round"/>
+          <path d="M200 130 L220 110 M220 110 L240 130 M220 110 V160" stroke="#0C447C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="solution-info">
+        <div class="sol-num">수익화 2</div>
+        <h3>비용 절감 · 마진 극대화</h3>
+        <p>숨은 돈을 찾아드립니다. 통신, POS, 세무, 인건비, 보험, 마케팅 등 사업 전반의 고정비와 변동비를 AI가 전수 조사하여 최적화합니다. 원가 절감을 통해 마진을 극적으로 높입니다.</p>
+        <div class="sol-tags">
+          <span class="tag">고정비 최적화</span>
+          <span class="tag">원가 절감</span>
+          <span class="tag">세무/노무 진단</span>
+          <span class="tag">구매 효율화</span>
+          <span class="tag">마케팅 효율 분석</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="solution-item">
+      <div class="solution-img-w">
+        <svg class="sol-icon sol-icon-3" viewBox="0 0 280 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="140" cy="110" r="80" fill="white" stroke="#E4EDF7" stroke-width="2"/>
+          <g class="gear">
+            <path d="M165 110 C165 123.807 153.807 135 140 135 C126.193 135 115 123.807 115 110 C115 96.1929 126.193 85 140 85 C153.807 85 165 96.1929 165 110 Z" fill="#B5D4F4"/>
+            <path d="M140 70 V85 M140 135 V150 M100 110 H115 M165 110 H180 M112 82 L122 92 M158 128 L168 138 M112 138 L122 128 M158 82 L168 92" stroke="#B5D4F4" stroke-width="5" stroke-linecap="round"/>
+          </g>
+          <g class="gear gear-reverse">
+            <circle cx="200" cy="160" r="30" fill="white" stroke="#E4EDF7" stroke-width="2"/>
+            <path d="M210 160 C210 165.523 205.523 170 200 170 C194.477 170 190 165.523 190 160 C190 154.477 194.477 150 200 150 C205.523 150 210 154.477 210 160 Z" fill="#185FA5"/>
+            <path d="M200 145 V150 M200 170 V175 M185 160 H190 M210 160 H215" stroke="#185FA5" stroke-width="3" stroke-linecap="round"/>
+          </g>
+          <path d="M80 60 L100 80 M70 100 H90 M80 140 L100 120" stroke="#0C447C" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="solution-info">
+        <div class="sol-num">수익화 3</div>
+        <h3>AI 에이전트 업무 자동화</h3>
+        <p>사장님은 장사에만 집중하세요. 고객 응대, 예약 관리, 매출 정산, SNS 포스팅 등 반복적이고 시간이 많이 소요되는 업무를 AI 에이전트로 자동화합니다. 인건비를 절감하고 운영 효율을 획기적으로 개선합니다.</p>
+        <div class="sol-tags">
+          <span class="tag">24/7 고객 응대</span>
+          <span class="tag">자동 예약/주문</span>
+          <span class="tag">매출 리포트 자동 생성</span>
+          <span class="tag">SNS 마케팅 자동화</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section section-alt" id="agents">
+  <div class="section-title">전문 AI 에이전트 팀</div>
+  <div class="section-sub">6명의 분야별 전문 AI 에이전트가 사장님의 비서가 되어 사업 전반을 빈틈없이 총괄합니다.</div>
+  <div class="agent-grid">
+    <div class="agent-card">
+      <div class="agent-av av-ceo">유대표</div>
+      <div class="ai-badge"><span class="ai-dot"></span>총괄 AI</div>
+      <div class="agent-name">AI 에이전트 유대표</div>
+      <div class="agent-role">실무 총괄 · 의사결정 지원</div>
+      <div class="agent-desc">각 에이전트의 보고를 취합, 분석하여 최적의 사업 방향을 제시하고 실무를 지시합니다.</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-av av-mgr">김과장</div>
+      <div class="ai-badge"><span class="ai-dot"></span>분석 AI</div>
+      <div class="agent-name">AI 에이전트 김과장</div>
+      <div class="agent-role">수익화 분석 · 전략 보고</div>
+      <div class="agent-desc">사업 데이터에서 매출 증대 및 수익화 기회를 발굴하여 구체적인 전략을 보고합니다.</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-av av-analyst">최대리</div>
+      <div class="ai-badge"><span class="ai-dot"></span>정보 AI</div>
+      <div class="agent-name">AI 에이전트 최대리</div>
+      <div class="agent-role">시장 정보 수집 · 트렌드 파악</div>
+      <div class="agent-desc">업계 트렌드, 경쟁사 현황, 고객 피드백 등 필수 정보를 실시간으로 수집하여 전달합니다.</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-av av-staff">경영지원</div>
+      <div class="ai-badge"><span class="ai-dot"></span>비용 AI</div>
+      <div class="agent-name">AI 경영지원 팀장</div>
+      <div class="agent-role">비용 절감 · 리스크 관리</div>
+      <div class="agent-desc">통신, 세무, 보험, 인건비 등 고정비를 모니터링하고 절감 방안을 상시 찾아냅니다.</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-av av-mkt">마케팅</div>
+      <div class="ai-badge"><span class="ai-dot"></span>마케팅 AI</div>
+      <div class="agent-name">AI 마케팅 팀장</div>
+      <div class="agent-role">마케팅 전략 · 실행 감독</div>
+      <div class="agent-desc">온/오프라인 마케팅 채널을 통합 관리하고 효율적인 광고 집행 및 성과.</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-av av-right">권리분석</div>
+      <div class="ai-badge"><span class="ai-dot"></span>권리 AI</div>
+      <div class="agent-name">AI 권리분석 팀장</div>
+      <div class="agent-role">사업 권리 · 가치 평가</div>
+      <div class="agent-desc">상가 임대차 보호법, 권리금, 특허 등 사업 관련 법적 권리를 분석하여 자산 가치를 보호합니다.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="process">
+  <div class="section-title">이용 절차</div>
+  <div class="section-sub">간단한 신청만으로 AI의 정밀 분석이 시작됩니다. 성과 확인까지 사장님은 편하게 기다리시면 됩니다.</div>
+  <div class="wf-wrap">
+    <div class="wf-item">
+      <div class="wf-line-wrap"><div class="wf-dot">1</div><div class="wf-connector"></div></div>
+      <div class="wf-body">
+        <div class="wf-title">무료 진단 신청</div>
+        <div class="wf-desc">아래 양식에 간단한 사업체 정보를 입력해 주세요. 복잡한 서류나 절차 없이 1분이면 신청 가능합니다.</div>
+      </div>
+    </div>
+    <div class="wf-item">
+      <div class="wf-line-wrap"><div class="wf-dot">2</div><div class="wf-connector"></div></div>
+      <div class="wf-body">
+        <div class="wf-title">사업 현황 기초 파악</div>
+        <div class="wf-desc">신청 확인 후, 전문 담당자가 유선으로 연락드려 현재의 대략적인 매출, 비용, 운영상 어려움을 경청합니다.</div>
+      </div>
+    </div>
+    <div class="wf-item">
+      <div class="wf-line-wrap"><div class="wf-dot">3</div><div class="wf-connector"></div></div>
+      <div class="wf-body">
+        <div class="wf-title">AI 정밀 맞춤 분석</div>
+        <div class="wf-desc">수집된 데이터를 바탕으로 AI 에이전트 팀이 투입되어 줄일 수 있는 비용과 늘릴 수 있는 수익 규모를 정량적인 숫자로 산출합니다.</div>
+      </div>
+    </div>
+    <div class="wf-item">
+      <div class="wf-line-wrap"><div class="wf-dot">4</div><div class="wf-connector"></div></div>
+      <div class="wf-body">
+        <div class="wf-title">맞춤형 솔루션 제안 리포트</div>
+        <div class="wf-desc">분석 결과를 토대로 사장님 사업장에 딱 맞는 비용 절감 플랜, 마케팅 전략, 수익 개선 방안을 정리한 리포트를 제공하고 설명해 드립니다.</div>
+      </div>
+    </div>
+    <div class="wf-item">
+      <div class="wf-line-wrap"><div class="wf-dot">5</div><div class="wf-connector"></div></div>
+      <div class="wf-body">
+        <div class="wf-title">전담 담당자 매칭 · 서비스 계약</div>
+        <div class="wf-desc">솔루션 실행을 주도할 전담 담당자가 매칭되며, 구체적인 진행 방식과 계약 조건을 확인 후 서비스를 공식적으로 시작합니다.</div>
+      </div>
+    </div>
+    <div class="wf-item">
+      <div class="wf-line-wrap"><div class="wf-dot">6</div></div>
+      <div class="wf-body">
+        <div class="wf-title">지속적 관리 · 성과 리포팅</div>
+        <div class="wf-desc">서비스 시작 후에도 AI가 사업장을 지속적으로 모니터링하며, 정기적인 성과 리포트를 통해 개선 효과를 투명하게 확인시켜 드립니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="contact">
+  <div class="section-title">무료 사업 진단 신청</div>
+  <div class="section-sub">지금 신청하시면 AI가 사장님의 사업 현황을 먼저 분석하고, 숨은 수익 기회를 찾아드립니다.</div>
+  <div class="contact-wrap">
+    <div class="form-row">
+      <label class="form-label">대표자명</label>
+      <input class="form-input" type="text" id="name" placeholder="홍길동">
+    </div>
+    <div class="form-row">
+      <label class="form-label">사업체명</label>
+      <input class="form-input" type="text" id="business" placeholder="예) 텐베거 치킨 강남점">
+    </div>
+    <div class="form-row">
+      <label class="form-label">업종</label>
+      <select class="form-select" id="industry">
+        <option value="">업종을 선택해 주세요</option>
+        <option>음식점·카페</option>
+        <option>소매·유통</option>
+        <option>서비스업</option>
+        <option>제조·생산</option>
+        <option>법인사업자 (IT/제조 등)</option>
+        <option>기타</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label class="form-label">연락처</label>
+      <input class="form-input" type="tel" id="phone" placeholder="010-0000-0000">
+    </div>
+    <div class="form-row">
+      <label class="form-label">이메일 (선택)</label>
+      <input class="form-input" type="email" id="email" placeholder="example@email.com">
+    </div>
+    <div class="form-row">
+      <label class="form-label">현재 가장 큰 고민 (선택)</label>
+      <textarea class="form-textarea" id="message" placeholder="매출 정체, 고정비 부담, 인력 관리, 마케팅 방법 등 자유롭게 적어주세요."></textarea>
+    </div>
+    <button class="btn-submit" onclick="submitForm()">AI 무료 진단 신청하기</button>
+    <p id="form-msg" style="text-align:center;margin-top:15px;font-size:14px;display:none"></p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="#service">서비스 소개</a>
+    <a href="#agents">AI 에이전트 팀</a>
+    <a href="#process">이용 절차</a>
+    <a href="#contact">문의하기</a>
+    <a href="#">개인정보처리방침</a>
+  </div>
+  <div class="footer-copy">© 2026 텐베거 파트너스 · 대표 유성환 · 사업자등록번호 000-00-00000<br>서울특별시 강남구 테헤란로 123 텐베거빌딩 10층</div>
+</footer>
+
+<script>
+function submitForm() {
+  var name     = document.getElementById('name').value.trim();
+  var business = document.getElementById('business').value.trim();
+  var industry = document.getElementById('industry').value;
+  var phone    = document.getElementById('phone').value.trim();
+  var email    = document.getElementById('email').value.trim();
+  var message  = document.getElementById('message').value.trim();
+  var msg      = document.getElementById('form-msg');
+
+  if (!name || !business || !industry || !phone) {
+    msg.style.display = 'block';
+    msg.style.color = '#c0392b';
+    msg.textContent = '필수 항목(*대표자명, 사업체명, 업종, 연락처)을 모두 입력해 주세요.';
+    return;
+  }
+
+  // 이메일 형식 간단 검증
+  if (email && !/^\S+@\S+\.\S+$/.test(email)) {
+    msg.style.display = 'block';
+    msg.style.color = '#c0392b';
+    msg.textContent = '올바른 이메일 형식을 입력해 주세요.';
+    return;
+  }
+
+  var btn = document.querySelector('.btn-submit');
+  btn.disabled = true;
+  btn.textContent = '신청 정보 전송 중...';
+  msg.style.display = 'none';
+
+  // 실제 연동 시 아래 URL을 본인의 Google Apps Script API URL로 변경해야 합니다.
+  var url = 'https://script.google.com/macros/s/AKfycbzRXMl-8yYhyZkYoR9TpO2YkJOXoM7jFYQh7buWADfwyo2g00NFIk8y9gIIjFVzggupgw/exec';
+
+  fetch(url, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, business, industry, phone, email, message })
+  })
+  .then(function() {
+    btn.textContent = '신청 완료!';
+    btn.style.background = '#27ae60';
+    btn.style.boxShadow = 'none';
+    msg.style.display = 'block';
+    msg.style.color = '#27ae60';
+    msg.style.fontWeight = 'bold';
+    msg.textContent = '성공적으로 신청되었습니다! 담당자가 신속하게 연락드리겠습니다.';
+    // 폼 초기화
+    document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(function(el) { el.value = ''; });
+  })
+  .catch(function() {
+    btn.disabled = false;
+    btn.textContent = 'AI 무료 진단 신청하기';
+    msg.style.display = 'block';
+    msg.style.color = '#c0392b';
+    msg.textContent = '시스템 오류가 발생했습니다. 잠시 후 다시 시도하시거나 대표번호로 문의해 주세요.';
+  });
+}
+
+// 스무스 스크롤 (safari 등 호환성)
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            window.scrollTo({
+                top: target.offsetTop - 70, // 네비게이션 높이 고려
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(netlify --version)",
+      "Bash(npm install *)",
+      "Bash(netlify status *)",
+      "Bash(netlify login *)",
+      "Bash(netlify sites:list)",
+      "Bash(netlify deploy *)",
+      "mcp__claude_ai_Netlify__netlify-team-services-reader",
+      "mcp__claude_ai_Netlify__netlify-project-services-reader",
+      "Bash(npx vercel *)",
+      "Bash(gh auth *)",
+      "PowerShell(winget install --id GitHub.cli --silent 2>&1)",
+      "PowerShell(tail -5)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/GitHub CLI\")",
+      "Bash(gh --version)",
+      "Bash(python3 -c \"import subprocess; print\\(subprocess.run\\(['gh','--version'],capture_output=True,text=True\\).stdout\\)\")",
+      "PowerShell($env:PATH = $env:PATH + \";C:\\\\Program Files\\\\GitHub CLI\"; gh --version 2>&1)",
+      "PowerShell(winget list GitHub.cli 2>&1)",
+      "Bash(git config *)",
+      "PowerShell($scoop = Get-Command scoop -ErrorAction SilentlyContinue; $choco = Get-Command choco -ErrorAction SilentlyContinue; \"scoop: $\\($scoop -ne $null\\)\", \"choco: $\\($choco -ne $null\\)\")",
+      "PowerShell($url = \"https://github.com/cli/cli/releases/download/v2.69.0/gh_2.69.0_windows_amd64.msi\"; $out = \"$env:TEMP\\\\gh_install.msi\"; Invoke-WebRequest -Uri $url -OutFile $out -UseBasicParsing; Start-Process msiexec.exe -ArgumentList \"/i `\"$out`\" /quiet /norestart\" -Wait; Write-Output \"Done\")",
+      "PowerShell($env:PATH = $env:PATH + \";C:\\\\Program Files\\\\GitHub CLI\"; gh --version)",
+      "PowerShell(Get-ChildItem \"C:\\\\Program Files\\\\GitHub CLI\" -ErrorAction SilentlyContinue; Get-ChildItem \"$env:LOCALAPPDATA\\\\Programs\" -ErrorAction SilentlyContinue | Where-Object {$_.Name -match \"gh|github\"})",
+      "PowerShell(Get-ChildItem \"C:\\\\Program Files\\\\\" | Where-Object {$_.Name -match \"GitHub\"}; Get-ChildItem \"C:\\\\Program Files \\(x86\\)\\\\\" | Where-Object {$_.Name -match \"GitHub\"})",
+      "PowerShell(Get-Command gh -ErrorAction SilentlyContinue; Get-ChildItem \"$env:TEMP\\\\gh_install.msi\" | Select-Object Length)",
+      "PowerShell($url = \"https://github.com/cli/cli/releases/download/v2.69.0/gh_2.69.0_windows_amd64.zip\"; $out = \"$env:TEMP\\\\gh.zip\"; Invoke-WebRequest -Uri $url -OutFile $out -UseBasicParsing; Write-Output \"Size: $\\(\\(Get-Item $out\\).Length\\)\")",
+      "PowerShell(Expand-Archive \"$env:TEMP\\\\gh.zip\" \"$env:TEMP\\\\gh_cli\" -Force; $ghExe = Get-ChildItem \"$env:TEMP\\\\gh_cli\" -Recurse -Filter \"gh.exe\" | Select-Object -First 1 -ExpandProperty FullName; Write-Output $ghExe; & $ghExe --version)",
+      "PowerShell($gh = \"C:\\\\Users\\\\aspir\\\\AppData\\\\Local\\\\Temp\\\\gh_cli\\\\bin\\\\gh.exe\"; & $gh auth login --web --git-protocol https 2>&1)",
+      "PowerShell($gh = \"C:\\\\Users\\\\aspir\\\\AppData\\\\Local\\\\Temp\\\\gh_cli\\\\bin\\\\gh.exe\"; & $gh auth status 2>&1)",
+      "PowerShell($gh = \"C:\\\\Users\\\\aspir\\\\AppData\\\\Local\\\\Temp\\\\gh_cli\\\\bin\\\\gh.exe\"; Set-Location \"D:\\\\in\"; & $gh repo create tenbagger-partners --public --description \"텐베거 파트너스 랜딩페이지\" --source=. --remote=origin --push 2>&1)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(mkdir -p ten-randing)",
+      "Bash(mv index.html tenbagger_full_html.html ten-randing/)",
+      "Bash(git push *)"
+    ]
+  }
+}
