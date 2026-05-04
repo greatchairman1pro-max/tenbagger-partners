@@ -377,6 +377,7 @@ function submitForm() {
     mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
+      sheetName: 'ten-input',
       업체명: biz, 대표자명: name, 사업자유형: type, 업종: industry,
       사업장주소: addr, 월매출규모: revenue, 직원수: staff,
       결제방식: payment, POS: pos, 관심서비스: services.join(', '),

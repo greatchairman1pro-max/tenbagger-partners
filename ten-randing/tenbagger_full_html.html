@@ -336,7 +336,7 @@ function submitForm() {
     method: 'POST',
     mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, business, industry, phone, email, message })
+    body: JSON.stringify({ sheetName: 'ten-randing', name, business, industry, phone, email, message })
   })
   .then(function() {
     btn.textContent = '신청 완료!';
