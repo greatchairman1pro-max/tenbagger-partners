@@ -162,7 +162,21 @@
           });
           return obj;
         });
-        allData = rows.reverse();
+
+        // 같은 상호명은 최신 버전(가장 아래 행) 하나만 표시
+        var latestMap = {};
+        rows.forEach(function(d) {
+          var name = d['상호명'] || '';
+          if (!name) return;
+          var ver = parseInt((d['버전'] || 'v0').replace('v','')) || 0;
+          var prev = latestMap[name];
+          var prevVer = prev ? (parseInt((prev['버전']||'v0').replace('v',''))||0) : -1;
+          if (ver >= prevVer) latestMap[name] = d;
+        });
+
+        allData = Object.values(latestMap).sort(function(a,b){
+          return new Date(b['타임스탬프']||0) - new Date(a['타임스탬프']||0);
+        });
         renderAll();
       } catch(err) {
         document.getElementById('clientList').innerHTML =

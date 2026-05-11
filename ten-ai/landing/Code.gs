@@ -64,15 +64,31 @@ function doPost(e) {
       version = 'v' + (parseInt(prev.replace('v', '')) + 1);
     }
 
+    // 이전 행 데이터와 병합 (빈 값은 이전 값 유지)
+    var prev = existingRow > 0 ? data[existingRow - 1] : null;
+    function merge(newVal, colIdx) {
+      var n = (newVal !== undefined && newVal !== null) ? String(newVal).trim() : '';
+      if (n !== '' && n !== '0') return newVal;
+      return prev ? prev[colIdx] : '';
+    }
+
     var row = [
-      d.timestamp, d.bizName, d.industry, d.bizAge, d.address,
-      d.revenue, d.payments, d.dailyCustomer,
-      d.rent, d.utility, d.telecom, d.costRate,
-      d.employees, d.labor, d.ownerWork, d.rentals,
-      d.platforms, d.marketing, d.customerType,
-      d.concerns, d.freeText, d.goal,
-      d.score, d.missingItems, d.portfolioStatus, version,
-      '미완료', '미완료', ''
+      d.timestamp,
+      d.bizName,
+      merge(d.industry,   2), merge(d.bizAge,  3), merge(d.address, 4),
+      merge(d.revenue,    5), merge(d.payments, 6), merge(d.dailyCustomer, 7),
+      merge(d.rent,       8), merge(d.utility,  9), merge(d.telecom, 10),
+      merge(d.costRate,  11),
+      merge(d.employees, 12), merge(d.labor,   13), merge(d.ownerWork, 14),
+      merge(d.rentals,   15), merge(d.platforms,16), merge(d.marketing,17),
+      merge(d.customerType,18), merge(d.concerns,19), merge(d.freeText,20),
+      merge(d.goal,      21),
+      d.score > 0 ? d.score : (prev ? prev[22] : 0),
+      d.missingItems || (prev ? prev[23] : ''),
+      d.portfolioStatus, version,
+      prev ? prev[26] : '미완료',
+      prev ? prev[27] : '미완료',
+      prev ? prev[28] : ''
     ];
 
     sheet.appendRow(row);
