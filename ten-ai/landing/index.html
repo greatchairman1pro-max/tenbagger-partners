@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>텐베거 파트너스 · 사업 진단 상담</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; color: #1a1a1a; background: #f4f8fd; min-height: 100vh; }
+
+    /* ── 헤더 ── */
+    .header { background: #fff; border-bottom: 1px solid #e4edf7; padding: 0.9rem 1.5rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .logo { font-size: 15px; font-weight: 800; color: #185FA5; }
+    .logo span { color: #1a1a1a; }
+    .header-badge { font-size: 11px; color: #185FA5; background: #E6F1FB; border: 1px solid #B5D4F4; padding: 4px 12px; border-radius: 20px; font-weight: 600; }
+
+    /* ── 진행 바 ── */
+    .progress-wrap { background: #fff; padding: 1rem 1.5rem 0; border-bottom: 1px solid #e4edf7; }
+    .progress-steps { display: flex; align-items: center; gap: 0; max-width: 480px; margin: 0 auto 0.8rem; }
+    .step-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; transition: all .3s; }
+    .step-dot.done { background: #185FA5; color: #fff; }
+    .step-dot.active { background: #185FA5; color: #fff; box-shadow: 0 0 0 4px #B5D4F4; }
+    .step-dot.pending { background: #e4edf7; color: #aaa; }
+    .step-line { flex: 1; height: 2px; background: #e4edf7; transition: background .3s; }
+    .step-line.done { background: #185FA5; }
+    .progress-label { font-size: 11px; color: #888; text-align: center; padding-bottom: 0.8rem; }
+    .progress-label strong { color: #185FA5; }
+
+    /* ── 카드 ── */
+    .card { background: #fff; border: 1px solid #e4edf7; border-radius: 16px; padding: 2rem 1.5rem; max-width: 520px; margin: 1.5rem auto; }
+    .card-tag { display: inline-block; background: #E6F1FB; color: #0C447C; font-size: 11px; font-weight: 700; padding: 4px 14px; border-radius: 20px; margin-bottom: 1rem; border: 1px solid #B5D4F4; }
+    .card h2 { font-size: 20px; font-weight: 800; color: #111; margin-bottom: 0.4rem; line-height: 1.4; }
+    .card-sub { font-size: 13px; color: #777; margin-bottom: 1.6rem; line-height: 1.7; }
+
+    /* ── 디렉터 힌트 (무브 전용) ── */
+    .director-hint { background: #FFF8E1; border: 1px solid #FFE082; border-radius: 10px; padding: 0.8rem 1rem; margin-bottom: 1.4rem; font-size: 12px; color: #7B5A00; line-height: 1.6; }
+    .director-hint strong { color: #5D4200; }
+
+    /* ── 입력 폼 ── */
+    .form-row { margin-bottom: 1.2rem; }
+    .form-label { font-size: 12px; font-weight: 700; color: #444; display: block; margin-bottom: 6px; }
+    .form-label span { color: #E53935; margin-left: 2px; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: 12px 14px; border: 1.5px solid #dde5ef; border-radius: 10px;
+      font-size: 14px; background: #fafbfd; color: #1a1a1a; font-family: inherit;
+      transition: border .2s, box-shadow .2s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none; border-color: #185FA5; background: #fff; box-shadow: 0 0 0 3px #E6F1FB;
+    }
+    .form-textarea { resize: vertical; min-height: 80px; }
+    .form-hint { font-size: 11px; color: #999; margin-top: 4px; }
+
+    /* ── 금액 입력 ── */
+    .amount-wrap { display: flex; align-items: center; gap: 6px; }
+    .amount-wrap .form-input { flex: 1; }
+    .amount-unit { font-size: 13px; color: #666; white-space: nowrap; font-weight: 600; }
+
+    /* ── 슬라이더 ── */
+    .slider-wrap { margin-top: 6px; }
+    input[type=range] { width: 100%; -webkit-appearance: none; height: 6px; background: #dde5ef; border-radius: 3px; outline: none; }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #185FA5; cursor: pointer; box-shadow: 0 2px 6px rgba(24,95,165,.3); }
+    .slider-labels { display: flex; justify-content: space-between; font-size: 10px; color: #aaa; margin-top: 4px; }
+
+    /* ── 체크박스 / 라디오 ── */
+    .check-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .check-item { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+    .check-item input { display: none; }
+    .check-btn {
+      padding: 7px 14px; border: 1.5px solid #dde5ef; border-radius: 20px; font-size: 12px;
+      color: #555; background: #fafbfd; cursor: pointer; transition: all .2s; font-weight: 500;
+    }
+    .check-item input:checked + .check-btn { background: #185FA5; color: #fff; border-color: #185FA5; font-weight: 700; }
+    .radio-group { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+    .radio-item { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .radio-item input { width: 16px; height: 16px; accent-color: #185FA5; cursor: pointer; }
+    .radio-item label { font-size: 13px; color: #444; cursor: pointer; }
+
+    /* ── 버튼 ── */
+    .btn-primary { width: 100%; background: #185FA5; color: #fff; border: none; border-radius: 10px; padding: 15px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background .2s; margin-top: 0.5rem; }
+    .btn-primary:hover { background: #0C447C; }
+    .btn-secondary { width: 100%; background: #fff; color: #185FA5; border: 1.5px solid #185FA5; border-radius: 10px; padding: 13px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; margin-top: 8px; }
+    .btn-secondary:hover { background: #f0f6ff; }
+    .btn-row { display: flex; gap: 8px; margin-top: 0.5rem; }
+    .btn-row .btn-back { flex: 0 0 48px; background: #f4f8fd; color: #888; border: 1.5px solid #dde5ef; border-radius: 10px; font-size: 20px; cursor: pointer; }
+
+    /* ── 웰컴 화면 ── */
+    .welcome { max-width: 520px; margin: 2rem auto; padding: 0 1rem; }
+    .welcome-hero { background: #fff; border: 1px solid #e4edf7; border-radius: 16px; padding: 2.5rem 2rem; text-align: center; }
+    .welcome-logo { font-size: 22px; font-weight: 900; color: #185FA5; margin-bottom: 0.5rem; }
+    .welcome-logo span { color: #1a1a1a; }
+    .welcome-tag { display: inline-block; background: #E6F1FB; color: #0C447C; font-size: 11px; font-weight: 700; padding: 5px 16px; border-radius: 20px; margin-bottom: 1.5rem; border: 1px solid #B5D4F4; }
+    .welcome-hero h1 { font-size: 24px; font-weight: 800; line-height: 1.4; color: #111; margin-bottom: 1rem; }
+    .welcome-hero h1 em { color: #185FA5; font-style: normal; }
+    .welcome-hero p { font-size: 14px; color: #666; line-height: 1.8; margin-bottom: 2rem; }
+    .welcome-steps { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+    .w-step { background: #f4f8fd; border: 1px solid #e4edf7; border-radius: 10px; padding: 10px 14px; text-align: center; min-width: 100px; }
+    .w-step-num { font-size: 10px; color: #185FA5; font-weight: 700; margin-bottom: 4px; }
+    .w-step-label { font-size: 12px; color: #333; font-weight: 600; }
+    .welcome-time { font-size: 12px; color: #aaa; margin-bottom: 1.5rem; }
+    .welcome-time strong { color: #185FA5; }
+
+    /* ── 결과 화면 ── */
+    .result-card { background: #fff; border: 1px solid #e4edf7; border-radius: 16px; padding: 2rem 1.5rem; max-width: 520px; margin: 1.5rem auto; }
+    .score-circle-wrap { text-align: center; margin: 1rem 0 1.5rem; }
+    .score-circle { width: 140px; height: 140px; border-radius: 50%; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+    .score-num { font-size: 42px; font-weight: 900; line-height: 1; }
+    .score-label { font-size: 12px; font-weight: 600; margin-top: 2px; }
+    .score-grade { display: inline-block; padding: 5px 18px; border-radius: 20px; font-size: 13px; font-weight: 700; margin-top: 0.8rem; }
+    .score-green { color: #0B6B3A; background: #D4F0E4; }
+    .score-blue { color: #0C447C; background: #E6F1FB; }
+    .score-orange { color: #7B3A00; background: #FDECD0; }
+
+    .checklist { margin: 1rem 0; }
+    .check-section-title { font-size: 12px; font-weight: 700; color: #555; margin: 0.8rem 0 0.4rem; text-transform: uppercase; letter-spacing: .5px; }
+    .check-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f4f8fd; }
+    .check-row:last-child { border-bottom: none; }
+    .check-icon { font-size: 14px; flex-shrink: 0; }
+    .check-text { font-size: 13px; color: #333; flex: 1; }
+    .check-pts { font-size: 11px; color: #888; font-weight: 600; }
+
+    .instruction-box { background: #FFF3E0; border: 1px solid #FFB74D; border-radius: 12px; padding: 1.2rem; margin: 1.2rem 0; }
+    .instruction-box h4 { font-size: 13px; font-weight: 700; color: #7B3A00; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 6px; }
+    .instruction-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+    .instruction-item .dot { width: 6px; height: 6px; border-radius: 50%; background: #E65100; margin-top: 5px; flex-shrink: 0; }
+    .instruction-item p { font-size: 12px; color: #555; line-height: 1.6; }
+    .badge-must { background: #E53935; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 8px; }
+    .badge-rec { background: #FFB74D; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 8px; }
+
+    .submit-status { text-align: center; padding: 1rem; font-size: 13px; color: #888; }
+    .submit-ok { color: #0B6B3A; font-weight: 600; }
+
+    /* ── 숨김 ── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    @media (max-width: 480px) {
+      .card { margin: 1rem; padding: 1.5rem 1.2rem; }
+      .welcome { margin: 1rem; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<div class="header">
+  <div class="logo">텐베거<span>파트너스</span></div>
+  <div class="header-badge">무브(MOVE) 상담 시스템</div>
+</div>
+
+<!-- 진행 바 -->
+<div class="progress-wrap" id="progressWrap" style="display:none;">
+  <div class="progress-steps" id="progressSteps"></div>
+  <div class="progress-label" id="progressLabel"></div>
+</div>
+
+<!-- ══════════════════════════════════
+     화면 0: 웰컴
+══════════════════════════════════ -->
+<div class="screen active" id="screen-0">
+  <div class="welcome">
+    <div class="welcome-hero">
+      <div class="welcome-tag">AI 경영 진단 시스템</div>
+      <h1>사장님의 사업,<br><em>데이터로 진단</em>합니다</h1>
+      <p>텐베거 파트너스의 AI 시너지 엔진이<br>사업장 데이터를 분석하여<br>맞춤형 성장 솔루션을 제시합니다.</p>
+      <div class="welcome-steps">
+        <div class="w-step"><div class="w-step-num">STEP 1</div><div class="w-step-label">기본정보</div></div>
+        <div class="w-step"><div class="w-step-num">STEP 2</div><div class="w-step-label">매출현황</div></div>
+        <div class="w-step"><div class="w-step-num">STEP 3</div><div class="w-step-label">비용구조</div></div>
+        <div class="w-step"><div class="w-step-num">STEP 4</div><div class="w-step-label">인력운영</div></div>
+        <div class="w-step"><div class="w-step-num">STEP 5</div><div class="w-step-label">마케팅</div></div>
+        <div class="w-step"><div class="w-step-num">STEP 6</div><div class="w-step-label">현재고민</div></div>
+      </div>
+      <div class="welcome-time">소요 시간 <strong>약 10~15분</strong> · 입력하신 정보는 안전하게 관리됩니다</div>
+      <button class="btn-primary" onclick="goStep(1)">무료 진단 시작하기 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     화면 1: 기본정보
+══════════════════════════════════ -->
+<div class="screen" id="screen-1">
+  <div class="card">
+    <div class="card-tag">STEP 1 · 기본정보</div>
+    <h2>사업장 기본 정보를<br>입력해 주세요</h2>
+    <p class="card-sub">정확한 분석을 위한 기본 정보입니다.</p>
+
+    <div class="director-hint">
+      <strong>무브(MOVE) 힌트 —</strong> 명함을 교환하며 자연스럽게 상호명과 업종을 확인하세요.
+      "몇 년 되셨어요?" 라는 질문으로 영업기간을 파악하면 됩니다.
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">상호명 <span>*</span></label>
+      <input class="form-input" id="f_bizName" type="text" placeholder="예: 홍대 스시오마카세">
+    </div>
+    <div class="form-row">
+      <label class="form-label">업종 <span>*</span></label>
+      <select class="form-select" id="f_industry">
+        <option value="">선택해 주세요</option>
+        <option>F&B (카페/음식점/베이커리)</option>
+        <option>리테일 (편의점/의류/잡화)</option>
+        <option>뷰티 (미용실/네일/피부관리)</option>
+        <option>서비스업 (학원/세탁/수선)</option>
+        <option>의료·건강 (병원/한의원/약국)</option>
+        <option>기타</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label class="form-label">영업 기간</label>
+      <select class="form-select" id="f_bizAge">
+        <option value="">선택해 주세요</option>
+        <option>6개월 미만</option>
+        <option>6개월 ~ 1년</option>
+        <option>1년 ~ 3년</option>
+        <option>3년 ~ 5년</option>
+        <option>5년 이상</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label class="form-label">사업장 주소 (지역)</label>
+      <input class="form-input" id="f_address" type="text" placeholder="예: 서울 마포구 홍대입구">
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goStep(0)">←</button>
+      <button class="btn-primary" style="flex:1" onclick="nextStep(1)">다음 단계 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     화면 2: 매출현황
+══════════════════════════════════ -->
+<div class="screen" id="screen-2">
+  <div class="card">
+    <div class="card-tag">STEP 2 · 매출현황</div>
+    <h2>한 달 매출 현황을<br>알려주세요</h2>
+    <p class="card-sub">대략적인 수치도 괜찮습니다. 분석의 방향을 잡는 데 사용됩니다.</p>
+
+    <div class="director-hint">
+      <strong>무브(MOVE) 힌트 —</strong> "요즘 장사는 어때요?" 로 자연스럽게 시작하세요.
+      "보통 한 달에 어느 정도 나오세요?" 라고 물어보면 됩니다.
+      정확한 숫자가 부담스럽다면 "대략 몇 백만 원대?" 식으로 범위를 제안하세요.
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">월 평균 매출 <span>*</span></label>
+      <div class="amount-wrap">
+        <input class="form-input" id="f_revenue" type="number" placeholder="0" min="0" oninput="updateSlider()">
+        <span class="amount-unit">만원/월</span>
+      </div>
+      <div class="slider-wrap">
+        <input type="range" id="revenueSlider" min="0" max="5000" step="50" value="0" oninput="updateRevenueInput()">
+        <div class="slider-labels"><span>0</span><span>500만</span><span>1,500만</span><span>3,000만</span><span>5,000만+</span></div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">주요 결제 수단 (복수 선택)</label>
+      <div class="check-group">
+        <label class="check-item"><input type="checkbox" name="payment" value="카드"><span class="check-btn">신용카드</span></label>
+        <label class="check-item"><input type="checkbox" name="payment" value="현금"><span class="check-btn">현금</span></label>
+        <label class="check-item"><input type="checkbox" name="payment" value="간편결제"><span class="check-btn">카카오·네이버Pay</span></label>
+        <label class="check-item"><input type="checkbox" name="payment" value="배달앱"><span class="check-btn">배달앱</span></label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">하루 평균 방문 고객 수</label>
+      <div class="amount-wrap">
+        <input class="form-input" id="f_dailyCustomer" type="number" placeholder="0" min="0">
+        <span class="amount-unit">명/일</span>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goStep(1)">←</button>
+      <button class="btn-primary" style="flex:1" onclick="nextStep(2)">다음 단계 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     화면 3: 비용구조
+══════════════════════════════════ -->
+<div class="screen" id="screen-3">
+  <div class="card">
+    <div class="card-tag">STEP 3 · 비용구조</div>
+    <h2>매달 나가는 비용을<br>확인해 볼게요</h2>
+    <p class="card-sub">고정비 구조를 파악하면 절감 포인트를 찾을 수 있습니다.</p>
+
+    <div class="director-hint">
+      <strong>무브(MOVE) 힌트 —</strong> "임대료가 얼마나 되세요?" 는 민감할 수 있으니
+      "월 고정 비용이 대략 어느 정도예요?" 로 넓게 물어보세요.
+      공과금은 "전기세가 여름엔 좀 많이 나오시죠?" 식으로 자연스럽게 접근하세요.
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">월 임대료 <span>*</span></label>
+      <div class="amount-wrap">
+        <input class="form-input" id="f_rent" type="number" placeholder="0" min="0">
+        <span class="amount-unit">만원/월</span>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">월 공과금 합계 (전기·수도·가스)</label>
+      <div class="amount-wrap">
+        <input class="form-input" id="f_utility" type="number" placeholder="0" min="0">
+        <span class="amount-unit">만원/월</span>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">통신비 + 보안 서비스 월 비용</label>
+      <div class="amount-wrap">
+        <input class="form-input" id="f_telecom" type="number" placeholder="0" min="0">
+        <span class="amount-unit">만원/월</span>
+      </div>
+      <p class="form-hint">인터넷, 전화, CCTV 월정액, 보안업체 요금 등</p>
+    </div>
+    <div class="form-row">
+      <label class="form-label">원가율 (재료비·매입비)</label>
+      <select class="form-select" id="f_costRate">
+        <option value="">선택해 주세요</option>
+        <option value="20">20% 미만</option>
+        <option value="25">20~30%</option>
+        <option value="35">30~40%</option>
+        <option value="45">40~50%</option>
+        <option value="55">50% 이상</option>
+      </select>
+      <p class="form-hint">재료비 또는 매입비가 매출에서 차지하는 비율</p>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goStep(2)">←</button>
+      <button class="btn-primary" style="flex:1" onclick="nextStep(3)">다음 단계 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     화면 4: 인력·운영
+══════════════════════════════════ -->
+<div class="screen" id="screen-4">
+  <div class="card">
+    <div class="card-tag">STEP 4 · 인력·운영</div>
+    <h2>인력과 운영 현황을<br>파악해 볼게요</h2>
+    <p class="card-sub">인건비 구조와 사장님의 근무 형태는 솔루션 설계의 핵심입니다.</p>
+
+    <div class="director-hint">
+      <strong>무브(MOVE) 힌트 —</strong> "직원이 몇 분 계세요?" 는 자연스러운 질문입니다.
+      "사장님이 직접 매장에 계시는 시간이 어느 정도예요?" 로 근무형태를 파악하세요.
+      인건비는 "4대 보험 포함해서 한 달에 얼마 정도예요?" 로 물어보세요.
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">직원 수 (파트타임 포함)</label>
+      <div class="amount-wrap">
+        <input class="form-input" id="f_employees" type="number" placeholder="0" min="0">
+        <span class="amount-unit">명</span>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">월 총 인건비 (4대보험 포함) <span>*</span></label>
+      <div class="amount-wrap">
+        <input class="form-input" id="f_labor" type="number" placeholder="0" min="0">
+        <span class="amount-unit">만원/월</span>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">사장님 직접 근무 형태</label>
+      <div class="radio-group">
+        <label class="radio-item"><input type="radio" name="ownerWork" value="전일"><label>전일 (하루 8시간 이상)</label></label>
+        <label class="radio-item"><input type="radio" name="ownerWork" value="반일"><label>반일 (4~8시간)</label></label>
+        <label class="radio-item"><input type="radio" name="ownerWork" value="시간제"><label>시간제 (필요할 때만)</label></label>
+        <label class="radio-item"><input type="radio" name="ownerWork" value="거의없음"><label>거의 없음 (직원에게 위임)</label></label>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">렌탈 기기 현황 (복수 선택)</label>
+      <div class="check-group">
+        <label class="check-item"><input type="checkbox" name="rental" value="정수기"><span class="check-btn">정수기</span></label>
+        <label class="check-item"><input type="checkbox" name="rental" value="에어컨"><span class="check-btn">에어컨</span></label>
+        <label class="check-item"><input type="checkbox" name="rental" value="냉장고"><span class="check-btn">냉장고</span></label>
+        <label class="check-item"><input type="checkbox" name="rental" value="POS"><span class="check-btn">POS/키오스크</span></label>
+        <label class="check-item"><input type="checkbox" name="rental" value="없음"><span class="check-btn">없음</span></label>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goStep(3)">←</button>
+      <button class="btn-primary" style="flex:1" onclick="nextStep(4)">다음 단계 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     화면 5: 플랫폼·마케팅
+══════════════════════════════════ -->
+<div class="screen" id="screen-5">
+  <div class="card">
+    <div class="card-tag">STEP 5 · 플랫폼·마케팅</div>
+    <h2>온라인 채널 현황을<br>확인해 볼게요</h2>
+    <p class="card-sub">고객 유입 채널을 파악하면 마케팅 최적화 방향이 보입니다.</p>
+
+    <div class="director-hint">
+      <strong>무브(MOVE) 힌트 —</strong> "네이버에 등록은 되어 있으세요?" 로 자연스럽게 시작하세요.
+      배달앱은 "배달도 하세요?" 한 마디면 됩니다.
+      마케팅 비용은 "광고에 한 달에 얼마 정도 쓰세요?" 로 파악하세요.
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">사용 중인 플랫폼 (복수 선택)</label>
+      <div class="check-group">
+        <label class="check-item"><input type="checkbox" name="platform" value="네이버플레이스"><span class="check-btn">네이버플레이스</span></label>
+        <label class="check-item"><input type="checkbox" name="platform" value="배달의민족"><span class="check-btn">배달의민족</span></label>
+        <label class="check-item"><input type="checkbox" name="platform" value="쿠팡이츠"><span class="check-btn">쿠팡이츠</span></label>
+        <label class="check-item"><input type="checkbox" name="platform" value="요기요"><span class="check-btn">요기요</span></label>
+        <label class="check-item"><input type="checkbox" name="platform" value="당근마켓"><span class="check-btn">당근마켓</span></label>
+        <label class="check-item"><input type="checkbox" name="platform" value="인스타그램"><span class="check-btn">인스타그램</span></label>
+        <label class="check-item"><input type="checkbox" name="platform" value="없음"><span class="check-btn">없음</span></label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">월 마케팅·광고 비용</label>
+      <select class="form-select" id="f_marketing">
+        <option value="">선택해 주세요</option>
+        <option value="0">없음 (0원)</option>
+        <option value="5">10만원 미만</option>
+        <option value="20">10~30만원</option>
+        <option value="50">30~50만원</option>
+        <option value="100">50만원 이상</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">고객 유형 (느낌상)</label>
+      <div class="radio-group">
+        <label class="radio-item"><input type="radio" name="customerType" value="단골중심"><label>단골 위주 (재방문 고객이 많음)</label></label>
+        <label class="radio-item"><input type="radio" name="customerType" value="신규중심"><label>신규 위주 (매번 새로운 손님)</label></label>
+        <label class="radio-item"><input type="radio" name="customerType" value="반반"><label>반반 (섞여 있음)</label></label>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goStep(4)">←</button>
+      <button class="btn-primary" style="flex:1" onclick="nextStep(5)">다음 단계 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     화면 6: 현재 고민
+══════════════════════════════════ -->
+<div class="screen" id="screen-6">
+  <div class="card">
+    <div class="card-tag">STEP 6 · 현재 고민</div>
+    <h2>지금 가장 힘드신 부분이<br>무엇인가요?</h2>
+    <p class="card-sub">솔직하게 말씀해 주실수록 더 정확한 솔루션을 드릴 수 있습니다.</p>
+
+    <div class="director-hint">
+      <strong>무브(MOVE) 힌트 —</strong> 이 단계에서 가장 중요한 건 경청입니다.
+      "요즘 어떤 부분이 제일 힘드세요?" 라고 묻고 사장님이 말씀하실 때 체크해 드리면 됩니다.
+      자유 기술 칸에 사장님 언어 그대로 적어주세요.
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">현재 주요 고민 (복수 선택)</label>
+      <div class="check-group" style="flex-direction: column; gap: 6px;">
+        <label class="check-item"><input type="checkbox" name="concern" value="매출부진"><span class="check-btn">매출이 기대보다 낮아요</span></label>
+        <label class="check-item"><input type="checkbox" name="concern" value="비용과다"><span class="check-btn">비용이 너무 많이 나가요</span></label>
+        <label class="check-item"><input type="checkbox" name="concern" value="인력관리"><span class="check-btn">직원 관리가 어려워요</span></label>
+        <label class="check-item"><input type="checkbox" name="concern" value="마케팅효과없음"><span class="check-btn">마케팅을 해도 효과가 없어요</span></label>
+        <label class="check-item"><input type="checkbox" name="concern" value="경쟁심화"><span class="check-btn">주변 경쟁이 너무 심해요</span></label>
+        <label class="check-item"><input type="checkbox" name="concern" value="시간부족"><span class="check-btn">혼자 다 하기에 시간이 부족해요</span></label>
+        <label class="check-item"><input type="checkbox" name="concern" value="확장고민"><span class="check-btn">사업 확장·이전을 고민 중이에요</span></label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">자유롭게 말씀해 주세요</label>
+      <textarea class="form-textarea" id="f_freeText" placeholder="현재 상황이나 바라시는 점을 편하게 적어 주세요..." rows="3"></textarea>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">6개월 후 목표</label>
+      <select class="form-select" id="f_goal">
+        <option value="">선택해 주세요</option>
+        <option>매출 20% 이상 증가</option>
+        <option>비용 절감으로 순수익 개선</option>
+        <option>내 시간 확보 (운영 자동화)</option>
+        <option>2호점 또는 확장 준비</option>
+        <option>사업 안정화 후 매각(엑싯)</option>
+        <option>일단 버티는 것</option>
+      </select>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goStep(5)">←</button>
+      <button class="btn-primary" style="flex:1" onclick="submitForm()">진단 결과 보기 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     화면 7: 결과
+══════════════════════════════════ -->
+<div class="screen" id="screen-7">
+  <div class="result-card">
+    <div class="card-tag">AI 진단 결과</div>
+    <h2 id="resultBizName">OO 사업장</h2>
+    <p class="card-sub">텐베거 파트너스 AI 시너지 엔진 분석 결과입니다.</p>
+
+    <!-- 점수 원형 -->
+    <div class="score-circle-wrap">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreNum">0</div>
+        <div class="score-label">/ 100점</div>
+      </div>
+      <div id="scoreGrade" class="score-grade">분석 중...</div>
+    </div>
+
+    <!-- 수집 체크리스트 -->
+    <div class="checklist" id="checklistDone">
+      <div class="check-section-title">✅ 수집 완료</div>
+    </div>
+    <div class="checklist" id="checklistMissing">
+      <div class="check-section-title">📋 추가 수집 필요</div>
+    </div>
+
+    <!-- 탑(TOP) 추가 지시 -->
+    <div class="instruction-box" id="instructionBox">
+      <h4>📌 탑(TOP) 추가 수집 지시</h4>
+      <div id="instructionList"></div>
+    </div>
+
+    <!-- 다음 단계 -->
+    <div style="background:#f4f8fd; border-radius:12px; padding:1.2rem; margin: 1rem 0; font-size:13px; color:#555; line-height:1.8;">
+      <strong style="color:#185FA5;">다음 단계</strong><br>
+      수집된 데이터를 바탕으로 <strong>킵(KEEP)</strong>이 갭 분석을 완료하면,<br>
+      <strong>크리스(CHRIS)</strong>가 포트폴리오를 생성하여 무브에게 전달합니다.
+    </div>
+
+    <div class="submit-status" id="submitStatus">데이터를 전송 중입니다...</div>
+
+    <button class="btn-secondary" onclick="goStep(0)" style="margin-top:0.5rem;">새 상담 시작</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     스크립트
+══════════════════════════════════ -->
+<script>
+  // ── Google Sheets 웹앱 URL (설정 필요) ──
+  // 아래 URL을 Google Apps Script 배포 주소로 교체하세요
+  const SHEET_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
+
+  const TOTAL_STEPS = 6;
+  const stepLabels = ['기본정보','매출현황','비용구조','인력운영','플랫폼','현재고민'];
+
+  function updateProgress(step) {
+    const wrap = document.getElementById('progressWrap');
+    const stepsEl = document.getElementById('progressSteps');
+    const labelEl = document.getElementById('progressLabel');
+    if (step === 0 || step === 7) { wrap.style.display = 'none'; return; }
+    wrap.style.display = 'block';
+    let html = '';
+    for (let i = 1; i <= TOTAL_STEPS; i++) {
+      const cls = i < step ? 'done' : i === step ? 'active' : 'pending';
+      html += `<div class="step-dot ${cls}">${i < step ? '✓' : i}</div>`;
+      if (i < TOTAL_STEPS) {
+        html += `<div class="step-line ${i < step ? 'done' : ''}"></div>`;
+      }
+    }
+    stepsEl.innerHTML = html;
+    labelEl.innerHTML = `<strong>${stepLabels[step-1]}</strong> · ${step} / ${TOTAL_STEPS} 단계`;
+  }
+
+  function goStep(n) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + n).classList.add('active');
+    updateProgress(n);
+    window.scrollTo(0, 0);
+  }
+
+  function nextStep(current) {
+    if (current === 1) {
+      if (!document.getElementById('f_bizName').value.trim()) {
+        alert('상호명을 입력해 주세요.'); return;
+      }
+      if (!document.getElementById('f_industry').value) {
+        alert('업종을 선택해 주세요.'); return;
+      }
+    }
+    if (current === 2) {
+      if (!document.getElementById('f_revenue').value) {
+        alert('월 평균 매출을 입력해 주세요.'); return;
+      }
+    }
+    if (current === 3) {
+      if (!document.getElementById('f_rent').value) {
+        alert('월 임대료를 입력해 주세요.'); return;
+      }
+    }
+    goStep(current + 1);
+  }
+
+  function updateSlider() {
+    const val = document.getElementById('f_revenue').value || 0;
+    document.getElementById('revenueSlider').value = Math.min(val, 5000);
+  }
+  function updateRevenueInput() {
+    document.getElementById('f_revenue').value = document.getElementById('revenueSlider').value;
+  }
+
+  // ── 점수 계산 ──
+  function calcScore() {
+    let score = 0;
+    const checks = [];
+    const missing = [];
+
+    const revenue = parseFloat(document.getElementById('f_revenue').value) || 0;
+    const rent = parseFloat(document.getElementById('f_rent').value) || 0;
+    const labor = parseFloat(document.getElementById('f_labor').value) || 0;
+    const utility = parseFloat(document.getElementById('f_utility').value) || 0;
+    const costRate = document.getElementById('f_costRate').value;
+    const employees = document.getElementById('f_employees').value;
+    const dailyCustomer = document.getElementById('f_dailyCustomer').value;
+    const freeText = document.getElementById('f_freeText').value.trim();
+    const goal = document.getElementById('f_goal').value;
+    const platforms = [...document.querySelectorAll('input[name="platform"]:checked')].map(e => e.value);
+    const concerns = [...document.querySelectorAll('input[name="concern"]:checked')].map(e => e.value);
+
+    if (revenue > 0) { score += 15; checks.push({ text: `월 매출 ${revenue.toLocaleString()}만원`, pts: 15 }); }
+    else missing.push({ text: '월 평균 매출', pts: 15, grade: 'must' });
+
+    if (rent > 0) { score += 10; checks.push({ text: `임대료 ${rent.toLocaleString()}만원/월`, pts: 10 }); }
+    else missing.push({ text: '월 임대료', pts: 10, grade: 'must' });
+
+    if (labor > 0) { score += 10; checks.push({ text: `인건비 ${labor.toLocaleString()}만원/월`, pts: 10 }); }
+    else missing.push({ text: '월 인건비 합계', pts: 10, grade: 'must' });
+
+    if (costRate) { score += 8; checks.push({ text: `원가율 ${costRate}%대`, pts: 8 }); }
+    else missing.push({ text: '원가율 (재료비 비중)', pts: 8, grade: 'must' });
+
+    if (utility > 0) { score += 5; checks.push({ text: `공과금 ${utility.toLocaleString()}만원/월`, pts: 5 }); }
+    else missing.push({ text: '월 공과금 합계', pts: 5, grade: 'rec' });
+
+    if (platforms.length > 0 && !platforms.includes('없음')) {
+      score += 8; checks.push({ text: `플랫폼: ${platforms.join(', ')}`, pts: 8 });
+    } else {
+      missing.push({ text: '온라인 플랫폼 활용 현황', pts: 8, grade: 'rec' });
+    }
+
+    if (employees !== '') { score += 4; checks.push({ text: `직원 ${employees}명`, pts: 4 }); }
+    else missing.push({ text: '직원 수', pts: 4, grade: 'rec' });
+
+    if (dailyCustomer) { score += 5; checks.push({ text: `일 고객 ${dailyCustomer}명`, pts: 5 }); }
+    else missing.push({ text: '하루 평균 고객 수', pts: 5, grade: 'rec' });
+
+    if (concerns.length > 0) { score += 5; checks.push({ text: `주요 고민 ${concerns.length}개 파악`, pts: 5 }); }
+    if (freeText.length > 10) { score += 5; checks.push({ text: '현장 의견 수집 완료', pts: 5 }); }
+    if (goal) { score += 5; checks.push({ text: `목표: ${goal}`, pts: 5 }); }
+
+    return { score, checks, missing };
+  }
+
+  // ── 추가 지시사항 생성 ──
+  function buildInstructions(missing, score) {
+    const must = missing.filter(m => m.grade === 'must');
+    const rec = missing.filter(m => m.grade === 'rec');
+    let html = '';
+    if (must.length > 0) {
+      html += '<p style="font-size:11px;color:#E53935;font-weight:700;margin-bottom:6px;">■ 필수 수집 (다음 방문 전 반드시)</p>';
+      must.forEach(m => {
+        html += `<div class="instruction-item"><div class="dot"></div><p><span class="badge-must">필수</span> <strong>${m.text}</strong> (+${m.pts}점)</p></div>`;
+      });
+    }
+    if (rec.length > 0) {
+      html += '<p style="font-size:11px;color:#E65100;font-weight:700;margin:10px 0 6px;">■ 권장 수집 (완성도 향상)</p>';
+      rec.forEach(m => {
+        html += `<div class="instruction-item"><div class="dot" style="background:#FFB74D"></div><p><span class="badge-rec">권장</span> ${m.text} (+${m.pts}점)</p></div>`;
+      });
+    }
+    if (must.length === 0 && rec.length === 0) {
+      html = '<p style="font-size:13px;color:#0B6B3A;font-weight:600;">✅ 1차 포트폴리오 생성에 충분한 데이터가 수집되었습니다.</p>';
+    }
+    return html;
+  }
+
+  // ── 폼 제출 ──
+  function submitForm() {
+    const bizName = document.getElementById('f_bizName').value.trim();
+    const { score, checks, missing } = calcScore();
+
+    // 결과 화면으로 이동
+    goStep(7);
+
+    // 상호명 표시
+    document.getElementById('resultBizName').textContent = bizName + ' 진단 결과';
+
+    // 점수 표시
+    document.getElementById('scoreNum').textContent = score;
+    const circle = document.getElementById('scoreCircle');
+    const grade = document.getElementById('scoreGrade');
+    if (score >= 75) {
+      circle.style.background = 'linear-gradient(135deg, #D4F0E4, #9FE1CB)';
+      circle.style.border = '4px solid #9FE1CB';
+      document.getElementById('scoreNum').style.color = '#0B6B3A';
+      grade.className = 'score-grade score-green';
+      grade.textContent = '최종 포트폴리오 생성 가능';
+    } else if (score >= 45) {
+      circle.style.background = 'linear-gradient(135deg, #E6F1FB, #B5D4F4)';
+      circle.style.border = '4px solid #B5D4F4';
+      document.getElementById('scoreNum').style.color = '#0C447C';
+      grade.className = 'score-grade score-blue';
+      grade.textContent = '1차 포트폴리오 생성 가능';
+    } else {
+      circle.style.background = 'linear-gradient(135deg, #FDECD0, #FAC775)';
+      circle.style.border = '4px solid #FAC775';
+      document.getElementById('scoreNum').style.color = '#7B3A00';
+      grade.className = 'score-grade score-orange';
+      grade.textContent = '추가 데이터 수집 필요';
+    }
+
+    // 수집 완료 목록
+    const doneEl = document.getElementById('checklistDone');
+    checks.forEach(c => {
+      doneEl.innerHTML += `<div class="check-row"><span class="check-icon">✅</span><span class="check-text">${c.text}</span><span class="check-pts">+${c.pts}점</span></div>`;
+    });
+
+    // 미수집 목록
+    const missingEl = document.getElementById('checklistMissing');
+    missing.forEach(m => {
+      const icon = m.grade === 'must' ? '❌' : '⚠️';
+      missingEl.innerHTML += `<div class="check-row"><span class="check-icon">${icon}</span><span class="check-text">${m.text}</span><span class="check-pts">+${m.pts}점</span></div>`;
+    });
+
+    if (missing.length === 0) {
+      missingEl.style.display = 'none';
+    }
+
+    // 탑 지시사항
+    document.getElementById('instructionList').innerHTML = buildInstructions(missing, score);
+
+    // Google Sheets 전송
+    sendToSheets(score, missing);
+  }
+
+  function sendToSheets(score, missing) {
+    const data = {
+      timestamp: new Date().toISOString(),
+      bizName: document.getElementById('f_bizName').value,
+      industry: document.getElementById('f_industry').value,
+      bizAge: document.getElementById('f_bizAge').value,
+      address: document.getElementById('f_address').value,
+      revenue: document.getElementById('f_revenue').value,
+      payments: [...document.querySelectorAll('input[name="payment"]:checked')].map(e=>e.value).join(', '),
+      dailyCustomer: document.getElementById('f_dailyCustomer').value,
+      rent: document.getElementById('f_rent').value,
+      utility: document.getElementById('f_utility').value,
+      telecom: document.getElementById('f_telecom').value,
+      costRate: document.getElementById('f_costRate').value,
+      employees: document.getElementById('f_employees').value,
+      labor: document.getElementById('f_labor').value,
+      ownerWork: document.querySelector('input[name="ownerWork"]:checked')?.value || '',
+      rentals: [...document.querySelectorAll('input[name="rental"]:checked')].map(e=>e.value).join(', '),
+      platforms: [...document.querySelectorAll('input[name="platform"]:checked')].map(e=>e.value).join(', '),
+      marketing: document.getElementById('f_marketing').value,
+      customerType: document.querySelector('input[name="customerType"]:checked')?.value || '',
+      concerns: [...document.querySelectorAll('input[name="concern"]:checked')].map(e=>e.value).join(', '),
+      freeText: document.getElementById('f_freeText').value,
+      goal: document.getElementById('f_goal').value,
+      score: score,
+      missingItems: missing.map(m=>m.text).join(', '),
+      portfolioStatus: score >= 75 ? '최종생성가능' : score >= 45 ? '1차생성가능' : '추가수집필요'
+    };
+
+    if (SHEET_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL') {
+      document.getElementById('submitStatus').innerHTML =
+        '<span style="color:#888">⚙️ Google Sheets 연동 설정 필요 (개발자지침서 참고)</span>';
+      return;
+    }
+
+    fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(() => {
+      document.getElementById('submitStatus').innerHTML =
+        '<span class="submit-ok">✅ 데이터가 중앙 데이터베이스에 저장되었습니다.</span>';
+    }).catch(() => {
+      document.getElementById('submitStatus').innerHTML =
+        '<span style="color:#E53935">⚠️ 전송 실패 — 인터넷 연결을 확인하세요.</span>';
+    });
+  }
+</script>
+</body>
+</html>
