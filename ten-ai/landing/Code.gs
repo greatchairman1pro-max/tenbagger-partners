@@ -1,19 +1,52 @@
 var SHEET_ID = '1khU2HGxoy1qb5rrIqhkj68tESSb79IdF4fWIBmkxUJg';
 
+function jsonRes(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ── GET: 데이터 조회 / 상태 업데이트 ──
+function doGet(e) {
+  var sheet = SpreadsheetApp.openById(SHEET_ID).getSheets()[0];
+  var action = e.parameter.action || 'getData';
+
+  if (action === 'getData') {
+    var values = sheet.getDataRange().getValues();
+    if (values.length <= 1) return jsonRes({ status: 'ok', data: [] });
+    var headers = values[0];
+    var rows = [];
+    for (var i = 1; i < values.length; i++) {
+      var row = { _row: i + 1 };
+      for (var j = 0; j < headers.length; j++) {
+        row[headers[j]] = values[i][j];
+      }
+      rows.push(row);
+    }
+    return jsonRes({ status: 'ok', data: rows });
+  }
+
+  if (action === 'updateStatus') {
+    var rowIndex = parseInt(e.parameter.row);
+    var col = parseInt(e.parameter.col);
+    var value = e.parameter.value;
+    sheet.getRange(rowIndex, col).setValue(value);
+    return jsonRes({ status: 'ok' });
+  }
+
+  return jsonRes({ status: 'error', message: 'unknown action' });
+}
+
+// ── POST: 신규 제출 ──
 function doPost(e) {
   try {
-    var spreadsheet = SpreadsheetApp.openById(SHEET_ID);
-    var sheet = spreadsheet.getSheets()[0];
-
+    var sheet = SpreadsheetApp.openById(SHEET_ID).getSheets()[0];
     var d = JSON.parse(e.parameter.data);
 
     var existingRow = -1;
     var data = sheet.getDataRange().getValues();
     for (var i = 1; i < data.length; i++) {
-      if (data[i][1] === d.bizName) {
-        existingRow = i + 1;
-        break;
-      }
+      if (data[i][1] === d.bizName) { existingRow = i + 1; break; }
     }
 
     var version = 'v1';
@@ -29,34 +62,20 @@ function doPost(e) {
       d.employees, d.labor, d.ownerWork, d.rentals,
       d.platforms, d.marketing, d.customerType,
       d.concerns, d.freeText, d.goal,
-      d.score, d.missingItems, d.portfolioStatus, version
+      d.score, d.missingItems, d.portfolioStatus, version,
+      '미완료', '미완료', ''
     ];
 
     sheet.appendRow(row);
 
     var lastRow = sheet.getLastRow();
     var scoreCell = sheet.getRange(lastRow, 23);
-    if (d.score >= 75) {
-      scoreCell.setBackground('#D4F0E4');
-    } else if (d.score >= 45) {
-      scoreCell.setBackground('#E6F1FB');
-    } else {
-      scoreCell.setBackground('#FDECD0');
-    }
+    if (d.score >= 75) scoreCell.setBackground('#D4F0E4');
+    else if (d.score >= 45) scoreCell.setBackground('#E6F1FB');
+    else scoreCell.setBackground('#FDECD0');
 
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: 'success', version: version }))
-      .setMimeType(ContentService.MimeType.JSON);
-
+    return jsonRes({ status: 'success', version: version });
   } catch (err) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: 'error', message: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
+    return jsonRes({ status: 'error', message: err.toString() });
   }
-}
-
-function doGet(e) {
-  return ContentService
-    .createTextOutput(JSON.stringify({ status: 'ok' }))
-    .setMimeType(ContentService.MimeType.JSON);
 }

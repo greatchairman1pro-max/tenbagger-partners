@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>텐베거 파트너스 · 관리자 대시보드</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f0f4f8; color: #1a1a1a; }
+
+    /* ── 헤더 ── */
+    .header { background: #0C447C; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .logo { font-size: 16px; font-weight: 800; color: #fff; }
+    .logo span { color: #B5D4F4; }
+    .header-tag { font-size: 11px; background: rgba(255,255,255,.15); color: #fff; padding: 4px 12px; border-radius: 20px; font-weight: 600; }
+    .btn-refresh { background: rgba(255,255,255,.15); color: #fff; border: 1px solid rgba(255,255,255,.3); border-radius: 8px; padding: 7px 16px; font-size: 12px; cursor: pointer; font-weight: 600; }
+    .btn-refresh:hover { background: rgba(255,255,255,.25); }
+
+    /* ── 필터 탭 ── */
+    .filter-bar { background: #fff; border-bottom: 1px solid #e4edf7; padding: 0 1.5rem; display: flex; gap: 0; overflow-x: auto; }
+    .filter-tab { padding: 12px 18px; font-size: 13px; font-weight: 600; color: #888; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; }
+    .filter-tab.active { color: #185FA5; border-bottom-color: #185FA5; }
+
+    /* ── 요약 카드 ── */
+    .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 1.2rem 1.5rem; }
+    @media(max-width:600px) { .summary { grid-template-columns: repeat(2,1fr); } }
+    .sum-card { background: #fff; border: 1px solid #e4edf7; border-radius: 12px; padding: 1rem 1.2rem; }
+    .sum-num { font-size: 28px; font-weight: 900; color: #185FA5; }
+    .sum-label { font-size: 12px; color: #888; margin-top: 2px; }
+
+    /* ── 클라이언트 카드 ── */
+    .client-list { padding: 0 1.5rem 2rem; display: flex; flex-direction: column; gap: 12px; }
+    .client-card { background: #fff; border: 1px solid #e4edf7; border-radius: 14px; overflow: hidden; }
+    .card-head { padding: 1.2rem 1.4rem 1rem; display: flex; align-items: flex-start; gap: 12px; }
+    .score-badge { width: 56px; height: 56px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; }
+    .score-badge .s-num { font-size: 18px; font-weight: 900; line-height: 1; }
+    .score-badge .s-unit { font-size: 9px; font-weight: 600; opacity: .7; }
+    .score-green { background: #D4F0E4; color: #0B6B3A; }
+    .score-blue { background: #E6F1FB; color: #0C447C; }
+    .score-orange { background: #FDECD0; color: #7B3A00; }
+    .card-info { flex: 1; min-width: 0; }
+    .biz-name { font-size: 17px; font-weight: 800; color: #111; }
+    .biz-meta { font-size: 12px; color: #888; margin-top: 2px; }
+    .biz-meta strong { color: #555; }
+    .card-time { font-size: 11px; color: #bbb; margin-top: 4px; }
+
+    /* ── 워크플로우 스텝 ── */
+    .workflow { display: flex; align-items: center; gap: 6px; padding: 0 1.4rem 1rem; }
+    .wf-step { display: flex; align-items: center; gap: 6px; flex: 1; background: #f4f8fd; border: 1px solid #e4edf7; border-radius: 10px; padding: 8px 10px; }
+    .wf-avatar { width: 28px; height: 28px; border-radius: 50%; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .av-keep { background: #9FE1CB; color: #085041; }
+    .av-top { background: #B5D4F4; color: #0C447C; }
+    .av-chris { background: #FAC775; color: #412402; }
+    .wf-info { min-width: 0; }
+    .wf-name { font-size: 10px; font-weight: 700; color: #555; }
+    .wf-status { font-size: 11px; font-weight: 700; }
+    .st-done { color: #0B6B3A; }
+    .st-pending { color: #E53935; }
+    .st-wait { color: #aaa; }
+    .wf-arrow { font-size: 14px; color: #ccc; flex-shrink: 0; }
+
+    /* ── 미수집 항목 ── */
+    .missing-wrap { padding: 0 1.4rem; margin-bottom: 1rem; }
+    .missing-label { font-size: 11px; font-weight: 700; color: #E65100; margin-bottom: 6px; }
+    .missing-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .missing-tag { background: #FFF3E0; border: 1px solid #FFB74D; color: #7B3A00; font-size: 11px; padding: 3px 10px; border-radius: 10px; }
+
+    /* ── 액션 버튼 ── */
+    .card-actions { border-top: 1px solid #f0f4f8; padding: 0.8rem 1.4rem; display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-action { padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; border: none; transition: all .2s; }
+    .btn-keep { background: #D4F0E4; color: #085041; }
+    .btn-keep:hover { background: #9FE1CB; }
+    .btn-top { background: #E6F1FB; color: #0C447C; }
+    .btn-top:hover { background: #B5D4F4; }
+    .btn-portfolio { background: #185FA5; color: #fff; }
+    .btn-portfolio:hover { background: #0C447C; }
+    .btn-done { background: #f0f4f8; color: #aaa; cursor: default; }
+    .btn-url { background: #f4f8fd; color: #185FA5; border: 1px solid #B5D4F4; font-size: 12px; font-weight: 600; }
+    .btn-url:hover { background: #E6F1FB; }
+
+    /* ── 버전 뱃지 ── */
+    .version-badge { background: #f0f4f8; color: #888; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 8px; }
+
+    /* ── 로딩 / 빈 상태 ── */
+    .loading { text-align: center; padding: 4rem; color: #888; font-size: 14px; }
+    .empty { text-align: center; padding: 4rem; color: #aaa; }
+    .empty-icon { font-size: 40px; margin-bottom: 1rem; }
+
+    /* ── 토스트 ── */
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #fff; padding: 10px 22px; border-radius: 10px; font-size: 13px; font-weight: 600; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999; }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo">텐베거<span>파트너스</span></div>
+    <div class="header-tag">관리자 대시보드</div>
+  </div>
+  <button class="btn-refresh" onclick="loadData()">↻ 새로고침</button>
+</div>
+
+<div class="filter-bar">
+  <div class="filter-tab active" onclick="setFilter('전체', this)">전체 <span id="cnt-all">0</span></div>
+  <div class="filter-tab" onclick="setFilter('추가수집필요', this)">추가수집필요 <span id="cnt-need">0</span></div>
+  <div class="filter-tab" onclick="setFilter('1차생성가능', this)">1차생성가능 <span id="cnt-v1">0</span></div>
+  <div class="filter-tab" onclick="setFilter('최종생성가능', this)">최종생성가능 <span id="cnt-final">0</span></div>
+  <div class="filter-tab" onclick="setFilter('포트폴리오완료', this)">포트폴리오완료 <span id="cnt-done">0</span></div>
+</div>
+
+<div class="summary">
+  <div class="sum-card"><div class="sum-num" id="s-total">0</div><div class="sum-label">전체 사업자</div></div>
+  <div class="sum-card"><div class="sum-num" id="s-avg">0</div><div class="sum-label">평균 완성도</div></div>
+  <div class="sum-card"><div class="sum-num" id="s-ready">0</div><div class="sum-label">포트폴리오 대기</div></div>
+  <div class="sum-card"><div class="sum-num" id="s-done">0</div><div class="sum-label">완료</div></div>
+</div>
+
+<div class="client-list" id="clientList">
+  <div class="loading">데이터를 불러오는 중...</div>
+</div>
+
+<div class="toast" id="toast"></div>
+<iframe id="gs_iframe" name="gs_iframe" style="display:none"></iframe>
+
+<script>
+  var SHEET_URL = 'https://script.google.com/macros/s/AKfycbwtNmaGqiOTNiRWrj37KZi-neIAZKAWzpBOBQoijQsyO2S4aqRZkwH3GsMWTFlgyGeQgg/exec';
+  var allData = [];
+  var currentFilter = '전체';
+
+  // ── 컬럼 인덱스 (1-based) ──
+  var COL = {
+    KEEP_STATUS: 27,
+    TOP_STATUS:  28,
+    PORTFOLIO_URL: 29
+  };
+
+  function loadData() {
+    document.getElementById('clientList').innerHTML = '<div class="loading">데이터를 불러오는 중...</div>';
+    fetch(SHEET_URL + '?action=getData')
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        if (res.status === 'ok') {
+          allData = res.data.reverse();
+          renderAll();
+        }
+      })
+      .catch(function() {
+        document.getElementById('clientList').innerHTML =
+          '<div class="empty"><div class="empty-icon">⚠️</div>데이터 로드 실패<br><small>Apps Script 재배포 후 다시 시도하세요</small></div>';
+      });
+  }
+
+  function renderAll() {
+    var filtered = currentFilter === '전체'
+      ? allData
+      : allData.filter(function(d) {
+          if (currentFilter === '포트폴리오완료') return d['포트폴리오URL'] && d['포트폴리오URL'] !== '';
+          return d['포트폴리오상태'] === currentFilter;
+        });
+
+    // 카운트 업데이트
+    document.getElementById('cnt-all').textContent   = allData.length;
+    document.getElementById('cnt-need').textContent  = allData.filter(function(d){ return d['포트폴리오상태']==='추가수집필요'; }).length;
+    document.getElementById('cnt-v1').textContent    = allData.filter(function(d){ return d['포트폴리오상태']==='1차생성가능'; }).length;
+    document.getElementById('cnt-final').textContent = allData.filter(function(d){ return d['포트폴리오상태']==='최종생성가능'; }).length;
+    document.getElementById('cnt-done').textContent  = allData.filter(function(d){ return d['포트폴리오URL'] && d['포트폴리오URL']!==''; }).length;
+
+    // 요약 통계
+    document.getElementById('s-total').textContent = allData.length;
+    var scores = allData.map(function(d){ return parseFloat(d['완성도점수'])||0; });
+    document.getElementById('s-avg').textContent   = allData.length ? Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length) + '점' : '0점';
+    document.getElementById('s-ready').textContent = allData.filter(function(d){ return (d['포트폴리오상태']==='1차생성가능'||d['포트폴리오상태']==='최종생성가능') && (!d['포트폴리오URL']||d['포트폴리오URL']===''); }).length;
+    document.getElementById('s-done').textContent  = allData.filter(function(d){ return d['포트폴리오URL'] && d['포트폴리오URL']!==''; }).length;
+
+    if (filtered.length === 0) {
+      document.getElementById('clientList').innerHTML = '<div class="empty"><div class="empty-icon">📋</div>해당 항목이 없습니다</div>';
+      return;
+    }
+
+    document.getElementById('clientList').innerHTML = filtered.map(function(d) {
+      return renderCard(d);
+    }).join('');
+  }
+
+  function renderCard(d) {
+    var score = parseFloat(d['완성도점수']) || 0;
+    var scoreCls = score >= 75 ? 'score-green' : score >= 45 ? 'score-blue' : 'score-orange';
+    var keepDone = d['킵분석'] === '완료';
+    var topDone  = d['탑검토'] === '완료';
+    var hasPortfolio = d['포트폴리오URL'] && d['포트폴리오URL'] !== '';
+    var row = d._row;
+
+    var missing = (d['미수집항목'] || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+    var missingHtml = missing.length > 0
+      ? '<div class="missing-wrap"><div class="missing-label">📋 추가 수집 필요 항목</div><div class="missing-tags">'
+        + missing.map(function(m){ return '<span class="missing-tag">' + m + '</span>'; }).join('')
+        + '</div></div>'
+      : '';
+
+    var ts = d['타임스탬프'] ? new Date(d['타임스탬프']).toLocaleDateString('ko-KR', {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+
+    var actions = [];
+    if (!keepDone) {
+      actions.push('<button class="btn-action btn-keep" onclick="updateStatus(' + row + ',' + COL.KEEP_STATUS + ',\'완료\',this,\'킵 분석 완료 처리\')">킵(KEEP) 분석 완료</button>');
+    } else {
+      actions.push('<button class="btn-action btn-done" disabled>킵 ✅</button>');
+    }
+
+    if (keepDone && !topDone) {
+      actions.push('<button class="btn-action btn-top" onclick="updateStatus(' + row + ',' + COL.TOP_STATUS + ',\'완료\',this,\'탑 검토 완료 처리\')">탑(TOP) 검토 완료</button>');
+    } else if (topDone) {
+      actions.push('<button class="btn-action btn-done" disabled>탑 ✅</button>');
+    }
+
+    if (topDone && !hasPortfolio) {
+      actions.push('<button class="btn-action btn-portfolio" onclick="setPortfolioUrl(' + row + ', \'' + d['상호명'] + '\')">포트폴리오 URL 등록</button>');
+    }
+
+    if (hasPortfolio) {
+      actions.push('<a href="' + d['포트폴리오URL'] + '" target="_blank" class="btn-action btn-url">포트폴리오 열기 ↗</a>');
+    }
+
+    return '<div class="client-card" id="card-' + row + '">'
+      + '<div class="card-head">'
+      +   '<div class="score-badge ' + scoreCls + '"><div class="s-num">' + score + '</div><div class="s-unit">점</div></div>'
+      +   '<div class="card-info">'
+      +     '<div class="biz-name">' + (d['상호명']||'-') + ' <span class="version-badge">' + (d['버전']||'v1') + '</span></div>'
+      +     '<div class="biz-meta"><strong>' + (d['업종']||'-') + '</strong> · ' + (d['주소']||'') + '</div>'
+      +     '<div class="biz-meta">월매출 <strong>' + (d['월매출(만원)']||'-') + '만원</strong> · 임대료 <strong>' + (d['임대료(만원)']||'-') + '만원</strong> · 직원 <strong>' + (d['직원수']||'-') + '명</strong></div>'
+      +     '<div class="card-time">' + ts + ' · ' + (d['포트폴리오상태']||'-') + '</div>'
+      +   '</div>'
+      + '</div>'
+      + '<div class="workflow">'
+      +   '<div class="wf-step">'
+      +     '<div class="wf-avatar av-keep">킵</div>'
+      +     '<div class="wf-info"><div class="wf-name">KEEP 분석</div><div class="wf-status ' + (keepDone?'st-done':'st-pending') + '">' + (keepDone?'완료':'대기') + '</div></div>'
+      +   '</div>'
+      +   '<div class="wf-arrow">›</div>'
+      +   '<div class="wf-step">'
+      +     '<div class="wf-avatar av-top">탑</div>'
+      +     '<div class="wf-info"><div class="wf-name">TOP 검토</div><div class="wf-status ' + (topDone?'st-done':keepDone?'st-pending':'st-wait') + '">' + (topDone?'완료':keepDone?'대기':'-') + '</div></div>'
+      +   '</div>'
+      +   '<div class="wf-arrow">›</div>'
+      +   '<div class="wf-step">'
+      +     '<div class="wf-avatar av-chris">크</div>'
+      +     '<div class="wf-info"><div class="wf-name">CHRIS 생성</div><div class="wf-status ' + (hasPortfolio?'st-done':topDone?'st-pending':'st-wait') + '">' + (hasPortfolio?'완료':topDone?'대기':'-') + '</div></div>'
+      +   '</div>'
+      + '</div>'
+      + missingHtml
+      + '<div class="card-actions">' + actions.join('') + '</div>'
+      + '</div>';
+  }
+
+  function updateStatus(row, col, value, btn, msg) {
+    btn.disabled = true;
+    btn.textContent = '처리 중...';
+
+    var form = document.createElement('form');
+    form.method = 'GET';
+    form.action = SHEET_URL;
+    form.target = 'gs_iframe';
+    form.style.display = 'none';
+
+    [['action','updateStatus'],['row',row],['col',col],['value',value]].forEach(function(p) {
+      var i = document.createElement('input');
+      i.name = p[0]; i.value = p[1]; i.type = 'hidden';
+      form.appendChild(i);
+    });
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+
+    // 로컬 데이터 업데이트
+    var colMap = {};
+    colMap[COL.KEEP_STATUS]    = '킵분석';
+    colMap[COL.TOP_STATUS]     = '탑검토';
+    colMap[COL.PORTFOLIO_URL]  = '포트폴리오URL';
+    var key = colMap[col];
+    if (key) {
+      var item = allData.find(function(d){ return d._row === row; });
+      if (item) item[key] = value;
+    }
+
+    showToast(msg + ' ✅');
+    setTimeout(function(){ renderAll(); }, 300);
+  }
+
+  function setPortfolioUrl(row, bizName) {
+    var url = prompt('포트폴리오 URL을 입력하세요:\n예: https://tenbagger.vercel.app/clients/' + bizName + '.html');
+    if (!url) return;
+    updateStatus(row, COL.PORTFOLIO_URL, url, { disabled: false, textContent: '' }, '포트폴리오 URL 등록');
+  }
+
+  function setFilter(name, el) {
+    currentFilter = name;
+    document.querySelectorAll('.filter-tab').forEach(function(t){ t.classList.remove('active'); });
+    el.classList.add('active');
+    renderAll();
+  }
+
+  function showToast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 2500);
+  }
+
+  loadData();
+</script>
+</body>
+</html>
