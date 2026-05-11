@@ -784,17 +784,33 @@
       return;
     }
 
-    fetch(SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: new URLSearchParams({ data: JSON.stringify(data) })
-    }).then(() => {
-      document.getElementById('submitStatus').innerHTML =
-        '<span class="submit-ok">✅ 데이터가 중앙 데이터베이스에 저장되었습니다.</span>';
-    }).catch(() => {
-      document.getElementById('submitStatus').innerHTML =
-        '<span style="color:#E53935">⚠️ 전송 실패 — 인터넷 연결을 확인하세요.</span>';
-    });
+    var iframe = document.getElementById('gs_iframe');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.id = 'gs_iframe';
+      iframe.name = 'gs_iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+    }
+
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = SHEET_URL;
+    form.target = 'gs_iframe';
+    form.style.display = 'none';
+
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'data';
+    input.value = JSON.stringify(data);
+    form.appendChild(input);
+
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+
+    document.getElementById('submitStatus').innerHTML =
+      '<span class="submit-ok">✅ 데이터가 중앙 데이터베이스에 저장되었습니다.</span>';
   }
 </script>
 </body>
