@@ -126,6 +126,7 @@
 
 <script>
   var SHEET_URL = 'https://script.google.com/macros/s/AKfycbwtNmaGqiOTNiRWrj37KZi-neIAZKAWzpBOBQoijQsyO2S4aqRZkwH3GsMWTFlgyGeQgg/exec';
+  var SHEET_ID  = '1khU2HGxoy1qb5rrIqhkj68tESSb79IdF4fWIBmkxUJg';
   var allData = [];
   var currentFilter = '전체';
 
@@ -139,25 +140,40 @@
   function loadData() {
     document.getElementById('clientList').innerHTML = '<div class="loading">데이터를 불러오는 중...</div>';
 
-    window._loadTimeout = setTimeout(function() {
-      document.getElementById('clientList').innerHTML =
-        '<div class="empty"><div class="empty-icon">⚠️</div>로드 시간 초과<br><small>Apps Script 재배포 후 다시 시도하세요</small></div>';
-    }, 10000);
-
-    var old = document.getElementById('jsonp_script');
+    var old = document.getElementById('gviz_script');
     if (old) old.remove();
 
-    window.handleSheetData = function(res) {
+    window._loadTimeout = setTimeout(function() {
+      document.getElementById('clientList').innerHTML =
+        '<div class="empty"><div class="empty-icon">⚠️</div>'
+        + '로드 실패 — 스프레드시트 공유 설정을 확인하세요<br>'
+        + '<small style="color:#185FA5">스프레드시트 → 공유 → 링크가 있는 모든 사용자(뷰어)</small></div>';
+    }, 8000);
+
+    window.handleGvizData = function(res) {
       clearTimeout(window._loadTimeout);
-      if (res.status === 'ok') {
-        allData = res.data.reverse();
+      try {
+        var table = res.table;
+        var headers = table.cols.map(function(c) { return c.label || c.id; });
+        var rows = table.rows.map(function(r, i) {
+          var obj = { _row: i + 2 };
+          r.c.forEach(function(cell, j) {
+            obj[headers[j]] = (cell && cell.v !== null && cell.v !== undefined) ? cell.v : '';
+          });
+          return obj;
+        });
+        allData = rows.reverse();
         renderAll();
+      } catch(err) {
+        document.getElementById('clientList').innerHTML =
+          '<div class="empty"><div class="empty-icon">⚠️</div>데이터 파싱 오류: ' + err.message + '</div>';
       }
     };
 
     var script = document.createElement('script');
-    script.id = 'jsonp_script';
-    script.src = SHEET_URL + '?action=getData&callback=handleSheetData&t=' + Date.now();
+    script.id = 'gviz_script';
+    script.src = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID
+      + '/gviz/tq?tqx=out:json;responseHandler:handleGvizData&t=' + Date.now();
     document.body.appendChild(script);
   }
 
