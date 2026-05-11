@@ -239,6 +239,10 @@
       actions.push('<button class="btn-action btn-done" disabled>탑 ✅</button>');
     }
 
+    if (!topDone && missing.length > 0) {
+      actions.push('<button class="btn-action" style="background:#FFF3E0;color:#7B3A00;border:1px solid #FFB74D" onclick="copyUpdateLink(\'' + encodeURIComponent(d['상호명']) + '\',\'' + encodeURIComponent(d['미수집항목']||'') + '\')">📋 추가 수집 링크 복사</button>');
+    }
+
     if (topDone && !hasPortfolio) {
       actions.push('<button class="btn-action btn-portfolio" onclick="setPortfolioUrl(' + row + ', \'' + d['상호명'] + '\')">포트폴리오 URL 등록</button>');
     }
@@ -310,6 +314,16 @@
 
     showToast(msg + ' ✅');
     setTimeout(function(){ renderAll(); }, 300);
+  }
+
+  function copyUpdateLink(bizEnc, missingEnc) {
+    var base = window.location.href.replace('admin.html', 'index.html');
+    var url = base + '?update=' + bizEnc + '&missing=' + missingEnc;
+    navigator.clipboard.writeText(url).then(function() {
+      showToast('추가 수집 링크가 복사되었습니다 — 무브에게 공유하세요');
+    }).catch(function() {
+      prompt('아래 링크를 복사하세요:', url);
+    });
   }
 
   function setPortfolioUrl(row, bizName) {

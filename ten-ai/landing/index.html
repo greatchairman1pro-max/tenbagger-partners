@@ -155,6 +155,25 @@
 </div>
 
 <!-- ══════════════════════════════════
+     화면 8: 추가 수집 모드
+══════════════════════════════════ -->
+<div class="screen" id="screen-8">
+  <div class="card">
+    <div class="card-tag" style="background:#FFF3E0;color:#7B3A00;border-color:#FFB74D">탑(TOP) 추가 수집 지시</div>
+    <h2 id="update-title">추가 데이터 수집</h2>
+    <p class="card-sub" id="update-sub">탑(TOP)이 요청한 항목을 추가 입력해 주세요.</p>
+
+    <div class="director-hint">
+      <strong>무브(MOVE) —</strong> 아래 항목만 추가로 확인하면 됩니다. 이미 입력된 항목은 유지됩니다.
+    </div>
+
+    <div id="update-fields"></div>
+
+    <button class="btn-primary" onclick="submitUpdate()">추가 수집 제출 →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
      화면 0: 웰컴
 ══════════════════════════════════ -->
 <div class="screen active" id="screen-0">
@@ -556,6 +575,85 @@
   // ── Google Sheets 웹앱 URL (설정 필요) ──
   // 아래 URL을 Google Apps Script 배포 주소로 교체하세요
   const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwtNmaGqiOTNiRWrj37KZi-neIAZKAWzpBOBQoijQsyO2S4aqRZkwH3GsMWTFlgyGeQgg/exec';
+
+  // ── 추가 수집 필드 정의 ──
+  const UPDATE_FIELDS = {
+    '월 평균 매출':     { html: '<div class="form-row"><label class="form-label">월 평균 매출 <span style="color:#E53935">*</span></label><div class="amount-wrap"><input class="form-input" id="u_revenue" type="number" placeholder="0"><span class="amount-unit">만원/월</span></div></div>' },
+    '월 임대료':        { html: '<div class="form-row"><label class="form-label">월 임대료 <span style="color:#E53935">*</span></label><div class="amount-wrap"><input class="form-input" id="u_rent" type="number" placeholder="0"><span class="amount-unit">만원/월</span></div></div>' },
+    '월 인건비 합계':   { html: '<div class="form-row"><label class="form-label">월 인건비 합계 (4대보험 포함)</label><div class="amount-wrap"><input class="form-input" id="u_labor" type="number" placeholder="0"><span class="amount-unit">만원/월</span></div></div>' },
+    '원가율 (재료비 비중)': { html: '<div class="form-row"><label class="form-label">원가율 (재료비·매입비 비중)</label><select class="form-select" id="u_costRate"><option value="">선택</option><option value="20">20% 미만</option><option value="25">20~30%</option><option value="35">30~40%</option><option value="45">40~50%</option><option value="55">50% 이상</option></select></div>' },
+    '월 공과금 합계':   { html: '<div class="form-row"><label class="form-label">월 공과금 합계 (전기·수도·가스)</label><div class="amount-wrap"><input class="form-input" id="u_utility" type="number" placeholder="0"><span class="amount-unit">만원/월</span></div></div>' },
+    '온라인 플랫폼 활용 현황': { html: '<div class="form-row"><label class="form-label">사용 중인 플랫폼</label><div class="check-group"><label class="check-item"><input type="checkbox" name="u_platform" value="네이버플레이스"><span class="check-btn">네이버플레이스</span></label><label class="check-item"><input type="checkbox" name="u_platform" value="배달의민족"><span class="check-btn">배달의민족</span></label><label class="check-item"><input type="checkbox" name="u_platform" value="쿠팡이츠"><span class="check-btn">쿠팡이츠</span></label><label class="check-item"><input type="checkbox" name="u_platform" value="당근마켓"><span class="check-btn">당근마켓</span></label><label class="check-item"><input type="checkbox" name="u_platform" value="인스타그램"><span class="check-btn">인스타그램</span></label></div></div>' },
+    '직원 수':          { html: '<div class="form-row"><label class="form-label">직원 수 (파트타임 포함)</label><div class="amount-wrap"><input class="form-input" id="u_employees" type="number" placeholder="0"><span class="amount-unit">명</span></div></div>' },
+    '하루 평균 고객 수':{ html: '<div class="form-row"><label class="form-label">하루 평균 방문 고객 수</label><div class="amount-wrap"><input class="form-input" id="u_dailyCustomer" type="number" placeholder="0"><span class="amount-unit">명/일</span></div></div>' },
+  };
+
+  // ── 추가 수집 모드 초기화 ──
+  var UPDATE_BIZ_NAME = '';
+  var UPDATE_MISSING  = [];
+
+  function initUpdateMode(bizName, missingStr) {
+    UPDATE_BIZ_NAME = decodeURIComponent(bizName);
+    UPDATE_MISSING  = decodeURIComponent(missingStr).split(',').map(s => s.trim()).filter(Boolean);
+
+    document.getElementById('update-title').textContent = UPDATE_BIZ_NAME + ' — 추가 수집';
+    document.getElementById('update-sub').textContent   = '탑(TOP) 요청 항목: ' + UPDATE_MISSING.join(', ');
+    document.getElementById('header-badge').textContent = '추가 수집 모드';
+
+    const container = document.getElementById('update-fields');
+    container.innerHTML = UPDATE_MISSING.map(key =>
+      UPDATE_FIELDS[key] ? UPDATE_FIELDS[key].html : ''
+    ).join('') || '<p style="color:#888;font-size:13px">모든 항목이 수집되었습니다.</p>';
+
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-8').classList.add('active');
+    document.getElementById('progressWrap').style.display = 'none';
+  }
+
+  function submitUpdate() {
+    const data = {
+      timestamp: new Date().toISOString(),
+      bizName:   UPDATE_BIZ_NAME,
+      industry:  '', bizAge: '', address: '',
+      revenue:       document.getElementById('u_revenue')?.value      || '',
+      payments:      '',
+      dailyCustomer: document.getElementById('u_dailyCustomer')?.value || '',
+      rent:          document.getElementById('u_rent')?.value          || '',
+      utility:       document.getElementById('u_utility')?.value       || '',
+      telecom:       '',
+      costRate:      document.getElementById('u_costRate')?.value      || '',
+      employees:     document.getElementById('u_employees')?.value     || '',
+      labor:         document.getElementById('u_labor')?.value         || '',
+      ownerWork: '', rentals: '',
+      platforms: [...document.querySelectorAll('input[name="u_platform"]:checked')].map(e=>e.value).join(', '),
+      marketing: '', customerType: '', concerns: '', freeText: '', goal: '',
+      score: 0, missingItems: '', portfolioStatus: '추가수집제출'
+    };
+
+    const iframe = document.getElementById('gs_iframe') || (() => {
+      const f = document.createElement('iframe');
+      f.id = 'gs_iframe'; f.name = 'gs_iframe'; f.style.display = 'none';
+      document.body.appendChild(f); return f;
+    })();
+
+    const form = document.createElement('form');
+    form.method = 'POST'; form.action = SHEET_URL; form.target = 'gs_iframe'; form.style.display = 'none';
+    const inp = document.createElement('input');
+    inp.type = 'hidden'; inp.name = 'data'; inp.value = JSON.stringify(data);
+    form.appendChild(inp);
+    document.body.appendChild(form); form.submit(); document.body.removeChild(form);
+
+    document.getElementById('screen-8').innerHTML +=
+      '<div style="text-align:center;padding:1.5rem;color:#0B6B3A;font-weight:700;font-size:15px">✅ 추가 수집 데이터가 저장되었습니다.<br><span style="font-size:12px;color:#888">탑(TOP)이 검토 후 포트폴리오를 업데이트합니다.</span></div>';
+  }
+
+  // ── URL 파라미터 감지 ──
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('update')) {
+      initUpdateMode(params.get('update'), params.get('missing') || '');
+    }
+  })();
 
   const TOTAL_STEPS = 6;
   const stepLabels = ['기본정보','매출현황','비용구조','인력운영','플랫폼','현재고민'];
