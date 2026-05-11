@@ -138,18 +138,27 @@
 
   function loadData() {
     document.getElementById('clientList').innerHTML = '<div class="loading">데이터를 불러오는 중...</div>';
-    fetch(SHEET_URL + '?action=getData')
-      .then(function(r) { return r.json(); })
-      .then(function(res) {
-        if (res.status === 'ok') {
-          allData = res.data.reverse();
-          renderAll();
-        }
-      })
-      .catch(function() {
-        document.getElementById('clientList').innerHTML =
-          '<div class="empty"><div class="empty-icon">⚠️</div>데이터 로드 실패<br><small>Apps Script 재배포 후 다시 시도하세요</small></div>';
-      });
+
+    window._loadTimeout = setTimeout(function() {
+      document.getElementById('clientList').innerHTML =
+        '<div class="empty"><div class="empty-icon">⚠️</div>로드 시간 초과<br><small>Apps Script 재배포 후 다시 시도하세요</small></div>';
+    }, 10000);
+
+    var old = document.getElementById('jsonp_script');
+    if (old) old.remove();
+
+    window.handleSheetData = function(res) {
+      clearTimeout(window._loadTimeout);
+      if (res.status === 'ok') {
+        allData = res.data.reverse();
+        renderAll();
+      }
+    };
+
+    var script = document.createElement('script');
+    script.id = 'jsonp_script';
+    script.src = SHEET_URL + '?action=getData&callback=handleSheetData&t=' + Date.now();
+    document.body.appendChild(script);
   }
 
   function renderAll() {

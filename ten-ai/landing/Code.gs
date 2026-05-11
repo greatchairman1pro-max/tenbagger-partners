@@ -13,17 +13,26 @@ function doGet(e) {
 
   if (action === 'getData') {
     var values = sheet.getDataRange().getValues();
-    if (values.length <= 1) return jsonRes({ status: 'ok', data: [] });
-    var headers = values[0];
-    var rows = [];
-    for (var i = 1; i < values.length; i++) {
-      var row = { _row: i + 1 };
-      for (var j = 0; j < headers.length; j++) {
-        row[headers[j]] = values[i][j];
+    var result = { status: 'ok', data: [] };
+    if (values.length > 1) {
+      var headers = values[0];
+      var rows = [];
+      for (var i = 1; i < values.length; i++) {
+        var row = { _row: i + 1 };
+        for (var j = 0; j < headers.length; j++) {
+          row[headers[j]] = values[i][j];
+        }
+        rows.push(row);
       }
-      rows.push(row);
+      result.data = rows;
     }
-    return jsonRes({ status: 'ok', data: rows });
+    var cb = e.parameter.callback;
+    if (cb) {
+      return ContentService
+        .createTextOutput(cb + '(' + JSON.stringify(result) + ')')
+        .setMimeType(ContentService.MimeType.JAVASCRIPT);
+    }
+    return jsonRes(result);
   }
 
   if (action === 'updateStatus') {
