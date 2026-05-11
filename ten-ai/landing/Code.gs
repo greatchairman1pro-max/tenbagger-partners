@@ -1,10 +1,11 @@
 var SHEET_ID = '1khU2HGxoy1qb5rrIqhkj68tESSb79IdF4fWIBmkxUJg';
-var SHEET_NAME = '상담데이터';
 
 function doPost(e) {
   try {
-    var sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
-    var d = JSON.parse(e.postData.contents);
+    var spreadsheet = SpreadsheetApp.openById(SHEET_ID);
+    var sheet = spreadsheet.getSheets()[0];
+
+    var d = JSON.parse(e.parameter.data);
 
     var existingRow = -1;
     var data = sheet.getDataRange().getValues();

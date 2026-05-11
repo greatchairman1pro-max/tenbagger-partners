@@ -787,8 +787,7 @@
     fetch(SHEET_URL, {
       method: 'POST',
       mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body: new URLSearchParams({ data: JSON.stringify(data) })
     }).then(() => {
       document.getElementById('submitStatus').innerHTML =
         '<span class="submit-ok">✅ 데이터가 중앙 데이터베이스에 저장되었습니다.</span>';
