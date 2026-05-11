@@ -34,7 +34,25 @@
       "Bash(git commit *)",
       "Bash(mkdir -p ten-randing)",
       "Bash(mv index.html tenbagger_full_html.html ten-randing/)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "PowerShell($tokenFile = \"$env:APPDATA\\\\com.vercel.cli\\\\auth.json\"; if \\(Test-Path $tokenFile\\) { Get-Content $tokenFile } else { Get-ChildItem \"$env:LOCALAPPDATA\" -Recurse -Filter \"auth.json\" -ErrorAction SilentlyContinue | Where-Object {$_.FullName -match \"vercel\"} | ForEach-Object { Get-Content $_.FullName } })",
+      "PowerShell(Get-ChildItem \"$env:USERPROFILE\" -Recurse -Filter \"auth.json\" -ErrorAction SilentlyContinue | Where-Object {$_.FullName -match \"vercel\"} | Select-Object FullName)",
+      "PowerShell(Get-ChildItem \"$env:USERPROFILE\\\\.config\" -Recurse -ErrorAction SilentlyContinue | Where-Object {$_.Name -match \"vercel|vc\"} | Select-Object FullName)",
+      "PowerShell(npx vercel env ls 2>&1)",
+      "Bash(curl -s -X POST https://api.vercel.com/v1/projects/prj_8lyH8umlPlcLzp1VxJCXdl5ppDpa/link -H 'Authorization: Bearer vca_3VR1vbGexaKOi33lJXvQ5z3iCC39KEndpBiPkFuJrbkwN21fqD42O7UV' -H 'Content-Type: application/json' -d '{ *)",
+      "Bash(python3 -m json.tool)",
+      "Bash(curl -s -X POST https://api.vercel.com/v1/projects/prj_8lyH8umlPlcLzp1VxJCXdl5ppDpa/link -H 'Authorization: Bearer vca_3VR1vbGexaKOi33lJXvQ5z3iCC39KEndpBiPkFuJrbkwN21fqD42O7UV' -H 'Content-Type: application/json' -d '{\"type\":\"github\",\"repo\":\"greatchairman1pro-max/tenbagger-partners\",\"sourceless\":false,\"productionBranch\":\"main\"}')",
+      "Bash(curl -s -X PATCH https://api.vercel.com/v9/projects/prj_8lyH8umlPlcLzp1VxJCXdl5ppDpa -H 'Authorization: Bearer vca_3VR1vbGexaKOi33lJXvQ5z3iCC39KEndpBiPkFuJrbkwN21fqD42O7UV' -H 'Content-Type: application/json' -d '{\"rootDirectory\":\"ten-randing\"}')",
+      "Bash(curl -s -X POST https://api.vercel.com/v13/deployments -H 'Authorization: Bearer vca_3VR1vbGexaKOi33lJXvQ5z3iCC39KEndpBiPkFuJrbkwN21fqD42O7UV' -H 'Content-Type: application/json' -d '{\"name\":\"tenbagger-partners\",\"gitSource\":{\"type\":\"github\",\"repoId\":1228846587,\"ref\":\"main\"},\"projectId\":\"prj_8lyH8umlPlcLzp1VxJCXdl5ppDpa\",\"target\":\"production\"}')",
+      "Bash(curl -s -X POST https://api.vercel.com/v1/projects/prj_0yGvj4PdUziWaKSypONXea0KUSJi/link -H 'Authorization: Bearer vca_3VR1vbGexaKOi33lJXvQ5z3iCC39KEndpBiPkFuJrbkwN21fqD42O7UV' -H 'Content-Type: application/json' -d '{\"type\":\"github\",\"repo\":\"greatchairman1pro-max/tenbagger-partners\",\"productionBranch\":\"main\"}')",
+      "mcp__claude_ai_Google_Drive__search_files",
+      "mcp__claude_ai_Google_Drive__read_file_content",
+      "Bash(python3 -c ' *)",
+      "Bash(node -e ' *)",
+      "mcp__claude_ai_Google_Drive__create_file",
+      "Bash(curl -s -L -X POST https://script.google.com/macros/s/AKfycbzRXMl-8yYhyZkYoR9TpO2YkJOXoM7jFYQh7buWADfwyo2g00NFIk8y9gIIjFVzggupgw/exec -H 'Content-Type: application/json' -d '{\"sheetName\":\"ten-randing\",\"name\":\"테스트\",\"business\":\"테스트업체\",\"industry\":\"서비스업\",\"phone\":\"010-1234-5678\",\"email\":\"test@test.com\",\"message\":\"클로드 테스트\"}')",
+      "Bash(mkdir -p d:/in/ten-ai)",
+      "Bash(echo \"\")"
     ]
   }
 }

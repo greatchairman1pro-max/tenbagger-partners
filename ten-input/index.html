@@ -631,13 +631,17 @@ function extractNumbers(txt){
     revCard:find(['카드\\s*매출','카드','신용카드']),revCash:find(['현금\\s*매출','현금매출','현금']),
     revDelivery:find(['배달\\s*매출','배달앱','배달']),revOther:find(['기타\\s*매출']),
     costMaterial:find(['식재료','재료비','원재료','매입']),costSupplies:find(['소모품']),
-    costPackage:find(['포장재','포장']),
+    costPackage:find(['포장재','포장']),costOther:find(['기타\\s*매입','기타\\s*재료']),
     laborFull:find(['정규직\\s*급여','정규직','급여','월급','인건비']),
     laborPart:find(['파트타임','아르바이트','알바']),laborInsure:find(['4대보험','사대보험']),
-    fixRent:find(['임대료','월세','임차료']),fixTelecom:find(['통신비','전화비','인터넷']),
+    laborRetire:find(['퇴직충당금','퇴직급여','퇴직']),
+    fixRent:find(['임대료','월세','임차료']),fixManage:find(['관리비']),
+    fixTelecom:find(['통신비','전화비','인터넷']),
     fixTax:find(['세무기장료','기장료','세무','장부']),
     fixInsure:find(['보험료(?!.*사업주)','화재보험']),fixRental:find(['렌탈료','렌탈','리스']),
+    fixPos:find(['POS\\s*수수료','결제\\s*수수료','POS']),fixOther:find(['기타\\s*고정비']),
     varAd:find(['광고비','마케팅비','광고','마케팅']),varDeliveryFee:find(['배달앱\\s*수수료','배달수수료','수수료']),
+    varRepair:find(['수선\\s*유지비','수선비','유지보수']),varOther:find(['기타\\s*변동비']),
   };
   showAiResult(aiParsed);
 }
@@ -647,10 +651,10 @@ function showAiResult(p){
   document.getElementById('ai-month-label').textContent=year+'년 '+month+'월 분석 결과';
   var groups=[
     {title:'매출',keys:['revCard','revCash','revDelivery','revOther']},
-    {title:'매입 · 재료비',keys:['costMaterial','costSupplies','costPackage']},
-    {title:'인건비',keys:['laborFull','laborPart','laborInsure']},
-    {title:'고정비',keys:['fixRent','fixTelecom','fixTax','fixInsure','fixRental']},
-    {title:'변동비',keys:['varAd','varDeliveryFee']}
+    {title:'매입 · 재료비',keys:['costMaterial','costSupplies','costPackage','costOther']},
+    {title:'인건비',keys:['laborFull','laborPart','laborInsure','laborRetire']},
+    {title:'고정비',keys:['fixRent','fixManage','fixTelecom','fixTax','fixInsure','fixRental','fixPos','fixOther']},
+    {title:'변동비',keys:['varAd','varDeliveryFee','varRepair','varOther']}
   ];
   var html='';
   groups.forEach(function(g){
