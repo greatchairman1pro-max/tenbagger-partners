@@ -145,7 +145,7 @@
 <!-- 헤더 -->
 <div class="header">
   <div class="logo">텐베거<span>파트너스</span></div>
-  <div class="header-badge">무브(MOVE) 상담 시스템</div>
+  <div class="header-badge" id="header-badge">무브(MOVE) 상담 시스템</div>
 </div>
 
 <!-- 진행 바 -->
@@ -601,9 +601,12 @@
     document.getElementById('header-badge').textContent = '추가 수집 모드';
 
     const container = document.getElementById('update-fields');
-    container.innerHTML = UPDATE_MISSING.map(key =>
-      UPDATE_FIELDS[key] ? UPDATE_FIELDS[key].html : ''
-    ).join('') || '<p style="color:#888;font-size:13px">모든 항목이 수집되었습니다.</p>';
+    const rendered = UPDATE_MISSING.map(key => {
+      const field = UPDATE_FIELDS[key];
+      if (field) return field.html;
+      return '<div class="form-row"><label class="form-label">' + key + '</label><input class="form-input" type="text" placeholder="직접 입력"></div>';
+    }).join('');
+    container.innerHTML = rendered || '<p style="color:#888;font-size:13px">모든 항목이 수집되었습니다.</p>';
 
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById('screen-8').classList.add('active');
