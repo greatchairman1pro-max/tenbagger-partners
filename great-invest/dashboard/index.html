@@ -324,15 +324,15 @@ input[type=text]:focus, input[type=password]:focus { border-color:var(--gold); }
     <div class="card-title">🔑 API 키</div>
     <div class="sg">
       <div class="sg-head">
-        <span class="sg-label">Gemini API Key</span>
+        <span class="sg-label">Groq API Key</span>
         <span class="sg-badge req">필수</span>
       </div>
       <div class="sg-row">
-        <input type="password" id="geminiKey" placeholder="AIzaSy..." oninput="onKeyInput()">
+        <input type="password" id="geminiKey" placeholder="gsk_..." oninput="onKeyInput()">
         <button class="vis-btn" onclick="toggleKeyVis('geminiKey',this)">보기</button>
       </div>
-      <div class="sg-desc">분석 실행 시 직접 Gemini AI를 호출합니다</div>
-      <a href="https://aistudio.google.com/app/apikey" target="_blank" class="get-key-btn">→ Gemini API Key 발급 (무료)</a>
+      <div class="sg-desc">분석 실행 시 Groq AI(Llama 3.3)를 호출합니다 — 무료, 한국 제한 없음</div>
+      <a href="https://console.groq.com/keys" target="_blank" class="get-key-btn">→ Groq API Key 발급 (무료)</a>
     </div>
     <div class="sg" style="margin-top:18px">
       <div class="sg-head">
@@ -938,17 +938,21 @@ function addLog(msg, type='info') {
 }
 
 async function callGemini(prompt, apiKey) {
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-    {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({contents: [{parts: [{text: prompt}]}], generationConfig: {temperature: 0.7}})
-    }
-  );
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      model: 'llama-3.3-70b-versatile',
+      messages: [{role: 'user', content: prompt}],
+      temperature: 0.7
+    })
+  });
   const data = await res.json();
   if (!res.ok || data.error) throw new Error(data.error?.message || `HTTP ${res.status}`);
-  return data.candidates[0].content.parts[0].text;
+  return data.choices[0].message.content;
 }
 
 function parseJsonText(text) {
