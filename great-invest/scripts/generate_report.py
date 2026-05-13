@@ -1,201 +1,114 @@
-"""
-XO 자동화 스크립트 — 매일 06:10 KST 실행
-GitHub Actions에서 호출됨. services/ 폴더 모듈 사용.
-"""
-import json
-import os
-import sys
+import json, os, re
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-# ── 경로 설정 ────────────────────────────────────────────────
-ROOT      = Path(__file__).parent.parent
-DATA_DIR  = ROOT / "dashboard" / "data"
-DATA_DIR.mkdir(parents=True, exist_ok=True)
+import yfinance as yf
+import anthropic
 
-KST = timezone(timedelta(hours=9))
-TODAY = datetime.now(KST).strftime("%Y-%m-%d")
+ROOT     = Path(__file__).parent.parent
+DATA_DIR = ROOT / "dashboard" / "data"
+KST      = timezone(timedelta(hours=9))
+TODAY    = datetime.now(KST).strftime("%Y-%m-%d")
+NOTE     = "반드시 JSON만 출력. 설명·markdown 없이. 숫자는 따옴표 없이."
 
 
-# ── 1. 미국 주식 데이터 수집 ──────────────────────────────────
-def fetch_us_top5() -> list[dict]:
-    import yfinance as yf
-
-    tickers = [
-        "NVDA","AMD","MSFT","GOOGL","META","AVGO","QCOM",
-        "INTC","MU","AMAT","LRCX","KLAC","ASML","TSM","ARM"
-    ]
+def fetch_us_stocks():
+    tickers = ["NVDA","AMD","MSFT","GOOGL","META","AVGO","QCOM","TSM","ARM","MU"]
     results = []
-    for ticker in tickers:
+    for t in tickers:
         try:
-            hist = yf.Ticker(ticker).history(period="2d")["Close"]
-            if len(hist) >= 2:
-                change = round((hist.iloc[-1] / hist.iloc[-2] - 1) * 100, 2)
+            h = yf.Ticker(t).history(period="2d")["Close"]
+            if len(h) >= 2:
                 results.append({
-                    "name":   ticker,
-                    "ticker": ticker,
-                    "price":  round(float(hist.iloc[-1]), 2),
-                    "change": change
+                    "name": t, "ticker": t,
+                    "price": round(float(h.iloc[-1]), 2),
+                    "change": round((h.iloc[-1] / h.iloc[-2] - 1) * 100, 2)
                 })
         except Exception:
-            continue
-
-    results.sort(key=lambda x: x["change"], reverse=True)
-    return results[:5]
+            pass
+    return sorted(results, key=lambda x: x["change"], reverse=True)[:5]
 
 
-# ── 2. 국내 주식 수집 ─────────────────────────────────────────
-def fetch_kr_stocks(theme_keywords: list[str]) -> list[dict]:
-    import FinanceDataReader as fdr
-
-    # 테마 키워드 → 종목코드 매핑 DB 로드
-    db_path = ROOT / "data" / "theme_db.json"
-    if not db_path.exists():
-        return []
-    with open(db_path, encoding="utf-8") as f:
-        theme_db = json.load(f)
-
-    # 키워드 매칭
-    candidates = []
-    for kw in theme_keywords:
-        for key, codes in theme_db.items():
-            if kw in key:
-                candidates.extend(codes)
-
-    results = []
-    for code in list(dict.fromkeys(candidates))[:10]:
-        try:
-            df = fdr.DataReader(code, period="2d")
-            if len(df) >= 2:
-                change = round((df["Close"].iloc[-1] / df["Close"].iloc[-2] - 1) * 100, 2)
-                results.append({
-                    "name":   code,  # Gemini가 종목명으로 교체
-                    "code":   code,
-                    "price":  int(df["Close"].iloc[-1]),
-                    "change": change
-                })
-        except Exception:
-            continue
-
-    results.sort(key=lambda x: x["change"], reverse=True)
-    return results[:5]
+def call_claude(prompt):
+    client = anthropic.Anthropic(api_key=os.environ["CLAUDE_API_KEY"])
+    msg = client.messages.create(
+        model="claude-haiku-4-5-20251001",
+        max_tokens=3000,
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return msg.content[0].text
 
 
-# ── 3. Gemini API 분석 ────────────────────────────────────────
-def analyze_with_gemini(us_stocks: list[dict]) -> dict:
-    import google.generativeai as genai
-
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-    model = genai.GenerativeModel("gemini-1.5-flash")
-
-    tickers_str = ", ".join(f"{s['ticker']}({s['change']:+.1f}%)" for s in us_stocks)
-
-    # 테마 및 상승 이유 분석
-    theme_prompt = f"""
-오늘 미국 증시에서 가장 많이 오른 종목들입니다: {tickers_str}
-
-다음 형식으로 JSON만 출력해주세요 (설명 없이):
-{{
-  "theme_name": "테마명 (예: 반도체 / AI 인프라)",
-  "sector": "섹터명",
-  "reasons": ["상승 이유 1 (30자 이내)", "상승 이유 2 (30자 이내)"],
-  "kr_keywords": ["관련 국내 키워드1", "관련 국내 키워드2"]
-}}
-"""
-    theme_res = model.generate_content(theme_prompt)
-    theme_text = theme_res.text.strip().lstrip("```json").rstrip("```").strip()
-    theme_data = json.loads(theme_text)
-
-    # 쇼츠 대본 생성
-    script_prompt = f"""
-오늘 미국 증시 분석:
-- 테마: {theme_data['theme_name']}
-- 이유1: {theme_data['reasons'][0]}
-- 이유2: {theme_data['reasons'][1]}
-- 상위 종목: {tickers_str}
-
-위 내용을 바탕으로 유튜브 쇼츠용 60초 대본을 작성해주세요.
-조건: 구어체, 한국어, "TUBE입니다"로 시작, "구독과 좋아요" 로 마무리.
-줄바꿈 포함해서 자연스럽게 작성.
-"""
-    script_res = model.generate_content(script_prompt)
-
-    # 블로그 원고 생성
-    blog_prompt = f"""
-오늘 미국 증시 분석:
-- 테마: {theme_data['theme_name']}
-- 이유1: {theme_data['reasons'][0]}
-- 이유2: {theme_data['reasons'][1]}
-
-위 내용으로 블로그 포스팅용 원고를 작성하세요.
-JSON으로만 출력:
-{{
-  "intro": "서론 (2~3문장)",
-  "body": "본론 (3~4단락, 줄바꿈 포함)",
-  "conclusion": "결론 (2~3문장, 면책 문구 포함)"
-}}
-"""
-    blog_res = model.generate_content(blog_prompt)
-    blog_text = blog_res.text.strip().lstrip("```json").rstrip("```").strip()
-    blog_data = json.loads(blog_text)
-
-    return {
-        "theme":         theme_data,
-        "shorts_script": script_res.text.strip(),
-        "blog":          blog_data,
-        "kr_keywords":   theme_data.get("kr_keywords", [])
-    }
+def parse_json(text):
+    m = re.search(r"```json\s*([\s\S]*?)```", text)
+    if m:
+        return json.loads(m.group(1))
+    s, e = text.find("{"), text.rfind("}")
+    if s >= 0 and e > s:
+        return json.loads(text[s:e+1])
+    raise ValueError("JSON 파싱 실패")
 
 
-# ── 4. JSON 저장 + index 업데이트 ─────────────────────────────
-def save_report(report: dict):
-    out_path = DATA_DIR / f"{TODAY}.json"
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(report, f, ensure_ascii=False, indent=2)
-    print(f"✅ 저장 완료: {out_path}")
-
-    # index.json 업데이트
-    index_path = DATA_DIR / "index.json"
-    if index_path.exists():
-        with open(index_path, encoding="utf-8") as f:
-            index = json.load(f)
-    else:
-        index = {"dates": []}
-
-    if TODAY not in index["dates"]:
-        index["dates"].insert(0, TODAY)
-        index["dates"] = index["dates"][:30]  # 최근 30일만 유지
-
-    with open(index_path, "w", encoding="utf-8") as f:
-        json.dump(index, f, ensure_ascii=False, indent=2)
+def save(agent, data):
+    out = DATA_DIR / agent
+    out.mkdir(parents=True, exist_ok=True)
+    (out / f"{TODAY}.json").write_text(
+        json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    idx_path = DATA_DIR / "index.json"
+    idx = json.loads(idx_path.read_text(encoding="utf-8")) if idx_path.exists() else {"dates": []}
+    if TODAY not in idx["dates"]:
+        idx["dates"].insert(0, TODAY)
+        idx["dates"] = idx["dates"][:30]
+    idx_path.write_text(json.dumps(idx, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-# ── Main ──────────────────────────────────────────────────────
 def main():
-    print(f"🚀 XO 리포트 생성 시작 — {TODAY}")
+    print(f"🚀 XO 리포트 — {TODAY}")
 
-    print("  [1/4] 미국 주식 수집...")
-    us_stocks = fetch_us_top5()
+    us = fetch_us_stocks()
+    us_str = "\n".join(f"{s['ticker']}: ${s['price']} ({s['change']:+.2f}%)" for s in us)
 
-    print("  [2/4] Gemini 분석...")
-    analysis = analyze_with_gemini(us_stocks)
-
-    print("  [3/4] 국내 주식 수집...")
-    kr_stocks = fetch_kr_stocks(analysis["kr_keywords"])
-
-    report = {
-        "date":          TODAY,
-        "generated_at":  datetime.now(KST).isoformat(),
-        "theme":         analysis["theme"],
-        "us_stocks":     us_stocks,
-        "kr_stocks":     kr_stocks,
-        "shorts_script": analysis["shorts_script"],
-        "blog":          analysis["blog"]
+    prompts = {
+        "market": (
+            f"오늘({TODAY}) 미국 주식:\n{us_str}\n\n{NOTE}\n"
+            f'{{"date":"{TODAY}","agent":"market","theme":{{"name":"테마명","reasons":["이유1","이유2"]}},'
+            f'"us_stocks":[{{"name":"종목명","ticker":"티커","price":0.0,"change":0.0}}],'
+            f'"kr_stocks":[{{"name":"종목명","code":"6자리","price":0,"change":0.0}}],'
+            f'"shorts_script":"XO입니다로 시작 60초 대본",'
+            f'"blog":{{"intro":"서론","body":"본론","conclusion":"결론+면책"}}}}\n'
+            f"us_stocks 5개, kr_stocks 5개."
+        ),
+        "technical": (
+            f"오늘({TODAY}) 코스피/코스닥 2일 연속 상승 종목 분석.\n\n{NOTE}\n"
+            f'{{"date":"{TODAY}","agent":"technical","title":"코스피 2일 연속 상승 종목",'
+            f'"market_summary":"코스피 현황 한줄",'
+            f'"stocks":[{{"name":"종목명","code":"6자리","price":0,"day1":0.0,"day2":0.0,"total":0.0,"volume_ratio":0.0,"signal":"이유"}}],'
+            f'"shorts_script":"XO입니다로 시작 60초 대본",'
+            f'"blog":{{"intro":"서론","body":"본론","conclusion":"결론+면책"}}}}\n'
+            f"stocks 5개."
+        ),
+        "sector": (
+            f"오늘({TODAY}) 글로벌 섹터별 강세 종목. 미국 데이터:\n{us_str}\n\n{NOTE}\n"
+            f'{{"date":"{TODAY}","agent":"sector","title":"섹터별 강세 종목",'
+            f'"foreign":[{{"sector":"섹터명","stocks":[{{"name":"종목명","ticker":"티커","price":0.0,"change":0.0}}]}}],'
+            f'"domestic":[{{"sector":"섹터명","stocks":[{{"name":"종목명","code":"6자리","price":0,"change":0.0}}]}}],'
+            f'"shorts_script":"XO입니다로 시작 60초 대본",'
+            f'"blog":{{"intro":"서론","body":"본론","conclusion":"결론+면책"}}}}\n'
+            f"foreign 3섹터, domestic 3섹터."
+        ),
     }
 
-    print("  [4/4] 저장...")
-    save_report(report)
-    print("✅ 완료")
+    for agent, prompt in prompts.items():
+        print(f"  Claude — {agent} 분석 중...")
+        try:
+            data = parse_json(call_claude(prompt))
+            save(agent, data)
+            print(f"  ✅ {agent} 완료")
+        except Exception as e:
+            print(f"  ❌ {agent} 실패: {e}")
+
+    print("✅ 전체 완료")
 
 
 if __name__ == "__main__":
