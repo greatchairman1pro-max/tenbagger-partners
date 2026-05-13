@@ -324,27 +324,26 @@ input[type=text]:focus, input[type=password]:focus { border-color:var(--gold); }
     <div class="card-title">🔑 API 키</div>
     <div class="sg">
       <div class="sg-head">
-        <span class="sg-label">GitHub Token</span>
+        <span class="sg-label">Gemini API Key</span>
         <span class="sg-badge req">필수</span>
+      </div>
+      <div class="sg-row">
+        <input type="password" id="geminiKey" placeholder="AIzaSy..." oninput="onKeyInput()">
+        <button class="vis-btn" onclick="toggleKeyVis('geminiKey',this)">보기</button>
+      </div>
+      <div class="sg-desc">분석 실행 시 직접 Gemini AI를 호출합니다</div>
+      <a href="https://aistudio.google.com/app/apikey" target="_blank" class="get-key-btn">→ Gemini API Key 발급 (무료)</a>
+    </div>
+    <div class="sg" style="margin-top:18px">
+      <div class="sg-head">
+        <span class="sg-label">GitHub Token</span>
+        <span class="sg-badge opt">선택</span>
       </div>
       <div class="sg-row">
         <input type="password" id="githubToken" placeholder="ghp_..." oninput="onKeyInput()">
         <button class="vis-btn" onclick="toggleKeyVis('githubToken',this)">보기</button>
       </div>
-      <div class="sg-desc">분석 실행 버튼이 GitHub Actions를 트리거합니다 (한국 지역 제한 우회)</div>
-      <a href="https://github.com/settings/tokens/new?scopes=workflow&description=XO+Dashboard" target="_blank" class="get-key-btn">→ GitHub Token 발급 (workflow 권한 선택)</a>
-    </div>
-    <div class="sg" style="margin-top:18px">
-      <div class="sg-head">
-        <span class="sg-label">Finnhub API Key</span>
-        <span class="sg-badge opt">선택</span>
-      </div>
-      <div class="sg-row">
-        <input type="password" id="finnhubKey" placeholder="c..." oninput="onKeyInput()">
-        <button class="vis-btn" onclick="toggleKeyVis('finnhubKey',this)">보기</button>
-      </div>
-      <div class="sg-desc">미국 주식 실시간 시세 (없으면 Gemini 추정치 사용)</div>
-      <a href="https://finnhub.io/register" target="_blank" class="get-key-btn">→ Finnhub 무료 발급</a>
+      <div class="sg-desc">매일 오전 자동 분석 예약 실행용 (선택사항)</div>
     </div>
     <button class="save-btn" onclick="saveSettingsForm()">💾 저장</button>
   </div>
@@ -352,27 +351,18 @@ input[type=text]:focus, input[type=password]:focus { border-color:var(--gold); }
   <!-- 분석 실행 -->
   <div class="card">
     <div class="card-title">⚡ 분석 실행</div>
-    <div class="run-desc">버튼을 누르면 GitHub Actions(미국 서버)에서 Gemini 분석을 실행합니다.<br>2~3분 후 페이지를 새로고침하면 최신 데이터가 표시됩니다.</div>
+    <div class="run-desc">Gemini API Key를 입력한 후 버튼을 누르면 즉시 분석이 실행됩니다.<br>완료 후 바로 최신 데이터가 표시됩니다.</div>
     <button class="run-btn" id="runBtn" onclick="runAnalysis()">⚡ 지금 분석 실행</button>
     <div id="runLogWrap" class="run-log-wrap" style="display:none">
       <div class="run-log-box" id="runLogBox"></div>
     </div>
   </div>
 
-  <!-- GitHub Secrets 등록 안내 -->
+  <!-- 자동 실행 안내 -->
   <div class="card">
-    <div class="card-title">🔧 최초 1회 설정</div>
+    <div class="card-title">🕐 자동 실행 (선택)</div>
     <p style="font-size:13px;color:var(--muted);line-height:1.9">
-      GitHub Secrets에 Gemini 키를 등록해야 분석이 실행됩니다.
-    </p>
-    <div class="secret-rows">
-      <div class="secret-row">
-        <code>GEMINI_API_KEY</code>
-        <span style="font-size:11px;color:var(--muted)">← Gemini 키 값 입력</span>
-      </div>
-    </div>
-    <p style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.8">
-      GitHub → tenbagger-partners → Settings → Secrets → Actions → New repository secret
+      GitHub Token을 설정하면 매주 월~금 오전 6시에 자동으로 분석이 실행됩니다.
     </p>
   </div>
 </div>
@@ -410,12 +400,21 @@ function switchTab(name, btn) {
 
 // ── Load ─────────────────────────────────────────────────────
 async function loadDateIndex() {
+  // localStorage 날짜 먼저 수집
+  const lsIdx = JSON.parse(localStorage.getItem('xo_date_index') || '{"dates":[]}');
+  let dates = [...lsIdx.dates];
+
   try {
     const res = await fetch('data/index.json');
     const idx = await res.json();
-    renderSidebar(idx.dates);
-    if (idx.dates.length) selectDate(idx.dates[0]);
-  } catch {
+    idx.dates.forEach(d => { if (!dates.includes(d)) dates.push(d); });
+    dates.sort((a,b) => b.localeCompare(a));
+  } catch {}
+
+  if (dates.length) {
+    renderSidebar(dates);
+    selectDate(dates[0]);
+  } else {
     renderSidebar([SAMPLES.market.date]);
     selectDate(SAMPLES.market.date, true);
   }
@@ -877,7 +876,7 @@ function saveAllSettings(obj) {
   localStorage.setItem('xo_settings', JSON.stringify({...s,...obj}));
 }
 function loadSettingsForm() {
-  ['githubToken','finnhubKey'].forEach(id => {
+  ['geminiKey','githubToken'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = getSetting(id);
   });
@@ -890,7 +889,7 @@ function saveSettingsForm() {
 }
 function syncFormToStorage() {
   const obj = {};
-  ['githubToken','finnhubKey'].forEach(id => {
+  ['geminiKey','githubToken'].forEach(id => {
     const v = document.getElementById(id)?.value?.trim();
     if (v !== undefined) obj[id] = v;
   });
@@ -906,12 +905,12 @@ function toggleKeyVis(id, btn) {
 function updateHdStatus() {
   const el = document.getElementById('hdStatus');
   if (!el) return;
-  const g = !!getSetting('githubToken');
+  const g = !!getSetting('geminiKey');
   if (g) {
-    el.textContent = 'GitHub ✓';
+    el.textContent = 'Gemini ✓';
     el.style.cssText = 'color:#4dff91;background:rgba(77,255,145,.1);padding:3px 8px;border-radius:4px;font-size:11px';
   } else {
-    el.textContent = '⚠ Token 미설정';
+    el.textContent = '⚠ Key 미설정';
     el.style.cssText = 'color:var(--up);background:rgba(255,77,77,.1);padding:3px 8px;border-radius:4px;font-size:11px';
   }
 }
@@ -925,7 +924,7 @@ function closeSettings() {
 }
 function quickRun() {
   syncFormToStorage();
-  if (!getSetting('githubToken')) { openSettings(); showToast('⚙️ GitHub Token을 입력하세요', 'err'); return; }
+  if (!getSetting('geminiKey')) { openSettings(); showToast('⚙️ Gemini API Key를 입력하세요', 'err'); return; }
   runAnalysis();
 }
 
@@ -938,44 +937,75 @@ function addLog(msg, type='info') {
   el.scrollTop = el.scrollHeight;
 }
 
+async function callGemini(prompt, apiKey) {
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+    {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({contents: [{parts: [{text: prompt}]}], generationConfig: {temperature: 0.7}})
+    }
+  );
+  const data = await res.json();
+  if (!res.ok || data.error) throw new Error(data.error?.message || `HTTP ${res.status}`);
+  return data.candidates[0].content.parts[0].text;
+}
+
+function parseJsonText(text) {
+  const m = text.match(/```json\s*([\s\S]*?)```/);
+  if (m) return JSON.parse(m[1]);
+  const s = text.indexOf('{'), e = text.lastIndexOf('}');
+  if (s >= 0 && e > s) return JSON.parse(text.slice(s, e+1));
+  throw new Error('JSON 파싱 실패');
+}
+
 async function runAnalysis() {
   syncFormToStorage();
-  const token = getSetting('githubToken');
-  if (!token) { openSettings(); showToast('GitHub Token을 입력하세요', 'err'); return; }
+  const geminiKey = getSetting('geminiKey');
+  if (!geminiKey) { openSettings(); showToast('Gemini API Key를 입력하세요', 'err'); return; }
 
   const btn = document.getElementById('runBtn');
-  if (btn) { btn.disabled = true; btn.textContent = '⏳ 요청 중...'; }
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ 분석 중...'; }
   document.getElementById('runLogWrap').style.display = 'block';
   document.getElementById('runLogBox').innerHTML = '';
 
-  try {
-    addLog('GitHub Actions 분석 요청 중...', 'info');
-    const res = await fetch(
-      'https://api.github.com/repos/greatchairman1pro-max/tenbagger-partners/actions/workflows/tube-daily.yml/dispatches',
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/vnd.github.v3+json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ ref: 'main' })
-      }
-    );
-    if (res.status === 204) {
-      addLog('✅ 분석 요청 완료! GitHub Actions에서 실행 중입니다.', 'ok');
-      addLog('⏱ 2~3분 후 페이지를 새로고침(F5)하면 최신 데이터가 표시됩니다.', 'warn');
-      showToast('분석 요청 완료! 2~3분 후 새로고침', 'ok');
-    } else {
-      const e = await res.json().catch(() => ({}));
-      throw new Error(e.message || `HTTP ${res.status}`);
+  const today = new Date().toLocaleDateString('sv-SE', {timeZone: 'Asia/Seoul'});
+  const NOTE = '반드시 JSON만 출력. 설명·markdown 없이. 숫자는 따옴표 없이.';
+  const prompts = {
+    market: `오늘(${today}) 미국/한국 주식시장 분석.\n\n${NOTE}\n{"date":"${today}","agent":"market","theme":{"name":"테마명","reasons":["이유1","이유2"]},"us_stocks":[{"name":"종목명","ticker":"티커","price":0.0,"change":0.0}],"kr_stocks":[{"name":"종목명","code":"6자리","price":0,"change":0.0}],"shorts_script":"XO입니다로 시작 60초 대본","blog":{"intro":"서론","body":"본론","conclusion":"결론+면책"}}\nus_stocks 5개, kr_stocks 5개.`,
+    technical: `오늘(${today}) 코스피/코스닥 2일 연속 상승 종목 분석.\n\n${NOTE}\n{"date":"${today}","agent":"technical","title":"코스피 2일 연속 상승 종목","market_summary":"코스피 현황 한줄","stocks":[{"name":"종목명","code":"6자리","price":0,"day1":0.0,"day2":0.0,"total":0.0,"volume_ratio":0.0,"signal":"이유"}],"shorts_script":"XO입니다로 시작 60초 대본","blog":{"intro":"서론","body":"본론","conclusion":"결론+면책"}}\nstocks 5개.`,
+    sector: `오늘(${today}) 글로벌 섹터별 강세 종목.\n\n${NOTE}\n{"date":"${today}","agent":"sector","title":"섹터별 강세 종목","foreign":[{"sector":"섹터명","stocks":[{"name":"종목명","ticker":"티커","price":0.0,"change":0.0}]}],"domestic":[{"sector":"섹터명","stocks":[{"name":"종목명","code":"6자리","price":0,"change":0.0}]}],"shorts_script":"XO입니다로 시작 60초 대본","blog":{"intro":"서론","body":"본론","conclusion":"결론+면책"}}\nforeign 3섹터, domestic 3섹터.`,
+  };
+
+  let success = 0;
+  for (const [agent, prompt] of Object.entries(prompts)) {
+    addLog(`${agent} 분석 중...`, 'info');
+    try {
+      const raw = await callGemini(prompt, geminiKey);
+      const data = parseJsonText(raw);
+      data._generated = Date.now();
+      saveAgentLocal(agent, today, data);
+      agentData[agent] = data;
+      if (agent === currentAgent) applyData(agent, data);
+      addLog(`✅ ${agent} 완료`, 'ok');
+      success++;
+    } catch(e) {
+      addLog(`❌ ${agent} 실패: ${e.message}`, 'err');
     }
-  } catch(e) {
-    addLog('오류: ' + e.message, 'err');
-    showToast('오류: ' + e.message, 'err');
-  } finally {
-    if (btn) { btn.disabled = false; btn.textContent = '⚡ 지금 분석 실행'; }
   }
+
+  if (success > 0) {
+    showToast(`분석 완료 (${success}/3)`, 'ok');
+    // 날짜 인덱스 업데이트
+    const idx = JSON.parse(localStorage.getItem('xo_date_index') || '{"dates":[]}');
+    if (!idx.dates.includes(today)) { idx.dates.unshift(today); idx.dates = idx.dates.slice(0,30); }
+    localStorage.setItem('xo_date_index', JSON.stringify(idx));
+    if (today !== currentDate) selectDate(today);
+  } else {
+    showToast('분석 실패 — API 키를 확인하세요', 'err');
+  }
+
+  if (btn) { btn.disabled = false; btn.textContent = '⚡ 지금 분석 실행'; }
 }
 
 // ── Toast ─────────────────────────────────────────────────────
