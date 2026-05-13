@@ -1,0 +1,38 @@
+name: TUBE — Daily Report
+
+on:
+  schedule:
+    # 매주 월~금 UTC 21:10 = KST 06:10
+    - cron: "10 21 * * 1-5"
+  workflow_dispatch:  # 수동 실행 허용
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: great-invest/scripts/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r great-invest/scripts/requirements.txt
+
+      - name: Run TUBE report generator
+        env:
+          GEMINI_API_KEY:       ${{ secrets.GEMINI_API_KEY }}
+        run: python great-invest/scripts/generate_report.py
+
+      - name: Commit and push new report
+        run: |
+          git config user.name  "TUBE Bot"
+          git config user.email "tube-bot@github.com"
+          git add great-invest/dashboard/data/
+          git diff --staged --quiet || git commit -m "📺 TUBE 리포트 자동 생성 — $(date '+%Y-%m-%d')"
+          git push
