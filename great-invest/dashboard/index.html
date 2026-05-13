@@ -204,9 +204,9 @@ canvas#shortsCanvas { border-radius:10px; border:2px solid var(--border); box-sh
         <span class="badge">우측·하단: YouTube UI 안전영역 반영</span>
       </div>
       <div class="shorts-wrap">
-        <canvas id="shortsCanvas" width="338" height="600"></canvas>
+        <canvas id="shortsCanvas" width="405" height="720"></canvas>
         <div class="shorts-label">
-          미리보기 31.25% | 우측 160px · 하단 400px YouTube 버튼 영역 제외<br>
+          미리보기 37.5% | 우측 160px · 하단 400px YouTube 버튼 영역 제외<br>
           다운로드 시 원본 1080×1920 저장
         </div>
         <button class="dl-btn" onclick="downloadImage()">⬇ PNG 다운로드</button>
@@ -436,231 +436,220 @@ function renderBlog(d) {
 }
 
 // ── Shorts Canvas ─────────────────────────────────────────────
-// Canvas: 338×600 (preview 31.25% of 1080×1920)
-// Safe zone: right 160px + bottom 400px excluded (YouTube UI)
-// Content area: x 0~920, y 0~1520
+// 모든 수치는 풀 해상도(1080×1920) 기준 → s = W/1080 으로 스케일
+// Safe zone: 우측 160px(YouTube 버튼), 하단 400px(UI) 제외
 function drawShortsCanvas(canvas, agent, d) {
   const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;   // 338, 600
-  const s = W / 1080;                          // 0.3129...
+  const W = canvas.width, H = canvas.height;
+  const s = W / 1080;
 
-  // Safe zone boundaries in canvas coords
-  const safeRight  = Math.floor(920 * s);       // ≈ 288
-  const safeBottom = Math.floor(1520 * s);      // ≈ 476
-  const padL = Math.floor(36 * s);              // ≈ 11
-  const contentW = safeRight - padL;            // usable width
+  // 안전영역 (풀해상도 기준 → canvas 좌표)
+  const safeR = Math.round(920  * s);   // 우측 한계
+  const safeB = Math.round(1520 * s);   // 하단 한계
+  const PL    = Math.round(52   * s);   // 좌측 패딩
 
-  // Background
+  // 배경
   const bg = ctx.createLinearGradient(0, 0, 0, H);
-  bg.addColorStop(0, '#080810'); bg.addColorStop(1, '#0d0d20');
+  bg.addColorStop(0, '#080812'); bg.addColorStop(1, '#0c0c1e');
   ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
-  // Subtle horizontal lines
-  ctx.strokeStyle = 'rgba(255,255,255,0.025)'; ctx.lineWidth = 0.5;
-  for (let y = 0; y < H; y += Math.floor(36*s)) {
-    ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+  // 미세 그리드
+  ctx.strokeStyle = 'rgba(255,255,255,0.02)'; ctx.lineWidth = 1;
+  for (let gy = 0; gy < H; gy += Math.round(60*s)) {
+    ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke();
   }
 
-  // YouTube UI zone overlays (right + bottom) — subtle indicator
-  ctx.fillStyle = 'rgba(255,100,100,0.04)';
-  ctx.fillRect(safeRight, 0, W - safeRight, safeBottom);  // right strip
-  ctx.fillRect(0, safeBottom, W, H - safeBottom);         // bottom strip
+  // YouTube UI 안전영역 표시 (매우 연하게)
+  ctx.fillStyle = 'rgba(255,80,80,0.04)';
+  ctx.fillRect(safeR, 0, W - safeR, H);
+  ctx.fillRect(0, safeB, W, H - safeB);
 
-  // ── Header (y 0 ~ 130px full → 0 ~ 41canvas) ──
-  const hdrH = Math.floor(130 * s);
-  const hdrGrad = ctx.createLinearGradient(0, 0, 0, hdrH);
-  hdrGrad.addColorStop(0, 'rgba(255,215,0,0.18)');
-  hdrGrad.addColorStop(1, 'rgba(255,215,0,0.04)');
-  ctx.fillStyle = hdrGrad; ctx.fillRect(0, 0, safeRight, hdrH);
+  // ── 헤더 (0–180) ──────────────────────────────────────────
+  const hg = ctx.createLinearGradient(0, 0, 0, Math.round(180*s));
+  hg.addColorStop(0, 'rgba(255,215,0,0.20)');
+  hg.addColorStop(1, 'rgba(255,215,0,0.03)');
+  ctx.fillStyle = hg;
+  ctx.fillRect(0, 0, safeR, Math.round(180*s));
 
-  // Logo
-  ctx.font = `bold ${Math.floor(30*s)}px "Segoe UI",sans-serif`;
+  // 로고 "XO"
+  ctx.font = `bold ${Math.round(96*s)}px "Segoe UI",sans-serif`;
   ctx.fillStyle = '#ffd700';
-  ctx.fillText('XO', padL, Math.floor(88*s));
+  ctx.fillText('XO', PL, Math.round(128*s));
 
-  // Agent label chip
+  // 에이전트 태그
   const agentLabel = {market:'미장국장', technical:'기술적분석', sector:'섹터테마'}[agent];
-  ctx.font = `${Math.floor(18*s)}px "Segoe UI",sans-serif`;
-  ctx.fillStyle = 'rgba(255,255,255,0.5)';
-  ctx.fillText(agentLabel, padL + Math.floor(50*s), Math.floor(88*s));
+  ctx.font = `${Math.round(44*s)}px "Segoe UI",sans-serif`;
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx.fillText(agentLabel, PL + Math.round(148*s), Math.round(128*s));
 
-  // Date (right side, within safe zone)
-  ctx.font = `${Math.floor(17*s)}px "Segoe UI",sans-serif`;
+  // 날짜 (우측 정렬)
+  ctx.font = `${Math.round(36*s)}px "Segoe UI",sans-serif`;
   ctx.fillStyle = 'rgba(255,255,255,0.35)';
   const dw = ctx.measureText(d.date).width;
-  ctx.fillText(d.date, safeRight - dw - Math.floor(10*s), Math.floor(88*s));
+  ctx.fillText(d.date, safeR - dw - Math.round(16*s), Math.round(128*s));
 
-  let y = Math.floor(160 * s);
-
-  // ── Theme / Title section ──
+  // ── 테마/제목 (180–520) ────────────────────────────────────
+  let y = Math.round(210*s);
   const title = agent === 'market' ? d.theme.name : d.title;
-  ctx.font = `${Math.floor(14*s)}px "Segoe UI",sans-serif`;
-  ctx.fillStyle = 'rgba(255,215,0,0.75)';
-  ctx.fillText(agent === 'market' ? '오늘의 미장 테마' : '오늘의 분석 주제', padL, y);
 
-  y += Math.floor(42*s);
-  const titleSize = title.length > 14 ? Math.floor(28*s) : Math.floor(34*s);
-  ctx.font = `bold ${titleSize}px "Segoe UI",sans-serif`;
+  ctx.font = `${Math.round(38*s)}px "Segoe UI",sans-serif`;
+  ctx.fillStyle = 'rgba(255,215,0,0.8)';
+  ctx.fillText(agent === 'market' ? '오늘의 미장 테마' : '오늘의 분석 주제', PL, y);
+  y += Math.round(80*s);
+
+  // 제목 (길이에 따라 폰트 조절)
+  const tSize = Math.round((title.length > 12 ? 72 : 88) * s);
+  ctx.font = `bold ${tSize}px "Segoe UI",sans-serif`;
   ctx.fillStyle = '#ffffff';
-  // Word wrap if too long
-  if (ctx.measureText(title).width > contentW) {
-    const mid = Math.floor(title.length / 2);
-    ctx.fillText(title.slice(0, mid), padL, y);
-    y += Math.floor(38*s);
-    ctx.fillText(title.slice(mid), padL, y);
+  if (ctx.measureText(title).width > safeR - PL - Math.round(20*s)) {
+    const sp = title.indexOf('/') > 0 ? title.indexOf('/') : Math.ceil(title.length / 2);
+    ctx.fillText(title.slice(0, sp).trim(), PL, y);
+    y += Math.round(90*s);
+    ctx.fillText(title.slice(sp).trim(), PL, y);
+    y += Math.round(50*s);
   } else {
-    ctx.fillText(title, padL, y);
-  }
-  y += Math.floor(22*s);
-
-  // Gold divider
-  ctx.strokeStyle = '#ffd700'; ctx.lineWidth = Math.floor(2*s);
-  ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(safeRight - Math.floor(10*s), y); ctx.stroke();
-  y += Math.floor(22*s);
-
-  // ── Agent-specific content ──
-  if (agent === 'market') {
-    y = drawMarketCanvas(ctx, d, y, s, padL, safeRight, contentW);
-  } else if (agent === 'technical') {
-    y = drawTechnicalCanvas(ctx, d, y, s, padL, safeRight, contentW);
-  } else {
-    y = drawSectorCanvas(ctx, d, y, s, padL, safeRight, contentW);
+    ctx.fillText(title, PL, y);
+    y += Math.round(70*s);
   }
 
-  // ── Branding footer (just above safe bottom) ──
-  const footY = safeBottom - Math.floor(40*s);
-  ctx.strokeStyle = 'rgba(255,215,0,0.25)'; ctx.lineWidth = 0.5;
-  ctx.beginPath(); ctx.moveTo(padL, footY); ctx.lineTo(safeRight - Math.floor(10*s), footY); ctx.stroke();
-  ctx.font = `${Math.floor(14*s)}px "Segoe UI",sans-serif`;
-  ctx.fillStyle = 'rgba(255,215,0,0.55)';
-  ctx.fillText('📺 XO — 매일 아침 시장 분석', padL, footY + Math.floor(22*s));
+  // 골드 구분선
+  ctx.strokeStyle = '#ffd700'; ctx.lineWidth = Math.round(3*s);
+  ctx.beginPath(); ctx.moveTo(PL, y); ctx.lineTo(safeR - Math.round(16*s), y); ctx.stroke();
+  y += Math.round(48*s);
 
-  // ── Safe zone indicator text ──
-  ctx.font = `${Math.floor(12*s)}px "Segoe UI",sans-serif`;
-  ctx.fillStyle = 'rgba(255,100,100,0.4)';
-  ctx.save();
-  ctx.translate(W - Math.floor(8*s), Math.floor(H/2));
-  ctx.rotate(-Math.PI/2);
-  ctx.textAlign = 'center';
-  ctx.fillText('YouTube 버튼 영역', 0, 0);
-  ctx.restore();
-  ctx.fillText('YouTube UI', Math.floor(10*s), H - Math.floor(8*s));
-}
-
-function drawMarketCanvas(ctx, d, y, s, padL, safeRight, contentW) {
-  const rowH = Math.floor(40*s);
-  const cols = [0, Math.floor(90*s), Math.floor(170*s), Math.floor(240*s)];
-
-  // US section
-  y = drawTableSection(ctx, '🇺🇸 미국 상위 종목', d.us_stocks.slice(0,5).map(s2=>({
-    c0: s2.name.slice(0,7), c1: s2.ticker, c2: `$${s2.price}`, c3: `${s2.change>=0?'+':''}${s2.change}%`, up: s2.change>=0
-  })), y, s, padL, safeRight, contentW, cols, rowH);
-
-  y += Math.floor(24*s);
-
-  // KR section
-  y = drawTableSection(ctx, '🇰🇷 국내 수혜주', d.kr_stocks.slice(0,5).map(s2=>({
-    c0: s2.name.slice(0,5), c1: s2.code, c2: `₩${(s2.price/1000).toFixed(0)}K`, c3: `${s2.change>=0?'+':''}${s2.change}%`, up: s2.change>=0
-  })), y, s, padL, safeRight, contentW, cols, rowH);
-
-  return y;
-}
-
-function drawTechnicalCanvas(ctx, d, y, s, padL, safeRight, contentW) {
-  // Market summary
-  ctx.font = `${Math.floor(14*s)}px "Segoe UI",sans-serif`;
-  ctx.fillStyle = 'rgba(255,255,255,0.6)';
-  ctx.fillText(d.market_summary, padL, y);
-  y += Math.floor(32*s);
-
-  const rowH = Math.floor(38*s);
-  const cols = [0, Math.floor(78*s), Math.floor(156*s), Math.floor(210*s)];
-
-  y = drawTableSection(ctx, '📈 2일 연속 상승 종목', d.stocks.slice(0,5).map(st=>({
-    c0: st.name.slice(0,5), c1: `+${st.day1}→+${st.day2}`, c2: `+${st.total}%`, c3: `${st.volume_ratio}x`, up: true
-  })), y, s, padL, safeRight, contentW, cols, rowH);
-
-  return y;
-}
-
-function drawSectorCanvas(ctx, d, y, s, padL, safeRight, contentW) {
-  const rowH = Math.floor(34*s);
-  const cols = [0, Math.floor(90*s), Math.floor(165*s), Math.floor(235*s)];
-
-  // Top 2 foreign sectors
-  for (const sec of d.foreign.slice(0,2)) {
-    ctx.font = `bold ${Math.floor(13*s)}px "Segoe UI",sans-serif`;
-    ctx.fillStyle = '#ffd700';
-    ctx.fillText(`🌐 ${sec.sector}`, padL, y);
-    y += Math.floor(22*s);
-    for (const st of sec.stocks.slice(0,2)) {
-      ctx.font = `${Math.floor(12*s)}px "Segoe UI",sans-serif`;
-      ctx.fillStyle = '#fff';    ctx.fillText(st.name.slice(0,8), padL + cols[0], y);
-      ctx.fillStyle = 'rgba(255,255,255,0.45)'; ctx.fillText(st.ticker, padL + cols[1], y);
-      ctx.fillStyle = st.change>=0?'#ff4d4d':'#4d9eff';
-      ctx.fillText(`${st.change>=0?'+':''}${st.change}%`, padL + cols[2], y);
-      y += rowH;
-    }
-    y += Math.floor(8*s);
+  // 이유 (market만)
+  if (agent === 'market' && d.theme.reasons) {
+    d.theme.reasons.forEach(r => {
+      ctx.font = `${Math.round(34*s)}px "Segoe UI",sans-serif`;
+      ctx.fillStyle = 'rgba(255,215,0,0.75)';
+      ctx.fillText('●', PL, y);
+      ctx.fillStyle = 'rgba(255,255,255,0.88)';
+      const txt = r.length > 22 ? r.slice(0,22)+'…' : r;
+      ctx.fillText(txt, PL + Math.round(38*s), y);
+      y += Math.round(58*s);
+    });
+    y += Math.round(30*s);
+  } else if (agent === 'technical' && d.market_summary) {
+    ctx.font = `${Math.round(32*s)}px "Segoe UI",sans-serif`;
+    ctx.fillStyle = 'rgba(255,255,255,0.6)';
+    ctx.fillText(d.market_summary, PL, y);
+    y += Math.round(58*s);
   }
 
-  // Top 2 domestic sectors
-  for (const sec of d.domestic.slice(0,2)) {
-    ctx.font = `bold ${Math.floor(13*s)}px "Segoe UI",sans-serif`;
-    ctx.fillStyle = '#ffd700';
-    ctx.fillText(`🇰🇷 ${sec.sector}`, padL, y);
-    y += Math.floor(22*s);
-    for (const st of sec.stocks.slice(0,2)) {
-      ctx.font = `${Math.floor(12*s)}px "Segoe UI",sans-serif`;
-      ctx.fillStyle = '#fff';    ctx.fillText(st.name.slice(0,5), padL + cols[0], y);
-      ctx.fillStyle = 'rgba(255,255,255,0.45)'; ctx.fillText(st.code, padL + cols[1], y);
-      ctx.fillStyle = st.change>=0?'#ff4d4d':'#4d9eff';
-      ctx.fillText(`${st.change>=0?'+':''}${st.change}%`, padL + cols[2], y);
-      y += rowH;
-    }
-    y += Math.floor(8*s);
-  }
-  return y;
+  // ── 에이전트별 테이블 ──────────────────────────────────────
+  if (agent === 'market')    y = drawMarketCanvas(ctx, d, y, s, PL, safeR);
+  else if (agent === 'technical') y = drawTechnicalCanvas(ctx, d, y, s, PL, safeR);
+  else                       y = drawSectorCanvas(ctx, d, y, s, PL, safeR);
+
+  // ── 하단 브랜딩 ───────────────────────────────────────────
+  const fY = safeB - Math.round(64*s);
+  ctx.strokeStyle = 'rgba(255,215,0,0.3)'; ctx.lineWidth = Math.round(1.5*s);
+  ctx.beginPath(); ctx.moveTo(PL, fY); ctx.lineTo(safeR - Math.round(16*s), fY); ctx.stroke();
+  ctx.font = `${Math.round(30*s)}px "Segoe UI",sans-serif`;
+  ctx.fillStyle = 'rgba(255,215,0,0.65)';
+  ctx.fillText('📺 XO — 매일 아침 시장 분석', PL, fY + Math.round(42*s));
+  ctx.fillStyle = 'rgba(255,255,255,0.28)';
+  const disc = '투자 판단의 책임은 본인에게 있습니다';
+  ctx.font = `${Math.round(24*s)}px "Segoe UI",sans-serif`;
+  ctx.fillText(disc, PL, fY + Math.round(74*s));
 }
 
-function drawTableSection(ctx, title, rows, y, s, padL, safeRight, contentW, cols, rowH) {
-  // Section card background
-  const cardH = Math.floor(30*s) + Math.floor(24*s) + rows.length * rowH + Math.floor(12*s);
-  ctx.fillStyle = 'rgba(255,255,255,0.04)';
-  rrect(ctx, padL - Math.floor(8*s), y - Math.floor(16*s), safeRight - padL + Math.floor(8*s), cardH, Math.floor(8*s));
+// 공통 테이블 그리기
+function drawTable(ctx, secTitle, rows, y, s, PL, safeR) {
+  // 폰트 크기 (풀해상도 기준)
+  const F = { title: Math.round(44*s), hdr: Math.round(28*s), row: Math.round(34*s) };
+  const ROW_H = Math.round(68*s);
+  // 컬럼 위치 (풀해상도: 0, 240, 470, 700 → canvas scale)
+  const C = [0, Math.round(240*s), Math.round(470*s), Math.round(700*s)];
+  const cardH = Math.round(64*s) + Math.round(46*s) + rows.length * ROW_H + Math.round(24*s);
 
-  // Title
-  ctx.font = `bold ${Math.floor(14*s)}px "Segoe UI",sans-serif`;
+  ctx.fillStyle = 'rgba(255,255,255,0.045)';
+  rrect(ctx, PL - Math.round(16*s), y - Math.round(20*s), safeR - PL + Math.round(16*s), cardH, Math.round(16*s));
+
+  ctx.font = `bold ${F.title}px "Segoe UI",sans-serif`;
   ctx.fillStyle = '#ffd700';
-  ctx.fillText(title, padL, y);
-  y += Math.floor(20*s);
+  ctx.fillText(secTitle, PL, y);
+  y += Math.round(46*s);
 
-  // Column headers
-  ctx.font = `${Math.floor(11*s)}px "Segoe UI",sans-serif`;
-  ctx.fillStyle = 'rgba(255,255,255,0.35)';
-  const hdrs = ['종목','정보','가격','등락'];
-  hdrs.forEach((h,i) => ctx.fillText(h, padL + cols[i], y));
-  y += Math.floor(5*s);
+  ctx.font = `${F.hdr}px "Segoe UI",sans-serif`;
+  ctx.fillStyle = 'rgba(255,255,255,0.38)';
+  ['종목','정보','가격','등락률'].forEach((h,i) => ctx.fillText(h, PL + C[i], y));
+  y += Math.round(10*s);
 
-  // Divider
-  ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.lineWidth = 0.5;
-  ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(safeRight - Math.floor(10*s), y); ctx.stroke();
+  ctx.strokeStyle = 'rgba(255,255,255,0.1)'; ctx.lineWidth = Math.round(1.5*s);
+  ctx.beginPath(); ctx.moveTo(PL, y); ctx.lineTo(safeR - Math.round(16*s), y); ctx.stroke();
 
-  // Rows
   rows.forEach(r => {
-    y += rowH;
-    ctx.font = `${Math.floor(12*s)}px "Segoe UI",sans-serif`;
-    ctx.fillStyle = '#fff';
-    ctx.fillText(r.c0, padL + cols[0], y);
-    ctx.fillStyle = 'rgba(255,255,255,0.45)';
-    ctx.fillText(r.c1, padL + cols[1], y);
-    ctx.fillStyle = '#fff';
-    ctx.fillText(r.c2, padL + cols[2], y);
-    ctx.fillStyle = r.up ? '#ff4d4d' : '#4d9eff';
-    ctx.fillText(r.c3, padL + cols[3], y);
+    y += ROW_H;
+    ctx.font = `${F.row}px "Segoe UI",sans-serif`;
+    ctx.fillStyle = '#ffffff';       ctx.fillText(r.c0, PL + C[0], y);
+    ctx.fillStyle = 'rgba(255,255,255,0.42)'; ctx.fillText(r.c1, PL + C[1], y);
+    ctx.fillStyle = '#ffffff';       ctx.fillText(r.c2, PL + C[2], y);
+    ctx.fillStyle = r.up ? '#ff4d4d' : '#4d9eff'; ctx.fillText(r.c3, PL + C[3], y);
   });
 
-  return y + Math.floor(12*s);
+  return y + Math.round(32*s);
+}
+
+function drawMarketCanvas(ctx, d, y, s, PL, safeR) {
+  y = drawTable(ctx, '🇺🇸 미국 상위 종목',
+    d.us_stocks.slice(0,5).map(st => ({
+      c0: st.name.slice(0,8), c1: st.ticker,
+      c2: `$${st.price.toLocaleString()}`,
+      c3: `${st.change>=0?'+':''}${st.change}%`, up: st.change>=0
+    })), y, s, PL, safeR);
+
+  y += Math.round(40*s);
+
+  y = drawTable(ctx, '🇰🇷 국내 수혜주',
+    d.kr_stocks.slice(0,5).map(st => ({
+      c0: st.name.slice(0,5), c1: st.code,
+      c2: `₩${(st.price/1000).toFixed(0)}K`,
+      c3: `${st.change>=0?'+':''}${st.change}%`, up: st.change>=0
+    })), y, s, PL, safeR);
+
+  return y;
+}
+
+function drawTechnicalCanvas(ctx, d, y, s, PL, safeR) {
+  return drawTable(ctx, '📈 2일 연속 상승 종목',
+    d.stocks.slice(0,5).map(st => ({
+      c0: st.name.slice(0,6),
+      c1: `+${st.day1}%→+${st.day2}%`,
+      c2: `누적 +${st.total}%`,
+      c3: `${st.volume_ratio}x`, up: true
+    })), y, s, PL, safeR);
+}
+
+function drawSectorCanvas(ctx, d, y, s, PL, safeR) {
+  const F_sec = Math.round(40*s);
+  const ROW_H = Math.round(60*s);
+  const C = [0, Math.round(230*s), Math.round(460*s)];
+
+  const drawGroup = (list, flag) => {
+    for (const sec of list.slice(0,2)) {
+      ctx.font = `bold ${F_sec}px "Segoe UI",sans-serif`;
+      ctx.fillStyle = '#ffd700';
+      ctx.fillText(`${flag} ${sec.sector}`, PL, y);
+      y += Math.round(50*s);
+      for (const st of sec.stocks.slice(0,2)) {
+        ctx.font = `${Math.round(34*s)}px "Segoe UI",sans-serif`;
+        ctx.fillStyle = '#fff';
+        ctx.fillText((st.name||'').slice(0,6), PL + C[0], y);
+        ctx.fillStyle = 'rgba(255,255,255,0.42)';
+        ctx.fillText(st.ticker || st.code, PL + C[1], y);
+        ctx.fillStyle = st.change >= 0 ? '#ff4d4d' : '#4d9eff';
+        ctx.fillText(`${st.change>=0?'+':''}${st.change}%`, PL + C[2], y);
+        y += ROW_H;
+      }
+      y += Math.round(20*s);
+    }
+  };
+
+  drawGroup(d.foreign, '🌐');
+  y += Math.round(16*s);
+  drawGroup(d.domestic, '🇰🇷');
+  return y;
 }
 
 function rrect(ctx, x, y, w, h, r) {
