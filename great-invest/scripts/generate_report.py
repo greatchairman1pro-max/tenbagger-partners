@@ -3,7 +3,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 import yfinance as yf
-import google.generativeai as genai
+from groq import Groq
 
 ROOT     = Path(__file__).parent.parent
 DATA_DIR = ROOT / "dashboard" / "data"
@@ -29,10 +29,14 @@ def fetch_us_stocks():
     return sorted(results, key=lambda x: x["change"], reverse=True)[:5]
 
 
-def call_gemini(prompt):
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-    model = genai.GenerativeModel("gemini-2.0-flash")
-    return model.generate_content(prompt).text
+def call_ai(prompt):
+    client = Groq(api_key=os.environ["GROQ_API_KEY"])
+    resp = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.7,
+    )
+    return resp.choices[0].message.content
 
 
 def parse_json(text):
@@ -97,10 +101,10 @@ def main():
 
     failed = []
     for agent, prompt in prompts.items():
-        print(f"  Gemini — {agent} 분석 중...")
+        print(f"  AI — {agent} 분석 중...")
         try:
-            raw = call_gemini(prompt)
-            print(f"  [RAW] {raw[:300]}")
+            raw = call_ai(prompt)
+            print(f"  [RAW] {raw[:200]}")
             data = parse_json(raw)
             save(agent, data)
             print(f"  ✅ {agent} 완료")
