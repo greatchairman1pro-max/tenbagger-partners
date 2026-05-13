@@ -459,9 +459,9 @@ async function loadAgentData(agent, date, useSample) {
     applyData(agent, SAMPLES[agent]);
     return;
   }
-  // localStorage 우선 (브라우저 분석 결과가 파일보다 항상 최신)
+  // localStorage 우선 — 단, Gemini가 직접 생성한 데이터(_generated 있음)만 사용
   const local = loadAgentLocal(agent, date);
-  if (local) {
+  if (local && local._generated) {
     agentData[agent] = local;
     applyData(agent, local);
     return;
@@ -1060,16 +1060,17 @@ async function runAnalysis() {
 
     const jsonNote = '반드시 JSON만 출력. 설명·markdown 없이. 숫자는 따옴표 없이.';
 
+    const freshData = {};  // Gemini가 이번에 새로 생성한 데이터만 추적
+
     // 2. 미장국장
     if (doMarket) {
       addLog('Gemini — 미장국장 분석 중...','info');
       try {
         const r = await callGemini(`오늘(${today}) 미국 주식 데이터:\n${usStr}\n관심 국내 종목: ${krStr}\n\n${jsonNote}\n{\n"date":"${today}","agent":"market","theme":{"name":"테마명","reasons":["이유1 30자","이유2 30자"]},"us_stocks":[{"name":"종목명","ticker":"티커","price":0.0,"change":0.0}],"kr_stocks":[{"name":"종목명","code":"6자리","price":0,"change":0.0}],"shorts_script":"XO입니다 시작 60초 대본","blog":{"intro":"서론","body":"본론 줄바꿈포함","conclusion":"결론+면책"}}\nus_stocks 5개(상승률순), kr_stocks 5개(테마 연관).`);
         const d = parseJsonFromGemini(r);
-        d.date = today;
+        d.date = today; d._generated = Date.now();
         if (usStocks.length) d.us_stocks = usStocks.map(s=>({...s}));
-        agentData['market'] = d;
-        if (currentAgent==='market') applyData('market', d);
+        agentData['market'] = d; freshData['market'] = d;
         addLog('미장국장 완료 ✓','ok');
       } catch(e) { addLog('미장국장 오류: '+e.message,'err'); }
       await new Promise(r => setTimeout(r, 2000));
@@ -1081,9 +1082,8 @@ async function runAnalysis() {
       try {
         const r = await callGemini(`오늘(${today}) 코스피/코스닥 2일 연속 상승 종목 분석. 관심 종목: ${krStr}\n\n${jsonNote}\n{"date":"${today}","agent":"technical","title":"코스피 2일 연속 상승 종목","market_summary":"코스피 현황 한줄","stocks":[{"name":"종목명","code":"6자리","price":0,"day1":0.0,"day2":0.0,"total":0.0,"volume_ratio":0.0,"signal":"이유 20자"}],"shorts_script":"XO입니다 시작 60초","blog":{"intro":"서론","body":"본론","conclusion":"결론+면책"}}\nstocks 5개.`);
         const d = parseJsonFromGemini(r);
-        d.date = today;
-        agentData['technical'] = d;
-        if (currentAgent==='technical') applyData('technical', d);
+        d.date = today; d._generated = Date.now();
+        agentData['technical'] = d; freshData['technical'] = d;
         addLog('기술적분석 완료 ✓','ok');
       } catch(e) { addLog('기술적분석 오류: '+e.message,'err'); }
       await new Promise(r => setTimeout(r, 2000));
@@ -1095,20 +1095,28 @@ async function runAnalysis() {
       try {
         const r = await callGemini(`오늘(${today}) 글로벌 섹터별 강세 종목. 미국 데이터: ${usStr}\n\n${jsonNote}\n{"date":"${today}","agent":"sector","title":"섹터별 강세 종목","foreign":[{"sector":"섹터명","stocks":[{"name":"종목명","ticker":"티커","price":0.0,"change":0.0}]}],"domestic":[{"sector":"섹터명","stocks":[{"name":"종목명","code":"6자리","price":0,"change":0.0}]}],"shorts_script":"XO입니다 시작 60초","blog":{"intro":"서론","body":"본론","conclusion":"결론+면책"}}\nforeign 3섹터, domestic 3섹터, 각 섹터 2~3종목.`);
         const d = parseJsonFromGemini(r);
-        d.date = today;
-        agentData['sector'] = d;
-        if (currentAgent==='sector') applyData('sector', d);
+        d.date = today; d._generated = Date.now();
+        agentData['sector'] = d; freshData['sector'] = d;
         addLog('섹터테마 완료 ✓','ok');
       } catch(e) { addLog('섹터테마 오류: '+e.message,'err'); }
     }
 
-    // localStorage에 저장 (파일 시스템에 쓸 수 없으므로)
-    ['market','technical','sector'].forEach(a => {
-      if (agentData[a]) saveAgentLocal(a, today, agentData[a]);
-    });
+    const successCount = Object.keys(freshData).length;
+    if (successCount === 0) {
+      addLog('⚠️ 모든 에이전트 실패 — API 키를 확인하세요','err');
+      showToast('분석 실패 — API 키 확인', 'err');
+      return;
+    }
 
-    addLog(`✅ 전체 완료 — ${today}`,'ok');
+    // 새로 생성된 데이터만 localStorage에 저장
+    Object.entries(freshData).forEach(([a, d]) => saveAgentLocal(a, today, d));
+
+    // 현재 화면 즉시 갱신
+    if (agentData[currentAgent]) applyData(currentAgent, agentData[currentAgent]);
+
+    addLog(`✅ 완료 (${successCount}/3) — ${today}`,'ok');
     showToast('분석 완료!','ok');
+    closeSettings();
 
     // 사이드바 날짜 추가
     if (!document.querySelector(`.date-item[data-date="${today}"]`)) {
