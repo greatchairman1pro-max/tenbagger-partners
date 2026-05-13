@@ -959,7 +959,7 @@ async function testGeminiKey() {
 }
 
 // ── API calls ─────────────────────────────────────────────────
-const GEMINI_MODEL = 'gemini-2.0-flash';
+const GEMINI_MODEL = 'gemini-1.5-flash';
 
 async function callGemini(prompt) {
   const key = getSetting('geminiKey');
@@ -1061,6 +1061,7 @@ async function runAnalysis() {
         if (currentAgent==='market') applyData('market', d);
         addLog('미장국장 완료 ✓','ok');
       } catch(e) { addLog('미장국장 오류: '+e.message,'err'); }
+      await new Promise(r => setTimeout(r, 2000));
     }
 
     // 3. 기술적분석
@@ -1074,6 +1075,7 @@ async function runAnalysis() {
         if (currentAgent==='technical') applyData('technical', d);
         addLog('기술적분석 완료 ✓','ok');
       } catch(e) { addLog('기술적분석 오류: '+e.message,'err'); }
+      await new Promise(r => setTimeout(r, 2000));
     }
 
     // 4. 섹터테마
