@@ -1,5 +1,5 @@
 """
-TUBE 자동화 스크립트 — 매일 06:10 KST 실행
+XO 자동화 스크립트 — 매일 06:10 KST 실행
 GitHub Actions에서 호출됨. services/ 폴더 모듈 사용.
 """
 import json
@@ -172,7 +172,7 @@ def save_report(report: dict):
 
 # ── Main ──────────────────────────────────────────────────────
 def main():
-    print(f"🚀 TUBE 리포트 생성 시작 — {TODAY}")
+    print(f"🚀 XO 리포트 생성 시작 — {TODAY}")
 
     print("  [1/4] 미국 주식 수집...")
     us_stocks = fetch_us_top5()
