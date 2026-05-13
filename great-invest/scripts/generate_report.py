@@ -96,7 +96,7 @@ def main():
     }
 
     for agent, prompt in prompts.items():
-        print(f"  Claude — {agent} 분석 중...")
+        print(f"  Gemini — {agent} 분석 중...")
         try:
             data = parse_json(call_gemini(prompt))
             save(agent, data)
