@@ -459,6 +459,13 @@ async function loadAgentData(agent, date, useSample) {
     applyData(agent, SAMPLES[agent]);
     return;
   }
+  // localStorage 우선 (브라우저 분석 결과가 파일보다 항상 최신)
+  const local = loadAgentLocal(agent, date);
+  if (local) {
+    agentData[agent] = local;
+    applyData(agent, local);
+    return;
+  }
   try {
     const res = await fetch(`data/${agent}/${date}.json`);
     if (!res.ok) throw new Error();
@@ -466,14 +473,8 @@ async function loadAgentData(agent, date, useSample) {
     agentData[agent] = data;
     applyData(agent, data);
   } catch {
-    const local = loadAgentLocal(agent, date);
-    if (local) {
-      agentData[agent] = local;
-      applyData(agent, local);
-    } else {
-      agentData[agent] = SAMPLES[agent];
-      applyData(agent, SAMPLES[agent]);
-    }
+    agentData[agent] = SAMPLES[agent];
+    applyData(agent, SAMPLES[agent]);
   }
 }
 
