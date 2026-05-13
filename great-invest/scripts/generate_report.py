@@ -3,7 +3,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 import yfinance as yf
-import anthropic
+import google.generativeai as genai
 
 ROOT     = Path(__file__).parent.parent
 DATA_DIR = ROOT / "dashboard" / "data"
@@ -29,14 +29,10 @@ def fetch_us_stocks():
     return sorted(results, key=lambda x: x["change"], reverse=True)[:5]
 
 
-def call_claude(prompt):
-    client = anthropic.Anthropic(api_key=os.environ["CLAUDE_API_KEY"])
-    msg = client.messages.create(
-        model="claude-haiku-4-5-20251001",
-        max_tokens=3000,
-        messages=[{"role": "user", "content": prompt}]
-    )
-    return msg.content[0].text
+def call_gemini(prompt):
+    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+    model = genai.GenerativeModel("gemini-2.0-flash")
+    return model.generate_content(prompt).text
 
 
 def parse_json(text):
@@ -102,7 +98,7 @@ def main():
     for agent, prompt in prompts.items():
         print(f"  Claude — {agent} 분석 중...")
         try:
-            data = parse_json(call_claude(prompt))
+            data = parse_json(call_gemini(prompt))
             save(agent, data)
             print(f"  ✅ {agent} 완료")
         except Exception as e:
