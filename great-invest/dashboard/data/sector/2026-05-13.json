@@ -7,13 +7,13 @@
       "sector": "IT",
       "stocks": [
         {
-          "name": "Meta Platforms",
+          "name": "메타",
           "ticker": "META",
           "price": 603.0,
           "change": 0.69
         },
         {
-          "name": "NVIDIA",
+          "name": "엔비디아",
           "ticker": "NVDA",
           "price": 220.78,
           "change": 0.61
@@ -21,16 +21,16 @@
       ]
     },
     {
-      "sector": "소프트웨어",
+      "sector": "기술",
       "stocks": [
         {
-          "name": "Google",
+          "name": "구글",
           "ticker": "GOOGL",
           "price": 387.35,
           "change": -0.33
         },
         {
-          "name": "Microsoft",
+          "name": "마이크로소프트",
           "ticker": "MSFT",
           "price": 407.77,
           "change": -1.18
@@ -62,7 +62,7 @@
       ]
     },
     {
-      "sector": "소프트웨어",
+      "sector": "기술",
       "stocks": [
         {
           "name": "NAVER",
@@ -86,8 +86,8 @@
   ],
   "shorts_script": "XO입니다로 시작 60초 대본",
   "blog": {
-    "intro": "서론",
-    "body": "본론",
-    "conclusion": "결론+면책"
+    "intro": "오늘 글로벌 섹터별 강세 종목을 분석했습니다.",
+    "body": "미국 IT 및 기술 섹터의 주요 종목들은 혼조된 모습을 보였습니다. 메타와 엔비디아는 각각 0.69%와 0.61% 상승하였으나, 구글과 마이크로소프트는 각각 0.33%와 1.18% 하락했습니다. 반도체 섹터의 TSMC는 1.79% 하락했습니다.",
+    "conclusion": "글로벌 섹터별 강세 종목 분석은 시장 동향을 이해하는 데 도움이 됩니다. 그러나 투자 결정은 개인의 판단과 전문가의 상담을 통해 이루어져야 합니다."
   }
 }
