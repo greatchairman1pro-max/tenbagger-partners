@@ -202,6 +202,23 @@ input[type=text]:focus, input[type=password]:focus { border-color:var(--gold); }
 .toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%); background:var(--bg2); border:1px solid var(--border); color:var(--text); padding:10px 22px; border-radius:8px; font-size:13px; z-index:9999; pointer-events:none; transition:opacity .3s; opacity:0; }
 .toast.ok  { border-color:var(--gold); color:var(--gold); }
 .toast.err { border-color:var(--up); color:var(--up); }
+
+/* Settings Drawer */
+.settings-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:1000; }
+.settings-overlay.open { display:block; }
+.settings-drawer {
+  position:fixed; top:0; right:-420px; width:400px; height:100vh;
+  background:var(--bg2); border-left:1px solid var(--border);
+  z-index:1001; overflow-y:auto; padding:24px;
+  transition:right .25s ease; display:flex; flex-direction:column; gap:18px;
+}
+.settings-drawer.open { right:0; }
+.drawer-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+.drawer-title  { font-size:15px; font-weight:700; color:var(--gold); }
+.drawer-close  { background:none; border:none; color:var(--muted); font-size:20px; cursor:pointer; padding:4px 8px; border-radius:4px; }
+.drawer-close:hover { color:var(--text); background:var(--bg3); }
+.gear-btn { padding:5px 10px; background:var(--bg3); border:1px solid var(--border); color:var(--muted); border-radius:6px; cursor:pointer; font-size:15px; transition:all .15s; }
+.gear-btn:hover { color:var(--gold); border-color:var(--gold); }
 </style>
 </head>
 <body>
@@ -213,6 +230,7 @@ input[type=text]:focus, input[type=password]:focus { border-color:var(--gold); }
     <span id="hdStatus" class="hd-status"></span>
     <button class="hd-run-btn" onclick="quickRun()">⚡ 분석 실행</button>
     <div class="hd-date" id="headerDate"></div>
+    <button class="gear-btn" onclick="openSettings()" title="설정">⚙️</button>
   </div>
 </header>
 
@@ -244,7 +262,6 @@ input[type=text]:focus, input[type=password]:focus { border-color:var(--gold); }
     <button class="tab-btn"        onclick="switchTab('image',this)">🖼 이미지</button>
     <button class="tab-btn"        onclick="switchTab('script',this)">🎬 쇼츠 대본</button>
     <button class="tab-btn"        onclick="switchTab('blog',this)">📝 블로그</button>
-    <button class="tab-btn"        onclick="switchTab('settings',this)">⚙️ 설정</button>
   </div>
 
   <!-- 분석 탭 -->
@@ -292,97 +309,82 @@ input[type=text]:focus, input[type=password]:focus { border-color:var(--gold); }
     </div>
   </div>
 
-  <!-- 설정 탭 -->
-  <div id="tab-settings" class="tab-content">
-    <div class="settings-grid">
+</main>
 
-      <!-- API 키 -->
-      <div class="card">
-        <div class="card-title">🔑 API 키 설정</div>
-        <div class="sg">
-          <div class="sg-head">
-            <span class="sg-label">Gemini API Key</span>
-            <span class="sg-badge req">필수</span>
-          </div>
-          <div class="sg-row">
-            <input type="password" id="geminiKey" placeholder="AIzaSy..." oninput="onKeyInput()">
-            <button class="vis-btn" onclick="toggleKeyVis('geminiKey',this)">보기</button>
-          </div>
-          <div class="sg-desc">무료 · 하루 1,500회 · 분석/대본/블로그 자동 생성</div>
-          <div style="display:flex;gap:8px;align-items:center;margin-top:7px;flex-wrap:wrap">
-            <a href="https://aistudio.google.com" target="_blank" class="get-key-btn">→ Google AI Studio 무료 발급</a>
-            <button class="vis-btn" onclick="testGeminiKey()" style="padding:4px 12px;font-size:11px">🔑 키 테스트</button>
-          </div>
-        </div>
-        <div class="sg" style="margin-top:18px">
-          <div class="sg-head">
-            <span class="sg-label">Finnhub API Key</span>
-            <span class="sg-badge opt">선택</span>
-          </div>
-          <div class="sg-row">
-            <input type="password" id="finnhubKey" placeholder="c..." oninput="onKeyInput()">
-            <button class="vis-btn" onclick="toggleKeyVis('finnhubKey',this)">보기</button>
-          </div>
-          <div class="sg-desc">무료 · 분당 60회 · 미국 주식 실시간 시세<br>없으면 Gemini가 최근 데이터 기반으로 분석</div>
-          <a href="https://finnhub.io/register" target="_blank" class="get-key-btn">→ Finnhub 무료 발급</a>
-        </div>
-        <button class="save-btn" onclick="saveSettingsForm()">💾 저장</button>
+<!-- 설정 드로어 -->
+<div class="settings-overlay" id="settingsOverlay" onclick="closeSettings()"></div>
+<div class="settings-drawer" id="settingsDrawer">
+  <div class="drawer-header">
+    <span class="drawer-title">⚙️ 설정</span>
+    <button class="drawer-close" onclick="closeSettings()">✕</button>
+  </div>
+
+  <!-- API 키 -->
+  <div class="card">
+    <div class="card-title">🔑 API 키</div>
+    <div class="sg">
+      <div class="sg-head">
+        <span class="sg-label">Gemini API Key</span>
+        <span class="sg-badge req">필수</span>
       </div>
-
-      <!-- 관심 종목 -->
-      <div class="card">
-        <div class="card-title">📋 관심 종목 설정</div>
-        <div class="sg">
-          <div class="sg-label">🇺🇸 미국 종목 티커 (쉼표 구분, 최대 10개)</div>
-          <input type="text" id="usTickers" placeholder="NVDA,AMD,MSFT,AVGO,QCOM">
-          <div class="sg-desc">Finnhub 키 있으면 실시간 시세 조회 · 없으면 Gemini 추정</div>
-        </div>
-        <div class="sg" style="margin-top:16px">
-          <div class="sg-label">🇰🇷 국내 종목코드 (쉼표 구분, 6자리)</div>
-          <input type="text" id="krCodes" placeholder="000660,042700,005930,058470,403870">
-          <div class="sg-desc">Gemini가 미국 테마와 연관성 높은 종목 자동 분석</div>
-        </div>
-        <button class="save-btn" onclick="saveSettingsForm()">💾 저장</button>
+      <div class="sg-row">
+        <input type="password" id="geminiKey" placeholder="AIzaSy..." oninput="onKeyInput()">
+        <button class="vis-btn" onclick="toggleKeyVis('geminiKey',this)">보기</button>
+      </div>
+      <div class="sg-desc">무료 · 하루 1,500회 · 분석/대본/블로그 자동 생성</div>
+      <div style="display:flex;gap:8px;align-items:center;margin-top:7px;flex-wrap:wrap">
+        <a href="https://aistudio.google.com" target="_blank" class="get-key-btn">→ Google AI Studio 무료 발급</a>
+        <button class="vis-btn" onclick="testGeminiKey()" style="padding:4px 12px;font-size:11px">🔑 키 테스트</button>
       </div>
     </div>
-
-    <!-- 분석 실행 -->
-    <div class="card">
-      <div class="card-title">⚡ 지금 분석 실행</div>
-      <div class="run-desc">
-        API 키 저장 후 아래 버튼을 누르면 실시간 데이터로 분석합니다.<br>
-        Gemini가 테마·대본·블로그를 자동 생성합니다.
+    <div class="sg" style="margin-top:18px">
+      <div class="sg-head">
+        <span class="sg-label">Finnhub API Key</span>
+        <span class="sg-badge opt">선택</span>
       </div>
-      <div class="run-agents">
-        <label><input type="checkbox" id="run-market"    checked> 미장국장</label>
-        <label><input type="checkbox" id="run-technical" checked> 기술적분석</label>
-        <label><input type="checkbox" id="run-sector"    checked> 섹터테마</label>
+      <div class="sg-row">
+        <input type="password" id="finnhubKey" placeholder="c..." oninput="onKeyInput()">
+        <button class="vis-btn" onclick="toggleKeyVis('finnhubKey',this)">보기</button>
       </div>
-      <button class="run-btn" id="runBtn" onclick="runAnalysis()">⚡ 지금 분석 실행</button>
-      <div id="runLogWrap" class="run-log-wrap" style="display:none">
-        <div class="run-log-box" id="runLogBox"></div>
-      </div>
+      <div class="sg-desc">무료 · 분당 60회 · 미국 주식 실시간 시세<br>없으면 Gemini가 최근 데이터 기반으로 분석</div>
+      <a href="https://finnhub.io/register" target="_blank" class="get-key-btn">→ Finnhub 무료 발급</a>
     </div>
+    <button class="save-btn" onclick="saveSettingsForm()">💾 저장</button>
+  </div>
 
-    <!-- GitHub Actions -->
-    <div class="card">
-      <div class="card-title">🤖 GitHub Actions 자동화</div>
-      <p style="font-size:13px;color:var(--muted);line-height:1.9">
-        매일 06:10 KST 자동 실행 설정 완료.<br>
-        자동화가 동작하려면 GitHub Secrets에 아래 키를 등록하세요.
-      </p>
-      <div class="secret-rows">
-        <div class="secret-row">
-          <code>GEMINI_API_KEY</code>
-          <button onclick="copySecretKey('gemini')">복사</button>
-        </div>
-      </div>
-      <p style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.8">
-        GitHub → tenbagger-partners → Settings → Secrets and variables → Actions → New repository secret
-      </p>
+  <!-- 분석 실행 -->
+  <div class="card">
+    <div class="card-title">⚡ 분석 실행</div>
+    <div class="run-desc">API 키 저장 후 실행하면 Gemini가 테마·대본·블로그를 자동 생성합니다.</div>
+    <div class="run-agents">
+      <label><input type="checkbox" id="run-market"    checked> 미장국장</label>
+      <label><input type="checkbox" id="run-technical" checked> 기술적분석</label>
+      <label><input type="checkbox" id="run-sector"    checked> 섹터테마</label>
+    </div>
+    <button class="run-btn" id="runBtn" onclick="runAnalysis()">⚡ 지금 분석 실행</button>
+    <div id="runLogWrap" class="run-log-wrap" style="display:none">
+      <div class="run-log-box" id="runLogBox"></div>
     </div>
   </div>
-</main>
+
+  <!-- GitHub Actions -->
+  <div class="card">
+    <div class="card-title">🤖 GitHub Actions 자동화</div>
+    <p style="font-size:13px;color:var(--muted);line-height:1.9">
+      매일 06:10 KST 자동 실행.<br>
+      GitHub Secrets에 아래 키를 등록하세요.
+    </p>
+    <div class="secret-rows">
+      <div class="secret-row">
+        <code>GEMINI_API_KEY</code>
+        <button onclick="copySecretKey('gemini')">복사</button>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.8">
+      GitHub → tenbagger-partners → Settings → Secrets → Actions → New repository secret
+    </p>
+  </div>
+</div>
 <div class="toast" id="xo-toast"></div>
 
 <script>
@@ -927,11 +929,19 @@ function copySecretKey(name) {
   if (!key) { showToast('키를 먼저 입력·저장해 주세요', 'err'); return; }
   navigator.clipboard.writeText(key).then(() => showToast('클립보드에 복사됨 ✓', 'ok'));
 }
+function openSettings() {
+  document.getElementById('settingsOverlay').classList.add('open');
+  document.getElementById('settingsDrawer').classList.add('open');
+}
+function closeSettings() {
+  document.getElementById('settingsOverlay').classList.remove('open');
+  document.getElementById('settingsDrawer').classList.remove('open');
+}
 function quickRun() {
-  syncFormToStorage();  // 저장 버튼 안 눌렀어도 먼저 동기화
+  syncFormToStorage();
   if (!getSetting('geminiKey')) {
-    document.querySelectorAll('.tab-btn').forEach(b => { if (b.textContent.includes('설정')) b.click(); });
-    showToast('⚙️ 설정 탭에서 Gemini API 키를 입력하세요', 'err');
+    openSettings();
+    showToast('⚙️ Gemini API 키를 입력하세요', 'err');
     return;
   }
   runAnalysis();
@@ -1011,7 +1021,7 @@ async function runAnalysis() {
   const geminiKey = getSetting('geminiKey');
   if (!geminiKey) {
     showToast('Gemini API 키를 입력하세요', 'err');
-    document.querySelectorAll('.tab-btn').forEach(b => { if (b.textContent.includes('설정')) b.click(); });
+    openSettings();
     return;
   }
   isRunning = true;
