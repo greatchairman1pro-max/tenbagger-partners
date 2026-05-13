@@ -305,11 +305,14 @@ input[type=text]:focus, input[type=password]:focus { border-color:var(--gold); }
             <span class="sg-badge req">필수</span>
           </div>
           <div class="sg-row">
-            <input type="password" id="geminiKey" placeholder="AIzaSy...">
+            <input type="password" id="geminiKey" placeholder="AIzaSy..." oninput="onKeyInput()">
             <button class="vis-btn" onclick="toggleKeyVis('geminiKey',this)">보기</button>
           </div>
           <div class="sg-desc">무료 · 하루 1,500회 · 분석/대본/블로그 자동 생성</div>
-          <a href="https://aistudio.google.com" target="_blank" class="get-key-btn">→ Google AI Studio 무료 발급</a>
+          <div style="display:flex;gap:8px;align-items:center;margin-top:7px;flex-wrap:wrap">
+            <a href="https://aistudio.google.com" target="_blank" class="get-key-btn">→ Google AI Studio 무료 발급</a>
+            <button class="vis-btn" onclick="testGeminiKey()" style="padding:4px 12px;font-size:11px">🔑 키 테스트</button>
+          </div>
         </div>
         <div class="sg" style="margin-top:18px">
           <div class="sg-head">
@@ -317,7 +320,7 @@ input[type=text]:focus, input[type=password]:focus { border-color:var(--gold); }
             <span class="sg-badge opt">선택</span>
           </div>
           <div class="sg-row">
-            <input type="password" id="finnhubKey" placeholder="c...">
+            <input type="password" id="finnhubKey" placeholder="c..." oninput="onKeyInput()">
             <button class="vis-btn" onclick="toggleKeyVis('finnhubKey',this)">보기</button>
           </div>
           <div class="sg-desc">무료 · 분당 60회 · 미국 주식 실시간 시세<br>없으면 Gemini가 최근 데이터 기반으로 분석</div>
@@ -873,15 +876,21 @@ function loadSettingsForm() {
   updateHdStatus();
 }
 function saveSettingsForm() {
-  saveAllSettings({
-    geminiKey:  document.getElementById('geminiKey').value.trim(),
-    finnhubKey: document.getElementById('finnhubKey').value.trim(),
-    usTickers:  document.getElementById('usTickers').value.trim(),
-    krCodes:    document.getElementById('krCodes').value.trim(),
-  });
+  syncFormToStorage();
   showToast('설정 저장 완료 ✓', 'ok');
   updateHdStatus();
 }
+// 입력 필드 → localStorage 즉시 동기화 (저장 버튼 안 눌러도 됨)
+function syncFormToStorage() {
+  const obj = {};
+  ['geminiKey','finnhubKey','usTickers','krCodes'].forEach(id => {
+    const v = document.getElementById(id)?.value?.trim();
+    if (v !== undefined) obj[id] = v;
+  });
+  saveAllSettings(obj);
+}
+// 입력할 때 실시간 저장
+function onKeyInput() { syncFormToStorage(); updateHdStatus(); }
 function toggleKeyVis(id, btn) {
   const el = document.getElementById(id);
   el.type = el.type === 'password' ? 'text' : 'password';
@@ -905,25 +914,54 @@ function copySecretKey(name) {
   navigator.clipboard.writeText(key).then(() => showToast('클립보드에 복사됨 ✓', 'ok'));
 }
 function quickRun() {
+  syncFormToStorage();  // 저장 버튼 안 눌렀어도 먼저 동기화
   if (!getSetting('geminiKey')) {
     document.querySelectorAll('.tab-btn').forEach(b => { if (b.textContent.includes('설정')) b.click(); });
-    showToast('API 키를 먼저 설정하세요', 'err');
+    showToast('⚙️ 설정 탭에서 Gemini API 키를 입력하세요', 'err');
     return;
   }
   runAnalysis();
 }
 
+// ── API 키 테스트 ─────────────────────────────────────────────
+async function testGeminiKey() {
+  syncFormToStorage();
+  const key = getSetting('geminiKey');
+  if (!key) { showToast('Gemini API 키를 먼저 입력하세요', 'err'); return; }
+  const btn = event.target;
+  btn.textContent = '테스트 중...'; btn.disabled = true;
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
+      { method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ contents:[{parts:[{text:'안녕하세요. "OK"라고만 답해주세요.'}]}] }) }
+    );
+    if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(e.error?.message||`HTTP ${res.status}`); }
+    showToast('Gemini API 키 정상 작동 ✓', 'ok');
+  } catch(e) {
+    showToast('키 오류: ' + e.message, 'err');
+    alert('Gemini API 오류:\n' + e.message + '\n\nAPI 키가 올바른지 확인하세요.\nhttps://aistudio.google.com');
+  } finally { btn.textContent = '🔑 키 테스트'; btn.disabled = false; }
+}
+
 // ── API calls ─────────────────────────────────────────────────
+const GEMINI_MODEL = 'gemini-2.0-flash';
+
 async function callGemini(prompt) {
   const key = getSetting('geminiKey');
-  if (!key) throw new Error('Gemini API 키 없음');
+  if (!key) throw new Error('Gemini API 키 없음 — 설정 탭에서 키를 입력하세요');
   const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${key}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${key}`,
     { method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ contents:[{parts:[{text:prompt}]}], generationConfig:{temperature:0.5,maxOutputTokens:2048} }) }
+      body: JSON.stringify({ contents:[{parts:[{text:prompt}]}], generationConfig:{temperature:0.5,maxOutputTokens:3000} }) }
   );
-  if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(e.error?.message||`HTTP ${res.status}`); }
+  if (!res.ok) {
+    const e = await res.json().catch(()=>({}));
+    const msg = e.error?.message || `HTTP ${res.status}`;
+    throw new Error(msg);
+  }
   const data = await res.json();
+  if (!data.candidates?.[0]?.content?.parts?.[0]?.text) throw new Error('Gemini 응답 형식 오류');
   return data.candidates[0].content.parts[0].text;
 }
 async function fetchFinnhubQuote(ticker) {
@@ -955,7 +993,13 @@ function addLog(msg, type='info') {
 
 async function runAnalysis() {
   if (isRunning) return;
-  if (!getSetting('geminiKey')) { showToast('Gemini API 키를 먼저 설정하세요', 'err'); return; }
+  syncFormToStorage();  // 💾 저장 안 눌렀어도 현재 입력값 반영
+  const geminiKey = getSetting('geminiKey');
+  if (!geminiKey) {
+    showToast('Gemini API 키를 입력하세요', 'err');
+    document.querySelectorAll('.tab-btn').forEach(b => { if (b.textContent.includes('설정')) b.click(); });
+    return;
+  }
   isRunning = true;
   const btn = document.getElementById('runBtn');
   if (btn) { btn.disabled = true; btn.textContent = '⏳ 분석 중...'; }
