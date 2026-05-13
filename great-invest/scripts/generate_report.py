@@ -29,12 +29,22 @@ def fetch_us_stocks():
     return sorted(results, key=lambda x: x["change"], reverse=True)[:5]
 
 
+SYSTEM = (
+    "당신은 한국 주식시장 분석 전문가입니다. "
+    "반드시 순수한 한국어(한글)와 영문 알파벳, 숫자만 사용하세요. "
+    "한자·일본어·중국어·베트남어 등 다른 언어 문자를 절대 사용하지 마세요. "
+    "JSON 출력 시 모든 문자열은 한글+영문+숫자만 포함해야 합니다."
+)
+
 def call_ai(prompt):
     client = Groq(api_key=os.environ["GROQ_API_KEY"])
     resp = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.7,
+        messages=[
+            {"role": "system", "content": SYSTEM},
+            {"role": "user", "content": prompt},
+        ],
+        temperature=0.3,
     )
     return resp.choices[0].message.content
 
