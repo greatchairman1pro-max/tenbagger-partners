@@ -2,80 +2,80 @@
   "date": "2026-05-13",
   "agent": "market",
   "theme": {
-    "name": "미국 주식시장 분석",
+    "name": "기술 및 바이오",
     "reasons": [
-      "주가 변동성 분석",
-      "주식 시장 동향 분석"
+      "신기술 개발",
+      "바이오 기술 발전"
     ]
   },
   "us_stocks": [
     {
-      "name": "메타",
-      "ticker": "META",
-      "price": 603.0,
-      "change": 0.69
+      "name": "NOVT",
+      "ticker": "NOVT",
+      "price": 159.19,
+      "change": 13.72
     },
     {
-      "name": "엔비디아",
-      "ticker": "NVDA",
-      "price": 220.78,
-      "change": 0.61
+      "name": "SE",
+      "ticker": "SE",
+      "price": 96.02,
+      "change": 13.14
     },
     {
-      "name": "구글",
-      "ticker": "GOOGL",
-      "price": 387.35,
-      "change": -0.33
+      "name": "WOLF",
+      "ticker": "WOLF",
+      "price": 53.72,
+      "change": 6.78
     },
     {
-      "name": "마이크로소프트",
-      "ticker": "MSFT",
-      "price": 407.77,
-      "change": -1.18
+      "name": "PNRG",
+      "ticker": "PNRG",
+      "price": 250.65,
+      "change": 4.35
     },
     {
-      "name": "TSM",
-      "ticker": "TSM",
-      "price": 397.28,
-      "change": -1.79
+      "name": "SPOT",
+      "ticker": "SPOT",
+      "price": 432.75,
+      "change": 3.16
     }
   ],
   "kr_stocks": [
     {
       "name": "삼성전자",
       "code": "005930",
-      "price": 0,
-      "change": 0.0
-    },
-    {
-      "name": "현대차",
-      "code": "005380",
-      "price": 0,
-      "change": 0.0
-    },
-    {
-      "name": "LG전자",
-      "code": "066570",
-      "price": 0,
-      "change": 0.0
+      "price": 649000,
+      "change": 18.43
     },
     {
       "name": "SK하이닉스",
       "code": "000660",
-      "price": 0,
-      "change": 0.0
+      "price": 1976000,
+      "change": 7.68
     },
     {
-      "name": "네이버",
-      "code": "035420",
-      "price": 0,
-      "change": 0.0
+      "name": "LG전자",
+      "code": "066570",
+      "price": 191400,
+      "change": 3.52
+    },
+    {
+      "name": "한화테크윈",
+      "code": "012450",
+      "price": 47150,
+      "change": 9.52
+    },
+    {
+      "name": "엔씨소프트",
+      "code": "036570",
+      "price": 263000,
+      "change": 5.2
     }
   ],
   "shorts_script": "XO입니다로 시작 60초 대본",
   "blog": {
-    "intro": "오늘 미국 주식시장 분석을 시작합니다.",
-    "body": "주가 변동성과 주식 시장 동향을 분석하여 투자 전략을 수립할 수 있습니다.",
+    "intro": "오늘 나스닥과 코스피의 상승 종목을 분석했습니다.",
+    "body": "기술 및 바이오 테마가 주를 이루고 있습니다. 신기술 개발과 바이오 기술 발전이 주된 이유입니다.",
     "conclusion": "본 분석은 참고용으로만 사용하시고, 투자 결정은 각자 책임하셔야 합니다."
   }
 }
