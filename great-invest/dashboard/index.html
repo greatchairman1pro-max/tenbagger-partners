@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>XO — 미장 테마 분석 대시보드</title>
+<title>XO — 투자 분석 대시보드</title>
 <style>
 :root {
   --bg:     #0a0a0f;
@@ -18,208 +18,172 @@
   --r:      10px;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Segoe UI','Apple SD Gothic Neo',sans-serif;
-  display: grid;
-  grid-template-rows: 56px 1fr;
-  grid-template-columns: 220px 1fr;
-  height: 100vh;
-  overflow: hidden;
+  background:var(--bg); color:var(--text);
+  font-family:'Segoe UI','Apple SD Gothic Neo',sans-serif;
+  display:grid;
+  grid-template-rows:56px 1fr;
+  grid-template-columns:200px 1fr;
+  height:100vh; overflow:hidden;
 }
 
-/* ── Header ── */
+/* Header */
 header {
-  grid-column: 1 / -1;
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  padding: 0 24px;
-  gap: 16px;
+  grid-column:1/-1;
+  background:var(--bg2); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; padding:0 24px; gap:12px;
 }
-.logo       { font-size:20px; font-weight:700; color:var(--gold); letter-spacing:2px; }
-.subtitle   { color:var(--muted); font-size:13px; }
-.hd-date    { margin-left:auto; color:var(--muted); font-size:13px; }
+.logo { font-size:20px; font-weight:700; color:var(--gold); letter-spacing:3px; }
+.logo-sub { color:var(--muted); font-size:12px; }
+.hd-date { margin-left:auto; color:var(--muted); font-size:12px; }
 
-/* ── Sidebar ── */
+/* Sidebar */
 aside {
-  background: var(--bg2);
-  border-right: 1px solid var(--border);
-  overflow-y: auto;
-  padding: 16px 0;
+  background:var(--bg2); border-right:1px solid var(--border);
+  overflow-y:auto; padding:16px 0;
 }
-.sidebar-title {
-  padding: 0 16px 12px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
+.side-title { padding:0 16px 10px; font-size:10px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
 .date-item {
-  padding: 10px 16px;
-  cursor: pointer;
-  font-size: 14px;
-  border-left: 3px solid transparent;
-  transition: all .15s;
-  color: var(--muted);
+  padding:9px 16px; cursor:pointer; font-size:13px;
+  border-left:3px solid transparent; transition:all .15s; color:var(--muted);
 }
-.date-item:hover  { background:var(--bg3); color:var(--text); }
+.date-item:hover { background:var(--bg3); color:var(--text); }
 .date-item.active { border-left-color:var(--gold); color:var(--gold); background:var(--bg3); font-weight:600; }
 
-/* ── Main ── */
-main {
-  overflow-y: auto;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+/* Main */
+main { overflow-y:auto; padding:20px; display:flex; flex-direction:column; gap:14px; }
 
-/* ── Tabs ── */
+/* Agent bar */
+.agent-bar {
+  display:flex; gap:8px;
+  background:var(--bg2); border:1px solid var(--border); border-radius:var(--r); padding:8px;
+}
+.agent-btn {
+  flex:1; padding:10px 8px; border:1px solid var(--border);
+  background:var(--bg3); color:var(--muted); cursor:pointer;
+  border-radius:8px; font-size:13px; font-weight:500; transition:all .2s;
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+}
+.agent-btn .ab-icon { font-size:20px; }
+.agent-btn .ab-name { font-size:11px; }
+.agent-btn:hover { color:var(--text); border-color:var(--muted); }
+.agent-btn.active { background:var(--gold); color:#000; border-color:var(--gold); font-weight:700; }
+.agent-btn.active .ab-name { font-weight:700; }
+
+/* Tabs */
 .tabs {
-  display: flex;
-  gap: 4px;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 6px;
+  display:flex; gap:4px;
+  background:var(--bg2); border:1px solid var(--border);
+  border-radius:var(--r); padding:5px;
 }
 .tab-btn {
-  padding: 8px 20px;
-  border: none;
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all .15s;
+  padding:7px 18px; border:none; background:transparent; color:var(--muted);
+  cursor:pointer; border-radius:6px; font-size:13px; font-weight:500; transition:all .15s;
 }
-.tab-btn:hover       { color:var(--text); background:var(--bg3); }
-.tab-btn.active      { background:var(--gold); color:#000; font-weight:700; }
+.tab-btn:hover { color:var(--text); background:var(--bg3); }
+.tab-btn.active { background:var(--gold); color:#000; font-weight:700; }
 
-/* ── Cards ── */
-.card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 20px;
-}
+/* Cards */
+.card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--r); padding:18px; }
 .card-title {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  font-size:11px; font-weight:600; color:var(--muted);
+  text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;
+  display:flex; justify-content:space-between; align-items:center;
 }
 
-/* ── Analysis ── */
-.theme-name { font-size:28px; font-weight:700; color:var(--gold); margin-bottom:14px; }
-.reasons    { list-style:none; display:flex; flex-direction:column; gap:8px; margin-top:8px; }
-.reasons li {
-  padding: 10px 14px;
-  background: var(--bg3);
-  border-radius: 8px;
-  border-left: 3px solid var(--gold);
-  font-size: 14px;
-}
-.tables-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.stock-table { width:100%; border-collapse:collapse; font-size:14px; }
-.stock-table th {
-  text-align: left;
-  padding: 8px 12px;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  border-bottom: 1px solid var(--border);
-}
-.stock-table td { padding:10px 12px; border-bottom:1px solid var(--border); }
+/* Analysis */
+.theme-name { font-size:26px; font-weight:700; color:var(--gold); margin-bottom:12px; }
+.reasons { list-style:none; display:flex; flex-direction:column; gap:7px; }
+.reasons li { padding:9px 13px; background:var(--bg3); border-radius:8px; border-left:3px solid var(--gold); font-size:13px; }
+.tables-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.stock-table { width:100%; border-collapse:collapse; font-size:13px; }
+.stock-table th { text-align:left; padding:7px 10px; color:var(--muted); font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; border-bottom:1px solid var(--border); }
+.stock-table td { padding:9px 10px; border-bottom:1px solid var(--border); }
 .stock-table tr:last-child td { border-bottom:none; }
 .stock-table tr:hover td { background:var(--bg3); }
 .up   { color:var(--up);   font-weight:600; }
 .down { color:var(--down); font-weight:600; }
+.badge { font-size:10px; padding:2px 7px; border-radius:4px; background:var(--bg3); color:var(--muted); }
 
-/* ── Shorts image ── */
-.shorts-wrap { display:flex; flex-direction:column; align-items:center; gap:12px; }
-.shorts-label { font-size:11px; color:var(--muted); }
-canvas#shortsCanvas {
-  border-radius: 12px;
-  border: 2px solid var(--border);
-  box-shadow: 0 0 30px rgba(255,215,0,.1);
+/* Market summary bar */
+.market-bar {
+  background:var(--bg3); border-radius:8px; padding:10px 14px;
+  font-size:13px; color:var(--text); margin-bottom:14px;
+  display:flex; align-items:center; gap:8px;
 }
-.dl-btn {
-  padding: 10px 28px;
-  background: var(--gold);
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 14px;
+
+/* Sector grid */
+.sector-block { margin-bottom:18px; }
+.sector-block:last-child { margin-bottom:0; }
+.sector-label {
+  font-size:11px; font-weight:600; color:var(--gold);
+  text-transform:uppercase; letter-spacing:.5px;
+  margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid var(--border);
 }
+
+/* Shorts */
+.shorts-wrap { display:flex; flex-direction:column; align-items:center; gap:10px; }
+.shorts-label { font-size:10px; color:var(--muted); text-align:center; line-height:1.6; }
+canvas#shortsCanvas { border-radius:10px; border:2px solid var(--border); box-shadow:0 0 24px rgba(255,215,0,.1); }
+.dl-btn { padding:9px 24px; background:var(--gold); color:#000; border:none; border-radius:8px; cursor:pointer; font-weight:700; font-size:13px; }
 .dl-btn:hover { opacity:.85; }
 
-/* ── Script ── */
+/* Script */
 .script-box {
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 20px;
-  font-size: 15px;
-  line-height: 1.9;
-  white-space: pre-wrap;
-  position: relative;
+  background:var(--bg3); border:1px solid var(--border); border-radius:8px;
+  padding:18px; font-size:14px; line-height:1.9; white-space:pre-wrap;
 }
 .copy-btn {
-  padding: 6px 14px;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  color: var(--text);
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 12px;
-  transition: all .15s;
+  padding:5px 12px; background:var(--bg2); border:1px solid var(--border);
+  color:var(--text); border-radius:5px; cursor:pointer; font-size:11px; transition:all .15s;
 }
 .copy-btn:hover { background:var(--gold); color:#000; }
 
-/* ── Blog ── */
-.blog-section { display:flex; flex-direction:column; gap:20px; }
-.blog-part    { border-left:3px solid var(--border); padding-left:16px; }
+/* Blog */
+.blog-section { display:flex; flex-direction:column; gap:18px; }
+.blog-part    { border-left:3px solid var(--border); padding-left:14px; }
 .blog-part.intro      { border-color:var(--gold); }
 .blog-part.body       { border-color:var(--down); }
-.blog-part.conclusion { border-color:var(--up);  }
-.blog-part h3 { font-size:12px; color:var(--muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:.5px; }
-.blog-part p  { font-size:15px; line-height:1.85; white-space:pre-line; }
+.blog-part.conclusion { border-color:var(--up); }
+.blog-part h3 { font-size:10px; color:var(--muted); margin-bottom:7px; text-transform:uppercase; letter-spacing:.5px; }
+.blog-part p  { font-size:14px; line-height:1.85; white-space:pre-line; }
 
-/* ── Tabs content ── */
+/* Tab content */
 .tab-content        { display:none; }
-.tab-content.active { display:flex; flex-direction:column; gap:16px; }
+.tab-content.active { display:flex; flex-direction:column; gap:14px; }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">📺 XO</div>
-  <div class="subtitle">미장 테마 자동 분석 대시보드</div>
+  <div class="logo">XO</div>
+  <div class="logo-sub">투자 분석 대시보드</div>
   <div class="hd-date" id="headerDate"></div>
 </header>
 
 <aside>
-  <div class="sidebar-title">날짜 선택</div>
+  <div class="side-title">날짜 선택</div>
   <div id="dateList"></div>
 </aside>
 
 <main>
+  <!-- 에이전트 선택 -->
+  <div class="agent-bar">
+    <button class="agent-btn active" onclick="switchAgent('market',this)">
+      <span class="ab-icon">🇺🇸🇰🇷</span>
+      <span class="ab-name">미장국장</span>
+    </button>
+    <button class="agent-btn" onclick="switchAgent('technical',this)">
+      <span class="ab-icon">📈</span>
+      <span class="ab-name">기술적분석</span>
+    </button>
+    <button class="agent-btn" onclick="switchAgent('sector',this)">
+      <span class="ab-icon">🗂</span>
+      <span class="ab-name">섹터테마</span>
+    </button>
+  </div>
+
+  <!-- 탭 -->
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('analysis',this)">📊 분석</button>
     <button class="tab-btn"        onclick="switchTab('image',this)">🖼 이미지</button>
@@ -227,75 +191,46 @@ canvas#shortsCanvas {
     <button class="tab-btn"        onclick="switchTab('blog',this)">📝 블로그</button>
   </div>
 
-  <!-- 분석 -->
+  <!-- 분석 탭 -->
   <div id="tab-analysis" class="tab-content active">
-    <div class="card">
-      <div class="card-title">오늘의 미장 테마</div>
-      <div class="theme-name" id="themeName">—</div>
-      <ul class="reasons" id="reasonsList"></ul>
-    </div>
-    <div class="tables-grid">
-      <div class="card">
-        <div class="card-title">🇺🇸 미국 상위 종목</div>
-        <table class="stock-table">
-          <thead><tr><th>종목</th><th>티커</th><th>가격($)</th><th>등락률</th></tr></thead>
-          <tbody id="usTable"></tbody>
-        </table>
-      </div>
-      <div class="card">
-        <div class="card-title">🇰🇷 국내 수혜주</div>
-        <table class="stock-table">
-          <thead><tr><th>종목</th><th>코드</th><th>가격(₩)</th><th>등락률</th></tr></thead>
-          <tbody id="krTable"></tbody>
-        </table>
-      </div>
-    </div>
+    <div id="analysisContent"></div>
   </div>
 
-  <!-- 이미지 -->
+  <!-- 이미지 탭 -->
   <div id="tab-image" class="tab-content">
     <div class="card">
-      <div class="card-title">📱 유튜브 쇼츠 이미지 (1080 × 1920)</div>
+      <div class="card-title">
+        📱 유튜브 쇼츠 이미지 (1080 × 1920)
+        <span class="badge">우측·하단: YouTube UI 안전영역 반영</span>
+      </div>
       <div class="shorts-wrap">
-        <canvas id="shortsCanvas" width="405" height="720"></canvas>
-        <div class="shorts-label">미리보기 37.5% — 다운로드 시 원본 해상도 저장</div>
-        <button class="dl-btn" onclick="downloadImage()">⬇ PNG 다운로드 (1080×1920)</button>
+        <canvas id="shortsCanvas" width="338" height="600"></canvas>
+        <div class="shorts-label">
+          미리보기 31.25% | 우측 160px · 하단 400px YouTube 버튼 영역 제외<br>
+          다운로드 시 원본 1080×1920 저장
+        </div>
+        <button class="dl-btn" onclick="downloadImage()">⬇ PNG 다운로드</button>
       </div>
     </div>
   </div>
 
-  <!-- 쇼츠 대본 -->
+  <!-- 쇼츠 대본 탭 -->
   <div id="tab-script" class="tab-content">
     <div class="card">
-      <div class="card-title">
-        🎬 쇼츠 대본 (60초)
-        <button class="copy-btn" onclick="copyId('scriptBox',this)">복사</button>
-      </div>
+      <div class="card-title">🎬 쇼츠 대본 (60초) <button class="copy-btn" onclick="copyId('scriptBox',this)">복사</button></div>
       <div class="script-box" id="scriptBox"></div>
     </div>
   </div>
 
-  <!-- 블로그 -->
+  <!-- 블로그 탭 -->
   <div id="tab-blog" class="tab-content">
     <div class="card">
-      <div class="card-title">
-        📝 블로그 원고
-        <button class="copy-btn" onclick="copyId('blogFull',this)">전체 복사</button>
-      </div>
+      <div class="card-title">📝 블로그 원고 <button class="copy-btn" onclick="copyId('blogFull',this)">전체 복사</button></div>
       <div id="blogFull">
         <div class="blog-section">
-          <div class="blog-part intro">
-            <h3>서론</h3>
-            <p id="blogIntro"></p>
-          </div>
-          <div class="blog-part body">
-            <h3>본론</h3>
-            <p id="blogBody"></p>
-          </div>
-          <div class="blog-part conclusion">
-            <h3>결론</h3>
-            <p id="blogConclusion"></p>
-          </div>
+          <div class="blog-part intro"><h3>서론</h3><p id="blogIntro"></p></div>
+          <div class="blog-part body"><h3>본론</h3><p id="blogBody"></p></div>
+          <div class="blog-part conclusion"><h3>결론</h3><p id="blogConclusion"></p></div>
         </div>
       </div>
     </div>
@@ -304,15 +239,32 @@ canvas#shortsCanvas {
 
 <script>
 // ── State ────────────────────────────────────────────────────
-let currentData = null;
+let currentAgent = 'market';
+let currentTab   = 'analysis';
+let currentDate  = null;
+let agentData    = {};  // { market: data, technical: data, sector: data }
 
-// ── Tab ──────────────────────────────────────────────────────
+// ── Agent switch ─────────────────────────────────────────────
+function switchAgent(name, btn) {
+  currentAgent = name;
+  document.querySelectorAll('.agent-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (currentDate) loadAgentData(name, currentDate);
+}
+
+// ── Tab switch ───────────────────────────────────────────────
 function switchTab(name, btn) {
+  currentTab = name;
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
   btn.classList.add('active');
-  if (name === 'image' && currentData) drawShortsCanvas(document.getElementById('shortsCanvas'), currentData);
+  const d = agentData[currentAgent];
+  if (d) {
+    if (name === 'image')  drawShortsCanvas(document.getElementById('shortsCanvas'), currentAgent, d);
+    if (name === 'script') renderScript(d);
+    if (name === 'blog')   renderBlog(d);
+  }
 }
 
 // ── Load ─────────────────────────────────────────────────────
@@ -321,192 +273,414 @@ async function loadDateIndex() {
     const res = await fetch('data/index.json');
     const idx = await res.json();
     renderSidebar(idx.dates);
-    if (idx.dates.length) loadReport(idx.dates[0]);
+    if (idx.dates.length) selectDate(idx.dates[0]);
   } catch {
-    renderSidebar([SAMPLE.date]);
-    applyData(SAMPLE);
+    renderSidebar([SAMPLES.market.date]);
+    selectDate(SAMPLES.market.date, true);
   }
 }
 
 function renderSidebar(dates) {
   document.getElementById('dateList').innerHTML = dates.map(d =>
-    `<div class="date-item" onclick="loadReport('${d}')" data-date="${d}">${d}</div>`
+    `<div class="date-item" onclick="selectDate('${d}')" data-date="${d}">${d}</div>`
   ).join('');
 }
 
-async function loadReport(date) {
+function selectDate(date, useSample) {
+  currentDate = date;
   document.querySelectorAll('.date-item').forEach(el =>
     el.classList.toggle('active', el.dataset.date === date)
   );
+  document.getElementById('headerDate').textContent = date + ' 리포트';
+  loadAgentData(currentAgent, date, useSample);
+}
+
+async function loadAgentData(agent, date, useSample) {
+  if (useSample) {
+    agentData[agent] = SAMPLES[agent];
+    applyData(agent, SAMPLES[agent]);
+    return;
+  }
   try {
-    const res = await fetch(`data/${date}.json`);
-    applyData(await res.json());
+    const res = await fetch(`data/${agent}/${date}.json`);
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    agentData[agent] = data;
+    applyData(agent, data);
   } catch {
-    applyData(SAMPLE);
+    agentData[agent] = SAMPLES[agent];
+    applyData(agent, SAMPLES[agent]);
   }
 }
 
-// ── Render ───────────────────────────────────────────────────
-function applyData(d) {
-  currentData = d;
-  document.getElementById('headerDate').textContent = d.date + ' 리포트';
-  renderAnalysis(d);
-  renderScript(d);
-  renderBlog(d);
-  const active = document.querySelector('.tab-content.active');
-  if (active && active.id === 'tab-image') drawShortsCanvas(document.getElementById('shortsCanvas'), d);
+function applyData(agent, data) {
+  if (agent !== currentAgent) return;
+  if (currentTab === 'analysis') renderAnalysis(agent, data);
+  if (currentTab === 'image')    drawShortsCanvas(document.getElementById('shortsCanvas'), agent, data);
+  if (currentTab === 'script')   renderScript(data);
+  if (currentTab === 'blog')     renderBlog(data);
+  // Always refresh analysis when data loads
+  renderAnalysis(agent, data);
 }
 
-function renderAnalysis(d) {
-  document.getElementById('themeName').textContent = d.theme.name;
-  document.getElementById('reasonsList').innerHTML =
-    d.theme.reasons.map(r => `<li>💡 ${r}</li>`).join('');
-  document.getElementById('usTable').innerHTML =
-    d.us_stocks.map(s => `<tr>
-      <td>${s.name}</td>
-      <td style="color:var(--muted)">${s.ticker}</td>
-      <td>$${s.price.toLocaleString()}</td>
-      <td class="${s.change >= 0 ? 'up' : 'down'}">${s.change >= 0 ? '+' : ''}${s.change}%</td>
-    </tr>`).join('');
-  document.getElementById('krTable').innerHTML =
-    d.kr_stocks.map(s => `<tr>
-      <td>${s.name}</td>
-      <td style="color:var(--muted)">${s.code}</td>
-      <td>₩${s.price.toLocaleString()}</td>
-      <td class="${s.change >= 0 ? 'up' : 'down'}">${s.change >= 0 ? '+' : ''}${s.change}%</td>
-    </tr>`).join('');
+// ── Analysis render (3 agents) ───────────────────────────────
+function renderAnalysis(agent, data) {
+  const el = document.getElementById('analysisContent');
+  if (agent === 'market')    el.innerHTML = renderMarket(data);
+  if (agent === 'technical') el.innerHTML = renderTechnical(data);
+  if (agent === 'sector')    el.innerHTML = renderSector(data);
 }
 
+function renderMarket(d) {
+  return `
+    <div class="card">
+      <div class="card-title">오늘의 미장 테마</div>
+      <div class="theme-name">${d.theme.name}</div>
+      <ul class="reasons">${d.theme.reasons.map(r=>`<li>💡 ${r}</li>`).join('')}</ul>
+    </div>
+    <div class="tables-grid">
+      <div class="card">
+        <div class="card-title">🇺🇸 미국 상위 종목</div>
+        <table class="stock-table">
+          <thead><tr><th>종목</th><th>티커</th><th>가격($)</th><th>등락률</th></tr></thead>
+          <tbody>${d.us_stocks.map(s=>`<tr>
+            <td>${s.name}</td>
+            <td style="color:var(--muted)">${s.ticker}</td>
+            <td>$${s.price.toLocaleString()}</td>
+            <td class="${s.change>=0?'up':'down'}">${s.change>=0?'+':''}${s.change}%</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">🇰🇷 국내 수혜주</div>
+        <table class="stock-table">
+          <thead><tr><th>종목</th><th>코드</th><th>가격(₩)</th><th>등락률</th></tr></thead>
+          <tbody>${d.kr_stocks.map(s=>`<tr>
+            <td>${s.name}</td>
+            <td style="color:var(--muted)">${s.code}</td>
+            <td>₩${s.price.toLocaleString()}</td>
+            <td class="${s.change>=0?'up':'down'}">${s.change>=0?'+':''}${s.change}%</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+function renderTechnical(d) {
+  return `
+    <div class="card">
+      <div class="card-title">${d.title}</div>
+      <div class="market-bar">📊 ${d.market_summary}</div>
+      <table class="stock-table">
+        <thead><tr><th>종목</th><th>코드</th><th>가격(₩)</th><th>1일차</th><th>2일차</th><th>누적</th><th>거래량비</th><th>시그널</th></tr></thead>
+        <tbody>${d.stocks.map(s=>`<tr>
+          <td>${s.name}</td>
+          <td style="color:var(--muted)">${s.code}</td>
+          <td>₩${s.price.toLocaleString()}</td>
+          <td class="up">+${s.day1}%</td>
+          <td class="up">+${s.day2}%</td>
+          <td class="up" style="font-weight:700">+${s.total}%</td>
+          <td style="color:var(--gold)">${s.volume_ratio}x</td>
+          <td style="color:var(--muted);font-size:11px">${s.signal}</td>
+        </tr>`).join('')}</tbody>
+      </table>
+    </div>`;
+}
+
+function renderSector(d) {
+  const foreignBlocks = d.foreign.map(sec => `
+    <div class="sector-block">
+      <div class="sector-label">🌐 ${sec.sector}</div>
+      <table class="stock-table">
+        <thead><tr><th>종목</th><th>티커</th><th>가격($)</th><th>등락률</th></tr></thead>
+        <tbody>${sec.stocks.map(s=>`<tr>
+          <td>${s.name}</td>
+          <td style="color:var(--muted)">${s.ticker}</td>
+          <td>$${s.price.toLocaleString()}</td>
+          <td class="${s.change>=0?'up':'down'}">${s.change>=0?'+':''}${s.change}%</td>
+        </tr>`).join('')}</tbody>
+      </table>
+    </div>`).join('');
+
+  const domesticBlocks = d.domestic.map(sec => `
+    <div class="sector-block">
+      <div class="sector-label">🇰🇷 ${sec.sector}</div>
+      <table class="stock-table">
+        <thead><tr><th>종목</th><th>코드</th><th>가격(₩)</th><th>등락률</th></tr></thead>
+        <tbody>${sec.stocks.map(s=>`<tr>
+          <td>${s.name}</td>
+          <td style="color:var(--muted)">${s.code}</td>
+          <td>₩${s.price.toLocaleString()}</td>
+          <td class="${s.change>=0?'up':'down'}">${s.change>=0?'+':''}${s.change}%</td>
+        </tr>`).join('')}</tbody>
+      </table>
+    </div>`).join('');
+
+  return `
+    <div class="card">
+      <div class="card-title">🌐 해외 강세 섹터</div>
+      ${foreignBlocks}
+    </div>
+    <div class="card">
+      <div class="card-title">🇰🇷 국내 강세 섹터</div>
+      ${domesticBlocks}
+    </div>`;
+}
+
+// ── Script / Blog ────────────────────────────────────────────
 function renderScript(d) { document.getElementById('scriptBox').textContent = d.shorts_script; }
-
 function renderBlog(d) {
   document.getElementById('blogIntro').textContent      = d.blog.intro;
   document.getElementById('blogBody').textContent       = d.blog.body;
   document.getElementById('blogConclusion').textContent = d.blog.conclusion;
 }
 
-// ── Canvas drawing ───────────────────────────────────────────
-function drawShortsCanvas(canvas, d) {
+// ── Shorts Canvas ─────────────────────────────────────────────
+// Canvas: 338×600 (preview 31.25% of 1080×1920)
+// Safe zone: right 160px + bottom 400px excluded (YouTube UI)
+// Content area: x 0~920, y 0~1520
+function drawShortsCanvas(canvas, agent, d) {
   const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  const s = W / 1080;  // scale factor
+  const W = canvas.width, H = canvas.height;   // 338, 600
+  const s = W / 1080;                          // 0.3129...
+
+  // Safe zone boundaries in canvas coords
+  const safeRight  = Math.floor(920 * s);       // ≈ 288
+  const safeBottom = Math.floor(1520 * s);      // ≈ 476
+  const padL = Math.floor(36 * s);              // ≈ 11
+  const contentW = safeRight - padL;            // usable width
 
   // Background
   const bg = ctx.createLinearGradient(0, 0, 0, H);
-  bg.addColorStop(0, '#0a0a1a');
-  bg.addColorStop(1, '#0d0d1f');
+  bg.addColorStop(0, '#080810'); bg.addColorStop(1, '#0d0d20');
   ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
-  // Subtle grid
-  ctx.strokeStyle = 'rgba(255,255,255,0.03)'; ctx.lineWidth = 1;
-  for (let y = 0; y < H; y += 40 * s) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+  // Subtle horizontal lines
+  ctx.strokeStyle = 'rgba(255,255,255,0.025)'; ctx.lineWidth = 0.5;
+  for (let y = 0; y < H; y += Math.floor(36*s)) {
+    ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+  }
 
-  // Header area
-  ctx.fillStyle = 'rgba(255,215,0,0.08)'; ctx.fillRect(0, 0, W, 80 * s);
+  // YouTube UI zone overlays (right + bottom) — subtle indicator
+  ctx.fillStyle = 'rgba(255,100,100,0.04)';
+  ctx.fillRect(safeRight, 0, W - safeRight, safeBottom);  // right strip
+  ctx.fillRect(0, safeBottom, W, H - safeBottom);         // bottom strip
+
+  // ── Header (y 0 ~ 130px full → 0 ~ 41canvas) ──
+  const hdrH = Math.floor(130 * s);
+  const hdrGrad = ctx.createLinearGradient(0, 0, 0, hdrH);
+  hdrGrad.addColorStop(0, 'rgba(255,215,0,0.18)');
+  hdrGrad.addColorStop(1, 'rgba(255,215,0,0.04)');
+  ctx.fillStyle = hdrGrad; ctx.fillRect(0, 0, safeRight, hdrH);
 
   // Logo
-  ctx.font = `bold ${26*s}px "Segoe UI",sans-serif`; ctx.fillStyle = '#ffd700';
-  ctx.fillText('📺 XO', 24*s, 52*s);
+  ctx.font = `bold ${Math.floor(30*s)}px "Segoe UI",sans-serif`;
+  ctx.fillStyle = '#ffd700';
+  ctx.fillText('XO', padL, Math.floor(88*s));
 
-  // Date (right-aligned)
-  ctx.font = `${13*s}px "Segoe UI",sans-serif`; ctx.fillStyle = 'rgba(255,255,255,0.45)';
+  // Agent label chip
+  const agentLabel = {market:'미장국장', technical:'기술적분석', sector:'섹터테마'}[agent];
+  ctx.font = `${Math.floor(18*s)}px "Segoe UI",sans-serif`;
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.fillText(agentLabel, padL + Math.floor(50*s), Math.floor(88*s));
+
+  // Date (right side, within safe zone)
+  ctx.font = `${Math.floor(17*s)}px "Segoe UI",sans-serif`;
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
   const dw = ctx.measureText(d.date).width;
-  ctx.fillText(d.date, W - 24*s - dw, 52*s);
+  ctx.fillText(d.date, safeRight - dw - Math.floor(10*s), Math.floor(88*s));
 
-  // Theme label
-  ctx.font = `${13*s}px "Segoe UI",sans-serif`; ctx.fillStyle = '#ffd700';
-  ctx.fillText('오늘의 미장 테마', 24*s, 112*s);
+  let y = Math.floor(160 * s);
 
-  // Theme name
-  const tsize = d.theme.name.length > 12 ? 30*s : 38*s;
-  ctx.font = `bold ${tsize}px "Segoe UI",sans-serif`; ctx.fillStyle = '#ffffff';
-  ctx.fillText(d.theme.name, 24*s, 158*s);
+  // ── Theme / Title section ──
+  const title = agent === 'market' ? d.theme.name : d.title;
+  ctx.font = `${Math.floor(14*s)}px "Segoe UI",sans-serif`;
+  ctx.fillStyle = 'rgba(255,215,0,0.75)';
+  ctx.fillText(agent === 'market' ? '오늘의 미장 테마' : '오늘의 분석 주제', padL, y);
+
+  y += Math.floor(42*s);
+  const titleSize = title.length > 14 ? Math.floor(28*s) : Math.floor(34*s);
+  ctx.font = `bold ${titleSize}px "Segoe UI",sans-serif`;
+  ctx.fillStyle = '#ffffff';
+  // Word wrap if too long
+  if (ctx.measureText(title).width > contentW) {
+    const mid = Math.floor(title.length / 2);
+    ctx.fillText(title.slice(0, mid), padL, y);
+    y += Math.floor(38*s);
+    ctx.fillText(title.slice(mid), padL, y);
+  } else {
+    ctx.fillText(title, padL, y);
+  }
+  y += Math.floor(22*s);
 
   // Gold divider
-  ctx.strokeStyle = '#ffd700'; ctx.lineWidth = 2*s;
-  ctx.beginPath(); ctx.moveTo(24*s, 174*s); ctx.lineTo(W-24*s, 174*s); ctx.stroke();
+  ctx.strokeStyle = '#ffd700'; ctx.lineWidth = Math.floor(2*s);
+  ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(safeRight - Math.floor(10*s), y); ctx.stroke();
+  y += Math.floor(22*s);
 
-  // Reasons
-  ctx.font = `${13*s}px "Segoe UI",sans-serif`;
-  d.theme.reasons.forEach((r, i) => {
-    const y = (198 + i*30) * s;
-    ctx.fillStyle = 'rgba(255,215,0,0.8)'; ctx.fillText(`${i+1}.`, 24*s, y);
-    ctx.fillStyle = 'rgba(255,255,255,0.85)';
-    ctx.fillText(r.length > 28 ? r.slice(0,28)+'…' : r, 44*s, y);
-  });
+  // ── Agent-specific content ──
+  if (agent === 'market') {
+    y = drawMarketCanvas(ctx, d, y, s, padL, safeRight, contentW);
+  } else if (agent === 'technical') {
+    y = drawTechnicalCanvas(ctx, d, y, s, padL, safeRight, contentW);
+  } else {
+    y = drawSectorCanvas(ctx, d, y, s, padL, safeRight, contentW);
+  }
 
-  // US Stocks card
-  let y = 275 * s;
-  rrect(ctx, 16*s, y-22*s, W-32*s, 200*s, 10*s, 'rgba(255,255,255,0.04)');
-  ctx.font = `bold ${13*s}px "Segoe UI",sans-serif`; ctx.fillStyle = '#ffd700';
-  ctx.fillText('🇺🇸 미국 상위 종목', 28*s, y);
-  y += 24*s;
-  const cols = [28, 118, 218, 318];
-  const hdrs = ['종목','티커','가격($)','등락률'];
-  ctx.font = `${10*s}px "Segoe UI",sans-serif`; ctx.fillStyle = 'rgba(255,255,255,0.4)';
-  hdrs.forEach((h,i) => ctx.fillText(h, cols[i]*s, y));
-  y += 6*s;
-  ctx.strokeStyle='rgba(255,255,255,0.1)'; ctx.lineWidth=0.5;
-  ctx.beginPath(); ctx.moveTo(24*s,y); ctx.lineTo(W-24*s,y); ctx.stroke();
-  d.us_stocks.slice(0,5).forEach(st => {
-    y += 26*s;
-    ctx.font = `${12*s}px "Segoe UI",sans-serif`;
-    ctx.fillStyle='#fff';    ctx.fillText(st.name.slice(0,9),    cols[0]*s, y);
-    ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.fillText(st.ticker, cols[1]*s, y);
-    ctx.fillStyle='#fff';    ctx.fillText(`$${st.price}`,         cols[2]*s, y);
-    ctx.fillStyle = st.change >= 0 ? '#ff4d4d' : '#4d9eff';
-    ctx.fillText(`${st.change>=0?'+':''}${st.change}%`,           cols[3]*s, y);
-  });
+  // ── Branding footer (just above safe bottom) ──
+  const footY = safeBottom - Math.floor(40*s);
+  ctx.strokeStyle = 'rgba(255,215,0,0.25)'; ctx.lineWidth = 0.5;
+  ctx.beginPath(); ctx.moveTo(padL, footY); ctx.lineTo(safeRight - Math.floor(10*s), footY); ctx.stroke();
+  ctx.font = `${Math.floor(14*s)}px "Segoe UI",sans-serif`;
+  ctx.fillStyle = 'rgba(255,215,0,0.55)';
+  ctx.fillText('📺 XO — 매일 아침 시장 분석', padL, footY + Math.floor(22*s));
 
-  // KR Stocks card
-  y += 38*s;
-  rrect(ctx, 16*s, y-22*s, W-32*s, 200*s, 10*s, 'rgba(255,255,255,0.04)');
-  ctx.font = `bold ${13*s}px "Segoe UI",sans-serif`; ctx.fillStyle = '#ffd700';
-  ctx.fillText('🇰🇷 국내 수혜주', 28*s, y);
-  y += 24*s;
-  ctx.font = `${10*s}px "Segoe UI",sans-serif`; ctx.fillStyle = 'rgba(255,255,255,0.4)';
-  ['종목','코드','가격(₩)','등락률'].forEach((h,i) => ctx.fillText(h, cols[i]*s, y));
-  y += 6*s;
-  ctx.beginPath(); ctx.moveTo(24*s,y); ctx.lineTo(W-24*s,y); ctx.stroke();
-  d.kr_stocks.slice(0,5).forEach(st => {
-    y += 26*s;
-    ctx.font = `${12*s}px "Segoe UI",sans-serif`;
-    ctx.fillStyle='#fff';    ctx.fillText(st.name.slice(0,6),           cols[0]*s, y);
-    ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.fillText(st.code,        cols[1]*s, y);
-    ctx.fillStyle='#fff';    ctx.fillText(`₩${st.price.toLocaleString()}`, cols[2]*s, y);
-    ctx.fillStyle = st.change >= 0 ? '#ff4d4d' : '#4d9eff';
-    ctx.fillText(`${st.change>=0?'+':''}${st.change}%`,                 cols[3]*s, y);
-  });
-
-  // Footer
-  const fy = H - 48*s;
-  ctx.strokeStyle='rgba(255,215,0,0.3)'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(24*s,fy); ctx.lineTo(W-24*s,fy); ctx.stroke();
-  ctx.font = `${11*s}px "Segoe UI",sans-serif`;
-  ctx.fillStyle='rgba(255,215,0,0.65)';
-  ctx.fillText('📺 XO — 매일 아침 미장 테마 분석', 24*s, fy+24*s);
-  ctx.fillStyle='rgba(255,255,255,0.3)';
-  const disc = '투자 판단의 책임은 본인에게 있습니다';
-  ctx.fillText(disc, W-24*s-ctx.measureText(disc).width, fy+24*s);
+  // ── Safe zone indicator text ──
+  ctx.font = `${Math.floor(12*s)}px "Segoe UI",sans-serif`;
+  ctx.fillStyle = 'rgba(255,100,100,0.4)';
+  ctx.save();
+  ctx.translate(W - Math.floor(8*s), Math.floor(H/2));
+  ctx.rotate(-Math.PI/2);
+  ctx.textAlign = 'center';
+  ctx.fillText('YouTube 버튼 영역', 0, 0);
+  ctx.restore();
+  ctx.fillText('YouTube UI', Math.floor(10*s), H - Math.floor(8*s));
 }
 
-function rrect(ctx, x, y, w, h, r, fill) {
+function drawMarketCanvas(ctx, d, y, s, padL, safeRight, contentW) {
+  const rowH = Math.floor(40*s);
+  const cols = [0, Math.floor(90*s), Math.floor(170*s), Math.floor(240*s)];
+
+  // US section
+  y = drawTableSection(ctx, '🇺🇸 미국 상위 종목', d.us_stocks.slice(0,5).map(s2=>({
+    c0: s2.name.slice(0,7), c1: s2.ticker, c2: `$${s2.price}`, c3: `${s2.change>=0?'+':''}${s2.change}%`, up: s2.change>=0
+  })), y, s, padL, safeRight, contentW, cols, rowH);
+
+  y += Math.floor(24*s);
+
+  // KR section
+  y = drawTableSection(ctx, '🇰🇷 국내 수혜주', d.kr_stocks.slice(0,5).map(s2=>({
+    c0: s2.name.slice(0,5), c1: s2.code, c2: `₩${(s2.price/1000).toFixed(0)}K`, c3: `${s2.change>=0?'+':''}${s2.change}%`, up: s2.change>=0
+  })), y, s, padL, safeRight, contentW, cols, rowH);
+
+  return y;
+}
+
+function drawTechnicalCanvas(ctx, d, y, s, padL, safeRight, contentW) {
+  // Market summary
+  ctx.font = `${Math.floor(14*s)}px "Segoe UI",sans-serif`;
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.fillText(d.market_summary, padL, y);
+  y += Math.floor(32*s);
+
+  const rowH = Math.floor(38*s);
+  const cols = [0, Math.floor(78*s), Math.floor(156*s), Math.floor(210*s)];
+
+  y = drawTableSection(ctx, '📈 2일 연속 상승 종목', d.stocks.slice(0,5).map(st=>({
+    c0: st.name.slice(0,5), c1: `+${st.day1}→+${st.day2}`, c2: `+${st.total}%`, c3: `${st.volume_ratio}x`, up: true
+  })), y, s, padL, safeRight, contentW, cols, rowH);
+
+  return y;
+}
+
+function drawSectorCanvas(ctx, d, y, s, padL, safeRight, contentW) {
+  const rowH = Math.floor(34*s);
+  const cols = [0, Math.floor(90*s), Math.floor(165*s), Math.floor(235*s)];
+
+  // Top 2 foreign sectors
+  for (const sec of d.foreign.slice(0,2)) {
+    ctx.font = `bold ${Math.floor(13*s)}px "Segoe UI",sans-serif`;
+    ctx.fillStyle = '#ffd700';
+    ctx.fillText(`🌐 ${sec.sector}`, padL, y);
+    y += Math.floor(22*s);
+    for (const st of sec.stocks.slice(0,2)) {
+      ctx.font = `${Math.floor(12*s)}px "Segoe UI",sans-serif`;
+      ctx.fillStyle = '#fff';    ctx.fillText(st.name.slice(0,8), padL + cols[0], y);
+      ctx.fillStyle = 'rgba(255,255,255,0.45)'; ctx.fillText(st.ticker, padL + cols[1], y);
+      ctx.fillStyle = st.change>=0?'#ff4d4d':'#4d9eff';
+      ctx.fillText(`${st.change>=0?'+':''}${st.change}%`, padL + cols[2], y);
+      y += rowH;
+    }
+    y += Math.floor(8*s);
+  }
+
+  // Top 2 domestic sectors
+  for (const sec of d.domestic.slice(0,2)) {
+    ctx.font = `bold ${Math.floor(13*s)}px "Segoe UI",sans-serif`;
+    ctx.fillStyle = '#ffd700';
+    ctx.fillText(`🇰🇷 ${sec.sector}`, padL, y);
+    y += Math.floor(22*s);
+    for (const st of sec.stocks.slice(0,2)) {
+      ctx.font = `${Math.floor(12*s)}px "Segoe UI",sans-serif`;
+      ctx.fillStyle = '#fff';    ctx.fillText(st.name.slice(0,5), padL + cols[0], y);
+      ctx.fillStyle = 'rgba(255,255,255,0.45)'; ctx.fillText(st.code, padL + cols[1], y);
+      ctx.fillStyle = st.change>=0?'#ff4d4d':'#4d9eff';
+      ctx.fillText(`${st.change>=0?'+':''}${st.change}%`, padL + cols[2], y);
+      y += rowH;
+    }
+    y += Math.floor(8*s);
+  }
+  return y;
+}
+
+function drawTableSection(ctx, title, rows, y, s, padL, safeRight, contentW, cols, rowH) {
+  // Section card background
+  const cardH = Math.floor(30*s) + Math.floor(24*s) + rows.length * rowH + Math.floor(12*s);
+  ctx.fillStyle = 'rgba(255,255,255,0.04)';
+  rrect(ctx, padL - Math.floor(8*s), y - Math.floor(16*s), safeRight - padL + Math.floor(8*s), cardH, Math.floor(8*s));
+
+  // Title
+  ctx.font = `bold ${Math.floor(14*s)}px "Segoe UI",sans-serif`;
+  ctx.fillStyle = '#ffd700';
+  ctx.fillText(title, padL, y);
+  y += Math.floor(20*s);
+
+  // Column headers
+  ctx.font = `${Math.floor(11*s)}px "Segoe UI",sans-serif`;
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  const hdrs = ['종목','정보','가격','등락'];
+  hdrs.forEach((h,i) => ctx.fillText(h, padL + cols[i], y));
+  y += Math.floor(5*s);
+
+  // Divider
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.lineWidth = 0.5;
+  ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(safeRight - Math.floor(10*s), y); ctx.stroke();
+
+  // Rows
+  rows.forEach(r => {
+    y += rowH;
+    ctx.font = `${Math.floor(12*s)}px "Segoe UI",sans-serif`;
+    ctx.fillStyle = '#fff';
+    ctx.fillText(r.c0, padL + cols[0], y);
+    ctx.fillStyle = 'rgba(255,255,255,0.45)';
+    ctx.fillText(r.c1, padL + cols[1], y);
+    ctx.fillStyle = '#fff';
+    ctx.fillText(r.c2, padL + cols[2], y);
+    ctx.fillStyle = r.up ? '#ff4d4d' : '#4d9eff';
+    ctx.fillText(r.c3, padL + cols[3], y);
+  });
+
+  return y + Math.floor(12*s);
+}
+
+function rrect(ctx, x, y, w, h, r) {
   ctx.beginPath();
   ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r);
   ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
   ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
   ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y);
-  ctx.closePath(); ctx.fillStyle=fill; ctx.fill();
+  ctx.closePath(); ctx.fill();
 }
 
-// ── Download full-res ────────────────────────────────────────
+// ── Download full-res ─────────────────────────────────────────
 function downloadImage() {
-  if (!currentData) return;
+  const d = agentData[currentAgent];
+  if (!d) return;
   const off = document.createElement('canvas');
   off.width = 1080; off.height = 1920;
-  drawShortsCanvas(off, currentData);
+  drawShortsCanvas(off, currentAgent, d);
   const a = document.createElement('a');
-  a.download = `XO_${currentData.date}.png`;
+  a.download = `XO_${currentAgent}_${d.date}.png`;
   a.href = off.toDataURL('image/png');
   a.click();
 }
@@ -514,41 +688,34 @@ function downloadImage() {
 // ── Copy ─────────────────────────────────────────────────────
 function copyId(id, btn) {
   navigator.clipboard.writeText(document.getElementById(id).innerText).then(() => {
-    const orig = btn.textContent;
-    btn.textContent = '✓ 복사됨';
-    setTimeout(() => btn.textContent = orig, 1500);
+    const o = btn.textContent; btn.textContent = '✓ 복사됨';
+    setTimeout(() => btn.textContent = o, 1500);
   });
 }
 
-// ── Sample data ──────────────────────────────────────────────
-const SAMPLE = {
-  "date": "2026-05-13",
-  "theme": {
-    "name": "반도체 / AI 인프라",
-    "reasons": [
-      "엔비디아 실적 발표 호조 → AI 서버 수요 재확인",
-      "미 연준 금리 인하 기대감 → 기술주 매수세 유입"
-    ]
+// ── Sample data ───────────────────────────────────────────────
+const SAMPLES = {
+  market: {
+    "date":"2026-05-13","agent":"market",
+    "theme":{"name":"반도체 / AI 인프라","reasons":["엔비디아 실적 발표 호조 → AI 서버 수요 재확인","미 연준 금리 인하 기대감 → 기술주 매수세 유입"]},
+    "us_stocks":[{"name":"NVIDIA","ticker":"NVDA","price":950.00,"change":8.5},{"name":"AMD","ticker":"AMD","price":175.00,"change":5.2},{"name":"Broadcom","ticker":"AVGO","price":1680.00,"change":4.8},{"name":"Microsoft","ticker":"MSFT","price":425.00,"change":3.1},{"name":"Qualcomm","ticker":"QCOM","price":185.00,"change":2.9}],
+    "kr_stocks":[{"name":"SK하이닉스","code":"000660","price":198000,"change":4.1},{"name":"한미반도체","code":"042700","price":165000,"change":5.8},{"name":"삼성전자","code":"005930","price":87000,"change":2.5},{"name":"리노공업","code":"058470","price":242000,"change":3.2},{"name":"HPSP","code":"403870","price":78000,"change":3.7}],
+    "shorts_script":"안녕하세요, XO입니다.\n\n오늘 미국 시장에서 가장 주목해야 할 테마는\n바로 '반도체 / AI 인프라' 섹터입니다.\n\n[이유 첫 번째]\n엔비디아가 실적 발표에서 어닝 서프라이즈를 기록하며\nAI 서버 수요가 여전히 강하다는 것을 확인시켜 줬습니다.\nNVDA 하루 만에 +8.5% 급등!\n\n[이유 두 번째]\n미 연준의 금리 인하 기대감이 커지면서\n고밸류 기술주에 매수세가 다시 유입되고 있습니다.\n\n[오늘의 국내 관련주]\nSK하이닉스 +4.1% / 한미반도체 +5.8%\n\n투자 판단은 항상 본인 책임하에 하시기 바랍니다.\n구독과 좋아요 부탁드립니다! XO였습니다.",
+    "blog":{"intro":"2026년 5월 13일, 미국 증시는 반도체 및 AI 인프라 섹터의 강세로 마감했습니다. 엔비디아를 필두로 한 AI 관련 빅테크들이 강한 상승세를 보이며 나스닥 지수를 견인했습니다.","body":"이번 상승의 핵심 원인은 두 가지입니다.\n\n첫째, 엔비디아의 1분기 실적이 시장 예상치를 크게 상회했습니다. 데이터센터 매출이 전년 대비 3배 이상 증가했습니다.\n\n둘째, FOMC 회의록에서 비둘기파적 스탠스가 확인되며 기술주 전반에 매수세가 유입됐습니다.","conclusion":"미국 AI 인프라 투자 사이클이 지속되는 한 국내 메모리 반도체 수혜는 이어질 가능성이 높습니다. 본 분석은 투자 권유가 아닙니다."}
   },
-  "us_stocks": [
-    {"name":"NVIDIA",    "ticker":"NVDA",  "price":950.00,  "change":8.5},
-    {"name":"AMD",       "ticker":"AMD",   "price":175.00,  "change":5.2},
-    {"name":"Broadcom",  "ticker":"AVGO",  "price":1680.00, "change":4.8},
-    {"name":"Microsoft", "ticker":"MSFT",  "price":425.00,  "change":3.1},
-    {"name":"Qualcomm",  "ticker":"QCOM",  "price":185.00,  "change":2.9}
-  ],
-  "kr_stocks": [
-    {"name":"SK하이닉스", "code":"000660", "price":198000, "change":4.1},
-    {"name":"한미반도체", "code":"042700", "price":165000, "change":5.8},
-    {"name":"삼성전자",   "code":"005930", "price":87000,  "change":2.5},
-    {"name":"리노공업",   "code":"058470", "price":242000, "change":3.2},
-    {"name":"HPSP",       "code":"403870", "price":78000,  "change":3.7}
-  ],
-  "shorts_script": "안녕하세요, XO입니다.\n\n오늘 미국 시장에서 가장 주목해야 할 테마는\n바로 '반도체 / AI 인프라' 섹터입니다.\n\n[이유 첫 번째]\n엔비디아가 실적 발표에서 어닝 서프라이즈를 기록하며\nAI 서버 수요가 여전히 강하다는 것을 확인시켜 줬습니다.\nNVDA 하루 만에 +8.5% 급등!\n\n[이유 두 번째]\n미 연준의 금리 인하 기대감이 커지면서\n고밸류 기술주에 매수세가 다시 유입되고 있습니다.\n\n[오늘의 국내 관련주 Pick]\nSK하이닉스 +4.1%\n한미반도체 +5.8%\n삼성전자 +2.5%\n\n특히 SK하이닉스는 HBM 공급 확대 이슈와 맞물려\n강한 상승세를 보이고 있습니다.\n\n오늘의 분석은 여기까지입니다.\n투자 판단은 항상 본인 책임하에 하시기 바랍니다.\n\n구독과 좋아요 부탁드립니다! XO였습니다.",
-  "blog": {
-    "intro": "2026년 5월 13일, 미국 증시는 반도체 및 AI 인프라 섹터의 강세로 마감했습니다. 엔비디아를 필두로 한 AI 관련 빅테크들이 강한 상승세를 보이며 나스닥 지수를 견인했습니다. 국내 시장 개장 전, 이 흐름이 코스피·코스닥에 어떤 영향을 미칠지 분석했습니다.",
-    "body": "이번 상승의 핵심 원인은 두 가지입니다.\n\n첫째, 엔비디아의 1분기 실적이 시장 예상치를 크게 상회했습니다. 데이터센터 매출이 전년 대비 3배 이상 증가하며 AI 서버 수요가 단기에 꺾이지 않을 것이라는 신호를 줬습니다. NVDA는 하루 만에 +8.5% 급등했습니다.\n\n둘째, FOMC 회의록에서 비둘기파적 스탠스가 확인되며 기술주 전반에 매수세가 유입됐습니다.\n\n국내 수혜주로는 HBM 공급망의 핵심인 SK하이닉스(+4.1%)와 AI 반도체 패키징 장비 업체 한미반도체(+5.8%)가 두드러진 강세를 보였습니다.",
-    "conclusion": "미국 AI 인프라 투자 사이클이 지속되는 한, 국내 메모리 반도체와 패키징 장비 업체들의 수혜는 중장기적으로 이어질 가능성이 높습니다. 다만 단기 급등 이후 차익 실현 매물에 유의하며 분할 매수 전략을 권장합니다.\n\n모든 투자 판단은 반드시 본인 책임하에 이루어져야 합니다."
+  technical: {
+    "date":"2026-05-13","agent":"technical","title":"코스피 2일 연속 상승 종목",
+    "market_summary":"코스피 +0.82% / 코스닥 +1.14% | 외국인 순매수 2,480억",
+    "stocks":[{"name":"SK하이닉스","code":"000660","price":198000,"day1":2.1,"day2":4.1,"total":6.3,"volume_ratio":2.4,"signal":"외국인 순매수"},{"name":"한미반도체","code":"042700","price":165000,"day1":2.8,"day2":5.8,"total":8.8,"volume_ratio":3.1,"signal":"수주 기대"},{"name":"리노공업","code":"058470","price":242000,"day1":1.5,"day2":3.2,"total":4.8,"volume_ratio":1.7,"signal":"수요 증가"},{"name":"HPSP","code":"403870","price":78000,"day1":1.9,"day2":3.7,"total":5.7,"volume_ratio":2.0,"signal":"장비 독점"},{"name":"이오테크닉스","code":"039030","price":134000,"day1":1.2,"day2":2.9,"total":4.2,"volume_ratio":1.5,"signal":"수출 증가"}],
+    "shorts_script":"안녕하세요, XO입니다.\n\n오늘은 코스피 2일 연속 상승 기술적 강세 종목을 정리했습니다.\n\n1위 한미반도체 누적 +8.8%\n2위 SK하이닉스 누적 +6.3%\n3위 HPSP 누적 +5.7%\n\n반도체 장비·소재 전반에 수급이 집중되고 있습니다.\n\n투자 판단은 본인 책임하에 하시기 바랍니다.\n구독과 좋아요 부탁드립니다! XO였습니다.",
+    "blog":{"intro":"코스피 시장에서 2일 연속 상승 흐름을 보인 기술적 강세 종목들을 분석했습니다.","body":"한미반도체(+8.8%)는 TC본더 장비 수주 기대로 거래량이 3배 이상 급증했습니다.\n\nSK하이닉스(+6.3%)는 외국인이 이틀 연속 순매수를 기록했습니다.","conclusion":"2일 연속 상승 종목은 단기 모멘텀이 강하지만 차익 실현 매물에 유의하세요. 본 분석은 투자 권유가 아닙니다."}
+  },
+  sector: {
+    "date":"2026-05-13","agent":"sector","title":"섹터별 강세 종목",
+    "foreign":[{"sector":"AI 반도체","stocks":[{"name":"NVIDIA","ticker":"NVDA","price":950,"change":8.5},{"name":"Broadcom","ticker":"AVGO","price":1680,"change":4.8},{"name":"ARM","ticker":"ARM","price":145,"change":6.2}]},{"sector":"클라우드","stocks":[{"name":"Microsoft","ticker":"MSFT","price":425,"change":3.1},{"name":"Amazon","ticker":"AMZN","price":205,"change":2.4},{"name":"Google","ticker":"GOOGL","price":178,"change":2.9}]},{"sector":"바이오테크","stocks":[{"name":"Eli Lilly","ticker":"LLY","price":890,"change":3.7},{"name":"Regeneron","ticker":"REGN","price":1120,"change":2.1}]}],
+    "domestic":[{"sector":"반도체","stocks":[{"name":"SK하이닉스","code":"000660","price":198000,"change":4.1},{"name":"한미반도체","code":"042700","price":165000,"change":5.8},{"name":"삼성전자","code":"005930","price":87000,"change":2.5}]},{"sector":"2차전지","stocks":[{"name":"LG에너지솔루션","code":"373220","price":385000,"change":3.2},{"name":"에코프로비엠","code":"247540","price":178000,"change":4.5}]},{"sector":"바이오","stocks":[{"name":"삼성바이오로직스","code":"207940","price":890000,"change":2.8},{"name":"셀트리온","code":"068270","price":178000,"change":1.9}]}],
+    "shorts_script":"안녕하세요, XO입니다.\n\n오늘 해외·국내 섹터별 강세 종목을 정리했습니다.\n\n[해외 1위] AI 반도체 — NVDA +8.5%, ARM +6.2%\n[해외 2위] 클라우드 — MSFT·AMZN·GOOGL 동반 상승\n\n[국내 1위] 반도체 — SK하이닉스 +4.1%, 한미반도체 +5.8%\n[국내 2위] 2차전지 — 에코프로비엠 +4.5%\n\n투자 판단은 본인 책임하에 하시기 바랍니다.\n구독과 좋아요 부탁드립니다! XO였습니다.",
+    "blog":{"intro":"2026년 5월 13일 글로벌 시장에서는 AI 반도체 섹터가 해외·국내 모두에서 강세를 주도했습니다.","body":"해외에서는 엔비디아(+8.5%)가 AI 칩 수요를 재확인했고, 클라우드 빅테크도 동반 상승했습니다.\n\n국내에서는 반도체 수혜주와 2차전지 반등이 두드러졌습니다.","conclusion":"AI 반도체 → 클라우드 → 국내 반도체로 이어지는 수혜 구조가 지속될 전망입니다. 본 분석은 투자 권유가 아닙니다."}
   }
 };
 
