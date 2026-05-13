@@ -443,6 +443,14 @@ function selectDate(date, useSample) {
   loadAgentData(currentAgent, date, useSample);
 }
 
+function lsKey(agent, date) { return `xo_data_${agent}_${date}`; }
+function saveAgentLocal(agent, date, data) {
+  try { localStorage.setItem(lsKey(agent, date), JSON.stringify(data)); } catch {}
+}
+function loadAgentLocal(agent, date) {
+  try { const s = localStorage.getItem(lsKey(agent, date)); return s ? JSON.parse(s) : null; } catch { return null; }
+}
+
 async function loadAgentData(agent, date, useSample) {
   if (useSample) {
     agentData[agent] = SAMPLES[agent];
@@ -456,8 +464,14 @@ async function loadAgentData(agent, date, useSample) {
     agentData[agent] = data;
     applyData(agent, data);
   } catch {
-    agentData[agent] = SAMPLES[agent];
-    applyData(agent, SAMPLES[agent]);
+    const local = loadAgentLocal(agent, date);
+    if (local) {
+      agentData[agent] = local;
+      applyData(agent, local);
+    } else {
+      agentData[agent] = SAMPLES[agent];
+      applyData(agent, SAMPLES[agent]);
+    }
   }
 }
 
@@ -1074,6 +1088,11 @@ async function runAnalysis() {
         addLog('섹터테마 완료 ✓','ok');
       } catch(e) { addLog('섹터테마 오류: '+e.message,'err'); }
     }
+
+    // localStorage에 저장 (파일 시스템에 쓸 수 없으므로)
+    ['market','technical','sector'].forEach(a => {
+      if (agentData[a]) saveAgentLocal(a, today, agentData[a]);
+    });
 
     addLog(`✅ 전체 완료 — ${today}`,'ok');
     showToast('분석 완료!','ok');
