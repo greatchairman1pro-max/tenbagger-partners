@@ -95,15 +95,23 @@ def main():
         ),
     }
 
+    failed = []
     for agent, prompt in prompts.items():
         print(f"  Gemini — {agent} 분석 중...")
         try:
-            data = parse_json(call_gemini(prompt))
+            raw = call_gemini(prompt)
+            print(f"  [RAW] {raw[:300]}")
+            data = parse_json(raw)
             save(agent, data)
             print(f"  ✅ {agent} 완료")
         except Exception as e:
+            import traceback
             print(f"  ❌ {agent} 실패: {e}")
+            traceback.print_exc()
+            failed.append(agent)
 
+    if len(failed) == len(prompts):
+        raise SystemExit(f"❌ 모든 에이전트 실패: {failed}")
     print("✅ 전체 완료")
 
 
