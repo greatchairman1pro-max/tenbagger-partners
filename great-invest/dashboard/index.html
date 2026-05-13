@@ -324,18 +324,15 @@ input[type=text]:focus, input[type=password]:focus { border-color:var(--gold); }
     <div class="card-title">🔑 API 키</div>
     <div class="sg">
       <div class="sg-head">
-        <span class="sg-label">Gemini API Key</span>
+        <span class="sg-label">GitHub Token</span>
         <span class="sg-badge req">필수</span>
       </div>
       <div class="sg-row">
-        <input type="password" id="geminiKey" placeholder="AIzaSy..." oninput="onKeyInput()">
-        <button class="vis-btn" onclick="toggleKeyVis('geminiKey',this)">보기</button>
+        <input type="password" id="githubToken" placeholder="ghp_..." oninput="onKeyInput()">
+        <button class="vis-btn" onclick="toggleKeyVis('githubToken',this)">보기</button>
       </div>
-      <div class="sg-desc">무료 · 하루 1,500회 · 분석/대본/블로그 자동 생성</div>
-      <div style="display:flex;gap:8px;align-items:center;margin-top:7px;flex-wrap:wrap">
-        <a href="https://aistudio.google.com" target="_blank" class="get-key-btn">→ Google AI Studio 무료 발급</a>
-        <button class="vis-btn" onclick="testGeminiKey()" style="padding:4px 12px;font-size:11px">🔑 키 테스트</button>
-      </div>
+      <div class="sg-desc">분석 실행 버튼이 GitHub Actions를 트리거합니다 (한국 지역 제한 우회)</div>
+      <a href="https://github.com/settings/tokens/new?scopes=workflow&description=XO+Dashboard" target="_blank" class="get-key-btn">→ GitHub Token 발급 (workflow 권한 선택)</a>
     </div>
     <div class="sg" style="margin-top:18px">
       <div class="sg-head">
@@ -346,7 +343,7 @@ input[type=text]:focus, input[type=password]:focus { border-color:var(--gold); }
         <input type="password" id="finnhubKey" placeholder="c..." oninput="onKeyInput()">
         <button class="vis-btn" onclick="toggleKeyVis('finnhubKey',this)">보기</button>
       </div>
-      <div class="sg-desc">무료 · 분당 60회 · 미국 주식 실시간 시세<br>없으면 Gemini가 최근 데이터 기반으로 분석</div>
+      <div class="sg-desc">미국 주식 실시간 시세 (없으면 Gemini 추정치 사용)</div>
       <a href="https://finnhub.io/register" target="_blank" class="get-key-btn">→ Finnhub 무료 발급</a>
     </div>
     <button class="save-btn" onclick="saveSettingsForm()">💾 저장</button>
@@ -355,29 +352,23 @@ input[type=text]:focus, input[type=password]:focus { border-color:var(--gold); }
   <!-- 분석 실행 -->
   <div class="card">
     <div class="card-title">⚡ 분석 실행</div>
-    <div class="run-desc">API 키 저장 후 실행하면 Gemini가 테마·대본·블로그를 자동 생성합니다.</div>
-    <div class="run-agents">
-      <label><input type="checkbox" id="run-market"    checked> 미장국장</label>
-      <label><input type="checkbox" id="run-technical" checked> 기술적분석</label>
-      <label><input type="checkbox" id="run-sector"    checked> 섹터테마</label>
-    </div>
+    <div class="run-desc">버튼을 누르면 GitHub Actions(미국 서버)에서 Gemini 분석을 실행합니다.<br>2~3분 후 페이지를 새로고침하면 최신 데이터가 표시됩니다.</div>
     <button class="run-btn" id="runBtn" onclick="runAnalysis()">⚡ 지금 분석 실행</button>
     <div id="runLogWrap" class="run-log-wrap" style="display:none">
       <div class="run-log-box" id="runLogBox"></div>
     </div>
   </div>
 
-  <!-- GitHub Actions -->
+  <!-- GitHub Secrets 등록 안내 -->
   <div class="card">
-    <div class="card-title">🤖 GitHub Actions 자동화</div>
+    <div class="card-title">🔧 최초 1회 설정</div>
     <p style="font-size:13px;color:var(--muted);line-height:1.9">
-      매일 06:10 KST 자동 실행.<br>
-      GitHub Secrets에 아래 키를 등록하세요.
+      GitHub Secrets에 Gemini 키를 등록해야 분석이 실행됩니다.
     </p>
     <div class="secret-rows">
       <div class="secret-row">
         <code>GEMINI_API_KEY</code>
-        <button onclick="copySecretKey('gemini')">복사</button>
+        <span style="font-size:11px;color:var(--muted)">← Gemini 키 값 입력</span>
       </div>
     </div>
     <p style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.8">
@@ -886,7 +877,7 @@ function saveAllSettings(obj) {
   localStorage.setItem('xo_settings', JSON.stringify({...s,...obj}));
 }
 function loadSettingsForm() {
-  ['geminiKey','finnhubKey','usTickers','krCodes'].forEach(id => {
+  ['githubToken','finnhubKey'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = getSetting(id);
   });
@@ -897,10 +888,9 @@ function saveSettingsForm() {
   showToast('설정 저장 완료 ✓', 'ok');
   updateHdStatus();
 }
-// 입력 필드 → localStorage 즉시 동기화 (저장 버튼 안 눌러도 됨)
 function syncFormToStorage() {
   const obj = {};
-  ['geminiKey','finnhubKey','usTickers','krCodes'].forEach(id => {
+  ['githubToken','finnhubKey'].forEach(id => {
     const v = document.getElementById(id)?.value?.trim();
     if (v !== undefined) obj[id] = v;
   });
@@ -916,19 +906,14 @@ function toggleKeyVis(id, btn) {
 function updateHdStatus() {
   const el = document.getElementById('hdStatus');
   if (!el) return;
-  const g = !!getSetting('geminiKey'), f = !!getSetting('finnhubKey');
+  const g = !!getSetting('githubToken');
   if (g) {
-    el.textContent = `Gemini ✓${f?' · Finnhub ✓':''}`;
+    el.textContent = 'GitHub ✓';
     el.style.cssText = 'color:#4dff91;background:rgba(77,255,145,.1);padding:3px 8px;border-radius:4px;font-size:11px';
   } else {
-    el.textContent = '⚠ API 키 미설정';
+    el.textContent = '⚠ Token 미설정';
     el.style.cssText = 'color:var(--up);background:rgba(255,77,77,.1);padding:3px 8px;border-radius:4px;font-size:11px';
   }
-}
-function copySecretKey(name) {
-  const key = getSetting(name === 'gemini' ? 'geminiKey' : 'finnhubKey');
-  if (!key) { showToast('키를 먼저 입력·저장해 주세요', 'err'); return; }
-  navigator.clipboard.writeText(key).then(() => showToast('클립보드에 복사됨 ✓', 'ok'));
 }
 function openSettings() {
   document.getElementById('settingsOverlay').classList.add('open');
@@ -940,71 +925,10 @@ function closeSettings() {
 }
 function quickRun() {
   syncFormToStorage();
-  if (!getSetting('geminiKey')) {
-    openSettings();
-    showToast('⚙️ Claude API 키를 입력하세요', 'err');
-    return;
-  }
+  if (!getSetting('githubToken')) { openSettings(); showToast('⚙️ GitHub Token을 입력하세요', 'err'); return; }
   runAnalysis();
 }
 
-// ── API 키 테스트 ─────────────────────────────────────────────
-async function testGeminiKey() {
-  syncFormToStorage();
-  const key = getSetting('geminiKey');
-  if (!key) { showToast('Gemini API 키를 먼저 입력하세요', 'err'); return; }
-  const btn = event.target;
-  btn.textContent = '테스트 중...'; btn.disabled = true;
-  try {
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
-      { method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ contents:[{parts:[{text:'"OK"라고만 답해주세요.'}]}] }) }
-    );
-    if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(e.error?.message||`HTTP ${res.status}`); }
-    showToast('Gemini API 키 정상 작동 ✓', 'ok');
-  } catch(e) {
-    showToast('키 오류: ' + e.message, 'err');
-  } finally { btn.textContent = '🔑 키 테스트'; btn.disabled = false; }
-}
-
-// ── API calls ─────────────────────────────────────────────────
-const GEMINI_MODEL = 'gemini-2.0-flash';
-
-async function callClaude(prompt) {
-  const key = getSetting('geminiKey');
-  if (!key) throw new Error('Gemini API 키 없음 — 설정에서 키를 입력하세요');
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${key}`,
-    { method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ contents:[{parts:[{text:prompt}]}], generationConfig:{temperature:0.5,maxOutputTokens:3000} }) }
-  );
-  if (!res.ok) {
-    const e = await res.json().catch(()=>({}));
-    throw new Error(e.error?.message || `HTTP ${res.status}`);
-  }
-  const data = await res.json();
-  if (!data.candidates?.[0]?.content?.parts?.[0]?.text) throw new Error('Gemini 응답 형식 오류');
-  return data.candidates[0].content.parts[0].text;
-}
-async function fetchFinnhubQuote(ticker) {
-  const key = getSetting('finnhubKey');
-  const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${key}`);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const d = await res.json();
-  if (!d.c) throw new Error('데이터 없음');
-  return { name:ticker, ticker, price:+d.c.toFixed(2), change:+((d.c-d.pc)/d.pc*100).toFixed(2) };
-}
-function parseJsonFromGemini(text) {
-  const m = text.match(/```json\s*([\s\S]*?)```/);
-  if (m) return JSON.parse(m[1]);
-  const s = text.indexOf('{'), e = text.lastIndexOf('}');
-  if (s>=0 && e>s) return JSON.parse(text.slice(s,e+1));
-  throw new Error('JSON 파싱 실패 — Gemini 응답을 확인하세요');
-}
-
-// ── Run analysis ──────────────────────────────────────────────
-let isRunning = false;
 function addLog(msg, type='info') {
   const el = document.getElementById('runLogBox');
   if (!el) return;
@@ -1015,126 +939,42 @@ function addLog(msg, type='info') {
 }
 
 async function runAnalysis() {
-  if (isRunning) return;
-  syncFormToStorage();  // 💾 저장 안 눌렀어도 현재 입력값 반영
-  const geminiKey = getSetting('geminiKey');
-  if (!geminiKey) {
-    showToast('Claude API 키를 입력하세요', 'err');
-    openSettings();
-    return;
-  }
-  isRunning = true;
+  syncFormToStorage();
+  const token = getSetting('githubToken');
+  if (!token) { openSettings(); showToast('GitHub Token을 입력하세요', 'err'); return; }
+
   const btn = document.getElementById('runBtn');
-  if (btn) { btn.disabled = true; btn.textContent = '⏳ 분석 중...'; }
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ 요청 중...'; }
   document.getElementById('runLogWrap').style.display = 'block';
   document.getElementById('runLogBox').innerHTML = '';
 
-  const today    = new Date().toISOString().slice(0,10);
-  const tickers  = getSetting('usTickers').split(',').map(t=>t.trim()).filter(Boolean);
-  const krCodes  = getSetting('krCodes').split(',').map(c=>c.trim()).filter(Boolean);
-  const doMarket = document.getElementById('run-market')?.checked !== false;
-  const doTech   = document.getElementById('run-technical')?.checked !== false;
-  const doSector = document.getElementById('run-sector')?.checked !== false;
-
   try {
-    // 1. 미국 주가
-    let usStocks = [];
-    if (getSetting('finnhubKey')) {
-      addLog('Finnhub 미국 주가 조회 중...','info');
-      for (const t of tickers.slice(0,10)) {
-        try { usStocks.push(await fetchFinnhubQuote(t)); }
-        catch(e) { addLog(`${t} 건너뜀: ${e.message}`,'warn'); }
+    addLog('GitHub Actions 분석 요청 중...', 'info');
+    const res = await fetch(
+      'https://api.github.com/repos/greatchairman1pro-max/tenbagger-partners/actions/workflows/tube-daily.yml/dispatches',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ref: 'main' })
       }
-      usStocks.sort((a,b)=>b.change-a.change);
-      usStocks = usStocks.slice(0,5);
-      addLog(`완료: ${usStocks.map(s=>`${s.ticker}(${s.change>=0?'+':''}${s.change}%)`).join(' ')}`, 'ok');
+    );
+    if (res.status === 204) {
+      addLog('✅ 분석 요청 완료! GitHub Actions에서 실행 중입니다.', 'ok');
+      addLog('⏱ 2~3분 후 페이지를 새로고침(F5)하면 최신 데이터가 표시됩니다.', 'warn');
+      showToast('분석 요청 완료! 2~3분 후 새로고침', 'ok');
     } else {
-      addLog('Finnhub 키 없음 → Gemini 최근 데이터 기반 분석','warn');
+      const e = await res.json().catch(() => ({}));
+      throw new Error(e.message || `HTTP ${res.status}`);
     }
-    const usStr = usStocks.length
-      ? usStocks.map(s=>`${s.ticker}: $${s.price} (${s.change>=0?'+':''}${s.change}%)`).join('\n')
-      : '(Finnhub 키 없음 — 최근 시장 흐름으로 분석)';
-    const krStr = krCodes.slice(0,5).join(', ');
-
-    const jsonNote = '반드시 JSON만 출력. 설명·markdown 없이. 숫자는 따옴표 없이.';
-
-    const freshData = {};  // Gemini가 이번에 새로 생성한 데이터만 추적
-
-    // 2. 미장국장
-    if (doMarket) {
-      addLog('Gemini — 미장국장 분석 중...','info');
-      try {
-        const r = await callClaude(`오늘(${today}) 미국 주식 데이터:\n${usStr}\n관심 국내 종목: ${krStr}\n\n${jsonNote}\n{\n"date":"${today}","agent":"market","theme":{"name":"테마명","reasons":["이유1 30자","이유2 30자"]},"us_stocks":[{"name":"종목명","ticker":"티커","price":0.0,"change":0.0}],"kr_stocks":[{"name":"종목명","code":"6자리","price":0,"change":0.0}],"shorts_script":"XO입니다 시작 60초 대본","blog":{"intro":"서론","body":"본론 줄바꿈포함","conclusion":"결론+면책"}}\nus_stocks 5개(상승률순), kr_stocks 5개(테마 연관).`);
-        const d = parseJsonFromGemini(r);
-        d.date = today; d._generated = Date.now();
-        if (usStocks.length) d.us_stocks = usStocks.map(s=>({...s}));
-        agentData['market'] = d; freshData['market'] = d;
-        addLog('미장국장 완료 ✓','ok');
-      } catch(e) { addLog('미장국장 오류: '+e.message,'err'); }
-      await new Promise(r => setTimeout(r, 2000));
-    }
-
-    // 3. 기술적분석
-    if (doTech) {
-      addLog('Gemini — 기술적분석 분석 중...','info');
-      try {
-        const r = await callClaude(`오늘(${today}) 코스피/코스닥 2일 연속 상승 종목 분석. 관심 종목: ${krStr}\n\n${jsonNote}\n{"date":"${today}","agent":"technical","title":"코스피 2일 연속 상승 종목","market_summary":"코스피 현황 한줄","stocks":[{"name":"종목명","code":"6자리","price":0,"day1":0.0,"day2":0.0,"total":0.0,"volume_ratio":0.0,"signal":"이유 20자"}],"shorts_script":"XO입니다 시작 60초","blog":{"intro":"서론","body":"본론","conclusion":"결론+면책"}}\nstocks 5개.`);
-        const d = parseJsonFromGemini(r);
-        d.date = today; d._generated = Date.now();
-        agentData['technical'] = d; freshData['technical'] = d;
-        addLog('기술적분석 완료 ✓','ok');
-      } catch(e) { addLog('기술적분석 오류: '+e.message,'err'); }
-      await new Promise(r => setTimeout(r, 2000));
-    }
-
-    // 4. 섹터테마
-    if (doSector) {
-      addLog('Gemini — 섹터테마 분석 중...','info');
-      try {
-        const r = await callClaude(`오늘(${today}) 글로벌 섹터별 강세 종목. 미국 데이터: ${usStr}\n\n${jsonNote}\n{"date":"${today}","agent":"sector","title":"섹터별 강세 종목","foreign":[{"sector":"섹터명","stocks":[{"name":"종목명","ticker":"티커","price":0.0,"change":0.0}]}],"domestic":[{"sector":"섹터명","stocks":[{"name":"종목명","code":"6자리","price":0,"change":0.0}]}],"shorts_script":"XO입니다 시작 60초","blog":{"intro":"서론","body":"본론","conclusion":"결론+면책"}}\nforeign 3섹터, domestic 3섹터, 각 섹터 2~3종목.`);
-        const d = parseJsonFromGemini(r);
-        d.date = today; d._generated = Date.now();
-        agentData['sector'] = d; freshData['sector'] = d;
-        addLog('섹터테마 완료 ✓','ok');
-      } catch(e) { addLog('섹터테마 오류: '+e.message,'err'); }
-    }
-
-    const successCount = Object.keys(freshData).length;
-    if (successCount === 0) {
-      addLog('⚠️ 모든 에이전트 실패 — API 키를 확인하세요','err');
-      showToast('분석 실패 — API 키 확인', 'err');
-      return;
-    }
-
-    // 새로 생성된 데이터만 localStorage에 저장
-    Object.entries(freshData).forEach(([a, d]) => saveAgentLocal(a, today, d));
-
-    // 현재 화면 즉시 갱신
-    if (agentData[currentAgent]) applyData(currentAgent, agentData[currentAgent]);
-
-    addLog(`✅ 완료 (${successCount}/3) — ${today}`,'ok');
-    showToast('분석 완료!','ok');
-    closeSettings();
-
-    // 사이드바 날짜 추가
-    if (!document.querySelector(`.date-item[data-date="${today}"]`)) {
-      const item = document.createElement('div');
-      item.className = 'date-item active';
-      item.dataset.date = today;
-      item.textContent = today;
-      item.onclick = () => selectDate(today);
-      document.getElementById('dateList').prepend(item);
-      document.querySelectorAll('.date-item').forEach(el => el.classList.toggle('active', el.dataset.date===today));
-    }
-    document.getElementById('headerDate').textContent = today + ' 리포트';
-    currentDate = today;
-
   } catch(e) {
-    addLog('오류: '+e.message,'err');
-    showToast('오류: '+e.message,'err');
+    addLog('오류: ' + e.message, 'err');
+    showToast('오류: ' + e.message, 'err');
   } finally {
-    isRunning = false;
-    if (btn) { btn.disabled=false; btn.textContent='⚡ 지금 분석 실행'; }
+    if (btn) { btn.disabled = false; btn.textContent = '⚡ 지금 분석 실행'; }
   }
 }
 
