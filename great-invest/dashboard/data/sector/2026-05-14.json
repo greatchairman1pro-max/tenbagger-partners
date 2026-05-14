@@ -1,0 +1,153 @@
+{
+  "date": "2026-05-14",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "반도체",
+      "stocks": [
+        {
+          "name": "WOLF",
+          "ticker": "WOLF",
+          "price": 62.6,
+          "change": 16.53
+        },
+        {
+          "name": "SYNA",
+          "ticker": "SYNA",
+          "price": 131.06,
+          "change": 9.59
+        },
+        {
+          "name": "MRVL",
+          "ticker": "MRVL",
+          "price": 177.95,
+          "change": 8.18
+        }
+      ]
+    },
+    {
+      "sector": "인터넷",
+      "stocks": [
+        {
+          "name": "BABA",
+          "ticker": "BABA",
+          "price": 145.81,
+          "change": 8.18
+        },
+        {
+          "name": "BIDU",
+          "ticker": "BIDU",
+          "price": 150.5,
+          "change": 7.55
+        },
+        {
+          "name": "JD",
+          "ticker": "JD",
+          "price": 33.77,
+          "change": 7.24
+        }
+      ]
+    },
+    {
+      "sector": "기술",
+      "stocks": [
+        {
+          "name": "KLIC",
+          "ticker": "KLIC",
+          "price": 104.27,
+          "change": 6.4
+        },
+        {
+          "name": "ARM",
+          "ticker": "ARM",
+          "price": 221.21,
+          "change": 6.39
+        },
+        {
+          "name": "SMTC",
+          "ticker": "SMTC",
+          "price": 139.74,
+          "change": 5.8
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "131970",
+          "code": "131970",
+          "price": 182000,
+          "change": 25.69
+        },
+        {
+          "name": "322000",
+          "code": "322000",
+          "price": 244000,
+          "change": 15.09
+        },
+        {
+          "name": "066570",
+          "code": "066570",
+          "price": 217000,
+          "change": 13.38
+        }
+      ]
+    },
+    {
+      "sector": "제조",
+      "stocks": [
+        {
+          "name": "206950",
+          "code": "206950",
+          "price": 1980,
+          "change": 13.14
+        },
+        {
+          "name": "039030",
+          "code": "039030",
+          "price": 479500,
+          "change": 12.03
+        },
+        {
+          "name": "139480",
+          "code": "139480",
+          "price": 118700,
+          "change": 11.98
+        }
+      ]
+    },
+    {
+      "sector": "서비스",
+      "stocks": [
+        {
+          "name": "357780",
+          "code": "357780",
+          "price": 476000,
+          "change": 11.61
+        },
+        {
+          "name": "009830",
+          "code": "009830",
+          "price": 47800,
+          "change": 10.78
+        },
+        {
+          "name": "097950",
+          "code": "097950",
+          "price": 230500,
+          "change": 10.55
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}

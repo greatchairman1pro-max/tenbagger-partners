@@ -1,0 +1,81 @@
+{
+  "date": "2026-05-14",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 기술",
+    "reasons": [
+      "나스닥 상위 종목 중 반도체 및 기술 관련 종목이 많음",
+      "코스피 상위 200 종목 중에도 기술 관련 종목이 상승"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "WOLF",
+      "ticker": "WOLF",
+      "price": 62.6,
+      "change": 16.53
+    },
+    {
+      "name": "AOSL",
+      "ticker": "AOSL",
+      "price": 41.59,
+      "change": 10.26
+    },
+    {
+      "name": "SYNA",
+      "ticker": "SYNA",
+      "price": 131.06,
+      "change": 9.59
+    },
+    {
+      "name": "MRVL",
+      "ticker": "MRVL",
+      "price": 177.95,
+      "change": 8.18
+    },
+    {
+      "name": "BABA",
+      "ticker": "BABA",
+      "price": 145.81,
+      "change": 8.18
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "LG전자",
+      "code": "066570",
+      "price": 217000,
+      "change": 13.38
+    },
+    {
+      "name": "한화테크윈",
+      "code": "012450",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "DB하이텍",
+      "code": "000990",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 나스닥과 코스피의 상위 종목을 분석했습니다.",
+    "body": "나스닥 상위 종목 중 반도체 및 기술 관련 종목이 많았습니다. 코스피 상위 200 종목 중에도 기술 관련 종목이 상승했습니다.",
+    "conclusion": "따라서 오늘의 테마는 반도체 및 기술입니다. 하지만 이는 개인적인 분석이며 투자 참고자료로만 사용하시기 바랍니다."
+  }
+}
