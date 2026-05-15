@@ -1,0 +1,81 @@
+{
+  "date": "2026-05-15",
+  "agent": "market",
+  "theme": {
+    "name": "기술 및 금융",
+    "reasons": [
+      "기술 및 금융 관련 종목의 상승",
+      "최근 기술 및 금융 관련 뉴스와 이벤트"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "WOLF",
+      "ticker": "WOLF",
+      "price": 69.96,
+      "change": 11.76
+    },
+    {
+      "name": "AVGO",
+      "ticker": "AVGO",
+      "price": 439.79,
+      "change": 5.52
+    },
+    {
+      "name": "HOOD",
+      "ticker": "HOOD",
+      "price": 80.7,
+      "change": 5.15
+    },
+    {
+      "name": "COIN",
+      "ticker": "COIN",
+      "price": 212.01,
+      "change": 5.06
+    },
+    {
+      "name": "SOFI",
+      "ticker": "SOFI",
+      "price": 16.02,
+      "change": 4.64
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "카카오",
+      "code": "035720",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "네이버",
+      "code": "035420",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "현대차",
+      "code": "005380",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "기술 및 금융 관련 종목의 상승",
+    "body": "최근 기술 및 금융 관련 뉴스와 이벤트가 기술 및 금융 관련 종목의 상승을 이끌었다.",
+    "conclusion": "기술 및 금융 관련 종목의 상승은 최근 기술 및 금융 관련 뉴스와 이벤트에 의해 영향을 받았다. 본 분석는 예측을 목적으로 하지 않으며, 투자 참고자료로만 사용되어야 한다."
+  }
+}
