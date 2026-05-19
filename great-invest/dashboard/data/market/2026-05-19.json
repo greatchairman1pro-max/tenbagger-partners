@@ -1,0 +1,81 @@
+{
+  "date": "2026-05-19",
+  "agent": "market",
+  "theme": {
+    "name": "클라우드 및 기술",
+    "reasons": [
+      "클라우드 서비스 수요 증가",
+      "기술 발전 가속화"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "RBLX",
+      "ticker": "RBLX",
+      "price": 46.98,
+      "change": 9.64
+    },
+    {
+      "name": "NOW",
+      "ticker": "NOW",
+      "price": 103.42,
+      "change": 8.78
+    },
+    {
+      "name": "ZS",
+      "ticker": "ZS",
+      "price": 174.69,
+      "change": 8.47
+    },
+    {
+      "name": "GTLB",
+      "ticker": "GTLB",
+      "price": 25.09,
+      "change": 6.04
+    },
+    {
+      "name": "MDB",
+      "ticker": "MDB",
+      "price": 330.0,
+      "change": 5.72
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 59900,
+      "change": 1.2
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 114000,
+      "change": 0.8
+    },
+    {
+      "name": "LG전자",
+      "code": "066570",
+      "price": 70100,
+      "change": 0.5
+    },
+    {
+      "name": "네이버",
+      "code": "035420",
+      "price": 221000,
+      "change": 0.3
+    },
+    {
+      "name": "카카오",
+      "code": "035720",
+      "price": 40100,
+      "change": 0.2
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "클라우드 및 기술 테마의 상승",
+    "body": "클라우드 서비스 수요 증가와 기술 발전 가속화로 인해 관련 종목들이 상승하고 있습니다.",
+    "conclusion": "클라우드 및 기술 테마의 상승은 지속될 수 있으며, 관련 종목들을 주시할 필요가 있습니다. 본 내용은 참고용으로만 제공되며, 투자 판단을 위한 전문적인 조언이 필요합니다."
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "date": "2026-05-19",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "소프트웨어",
+      "stocks": [
+        {
+          "name": "Roblox Corporation",
+          "ticker": "RBLX",
+          "price": 46.98,
+          "change": 9.64
+        },
+        {
+          "name": "ServiceNow Inc",
+          "ticker": "NOW",
+          "price": 103.42,
+          "change": 8.78
+        },
+        {
+          "name": "Zscaler Inc",
+          "ticker": "ZS",
+          "price": 174.69,
+          "change": 8.47
+        }
+      ]
+    },
+    {
+      "sector": "기술",
+      "stocks": [
+        {
+          "name": "GitLab Inc",
+          "ticker": "GTLB",
+          "price": 25.09,
+          "change": 6.04
+        },
+        {
+          "name": "MongoDB Inc",
+          "ticker": "MDB",
+          "price": 330.0,
+          "change": 5.72
+        },
+        {
+          "name": "DexCom Inc",
+          "ticker": "DXCM",
+          "price": 65.09,
+          "change": 5.61
+        }
+      ]
+    },
+    {
+      "sector": "보안",
+      "stocks": [
+        {
+          "name": "The Trade Desk Inc",
+          "ticker": "TTD",
+          "price": 22.27,
+          "change": 5.3
+        },
+        {
+          "name": "Okta Inc",
+          "ticker": "OKTA",
+          "price": 87.04,
+          "change": 5.16
+        },
+        {
+          "name": "HubSpot Inc",
+          "ticker": "HUBS",
+          "price": 208.51,
+          "change": 5.11
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "제조",
+      "stocks": [
+        {
+          "name": "삼성중공업",
+          "code": "206950",
+          "price": 1996,
+          "change": 10.95
+        },
+        {
+          "name": "한화에어로스페이스",
+          "code": "039030",
+          "price": 485000,
+          "change": 9.73
+        },
+        {
+          "name": "한화시스템",
+          "code": "225190",
+          "price": 2030,
+          "change": 6.84
+        }
+      ]
+    },
+    {
+      "sector": "에너지",
+      "stocks": [
+        {
+          "name": "한국전력",
+          "code": "252670",
+          "price": 123,
+          "change": 6.03
+        },
+        {
+          "name": "한국가스공사",
+          "code": "403870",
+          "price": 52200,
+          "change": 5.45
+        },
+        {
+          "name": "한국전력기술",
+          "code": "015760",
+          "price": 39150,
+          "change": 3.98
+        }
+      ]
+    },
+    {
+      "sector": "금융",
+      "stocks": [
+        {
+          "name": "KB금융",
+          "code": "267290",
+          "price": 22700,
+          "change": 3.65
+        },
+        {
+          "name": "신한지주",
+          "code": "244920",
+          "price": 11650,
+          "change": 3.28
+        },
+        {
+          "name": "하나금융지주",
+          "code": "026960",
+          "price": 25650,
+          "change": 3.22
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
