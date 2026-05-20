@@ -1,0 +1,81 @@
+{
+  "date": "2026-05-20",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 기술",
+    "reasons": [
+      "반도체 및 기술 관련 종목의 상승",
+      "미국 기술 산업의 성장"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "ACMR",
+      "ticker": "ACMR",
+      "price": 66.45,
+      "change": 5.06
+    },
+    {
+      "name": "MRVL",
+      "ticker": "MRVL",
+      "price": 176.27,
+      "change": 4.35
+    },
+    {
+      "name": "SYNA",
+      "ticker": "SYNA",
+      "price": 123.64,
+      "change": 3.76
+    },
+    {
+      "name": "ARM",
+      "ticker": "ARM",
+      "price": 223.15,
+      "change": 3.73
+    },
+    {
+      "name": "CIEN",
+      "ticker": "CIEN",
+      "price": 541.92,
+      "change": 3.32
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 276000,
+      "change": 0.18
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 1745000,
+      "change": 0.0
+    },
+    {
+      "name": "LG전자",
+      "code": "066570",
+      "price": 98100,
+      "change": 0.41
+    },
+    {
+      "name": "DB하이텍",
+      "code": "000990",
+      "price": 178200,
+      "change": 0.56
+    },
+    {
+      "name": "에스케이텔레콤",
+      "code": "017670",
+      "price": 98100,
+      "change": 0.41
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "미국 기술 산업의 성장과 반도체 관련 종목의 상승",
+    "body": "미국 기술 산업의 성장과 반도체 관련 종목의 상승은 한국의 기술 산업에도 영향을 미친다.",
+    "conclusion": "이러한 추세는 한국의 기술 산업에도 긍정적인 영향을 미칠 것으로 예상되며, 투자자들은 이러한 추세를 주시해야 한다."
+  }
+}

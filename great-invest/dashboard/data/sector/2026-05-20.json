@@ -1,0 +1,153 @@
+{
+  "date": "2026-05-20",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "반도체",
+      "stocks": [
+        {
+          "name": "ACMR",
+          "ticker": "ACMR",
+          "price": 66.45,
+          "change": 5.06
+        },
+        {
+          "name": "MRVL",
+          "ticker": "MRVL",
+          "price": 176.27,
+          "change": 4.35
+        },
+        {
+          "name": "ARM",
+          "ticker": "ARM",
+          "price": 223.15,
+          "change": 3.73
+        }
+      ]
+    },
+    {
+      "sector": "소프트웨어",
+      "stocks": [
+        {
+          "name": "SNOW",
+          "ticker": "SNOW",
+          "price": 169.55,
+          "change": 3.23
+        },
+        {
+          "name": "DDOG",
+          "ticker": "DDOG",
+          "price": 215.15,
+          "change": 3.03
+        },
+        {
+          "name": "DXCM",
+          "ticker": "DXCM",
+          "price": 66.95,
+          "change": 2.86
+        }
+      ]
+    },
+    {
+      "sector": "바이오",
+      "stocks": [
+        {
+          "name": "ALNY",
+          "ticker": "ALNY",
+          "price": 294.3,
+          "change": 2.81
+        },
+        {
+          "name": "MU",
+          "ticker": "MU",
+          "price": 698.74,
+          "change": 2.52
+        },
+        {
+          "name": "CIEN",
+          "ticker": "CIEN",
+          "price": 541.92,
+          "change": 3.32
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 276000,
+          "change": 0.18
+        },
+        {
+          "name": "LG전자",
+          "code": "066570",
+          "price": 98100,
+          "change": 0.41
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 1745000,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "제약",
+      "stocks": [
+        {
+          "name": "셀트리온",
+          "code": "068270",
+          "price": 265500,
+          "change": 1.53
+        },
+        {
+          "name": "한미약품",
+          "code": "128940",
+          "price": 526000,
+          "change": 1.35
+        },
+        {
+          "name": "유한양행",
+          "code": "000100",
+          "price": 48750,
+          "change": 1.35
+        }
+      ]
+    },
+    {
+      "sector": "화학",
+      "stocks": [
+        {
+          "name": "LG화학",
+          "code": "051910",
+          "price": 1061000,
+          "change": 7.5
+        },
+        {
+          "name": "SK케미칼",
+          "code": "285130",
+          "price": 64800,
+          "change": 7.46
+        },
+        {
+          "name": "한화케미칼",
+          "code": "097780",
+          "price": 664,
+          "change": 0.0
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
