@@ -1,0 +1,81 @@
+{
+  "date": "2026-05-21",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 기술",
+    "reasons": [
+      "나스닥 상위 종목 중 ARM, SMCI, RMBS, VICR, AMBA, AMD, ACMR, INTC, LRCX 등이 반도체 및 기술 관련 종목임",
+      "이러한 종목들의 상승이 시장의 기술 및 반도체 산업에 대한 긍정적 기대감을 반영함"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "ARM",
+      "ticker": "ARM",
+      "price": 256.73,
+      "change": 15.05
+    },
+    {
+      "name": "SMCI",
+      "ticker": "SMCI",
+      "price": 33.46,
+      "change": 9.49
+    },
+    {
+      "name": "RMBS",
+      "ticker": "RMBS",
+      "price": 133.56,
+      "change": 9.45
+    },
+    {
+      "name": "VICR",
+      "ticker": "VICR",
+      "price": 264.2,
+      "change": 8.53
+    },
+    {
+      "name": "AMBA",
+      "ticker": "AMBA",
+      "price": 83.0,
+      "change": 8.23
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 299500,
+      "change": 8.51
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 1940000,
+      "change": 11.17
+    },
+    {
+      "name": "LG이노텍",
+      "code": "011070",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "DB하이텍",
+      "code": "000990",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "한국전자홀딩스",
+      "code": "016360",
+      "price": 122400,
+      "change": 8.61
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "2026년 5월 21일 나스닥과 코스피 시장의 상승 종목을 분석해봅니다.",
+    "body": "나스닥 상위 종목 중 반도체 및 기술 관련 종목들이 상승률 상위에 위치하고 있습니다. 이러한 종목들의 상승은 시장의 기술 및 반도체 산업에 대한 긍정적 기대감을 반영합니다. 코스피 시장에서도 이러한 테마와 연관된 종목들이 상위에 위치하고 있습니다.",
+    "conclusion": "이러한 분석 결과는 시장의 기술 및 반도체 산업에 대한 관심이 높아지고 있음을 보여줍니다. 하지만 투자에는 항상 위험이 수반되므로 투자자들은 자신의 투자 목표와 위험 감수 능력을 고려하여 투자 quyết정을 내려야 합니다."
+  }
+}
