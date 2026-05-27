@@ -1,0 +1,153 @@
+{
+  "date": "2026-05-27",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "반도체",
+      "stocks": [
+        {
+          "name": "Micron Technology",
+          "ticker": "MU",
+          "price": 895.88,
+          "change": 19.29
+        },
+        {
+          "name": "Advanced Micro Devices",
+          "ticker": "AMD",
+          "price": 503.89,
+          "change": 7.78
+        },
+        {
+          "name": "Ambarella",
+          "ticker": "AMBA",
+          "price": 93.57,
+          "change": 6.88
+        }
+      ]
+    },
+    {
+      "sector": "전자제품",
+      "stocks": [
+        {
+          "name": "Vicor Corporation",
+          "ticker": "VICR",
+          "price": 332.95,
+          "change": 24.24
+        },
+        {
+          "name": "POWI",
+          "ticker": "POWI",
+          "price": 84.09,
+          "change": 18.69
+        },
+        {
+          "name": "COHU",
+          "ticker": "COHU",
+          "price": 49.93,
+          "change": 7.31
+        }
+      ]
+    },
+    {
+      "sector": "소재",
+      "stocks": [
+        {
+          "name": "ACMR",
+          "ticker": "ACMR",
+          "price": 86.46,
+          "change": 17.87
+        },
+        {
+          "name": "DIOD",
+          "ticker": "DIOD",
+          "price": 108.24,
+          "change": 8.62
+        },
+        {
+          "name": "AOSL",
+          "ticker": "AOSL",
+          "price": 47.89,
+          "change": 14.79
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자제품",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 307000,
+          "change": 2.68
+        },
+        {
+          "name": "LG전자",
+          "code": "066570",
+          "price": 110800,
+          "change": 4.04
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 2243000,
+          "change": 9.31
+        }
+      ]
+    },
+    {
+      "sector": "소재",
+      "stocks": [
+        {
+          "name": "POSCO",
+          "code": "005490",
+          "price": 20600,
+          "change": 12.88
+        },
+        {
+          "name": "한국제철",
+          "code": "034730",
+          "price": 680000,
+          "change": 3.66
+        },
+        {
+          "name": "동부제철",
+          "code": "042660",
+          "price": 134900,
+          "change": 0.15
+        }
+      ]
+    },
+    {
+      "sector": "반도체",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 307000,
+          "change": 2.68
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 2243000,
+          "change": 9.31
+        },
+        {
+          "name": "DB하이텍",
+          "code": "000990",
+          "price": 261500,
+          "change": 29.78
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
