@@ -1,0 +1,81 @@
+{
+  "date": "2026-05-28",
+  "agent": "market",
+  "theme": {
+    "name": "기술 및 소프트웨어",
+    "reasons": [
+      "미국 상승 종목 중 기술 및 소프트웨어 관련 종목이 많음",
+      "코스피 상위 200 종목 중 기술 및 소프트웨어 관련 종목의 상승률이 높음"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "COHU",
+      "ticker": "COHU",
+      "price": 54.94,
+      "change": 10.03
+    },
+    {
+      "name": "CELH",
+      "ticker": "CELH",
+      "price": 31.65,
+      "change": 6.67
+    },
+    {
+      "name": "SE",
+      "ticker": "SE",
+      "price": 93.46,
+      "change": 4.99
+    },
+    {
+      "name": "TEAM",
+      "ticker": "TEAM",
+      "price": 89.07,
+      "change": 4.89
+    },
+    {
+      "name": "VICR",
+      "ticker": "VICR",
+      "price": 345.84,
+      "change": 3.87
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 2289000,
+      "change": 2.07
+    },
+    {
+      "name": "LG전자",
+      "code": "066570",
+      "price": 284500,
+      "change": 2.52
+    },
+    {
+      "name": "NAVER",
+      "code": "035420",
+      "price": 205000,
+      "change": 3.12
+    },
+    {
+      "name": "카카오",
+      "code": "035720",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 미국 나스닥과 한국 코스피 상위 200 종목의 상승률을 분석했습니다.",
+    "body": "미국 상승 종목 중 기술 및 소프트웨어 관련 종목이 많았으며, 코스피 상위 200 종목 중에도 기술 및 소프트웨어 관련 종목의 상승률이 높았습니다.",
+    "conclusion": "따라서 기술 및 소프트웨어 관련 종목에 투자하는 것이 좋을 수 있으나, 투자 전 반드시 자신의 투자 목표와 위험 감수 능력을 고려해야 합니다."
+  }
+}

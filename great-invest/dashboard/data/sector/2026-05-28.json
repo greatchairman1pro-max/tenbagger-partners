@@ -1,0 +1,153 @@
+{
+  "date": "2026-05-28",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "기술",
+      "stocks": [
+        {
+          "name": "COHU",
+          "ticker": "COHU",
+          "price": 54.94,
+          "change": 10.03
+        },
+        {
+          "name": "CELH",
+          "ticker": "CELH",
+          "price": 31.65,
+          "change": 6.67
+        },
+        {
+          "name": "SE",
+          "ticker": "SE",
+          "price": 93.46,
+          "change": 4.99
+        }
+      ]
+    },
+    {
+      "sector": "소프트웨어",
+      "stocks": [
+        {
+          "name": "TEAM",
+          "ticker": "TEAM",
+          "price": 89.07,
+          "change": 4.89
+        },
+        {
+          "name": "META",
+          "ticker": "META",
+          "price": 635.26,
+          "change": 3.74
+        },
+        {
+          "name": "MU",
+          "ticker": "MU",
+          "price": 928.41,
+          "change": 3.63
+        }
+      ]
+    },
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "VICR",
+          "ticker": "VICR",
+          "price": 345.84,
+          "change": 3.87
+        },
+        {
+          "name": "POWI",
+          "ticker": "POWI",
+          "price": 86.9,
+          "change": 3.34
+        },
+        {
+          "name": "SMCI",
+          "ticker": "SMCI",
+          "price": 38.19,
+          "change": 2.94
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "제조업",
+      "stocks": [
+        {
+          "name": "373220",
+          "code": "373220",
+          "price": 442000,
+          "change": 15.25
+        },
+        {
+          "name": "009150",
+          "code": "009150",
+          "price": 1849000,
+          "change": 13.44
+        },
+        {
+          "name": "066970",
+          "code": "066970",
+          "price": 169200,
+          "change": 13.03
+        }
+      ]
+    },
+    {
+      "sector": "서비스업",
+      "stocks": [
+        {
+          "name": "181710",
+          "code": "181710",
+          "price": 41550,
+          "change": 10.95
+        },
+        {
+          "name": "290650",
+          "code": "290650",
+          "price": 79000,
+          "change": 8.97
+        },
+        {
+          "name": "051910",
+          "code": "051910",
+          "price": 344500,
+          "change": 4.08
+        }
+      ]
+    },
+    {
+      "sector": "금융업",
+      "stocks": [
+        {
+          "name": "003670",
+          "code": "003670",
+          "price": 238000,
+          "change": 3.93
+        },
+        {
+          "name": "035420",
+          "code": "035420",
+          "price": 205000,
+          "change": 3.12
+        },
+        {
+          "name": "192080",
+          "code": "192080",
+          "price": 70000,
+          "change": 3.09
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
