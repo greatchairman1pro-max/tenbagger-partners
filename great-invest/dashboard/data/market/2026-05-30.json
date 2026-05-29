@@ -1,0 +1,81 @@
+{
+  "date": "2026-05-30",
+  "agent": "market",
+  "theme": {
+    "name": "클라우드 및 기술",
+    "reasons": [
+      "클라우드 서비스 수요 증가",
+      "기술 발전"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "OKTA",
+      "ticker": "OKTA",
+      "price": 123.27,
+      "change": 30.14
+    },
+    {
+      "name": "NTAP",
+      "ticker": "NTAP",
+      "price": 174.29,
+      "change": 22.39
+    },
+    {
+      "name": "TEAM",
+      "ticker": "TEAM",
+      "price": 107.61,
+      "change": 15.35
+    },
+    {
+      "name": "NOW",
+      "ticker": "NOW",
+      "price": 124.37,
+      "change": 14.38
+    },
+    {
+      "name": "WDAY",
+      "ticker": "WDAY",
+      "price": 146.19,
+      "change": 12.45
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 317000,
+      "change": 5.84
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 2333000,
+      "change": 1.92
+    },
+    {
+      "name": "LG전자",
+      "code": "066570",
+      "price": 293000,
+      "change": 29.93
+    },
+    {
+      "name": "NAVER",
+      "code": "035420",
+      "price": 234000,
+      "change": 14.15
+    },
+    {
+      "name": "카카오",
+      "code": "035720",
+      "price": 72300,
+      "change": 6.79
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "클라우드 및 기술 테마의 상승",
+    "body": "클라우드 서비스 수요 증가와 기술 발전으로 클라우드 및 기술 테마의 주가가 상승하고 있습니다. 이에 따라 관련 종목들의 주가도 상승하고 있습니다.",
+    "conclusion": "클라우드 및 기술 테마의 상승은 지속될 것으로 예상됩니다. 그러나 투자에는 항상 위험이 수반되므로 투자자들은 신중하게 투자해야 합니다."
+  }
+}
