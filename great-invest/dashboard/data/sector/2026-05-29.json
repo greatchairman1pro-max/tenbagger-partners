@@ -1,0 +1,153 @@
+{
+  "date": "2026-05-29",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "클라우드",
+      "stocks": [
+        {
+          "name": "Snowflake",
+          "ticker": "SNOW",
+          "price": 239.2,
+          "change": 36.48
+        },
+        {
+          "name": "Palantir",
+          "ticker": "PLTR",
+          "price": 143.34,
+          "change": 8.17
+        },
+        {
+          "name": "Shopify",
+          "ticker": "SHOP",
+          "price": 115.03,
+          "change": 7.91
+        }
+      ]
+    },
+    {
+      "sector": "소프트웨어",
+      "stocks": [
+        {
+          "name": "Hood",
+          "ticker": "HOOD",
+          "price": 84.84,
+          "change": 11.29
+        },
+        {
+          "name": "MongoDB",
+          "ticker": "MDB",
+          "price": 325.68,
+          "change": 10.6
+        },
+        {
+          "name": "Oracle",
+          "ticker": "ORCL",
+          "price": 203.7,
+          "change": 6.67
+        }
+      ]
+    },
+    {
+      "sector": "보안",
+      "stocks": [
+        {
+          "name": "ARM",
+          "ticker": "ARM",
+          "price": 335.27,
+          "change": 10.76
+        },
+        {
+          "name": "Okta",
+          "ticker": "OKTA",
+          "price": 94.72,
+          "change": 5.83
+        },
+        {
+          "name": "Now",
+          "ticker": "NOW",
+          "price": 108.73,
+          "change": 6.47
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 317000,
+          "change": 5.84
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 2333000,
+          "change": 1.92
+        },
+        {
+          "name": "LG이노텍",
+          "code": "011070",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "제조",
+      "stocks": [
+        {
+          "name": "현대차",
+          "code": "005380",
+          "price": 723000,
+          "change": 6.79
+        },
+        {
+          "name": "기아차",
+          "code": "000270",
+          "price": 169200,
+          "change": 2.98
+        },
+        {
+          "name": "포스코",
+          "code": "005490",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "서비스",
+      "stocks": [
+        {
+          "name": "NAVER",
+          "code": "035420",
+          "price": 234000,
+          "change": 14.15
+        },
+        {
+          "name": "카카오",
+          "code": "035720",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "신한지주",
+          "code": "055550",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}

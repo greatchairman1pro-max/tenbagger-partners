@@ -1,0 +1,81 @@
+{
+  "date": "2026-05-29",
+  "agent": "market",
+  "theme": {
+    "name": "클라우드 및 기술",
+    "reasons": [
+      "클라우드 서비스 수요 증가",
+      "기술 발전으로 인한 성장 가능성"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "SNOW",
+      "ticker": "SNOW",
+      "price": 239.2,
+      "change": 36.48
+    },
+    {
+      "name": "HOOD",
+      "ticker": "HOOD",
+      "price": 84.84,
+      "change": 11.29
+    },
+    {
+      "name": "ARM",
+      "ticker": "ARM",
+      "price": 335.27,
+      "change": 10.76
+    },
+    {
+      "name": "MDB",
+      "ticker": "MDB",
+      "price": 325.68,
+      "change": 10.6
+    },
+    {
+      "name": "PLTR",
+      "ticker": "PLTR",
+      "price": 143.34,
+      "change": 8.17
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 317000,
+      "change": 5.84
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 2333000,
+      "change": 1.92
+    },
+    {
+      "name": "LG전자",
+      "code": "066570",
+      "price": 293000,
+      "change": 29.93
+    },
+    {
+      "name": "네이버",
+      "code": "035420",
+      "price": 234000,
+      "change": 14.15
+    },
+    {
+      "name": "카카오",
+      "code": "035720",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "클라우드 및 기술 테마의 상승",
+    "body": "클라우드 서비스 수요 증가와 기술 발전으로 인한 성장 가능성이 주된 이유입니다.",
+    "conclusion": "테마와 관련된 종목들의 상승률을 분석하여 투자 전략을 수립할 수 있습니다."
+  }
+}
