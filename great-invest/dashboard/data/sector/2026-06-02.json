@@ -1,0 +1,153 @@
+{
+  "date": "2026-06-02",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "클라우드",
+      "stocks": [
+        {
+          "name": "MDB",
+          "ticker": "MDB",
+          "price": 403.88,
+          "change": 20.36
+        },
+        {
+          "name": "TWLO",
+          "ticker": "TWLO",
+          "price": 227.54,
+          "change": 19.36
+        },
+        {
+          "name": "HUBS",
+          "ticker": "HUBS",
+          "price": 262.2,
+          "change": 18.84
+        }
+      ]
+    },
+    {
+      "sector": "보안",
+      "stocks": [
+        {
+          "name": "OKTA",
+          "ticker": "OKTA",
+          "price": 139.79,
+          "change": 13.4
+        },
+        {
+          "name": "ZS",
+          "ticker": "ZS",
+          "price": 155.71,
+          "change": 11.44
+        },
+        {
+          "name": "DDOG",
+          "ticker": "DDOG",
+          "price": 277.49,
+          "change": 12.19
+        }
+      ]
+    },
+    {
+      "sector": "소프트웨어",
+      "stocks": [
+        {
+          "name": "ARM",
+          "ticker": "ARM",
+          "price": 408.85,
+          "change": 15.73
+        },
+        {
+          "name": "CDNS",
+          "ticker": "CDNS",
+          "price": 414.16,
+          "change": 10.46
+        },
+        {
+          "name": "ORCL",
+          "ticker": "ORCL",
+          "price": 248.15,
+          "change": 9.91
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 349000,
+          "change": 10.09
+        },
+        {
+          "name": "LG전자",
+          "code": "066570",
+          "price": 380500,
+          "change": 29.86
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000810",
+          "price": 604000,
+          "change": 6.15
+        }
+      ]
+    },
+    {
+      "sector": "제약",
+      "stocks": [
+        {
+          "name": "셀트리온",
+          "code": "068760",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "한미약품",
+          "code": "128940",
+          "price": 539000,
+          "change": 9.78
+        },
+        {
+          "name": "유한양행",
+          "code": "000100",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "게임",
+      "stocks": [
+        {
+          "name": "넷마블",
+          "code": "251270",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "카카오",
+          "code": "035720",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "엔씨소프트",
+          "code": "036570",
+          "price": 295500,
+          "change": 2.07
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
