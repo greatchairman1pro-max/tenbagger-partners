@@ -1,0 +1,81 @@
+{
+  "date": "2026-06-03",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 기술",
+    "reasons": [
+      "반도체 산업의 성장",
+      "기술 발전의 가속화"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Marvell Technology Group",
+      "ticker": "MRVL",
+      "price": 290.79,
+      "change": 32.52
+    },
+    {
+      "name": "Alpha and Omega Semiconductor",
+      "ticker": "AOSL",
+      "price": 53.32,
+      "change": 21.51
+    },
+    {
+      "name": "Wolfspeed",
+      "ticker": "WOLF",
+      "price": 61.06,
+      "change": 15.32
+    },
+    {
+      "name": "Rambus",
+      "ticker": "RMBS",
+      "price": 166.78,
+      "change": 13.09
+    },
+    {
+      "name": "ACM Research",
+      "ticker": "ACMR",
+      "price": 91.92,
+      "change": 12.03
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 360500,
+      "change": 3.3
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 114300,
+      "change": 2.79
+    },
+    {
+      "name": "LG이노텍",
+      "code": "011070",
+      "price": 166600,
+      "change": 2.96
+    },
+    {
+      "name": "한미반도체",
+      "code": "067390",
+      "price": 24100,
+      "change": 2.34
+    },
+    {
+      "name": " DB하이텍",
+      "code": "000990",
+      "price": 26650,
+      "change": 2.9
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 나스닥과 코스피의 상승 종목을 분석해 보았습니다.",
+    "body": "반도체 및 기술 관련 종목들이 상승률 상위에 올랐습니다. 이러한 추세는 기술 발전의 가속화와 반도체 산업의 성장에 기인합니다.",
+    "conclusion": "본 분석은 참고용으로만 제공되며, 투자 결정에 참고하실 때는 각종 정보를 종합하여 신중히 결정하시기 바랍니다."
+  }
+}

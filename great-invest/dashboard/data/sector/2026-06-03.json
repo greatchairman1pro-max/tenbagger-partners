@@ -1,0 +1,153 @@
+{
+  "date": "2026-06-03",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "반도체",
+      "stocks": [
+        {
+          "name": "Marvell Technology Group",
+          "ticker": "MRVL",
+          "price": 290.79,
+          "change": 32.52
+        },
+        {
+          "name": "Alpha and Omega Semiconductor",
+          "ticker": "AOSL",
+          "price": 53.32,
+          "change": 21.51
+        },
+        {
+          "name": "Wolfspeed",
+          "ticker": "WOLF",
+          "price": 61.06,
+          "change": 15.32
+        }
+      ]
+    },
+    {
+      "sector": "소재",
+      "stocks": [
+        {
+          "name": "Rambus",
+          "ticker": "RMBS",
+          "price": 166.78,
+          "change": 13.09
+        },
+        {
+          "name": "ACM Research",
+          "ticker": "ACMR",
+          "price": 91.92,
+          "change": 12.03
+        },
+        {
+          "name": "DIOD",
+          "ticker": "DIOD",
+          "price": 114.13,
+          "change": 11.94
+        }
+      ]
+    },
+    {
+      "sector": "IT",
+      "stocks": [
+        {
+          "name": "SMTC",
+          "ticker": "SMTC",
+          "price": 166.63,
+          "change": 11.4
+        },
+        {
+          "name": "Ciena",
+          "ticker": "CIEN",
+          "price": 627.0,
+          "change": 10.08
+        },
+        {
+          "name": "ONTO",
+          "ticker": "ONTO",
+          "price": 278.02,
+          "change": 8.72
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 360500,
+          "change": 3.3
+        },
+        {
+          "name": "LG전자",
+          "code": "066570",
+          "price": 392500,
+          "change": 3.15
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000810",
+          "price": 641000,
+          "change": 6.13
+        }
+      ]
+    },
+    {
+      "sector": "제조",
+      "stocks": [
+        {
+          "name": "현대차",
+          "code": "005380",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "기아",
+          "code": "000270",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "포스코",
+          "code": "005490",
+          "price": 21200,
+          "change": 7.56
+        }
+      ]
+    },
+    {
+      "sector": "화학",
+      "stocks": [
+        {
+          "name": "LG화학",
+          "code": "051910",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "삼성SDI",
+          "code": "006400",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "한화솔루션",
+          "code": "009830",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
