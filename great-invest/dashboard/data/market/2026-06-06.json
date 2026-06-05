@@ -1,0 +1,81 @@
+{
+  "date": "2026-06-06",
+  "agent": "market",
+  "theme": {
+    "name": "의료 및 통신",
+    "reasons": [
+      "의료 및 통신 관련 종목의 상승",
+      "기술 발전과 의료 기술의 발전"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "CHTR",
+      "ticker": "CHTR",
+      "price": 132.12,
+      "change": 2.38
+    },
+    {
+      "name": "CMCSA",
+      "ticker": "CMCSA",
+      "price": 23.82,
+      "change": 2.1
+    },
+    {
+      "name": "FOXA",
+      "ticker": "FOXA",
+      "price": 66.89,
+      "change": 2.06
+    },
+    {
+      "name": "AMGN",
+      "ticker": "AMGN",
+      "price": 349.58,
+      "change": 1.15
+    },
+    {
+      "name": "VRTX",
+      "ticker": "VRTX",
+      "price": 446.83,
+      "change": 1.15
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 86200,
+      "change": 2.62
+    },
+    {
+      "name": "SK텔레콤",
+      "code": "017670",
+      "price": 77500,
+      "change": 0.39
+    },
+    {
+      "name": "KT",
+      "code": "030200",
+      "price": 28250,
+      "change": 0.31
+    },
+    {
+      "name": "LG전자",
+      "code": "066570",
+      "price": 108500,
+      "change": 0.75
+    },
+    {
+      "name": "네이버",
+      "code": "035420",
+      "price": 334000,
+      "change": 0.46
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 나스닥과 코스피의 상승 종목을 분석했습니다.",
+    "body": "의료 및 통신 관련 종목의 상승이 두드러졌습니다. 미국의 경우 CHTR, CMCSA, FOXA, AMGN, VRTX 등이 상승률 상위에 올랐습니다. 코스피의 경우 삼성전자, SK텔레콤, KT, LG전자, 네이버 등이 테마와 연관된 종목 중 상위 200에 포함되었습니다.",
+    "conclusion": "의료 및 통신 기술의 발전이 두드러지고 있습니다. 투자자들은 이러한 트렌드를 주시해야 합니다. 본 분석는 참고용으로만 제공되며, 투자 결정에 영향을 줄 수 있습니다. 투자 전 반드시 전문가와 상담하시기 바랍니다."
+  }
+}

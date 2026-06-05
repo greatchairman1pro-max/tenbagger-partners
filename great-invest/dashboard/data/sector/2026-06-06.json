@@ -1,0 +1,153 @@
+{
+  "date": "2026-06-06",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "의료",
+      "stocks": [
+        {
+          "name": "AMGN",
+          "ticker": "AMGN",
+          "price": 349.58,
+          "change": 1.15
+        },
+        {
+          "name": "VRTX",
+          "ticker": "VRTX",
+          "price": 446.83,
+          "change": 1.15
+        },
+        {
+          "name": "REGN",
+          "ticker": "REGN",
+          "price": 635.45,
+          "change": 1.07
+        }
+      ]
+    },
+    {
+      "sector": "통신",
+      "stocks": [
+        {
+          "name": "CHTR",
+          "ticker": "CHTR",
+          "price": 132.12,
+          "change": 2.38
+        },
+        {
+          "name": "CMCSA",
+          "ticker": "CMCSA",
+          "price": 23.82,
+          "change": 2.1
+        },
+        {
+          "name": "FOXA",
+          "ticker": "FOXA",
+          "price": 66.89,
+          "change": 2.06
+        }
+      ]
+    },
+    {
+      "sector": "기술",
+      "stocks": [
+        {
+          "name": "ISRG",
+          "ticker": "ISRG",
+          "price": 422.06,
+          "change": 0.77
+        },
+        {
+          "name": "GTLB",
+          "ticker": "GTLB",
+          "price": 31.12,
+          "change": 0.91
+        },
+        {
+          "name": "CELH",
+          "ticker": "CELH",
+          "price": 28.13,
+          "change": 1.37
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "LG전자",
+          "code": "066570",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "제약",
+      "stocks": [
+        {
+          "name": "셀트리온",
+          "code": "068270",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "한미약품",
+          "code": "128940",
+          "price": 494000,
+          "change": 0.51
+        },
+        {
+          "name": "유한양행",
+          "code": "000100",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "통신",
+      "stocks": [
+        {
+          "name": "KT",
+          "code": "030200",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "SK텔레콤",
+          "code": "017670",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "LG유플러스",
+          "code": "032640",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
