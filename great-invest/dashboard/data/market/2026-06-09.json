@@ -1,0 +1,81 @@
+{
+  "date": "2026-06-09",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 관련 기술",
+    "reasons": [
+      "반도체 업체들의 강세",
+      "관련 기술 업체들의 상승"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Intel Corporation",
+      "ticker": "INTC",
+      "price": 110.27,
+      "change": 11.19
+    },
+    {
+      "name": "Synaptics Incorporated",
+      "ticker": "SYNA",
+      "price": 136.0,
+      "change": 10.77
+    },
+    {
+      "name": "Micron Technology, Inc.",
+      "ticker": "MU",
+      "price": 949.28,
+      "change": 9.87
+    },
+    {
+      "name": "Marvell Technology, Inc.",
+      "ticker": "MRVL",
+      "price": 288.85,
+      "change": 9.63
+    },
+    {
+      "name": "KLA Corporation",
+      "ticker": "KLAC",
+      "price": 2108.06,
+      "change": 9.27
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "메가스터디교육",
+      "code": "215200",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "한국전자홀딩스",
+      "code": "012630",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "디와이씨",
+      "code": "100120",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 나스닥 상위 200 종목 중 상승률 상위 종목들을 분석해 보았습니다.",
+    "body": "반도체 및 관련 기술 업체들이 강세를 보였습니다. 이에 따라 코스피 상위 200 종목 중 관련 업체들을 선별해 보았습니다.",
+    "conclusion": "반도체 및 관련 기술 업체들의 상승은 시장의 긍정적인 신호입니다. 그러나 투자에는 항상 위험이 따르므로 투자 전 충분한 연구와 분석이 필요합니다."
+  }
+}

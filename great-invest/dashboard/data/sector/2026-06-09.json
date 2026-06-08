@@ -1,0 +1,153 @@
+{
+  "date": "2026-06-09",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "반도체",
+      "stocks": [
+        {
+          "name": "인텔",
+          "ticker": "INTC",
+          "price": 110.27,
+          "change": 11.19
+        },
+        {
+          "name": "마이크론",
+          "ticker": "MU",
+          "price": 949.28,
+          "change": 9.87
+        },
+        {
+          "name": "마벨",
+          "ticker": "MRVL",
+          "price": 288.85,
+          "change": 9.63
+        }
+      ]
+    },
+    {
+      "sector": "반도체 장비",
+      "stocks": [
+        {
+          "name": "KLAC",
+          "ticker": "KLAC",
+          "price": 2108.06,
+          "change": 9.27
+        },
+        {
+          "name": "AMAT",
+          "ticker": "AMAT",
+          "price": 492.17,
+          "change": 8.64
+        },
+        {
+          "name": "LRCX",
+          "ticker": "LRCX",
+          "price": 324.45,
+          "change": 6.98
+        }
+      ]
+    },
+    {
+      "sector": "금융",
+      "stocks": [
+        {
+          "name": "코인베이스",
+          "ticker": "COIN",
+          "price": 162.11,
+          "change": 6.37
+        },
+        {
+          "name": "ASML",
+          "ticker": "ASML",
+          "price": 1749.04,
+          "change": 6.54
+        },
+        {
+          "name": "SYNA",
+          "ticker": "SYNA",
+          "price": 136.0,
+          "change": 10.77
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "LG전자",
+          "code": "066570",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "제조",
+      "stocks": [
+        {
+          "name": "현대자동차",
+          "code": "005380",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "기아자동차",
+          "code": "000270",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "포스코",
+          "code": "005490",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "IT",
+      "stocks": [
+        {
+          "name": "NAVER",
+          "code": "035420",
+          "price": 279000,
+          "change": 9.2
+        },
+        {
+          "name": "카카오",
+          "code": "035720",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "신한금융지주",
+          "code": "055550",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
