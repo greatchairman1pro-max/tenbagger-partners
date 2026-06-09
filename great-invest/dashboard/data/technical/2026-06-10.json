@@ -1,0 +1,64 @@
+{
+  "date": "2026-06-10",
+  "agent": "technical",
+  "title": "코스피 2일 연속 상승 종목",
+  "market_summary": "코스피 상위 200 종목 중 2일 연속 상승 종목 현황",
+  "stocks": [
+    {
+      "name": "회사명1",
+      "code": "206950",
+      "price": 1718,
+      "day1": 14.07,
+      "day2": 14.53,
+      "total": 28.6,
+      "volume_ratio": 0.0,
+      "signal": "강한 상승 신호"
+    },
+    {
+      "name": "회사명2",
+      "code": "085620",
+      "price": 24150,
+      "day1": 12.96,
+      "day2": 15.0,
+      "total": 27.96,
+      "volume_ratio": 0.0,
+      "signal": "강한 상승 신호"
+    },
+    {
+      "name": "회사명3",
+      "code": "026960",
+      "price": 24900,
+      "day1": 0.63,
+      "day2": 4.62,
+      "total": 5.26,
+      "volume_ratio": 0.0,
+      "signal": "상승 신호"
+    },
+    {
+      "name": "회사명4",
+      "code": "017670",
+      "price": 108100,
+      "day1": 0.28,
+      "day2": 1.31,
+      "total": 1.59,
+      "volume_ratio": 0.0,
+      "signal": "상승 신호"
+    },
+    {
+      "name": "회사명5",
+      "code": "000000",
+      "price": 0,
+      "day1": 0.0,
+      "day2": 0.0,
+      "total": 0.0,
+      "volume_ratio": 0.0,
+      "signal": "신호 없음"
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "코스피 상위 200 종목 중 2일 연속 상승 종목을 분석합니다.",
+    "body": "4개 종목의 상승률과 기술적 신호를 분석하여 투자 전략을 수립합니다.",
+    "conclusion": "본 분석은 참고자료로만 사용하시고 투자 전_strategy는 각자 책임하셔야 합니다."
+  }
+}

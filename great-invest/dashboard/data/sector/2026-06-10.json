@@ -1,0 +1,153 @@
+{
+  "date": "2026-06-10",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "의료",
+      "stocks": [
+        {
+          "name": "COHU",
+          "ticker": "COHU",
+          "price": 54.99,
+          "change": 4.72
+        },
+        {
+          "name": "BIIB",
+          "ticker": "BIIB",
+          "price": 199.1,
+          "change": 3.36
+        },
+        {
+          "name": "IDXX",
+          "ticker": "IDXX",
+          "price": 578.89,
+          "change": 3.16
+        }
+      ]
+    },
+    {
+      "sector": "기술",
+      "stocks": [
+        {
+          "name": "VICR",
+          "ticker": "VICR",
+          "price": 283.48,
+          "change": 3.09
+        },
+        {
+          "name": "OKTA",
+          "ticker": "OKTA",
+          "price": 119.96,
+          "change": 2.66
+        },
+        {
+          "name": "NU",
+          "ticker": "NU",
+          "price": 11.88,
+          "change": 2.41
+        }
+      ]
+    },
+    {
+      "sector": "통신",
+      "stocks": [
+        {
+          "name": "CHTR",
+          "ticker": "CHTR",
+          "price": 135.37,
+          "change": 2.4
+        },
+        {
+          "name": "TTD",
+          "ticker": "TTD",
+          "price": 19.89,
+          "change": 2.37
+        },
+        {
+          "name": "DASH",
+          "ticker": "DASH",
+          "price": 155.67,
+          "change": 2.09
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 322000,
+          "change": 8.97
+        },
+        {
+          "name": "LG전자",
+          "code": "066570",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 2215000,
+          "change": 15.91
+        }
+      ]
+    },
+    {
+      "sector": "제조",
+      "stocks": [
+        {
+          "name": "현대차",
+          "code": "005380",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "기아차",
+          "code": "000270",
+          "price": 164300,
+          "change": 8.52
+        },
+        {
+          "name": "포스코",
+          "code": "005490",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "서비스",
+      "stocks": [
+        {
+          "name": "신한지주",
+          "code": "055550",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "KB금융지주",
+          "code": "105560",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "하나금융지주",
+          "code": "086790",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
