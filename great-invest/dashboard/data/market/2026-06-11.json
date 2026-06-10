@@ -1,0 +1,81 @@
+{
+  "date": "2026-06-11",
+  "agent": "market",
+  "theme": {
+    "name": "기술 및 통신",
+    "reasons": [
+      "클라우드 컴퓨팅",
+      "인터넷 서비스"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "NetEase",
+      "ticker": "NTES",
+      "price": 125.52,
+      "change": 3.97
+    },
+    {
+      "name": "T-Mobile US",
+      "ticker": "TMUS",
+      "price": 185.55,
+      "change": 3.39
+    },
+    {
+      "name": "Robinhood Markets",
+      "ticker": "HOOD",
+      "price": 86.36,
+      "change": 3.09
+    },
+    {
+      "name": "MongoDB",
+      "ticker": "MDB",
+      "price": 348.28,
+      "change": 2.35
+    },
+    {
+      "name": "Charter Communications",
+      "ticker": "CHTR",
+      "price": 137.79,
+      "change": 1.79
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK텔레콤",
+      "code": "017670",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "KT",
+      "code": "030200",
+      "price": 55900,
+      "change": 3.9
+    },
+    {
+      "name": "LG유플러스",
+      "code": "032640",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "네이버",
+      "code": "035420",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "기술 및 통신 테마의 상승",
+    "body": "클라우드 컴퓨팅과 인터넷 서비스의 성장이 기술 및 통신 테마의 상승을 이끌고 있습니다.",
+    "conclusion": "이 테마의 상승은 지속될 것으로 예상되며, 투자자들은 이에 대한 관심을 가질 필요가 있습니다."
+  }
+}
