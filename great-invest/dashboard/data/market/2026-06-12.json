@@ -1,0 +1,81 @@
+{
+  "date": "2026-06-12",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 관련 기술",
+    "reasons": [
+      "반도체 산업의 성장",
+      "기술 발전으로 인한 수요 증가"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "KLAC",
+      "ticker": "KLAC",
+      "price": 2411.64,
+      "change": 1029.24
+    },
+    {
+      "name": "ACMR",
+      "ticker": "ACMR",
+      "price": 91.7,
+      "change": 14.68
+    },
+    {
+      "name": "ONTO",
+      "ticker": "ONTO",
+      "price": 303.53,
+      "change": 12.7
+    },
+    {
+      "name": "LRCX",
+      "ticker": "LRCX",
+      "price": 362.52,
+      "change": 12.65
+    },
+    {
+      "name": "AOSL",
+      "ticker": "AOSL",
+      "price": 43.33,
+      "change": 12.22
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "LG이노텍",
+      "code": "011070",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "DB하이텍",
+      "code": "000990",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "한국전자홀딩스",
+      "code": "012630",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "반도체 산업은 최근 몇 년간 급격한 성장을 보였습니다.",
+    "body": "이러한 성장은 기술 발전과 관련된 수요 증가로 인해 발생했습니다. 특히, 인공지능, 5G, IoT 등 새로운 기술의 등장으로 인해 반도체의 수요가 증가했습니다.",
+    "conclusion": "따라서, 반도체 및 관련 기술에 투자하는 것은 미래의 성장 가능성을 가진 전략입니다. 그러나, 투자에는 항상 위험이 수반되므로, 투자 전에는 충분한 연구와 분석이 필요합니다."
+  }
+}
