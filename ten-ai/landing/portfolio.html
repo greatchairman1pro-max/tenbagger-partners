@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>텐베거 파트너스 · Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06080F;--panel:#0A0E1A;
+  --cyan:#00CFFF;--green:#00E676;--red:#FF3D3D;--amber:#FFB300;--purple:#A78BFA;--blue:#1A8CFF;
+  --text:#C8D6E8;--dim:#3A5470;--dim2:#1E3248;
+  --border:rgba(0,207,255,.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:'Noto Sans KR',-apple-system,sans-serif;background:var(--bg);color:var(--text)}
+
+/* scanline */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+  background:repeating-linear-gradient(transparent 0,transparent 3px,rgba(0,0,0,.07) 3px,rgba(0,0,0,.07) 4px)}
+
+/* BG canvas */
+#bgc{position:fixed;inset:0;z-index:0}
+
+/* grid */
+#bgGrid{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:linear-gradient(rgba(0,207,255,.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,207,255,.022) 1px,transparent 1px);
+  background-size:80px 80px}
+
+/* top bar */
+.bar{position:fixed;top:0;left:0;right:0;height:48px;z-index:200;
+  background:rgba(6,8,15,.9);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:14px;padding:0 28px;backdrop-filter:blur(8px)}
+.bar-logo{font-size:11px;font-weight:900;letter-spacing:3px;color:var(--cyan);
+  font-family:'Share Tech Mono',monospace;display:flex;align-items:center;gap:8px}
+.bar-logo::before{content:'';width:16px;height:16px;border:2px solid var(--cyan);
+  border-radius:3px;transform:rotate(8deg);flex-shrink:0}
+.bar-sep{width:1px;height:18px;background:var(--dim2)}
+.bar-title{font-size:12px;color:var(--dim);flex:1;font-family:'Share Tech Mono',monospace;
+  letter-spacing:1px}
+.slide-num{font-size:10px;font-family:'Share Tech Mono',monospace;color:var(--dim);
+  letter-spacing:2px;white-space:nowrap}
+.bar-dot{width:6px;height:6px;border-radius:50%;background:var(--red);
+  animation:blink 1.4s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* progress */
+.progress{position:fixed;top:48px;left:0;height:2px;z-index:200;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  transition:width .5s ease;box-shadow:0 0 10px var(--cyan)}
+
+/* slides container */
+.pres{position:fixed;top:48px;left:0;right:0;bottom:56px;z-index:10;overflow:hidden}
+
+/* single slide */
+.slide{position:absolute;inset:0;display:none;flex-direction:column;
+  align-items:center;justify-content:center;padding:40px 60px}
+.slide.act{display:flex}
+
+/* fade-in entrance helpers */
+@keyframes fuA{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes fuB{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:none}}
+@keyframes scA{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+@keyframes wdA{from{width:0}to{}}
+
+/* nav bottom */
+.nav-bar{position:fixed;bottom:0;left:0;right:0;height:56px;z-index:200;
+  background:rgba(6,8,15,.95);border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;padding:0 28px}
+.nav-dots{display:flex;gap:8px;align-items:center}
+.ndot{width:6px;height:6px;border-radius:3px;background:var(--dim2);cursor:pointer;
+  transition:all .3s}
+.ndot.on{width:22px;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+.nav-btns{display:flex;gap:8px}
+.nbtn{background:none;border:1px solid var(--dim2);color:var(--dim);
+  width:34px;height:34px;border-radius:3px;cursor:pointer;font-size:13px;
+  transition:all .2s;display:flex;align-items:center;justify-content:center}
+.nbtn:hover{border-color:var(--cyan);color:var(--cyan)}
+.nav-hint{font-size:9px;font-family:'Share Tech Mono',monospace;color:var(--dim);
+  letter-spacing:1.5px}
+
+/* ════ SLIDE 0: HERO ════ */
+.s0-wrap{text-align:center;max-width:960px}
+.s0-brand{font-size:clamp(48px,8vw,88px);font-weight:900;line-height:1;
+  letter-spacing:-2px;color:#fff;animation:fuA .7s 0s both;margin-bottom:.3rem}
+.s0-brand em{color:var(--cyan);font-style:normal;
+  text-shadow:0 0 60px rgba(0,207,255,.55),0 0 120px rgba(0,207,255,.2)}
+.s0-tag{font-size:10px;font-weight:800;letter-spacing:5px;color:var(--cyan);
+  font-family:'Share Tech Mono',monospace;margin-bottom:1rem;
+  animation:fuA .5s .2s both;opacity:.7}
+.s0-main{font-size:clamp(28px,4.8vw,58px);font-weight:900;line-height:1.1;
+  color:#fff;letter-spacing:-1px;animation:fuA .7s .4s both}
+.s0-main em{color:var(--cyan);font-style:normal;text-shadow:0 0 40px rgba(0,207,255,.5)}
+.s0-div{width:80px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  margin:1.4rem auto;animation:wdA .8s .7s both}
+.s0-sub{font-size:clamp(15px,2.2vw,20px);color:var(--text);line-height:1.7;
+  margin-bottom:.8rem;animation:fuA .5s .8s both}
+.s0-desc{font-size:clamp(12px,1.4vw,14px);color:var(--dim);line-height:1.8;
+  letter-spacing:.5px;animation:fuA .5s 1s both}
+.s0-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+  margin-top:1.8rem;animation:fuA .5s 1.1s both}
+.s0-pill{font-size:10px;font-weight:800;letter-spacing:1.5px;padding:4px 12px;
+  border:1px solid var(--border);border-radius:2px;color:var(--dim);
+  font-family:'Share Tech Mono',monospace;background:rgba(0,207,255,.04)}
+.s0-cta{margin-top:2.2rem;font-size:10px;letter-spacing:3px;color:var(--dim);
+  font-family:'Share Tech Mono',monospace;animation:blink 2s 1.5s both infinite}
+
+/* ════ SLIDE 1: PROBLEM ════ */
+.s1-wrap{width:100%;max-width:820px}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:1.8rem}
+.stat-card{background:var(--panel);border:1px solid var(--dim2);padding:1.4rem 1.6rem;
+  border-radius:3px;position:relative;overflow:hidden;
+  animation:scA .5s both}
+.stat-card:nth-child(1){animation-delay:.25s}
+.stat-card:nth-child(2){animation-delay:.4s}
+.stat-card:nth-child(3){animation-delay:.55s}
+.stat-card:nth-child(4){animation-delay:.7s}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--sc,var(--red))}
+.stat-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;
+  background:var(--sc,var(--red));opacity:.4;animation:wdA 1.2s .8s both}
+.stat-num{font-size:clamp(38px,5vw,54px);font-weight:900;
+  font-family:'Share Tech Mono',monospace;line-height:1;
+  color:var(--sc,var(--red));text-shadow:0 0 30px rgba(255,61,61,.3)}
+.stat-sfx{font-size:18px;color:var(--dim)}
+.stat-quote{font-size:10px;color:rgba(200,214,232,.55);font-style:italic;
+  line-height:1.55;margin-top:.5rem;padding-left:.6rem;
+  border-left:2px solid rgba(167,139,250,.35)}
+.stat-pts{margin-top:.55rem;display:flex;flex-direction:column;gap:4px}
+.stat-pt{font-size:10px;color:var(--dim);line-height:1.5;
+  display:flex;align-items:flex-start;gap:5px}
+.stat-pt::before{content:'›';color:var(--sc,var(--purple));flex-shrink:0;font-size:13px;line-height:1.3}
+.stat-pt strong{color:var(--text);font-weight:700}
+.stat-card.wide{grid-column:1/-1}
+.stat-w-cols{display:grid;grid-template-columns:1fr 1px 1fr;gap:1.1rem;margin:.5rem 0 .7rem}
+.stat-w-sep{background:var(--dim2)}
+.stat-w-col{display:flex;flex-direction:column}
+.stat-w-title{font-size:11px;font-weight:800;margin-bottom:.45rem;
+  display:flex;align-items:center;gap:5px}
+.stat-w-cta{padding:.7rem 1rem;background:rgba(255,61,61,.05);
+  border:1px solid rgba(255,61,61,.18);border-radius:2px;text-align:center}
+.stat-w-cta-main{font-size:11px;color:var(--dim);line-height:1.65}
+.stat-w-cta-strong{font-size:12.5px;font-weight:900;color:#fff;margin-top:.2rem;
+  display:block;letter-spacing:-.2px}
+.stat-lbl{font-size:13px;font-weight:700;color:#fff;margin-top:.5rem}
+.stat-desc{font-size:11px;color:var(--dim);margin-top:.3rem;line-height:1.6}
+.s1-bottom{text-align:center;margin-top:1.8rem;font-size:13px;color:var(--dim);
+  animation:fuA .5s .9s both}
+.s1-bottom strong{color:var(--cyan)}
+
+/* ════ SLIDE 2: SOLUTION ════ */
+.sol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+  margin-top:1.8rem;width:100%;max-width:980px}
+.sol-crd{background:var(--panel);border:1px solid var(--dim2);
+  padding:1.8rem 1.6rem;border-radius:3px;border-left:3px solid var(--sc,var(--cyan));
+  animation:fuB .5s both}
+.sol-crd:nth-child(1){animation-delay:.25s}
+.sol-crd:nth-child(2){animation-delay:.45s}
+.sol-crd:nth-child(3){animation-delay:.65s}
+.sol-crd-num{font-size:9px;font-weight:800;letter-spacing:2.5px;color:var(--sc,var(--cyan));
+  font-family:'Share Tech Mono',monospace;margin-bottom:.5rem}
+.sol-crd-ico{font-size:26px;margin-bottom:.8rem;display:block}
+.sol-crd-ttl{font-size:17px;font-weight:900;color:#fff;margin-bottom:.4rem}
+.sol-crd-sub{font-size:11.5px;color:var(--dim);line-height:1.7;margin-bottom:.9rem}
+.sol-crd-rows{display:flex;flex-direction:column;gap:5px}
+.sol-crd-row{font-size:11px;color:var(--dim);display:flex;align-items:flex-start;
+  gap:6px;line-height:1.5}
+.sol-crd-row::before{content:'›';color:var(--sc,var(--cyan));flex-shrink:0;
+  font-size:13px;margin-top:0px}
+
+/* ════ SLIDE 3: PROCESS ════ */
+.proc-wrap{width:100%;max-width:900px;margin-top:2.5rem;position:relative}
+.proc-line-bg{position:absolute;top:21px;left:40px;right:40px;height:2px;
+  background:var(--dim2);z-index:0}
+.proc-line-fill{position:absolute;top:21px;left:40px;height:2px;z-index:1;
+  background:linear-gradient(90deg,var(--blue),var(--purple),var(--green),var(--amber));
+  width:0;box-shadow:0 0 12px var(--cyan);
+  animation:wdA 1.4s .4s cubic-bezier(.22,.68,0,1.2) both}
+.proc-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;z-index:2}
+.proc-step{display:flex;flex-direction:column;align-items:center;
+  animation:fuA .5s both}
+.proc-step:nth-child(1){animation-delay:.3s}
+.proc-step:nth-child(2){animation-delay:.6s}
+.proc-step:nth-child(3){animation-delay:.9s}
+.proc-step:nth-child(4){animation-delay:1.2s}
+.proc-dot{width:58px;height:58px;border-radius:50%;background:var(--panel);
+  border:2px solid var(--sc,var(--cyan));display:flex;align-items:center;
+  justify-content:center;font-size:16px;font-weight:900;
+  color:var(--sc,var(--cyan));font-family:'Share Tech Mono',monospace;
+  flex-shrink:0;box-shadow:0 0 18px rgba(0,0,0,.5)}
+.proc-ttl{font-size:13px;font-weight:800;color:#fff;margin-top:.9rem;text-align:center}
+.proc-desc{font-size:10px;color:var(--dim);margin-top:.4rem;text-align:center;
+  line-height:1.65;max-width:120px}
+.proc-note{text-align:center;margin-top:2.5rem;font-size:12px;color:var(--dim);
+  animation:fuA .5s 1.5s both}
+.proc-note strong{color:var(--cyan)}
+
+/* ════ SLIDE 4: IMPACT ════ */
+.impact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;
+  width:100%;max-width:800px;margin-top:1.8rem}
+.impact-crd{background:var(--panel);border:1px solid var(--dim2);
+  padding:1.8rem 2rem;border-radius:3px;text-align:center;
+  position:relative;overflow:hidden;animation:scA .5s both}
+.impact-crd:nth-child(1){animation-delay:.25s}
+.impact-crd:nth-child(2){animation-delay:.45s}
+.impact-crd:nth-child(3){animation-delay:.65s}
+.impact-crd:nth-child(4){animation-delay:.85s}
+.impact-crd::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--sc,var(--green)),transparent)}
+.impact-ico{font-size:22px;margin-bottom:.6rem;display:block}
+.impact-val{font-size:clamp(30px,4vw,44px);font-weight:900;
+  font-family:'Share Tech Mono',monospace;color:var(--sc,var(--green));line-height:1;
+  text-shadow:0 0 30px rgba(0,230,118,.35)}
+.impact-lbl{font-size:13px;font-weight:700;color:#fff;margin-top:.55rem}
+.impact-desc{font-size:11px;color:var(--dim);margin-top:.3rem;line-height:1.5}
+
+/* ════ SLIDE 5: CTA ════ */
+.cta-outer{display:flex;flex-direction:column;align-items:center;gap:1.5rem;
+  width:100%;max-width:640px;animation:scA .6s .2s both}
+.cta-box{width:100%;background:var(--panel);padding:2.8rem 3.2rem;
+  border-radius:4px;border:1px solid var(--border);position:relative;text-align:center}
+.cta-box::before{content:'';position:absolute;top:-1px;left:-1px;width:20px;height:20px;
+  border-top:2px solid var(--cyan);border-left:2px solid var(--cyan)}
+.cta-box::after{content:'';position:absolute;bottom:-1px;right:-1px;width:20px;height:20px;
+  border-bottom:2px solid var(--cyan);border-right:2px solid var(--cyan)}
+.cta-tag{font-size:9px;font-weight:800;letter-spacing:3px;color:var(--cyan);
+  font-family:'Share Tech Mono',monospace;margin-bottom:1rem}
+.cta-title{font-size:clamp(24px,4vw,34px);font-weight:900;color:#fff;
+  margin-bottom:.6rem;line-height:1.2}
+.cta-sub{font-size:14px;color:var(--dim);line-height:1.8;margin-bottom:1.8rem}
+.cta-feats{display:flex;flex-direction:column;gap:8px;margin-bottom:2rem;text-align:left}
+.cta-feat{font-size:12.5px;color:var(--text);display:flex;align-items:center;gap:10px}
+.cta-feat::before{content:'✓';color:var(--green);font-weight:900;font-size:13px;
+  flex-shrink:0;text-shadow:0 0 10px rgba(0,230,118,.5)}
+.cta-btn{display:inline-block;padding:14px 44px;background:var(--cyan);
+  color:#000;font-size:14px;font-weight:900;border-radius:3px;cursor:pointer;
+  letter-spacing:1px;border:none;transition:all .3s;
+  box-shadow:0 0 30px rgba(0,207,255,.35);font-family:'Noto Sans KR',sans-serif}
+.cta-btn:hover{transform:translateY(-3px);box-shadow:0 6px 40px rgba(0,207,255,.5);background:#fff}
+.cta-foot{font-size:9px;color:var(--dim);font-family:'Share Tech Mono',monospace;
+  letter-spacing:2px;margin-top:1.5rem}
+
+/* shared slide header */
+.s-tag{font-size:10px;font-weight:800;letter-spacing:4px;color:var(--cyan);
+  font-family:'Share Tech Mono',monospace;margin-bottom:.8rem;
+  animation:fuA .4s .1s both}
+.s-title{font-size:clamp(28px,4.5vw,48px);font-weight:900;color:#fff;
+  text-align:center;line-height:1.15;margin-bottom:.6rem;
+  animation:fuA .5s .2s both}
+.s-sub{font-size:clamp(13px,1.8vw,16px);color:var(--dim);text-align:center;
+  line-height:1.7;max-width:680px;animation:fuA .4s .3s both}
+
+/* ════ SLIDE 4: VALUE CHAIN ════ */
+.vc-wrap{width:100%;max-width:1020px;margin-top:1.1rem}
+.vc-flow{display:flex;align-items:stretch;gap:0;margin-bottom:.9rem}
+.vc-node{flex:1;background:var(--panel);border:1px solid var(--dim2);
+  padding:1.15rem .9rem;border-radius:3px;text-align:center;
+  border-bottom:2px solid var(--sc,var(--cyan));position:relative;overflow:hidden;
+  animation:fuA .5s both}
+.vc-node:nth-child(1){animation-delay:.2s}
+.vc-node:nth-child(3){animation-delay:.4s}
+.vc-node:nth-child(5){animation-delay:.6s}
+.vc-node:nth-child(7){animation-delay:.8s}
+.vc-node::before{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;
+  background:var(--sc,var(--cyan));opacity:.35;animation:wdA 1.2s .9s both}
+.vc-arrow{display:flex;align-items:center;justify-content:center;
+  width:22px;flex-shrink:0;color:var(--dim2);font-size:18px;
+  animation:fuA .4s .9s both}
+.vc-step{font-size:7px;font-weight:800;letter-spacing:2px;color:var(--dim);
+  font-family:'Share Tech Mono',monospace;margin-bottom:.35rem}
+.vc-val{font-size:clamp(26px,3.4vw,40px);font-weight:900;
+  font-family:'Share Tech Mono',monospace;color:var(--sc,var(--cyan));
+  line-height:1;text-shadow:0 0 24px rgba(0,207,255,.2)}
+.vc-unit{font-size:14px;color:var(--dim)}
+.vc-lbl{font-size:11.5px;font-weight:800;color:#fff;margin-top:.4rem;margin-bottom:.3rem}
+.vc-desc{font-size:9.5px;color:var(--dim);line-height:1.5}
+.vc-ms{display:flex;align-items:center;gap:5px;font-size:9.5px;color:var(--dim);
+  justify-content:center;margin-top:3px}
+.vc-ms-tag{font-size:7.5px;font-weight:800;font-family:'Share Tech Mono',monospace;
+  color:var(--sc,var(--amber));border:1px solid rgba(255,179,0,.28);
+  background:rgba(255,179,0,.07);padding:1px 5px;border-radius:2px;flex-shrink:0}
+.vc-bottom{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+  animation:fuA .5s 1.05s both}
+.vc-cred{background:rgba(0,207,255,.025);border:1px solid rgba(0,207,255,.1);
+  padding:.7rem 1rem;border-radius:3px;display:flex;align-items:center;gap:.7rem}
+.vc-cred-ico{font-size:17px;flex-shrink:0}
+.vc-cred-body strong{display:block;font-size:11px;font-weight:800;color:var(--text);margin-bottom:2px}
+.vc-cred-body span{font-size:9.5px;color:var(--dim);line-height:1.45}
+
+/* ════ SLIDE 7: TARGET ════ */
+.tgt-wrap{width:100%;max-width:1020px;margin-top:1rem}
+.tgt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tgt-card{background:var(--panel);border:1px solid var(--dim2);
+  padding:1rem 1.1rem;border-radius:3px;border-left:3px solid var(--sc,var(--cyan));
+  animation:fuA .5s both;transition:background .2s}
+.tgt-card:hover{background:rgba(0,207,255,.03)}
+.tgt-card:nth-child(1){animation-delay:.1s}.tgt-card:nth-child(2){animation-delay:.2s}
+.tgt-card:nth-child(3){animation-delay:.3s}.tgt-card:nth-child(4){animation-delay:.4s}
+.tgt-card:nth-child(5){animation-delay:.5s}.tgt-card:nth-child(6){animation-delay:.6s}
+.tgt-ico{font-size:22px;margin-bottom:.4rem;display:block}
+.tgt-ttl{font-size:13px;font-weight:900;color:#fff;margin-bottom:.35rem;line-height:1.35}
+.tgt-desc{font-size:10px;color:var(--dim);line-height:1.65;margin-bottom:.55rem}
+.tgt-tag{display:inline-block;font-size:8px;font-weight:800;letter-spacing:1px;
+  padding:2px 7px;border-radius:2px;font-family:'Share Tech Mono',monospace;
+  color:var(--sc,var(--cyan));border:1px solid currentColor;opacity:.75}
+.tgt-cta{margin-top:.6rem;font-size:9.5px;color:var(--sc,var(--cyan));
+  font-weight:800;opacity:.8}
+.tgt-bottom{margin-top:.85rem;padding:.75rem 1.2rem;text-align:center;
+  background:rgba(0,207,255,.03);border:1px solid rgba(0,207,255,.12);border-radius:3px;
+  font-size:11px;color:var(--dim);line-height:1.7;animation:fuA .5s .7s both}
+.tgt-bottom strong{color:var(--cyan)}
+
+/* ════ SLIDE 6: SERVICES ════ */
+.svc-wrap{width:100%;max-width:980px;margin-top:.9rem}
+.svc-gate{background:rgba(255,179,0,.04);border:1px solid rgba(255,179,0,.2);
+  border-left:3px solid var(--amber);border-radius:3px;
+  padding:.85rem 1.3rem;margin-bottom:.9rem;animation:fuA .4s .15s both}
+.svc-gate-ttl{font-size:15px;font-weight:900;color:var(--amber);margin-bottom:.3rem;
+  letter-spacing:-.3px}
+.svc-gate-sub{font-size:11px;color:var(--dim);line-height:1.65}
+.svc-gate-sub strong{color:var(--text)}
+.svc-cols{display:grid;grid-template-columns:1fr 2fr;gap:9px}
+.svc-col{background:var(--panel);border:1px solid var(--dim2);border-radius:3px;
+  padding:1.1rem 1.2rem;border-top:2px solid var(--sc,var(--cyan));
+  animation:fuA .5s both}
+.svc-col:nth-child(1){animation-delay:.3s}
+.svc-col:nth-child(2){animation-delay:.5s}
+.svc-col-head{margin-bottom:.8rem;padding-bottom:.6rem;border-bottom:1px solid var(--dim2)}
+.svc-badge{display:inline-block;font-size:8px;font-weight:800;letter-spacing:2px;
+  padding:2px 8px;border-radius:2px;font-family:'Share Tech Mono',monospace;margin-bottom:.35rem}
+.svc-col.free .svc-badge{background:rgba(0,230,118,.1);color:var(--green);
+  border:1px solid rgba(0,230,118,.25)}
+.svc-col.paid .svc-badge{background:rgba(0,207,255,.08);color:var(--cyan);
+  border:1px solid rgba(0,207,255,.22)}
+.svc-col-ttl{font-size:16px;font-weight:900;color:#fff}
+.svc-col-sub{font-size:10px;color:var(--dim);margin-top:.25rem;line-height:1.5}
+.svc-list{display:flex;flex-direction:column;gap:5px}
+.svc-list.two{display:grid;grid-template-columns:repeat(2,1fr);gap:4px}
+.svc-item{font-size:12px;color:var(--text);padding:.3rem .4rem;
+  display:flex;align-items:center;gap:7px;border-radius:2px;
+  transition:background .2s,color .2s}
+.svc-item:hover{background:rgba(0,207,255,.05);color:#fff}
+.free .svc-item::before{content:'✓';color:var(--green);font-weight:900;
+  font-size:12px;flex-shrink:0;width:13px}
+.paid .svc-item::before{content:'›';color:var(--cyan);
+  font-size:16px;flex-shrink:0;width:13px;line-height:1}
+
+/* ════ SLIDE 2: DIRECTOR STRIP ════ */
+.dir-strip{width:100%;max-width:980px;margin-top:.9rem;
+  background:rgba(0,207,255,.03);border:1px solid rgba(0,207,255,.1);
+  border-radius:3px;padding:.85rem 1.6rem;animation:fuA .5s .95s both}
+.dir-label{font-size:8px;font-weight:800;letter-spacing:3px;
+  color:rgba(0,207,255,.45);font-family:'Share Tech Mono',monospace;margin-bottom:.75rem}
+.dir-nodes{display:flex;align-items:center;justify-content:center}
+.dir-node{display:flex;flex-direction:column;align-items:center;
+  flex:1;padding:.55rem .8rem;text-align:center}
+.dir-node.hub{background:rgba(0,207,255,.06);border:1px solid rgba(0,207,255,.22);
+  border-radius:3px;box-shadow:0 0 22px rgba(0,207,255,.09)}
+.dir-conn{flex-shrink:0;padding:0 4px;display:flex;align-items:center}
+.dir-conn-line{width:36px;height:1px;
+  background:linear-gradient(90deg,rgba(30,50,72,.8),rgba(0,207,255,.35),rgba(30,50,72,.8))}
+.dir-ico{font-size:17px;margin-bottom:.25rem}
+.dir-role{font-size:7.5px;font-weight:800;letter-spacing:2px;
+  color:rgba(0,207,255,.5);font-family:'Share Tech Mono',monospace;margin-bottom:.15rem}
+.hub .dir-role{color:var(--cyan)}
+.dir-name{font-size:11.5px;font-weight:900;color:#fff}
+.hub .dir-name{color:var(--cyan);text-shadow:0 0 14px rgba(0,207,255,.4)}
+.dir-desc{font-size:9px;color:var(--dim);margin-top:.2rem;line-height:1.45}
+.dir-foot{font-size:10px;color:var(--dim);text-align:center;
+  margin-top:.7rem;padding-top:.6rem;border-top:1px solid var(--dim2);line-height:1.6}
+.dir-foot strong{color:var(--text)}
+
+/* ════ SLIDE 5: JOURNEY ════ */
+.jrn-outer{width:100%;max-width:1020px;margin-top:1.4rem}
+.jrn-stages{display:flex;align-items:stretch;gap:0;margin-bottom:1.4rem}
+.jrn-stage{flex:1;display:flex;flex-direction:column;align-items:center;
+  animation:fuA .5s both}
+.jrn-stage:nth-child(1){animation-delay:.15s}
+.jrn-stage:nth-child(2){animation-delay:.3s}
+.jrn-stage:nth-child(3){animation-delay:.45s}
+.jrn-stage:nth-child(4){animation-delay:.6s}
+.jrn-stage:nth-child(5){animation-delay:.75s}
+.jrn-arr{display:flex;align-items:center;padding:0 2px;color:var(--dim2);font-size:16px;
+  flex-shrink:0;animation:fuA .4s .8s both;align-self:center;padding-bottom:1.4rem}
+.jrn-card{background:var(--panel);border:1px solid var(--dim2);
+  padding:1rem .7rem;border-radius:3px;text-align:center;width:100%;height:100%;
+  border-bottom:2px solid var(--sc,var(--dim2));transition:border-color .25s,transform .25s;
+  display:flex;flex-direction:column;align-items:center}
+.jrn-card:hover{transform:translateY(-3px);border-bottom-color:var(--sc,var(--cyan))}
+.jrn-stage.apex .jrn-card{border:1px solid rgba(0,207,255,.5);
+  background:rgba(0,207,255,.05);border-bottom:2px solid var(--cyan);
+  box-shadow:0 0 32px rgba(0,207,255,.12),inset 0 0 20px rgba(0,207,255,.03)}
+.jrn-ico{font-size:20px;margin-bottom:.4rem;display:block}
+.jrn-step{font-size:8px;font-weight:800;letter-spacing:2px;color:var(--dim);
+  font-family:'Share Tech Mono',monospace;margin-bottom:.2rem}
+.apex .jrn-step{color:rgba(0,207,255,.7)}
+.jrn-ttl{font-size:12px;font-weight:900;color:#fff;margin-bottom:.3rem}
+.apex .jrn-ttl{font-size:13px;color:var(--cyan);text-shadow:0 0 18px rgba(0,207,255,.45)}
+.jrn-desc{font-size:9.5px;color:var(--dim);line-height:1.5;text-align:center}
+.apex .jrn-desc{color:rgba(200,214,232,.55)}
+
+.jrn-cd{background:rgba(0,207,255,.03);border:1px solid rgba(0,207,255,.2);
+  border-radius:3px;padding:1rem 1.5rem;position:relative;animation:scA .5s 1s both}
+.jrn-cd::before{content:'';position:absolute;top:-1px;left:-1px;width:14px;height:14px;
+  border-top:2px solid var(--cyan);border-left:2px solid var(--cyan)}
+.jrn-cd::after{content:'';position:absolute;bottom:-1px;right:-1px;width:14px;height:14px;
+  border-bottom:2px solid var(--cyan);border-right:2px solid var(--cyan)}
+.jrn-cd-head{display:flex;align-items:center;gap:1.2rem;margin-bottom:.8rem}
+.jrn-cd-tag{font-size:8px;font-weight:800;letter-spacing:2.5px;color:var(--cyan);
+  font-family:'Share Tech Mono',monospace;white-space:nowrap}
+.jrn-cd-title{font-size:14px;font-weight:900;color:#fff}
+.jrn-cd-title em{color:var(--cyan);font-style:normal}
+.jrn-cd-svcs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.8rem}
+.jrn-svc{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;
+  color:var(--text);background:var(--panel);border:1px solid var(--dim2);
+  padding:5px 12px;border-radius:3px;white-space:nowrap;transition:border-color .2s,color .2s}
+.jrn-svc:hover{border-color:var(--cyan);color:var(--cyan)}
+.jrn-svc-ico{font-size:12px}
+.jrn-cd-foot{font-size:10.5px;color:var(--dim);border-top:1px solid var(--dim2);
+  padding-top:.65rem;text-align:center;line-height:1.7}
+.jrn-cd-foot strong{color:var(--text)}
+
+@media(max-width:768px){
+  .slide{padding:30px 20px}
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .sol-grid{grid-template-columns:1fr}
+  .proc-steps{grid-template-columns:1fr 1fr;gap:20px}
+  .proc-line-bg,.proc-line-fill{display:none}
+  .impact-grid{grid-template-columns:1fr 1fr}
+  .cta-box{padding:2rem 1.6rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bgc"></canvas>
+<div id="bgGrid"></div>
+
+<!-- TOP BAR -->
+<header class="bar">
+  <div class="bar-logo">TEN-BAGGER</div>
+  <div class="bar-sep"></div>
+  <div class="bar-title" id="barTitle">COMPANY PORTFOLIO · 2026</div>
+  <div class="bar-dot"></div>
+  <div class="slide-num" id="slideNum">01 / 06</div>
+</header>
+
+<!-- PROGRESS -->
+<div class="progress" id="progress"></div>
+
+<!-- SLIDES -->
+<div class="pres" id="pres">
+
+  <!-- ══ SLIDE 0: HERO ══ -->
+  <section class="slide act" data-slide="0">
+    <div class="s0-wrap">
+      <div class="s0-brand"><em>텐베거</em> 파트너스</div>
+      <div class="s0-tag">TENBAGGER PARTNERS · DATA-DRIVEN CONSULTING</div>
+      <div class="s0-main">사업의 <em>10배</em> 성장</div>
+      <div class="s0-div"></div>
+      <div class="s0-sub">AI기술과 데이터 기반 경영 컨설팅으로 당신의 비즈니스를 체계적으로 성장시킵니다</div>
+      <div class="s0-desc">재무 분석 · 고정비 절감 · 리스크 관리 · 사업재산권 보호 · 영업기회발굴 · 실행 로드맵 · AI에이전트 개발</div>
+      <div class="s0-pills">
+        <span class="s0-pill">COST OPTIMIZATION</span>
+        <span class="s0-pill">RISK MANAGEMENT</span>
+        <span class="s0-pill">GOODWILL ANALYSIS</span>
+        <span class="s0-pill">BREAK-EVEN</span>
+      </div>
+      <div class="s0-cta">SPACE · → · CLICK 으로 시작</div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 1: PROBLEM ══ -->
+  <section class="slide" data-slide="1">
+    <div class="s-tag">THE PROBLEM</div>
+    <div class="s-title">소상공인이 직면하는 현실</div>
+    <div class="s1-wrap">
+      <div class="stat-grid">
+        <div class="stat-card" style="--sc:#FF3D3D">
+          <div class="stat-num"><span class="cnt" data-to="65">0</span><span class="stat-sfx">%</span></div>
+          <div class="stat-lbl">개인/법인사업자 폐업률</div>
+          <div class="stat-quote" style="border-left-color:rgba(255,61,61,.4);color:rgba(200,214,232,.5)">출처 · 통계청 「기업생멸행정통계」— 신생기업 5년 생존율 33.4%, 폐업률 약 66.6%</div>
+          <div class="stat-pts" style="--sc:#FF3D3D">
+            <div class="stat-pt"><strong>1년 생존율 65%</strong> — 창업 첫 해 35%가 폐업</div>
+            <div class="stat-pt"><strong>3년 생존율 45%</strong> — 절반 이상이 3년을 넘기지 못함</div>
+            <div class="stat-pt"><strong>5년 생존율 33%</strong> — 10곳 중 6~7곳 사업을 이어가지 못함</div>
+          </div>
+        </div>
+        <div class="stat-card" style="--sc:#FFB300">
+          <div class="stat-num"><span class="cnt" data-to="54">0</span><span class="stat-sfx">%</span></div>
+          <div class="stat-lbl">경영 구조 미숙 실패율</div>
+          <div class="stat-quote" style="border-left-color:rgba(255,179,0,.4);color:rgba(200,214,232,.5)">"소멸한 기업 실패 원인 분석 — 경영 미숙이 절반(50%) 이상을 차지합니다"</div>
+          <div class="stat-pts" style="--sc:#FFB300">
+            <div class="stat-pt"><strong>시장 분석 실패</strong> 34% — 가장 큰 직접 원인</div>
+            <div class="stat-pt"><strong>현금 흐름 · 재정 구조 미숙</strong> 16%</div>
+            <div class="stat-pt"><strong>비최적 운영 · 부적합 법인 구조</strong> 4%</div>
+            <div class="stat-pt"><strong>대표자 교육 인사 / 재무 / 수익 시스템</strong> 부재가 핵심 원인</div>
+          </div>
+        </div>
+        <div class="stat-card wide" style="--sc:#FF3D3D">
+          <div class="stat-lbl" style="font-size:13px;font-weight:900;color:#fff;margin-bottom:.15rem">지금 당신의 사업을 위협하는 두 가지 치명적 리스크</div>
+          <div class="stat-quote" style="border-left-color:rgba(255,61,61,.4);color:rgba(200,214,232,.5);margin-bottom:.2rem">"사업의 가장 큰 리스크는 외부가 아닌, 대표님의 '성공 방정식' 그 자체일 수 있습니다"</div>
+          <div class="stat-w-cols">
+            <div class="stat-w-col">
+              <div class="stat-w-title" style="color:#A78BFA">📌 내부 리스크 · CEO 결정 구조</div>
+              <div class="stat-pts" style="--sc:#A78BFA">
+                <div class="stat-pt">1인 결정 구조의 <strong>유연성 부재</strong> — 시장 변화 대응 실패</div>
+                <div class="stat-pt">과거 성공 방식·직관에만 의존하는 <strong>우물 안 개구리</strong> 리스크</div>
+                <div class="stat-pt">규제·세무 변화 속 타이밍 상실 → <strong>생존과 직결</strong></div>
+              </div>
+            </div>
+            <div class="stat-w-sep"></div>
+            <div class="stat-w-col">
+              <div class="stat-w-title" style="color:#FF3D3D">⚠️ 외부 리스크 · 사업 운영</div>
+              <div class="stat-pts" style="--sc:#FF3D3D">
+                <div class="stat-pt"><strong>운영 자금 미확보</strong> → 위기 시 즉각 사업 중단</div>
+                <div class="stat-pt">사업 확장 솔루션·시스템 <strong>부재</strong></div>
+                <div class="stat-pt">핵심 인력 이탈 리스크 <strong>무방비 상태</strong></div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-w-cta">
+            <div class="stat-w-cta-main" style="font-size:13px;font-weight:700;color:var(--text);letter-spacing:-.2px">사업의 성장과 리스크 관리를 체계적으로</div>
+            <span class="stat-w-cta-strong" style="font-size:15px;color:var(--cyan);text-shadow:0 0 20px rgba(0,207,255,.45);margin-top:.3rem">텐베거 파트너스의 AI와 자본디렉터의 솔루션을 적용할 때입니다</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 2: SOLUTION ══ -->
+  <section class="slide" data-slide="2">
+    <div class="s-tag">OUR SOLUTION</div>
+    <div class="s-title">핵심 3대 전략</div>
+    <div class="sol-grid">
+      <div class="sol-crd" style="--sc:#00E676">
+        <div class="sol-crd-num">01 · PRIORITY</div>
+        <span class="sol-crd-ico">✂️</span>
+        <div class="sol-crd-ttl">고정비 절감</div>
+        <div class="sol-crd-sub">즉시 실행 가능한 비용 최적화로 매월 현금흐름을 개선합니다</div>
+        <div class="sol-crd-rows">
+          <div class="sol-crd-row">임대료 재협상 (10~15% 절감)</div>
+          <div class="sol-crd-row">공과금·통신비 최적화</div>
+          <div class="sol-crd-row">연 평균 <strong style="color:#00E676">255만원</strong> 절감 실현</div>
+        </div>
+      </div>
+      <div class="sol-crd" style="--sc:#FFB300">
+        <div class="sol-crd-num">02 · RISK · 텐베거 파트너스 핵심업무</div>
+        <span class="sol-crd-ico">🛡</span>
+        <div class="sol-crd-ttl">리스크 관리</div>
+        <div class="sol-crd-sub">사업 영위를 위한 최고의 솔루션 구축</div>
+        <div class="sol-crd-rows">
+          <div class="sol-crd-row">초기 · 투자금 고정비 절감</div>
+          <div class="sol-crd-row">중기 · 자본확보 및 수익성 확보</div>
+          <div class="sol-crd-row">말기 · 사업 확장/승계 및 권리금 양도·양수</div>
+          <div class="sol-crd-row" style="margin-top:.4rem;padding-top:.4rem;border-top:1px solid rgba(255,179,0,.15);color:rgba(200,214,232,.5);font-size:10px">사업 5대 리스크 · 법률사고 · 화재사고 · 건강문제 · 유통사고 · 운영자금 미확보</div>
+        </div>
+      </div>
+      <div class="sol-crd" style="--sc:#A78BFA">
+        <div class="sol-crd-num">03 · ASSET</div>
+        <span class="sol-crd-ico">🏪</span>
+        <div class="sol-crd-ttl">사업재산권 분석</div>
+        <div class="sol-crd-sub">사업의 가치를 최대화하여 안전한 매도·매수를 지원합니다</div>
+        <div class="sol-crd-rows">
+          <div class="sol-crd-row">권리금 양수·양도 진행</div>
+          <div class="sol-crd-row">계약갱신청구권 행사 전략</div>
+          <div class="sol-crd-row">사업 매수·매각 포트폴리오 기획</div>
+        </div>
+      </div>
+    </div>
+    <div class="dir-strip">
+      <div class="dir-label">CORE DIRECTORS · 핵심 구성원</div>
+      <div class="dir-nodes">
+        <div class="dir-node">
+          <span class="dir-ico">🤖</span>
+          <div class="dir-role">AI DIRECTOR</div>
+          <div class="dir-name">AI 에이전트</div>
+          <div class="dir-desc">데이터 분석 · 전략 도출<br>24/7 자동화 운영</div>
+        </div>
+        <div class="dir-conn"><div class="dir-conn-line"></div></div>
+        <div class="dir-node hub">
+          <span class="dir-ico">🏢</span>
+          <div class="dir-role">HUB · CENTER</div>
+          <div class="dir-name">텐베거 파트너스</div>
+          <div class="dir-desc">소상공인 성장 솔루션<br>통합 컨설팅 허브</div>
+        </div>
+        <div class="dir-conn"><div class="dir-conn-line"></div></div>
+        <div class="dir-node">
+          <span class="dir-ico">🤝</span>
+          <div class="dir-role">BUSINESS DIRECTOR</div>
+          <div class="dir-name">비즈니스 파트너</div>
+          <div class="dir-desc">현장 실행 · 네트워크<br>성장 파트너십 구축</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 3: PROCESS ══ -->
+  <section class="slide" data-slide="3">
+    <div class="s-tag">OUR PROCESS</div>
+    <div class="s-title" style="font-size:clamp(20px,3.4vw,38px)">텐베거 파트너스의 AI에이전트 4단계 컨설팅 프로세스</div>
+    <div class="s-sub">데이터 수집부터 실행 관리까지 체계적인 컨설팅 시스템</div>
+    <div class="proc-wrap">
+      <div class="proc-line-bg"></div>
+      <div class="proc-line-fill"></div>
+      <div class="proc-steps">
+        <div class="proc-step">
+          <div class="proc-dot" style="border-color:var(--blue);color:var(--blue)">01</div>
+          <div class="proc-ttl">데이터 수집</div>
+          <div class="proc-desc">재무 데이터 분석 · 사업 구조 현황 파악</div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-dot" style="border-color:var(--purple);color:var(--purple)">02</div>
+          <div class="proc-ttl">재무 분석</div>
+          <div class="proc-desc">손익분기점 · 고정비 최적화 · 권리금 가치 종합 분석</div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-dot" style="border-color:var(--green);color:var(--green)">03</div>
+          <div class="proc-ttl">전략 수립</div>
+          <div class="proc-desc">맞춤 절감안 · 리스크 대응책 · 로드맵 설계</div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-dot" style="border-color:var(--amber);color:var(--amber)">04</div>
+          <div class="proc-ttl">실행 관리</div>
+          <div class="proc-desc">월별 핵심 성과 지표 추적 · 성과 측정 · 지속 개선</div>
+        </div>
+      </div>
+    </div>
+    <div class="proc-note">텐베거 파트너스의 <strong>AI에이전트 기술</strong>과 <strong>전문 디렉터</strong></div>
+  </section>
+
+  <!-- ══ SLIDE 4: VALUE CHAIN ══ -->
+  <section class="slide" data-slide="4">
+    <div class="s-tag">DATA-DRIVEN RESULTS · 기본 솔루션</div>
+    <div class="s-title" style="font-size:clamp(20px,3.4vw,38px)">텐베거 파트너스 시스템 적용 시 예상 4가지 지표</div>
+    <div class="vc-wrap">
+      <div class="vc-flow">
+        <div class="vc-node" style="--sc:#00E676">
+          <div class="vc-step">STEP 01 · OPTIMIZE</div>
+          <div class="vc-val">-<span class="cnt" data-to="255">0</span><span class="vc-unit">만원</span></div>
+          <div class="vc-lbl">연 고정비 절감</div>
+          <div class="vc-desc">6개 항목 즉시 최적화<br>현금흐름 즉각 개선</div>
+        </div>
+        <div class="vc-arrow">›</div>
+        <div class="vc-node" style="--sc:#1A8CFF">
+          <div class="vc-step">STEP 02 · REINVEST</div>
+          <div class="vc-val"><span class="cnt" data-to="30">0</span><span class="vc-unit">%</span></div>
+          <div class="vc-lbl">연 매출 상승률</div>
+          <div class="vc-desc">절감액 마케팅 재투자<br>평균 매출 30% 성장</div>
+        </div>
+        <div class="vc-arrow">›</div>
+        <div class="vc-node" style="--sc:#FFB300">
+          <div class="vc-step">STEP 03 · PROFIT</div>
+          <div class="vc-val"><span class="cnt" data-to="6">0</span><span class="vc-unit">개월</span></div>
+          <div class="vc-lbl">AI 솔루션 BEP 단축</div>
+          <div class="vc-ms"><span class="vc-ms-tag">6M</span>손익분기 조기 달성</div>
+          <div class="vc-ms"><span class="vc-ms-tag">12M</span>매출 대비 순수익 개선</div>
+        </div>
+        <div class="vc-arrow">›</div>
+        <div class="vc-node" style="--sc:#A78BFA">
+          <div class="vc-step">STEP 04 · ASSET</div>
+          <div class="vc-val" style="font-size:clamp(16px,2.2vw,26px);line-height:1.15;letter-spacing:-.3px">사업권리금<br>· 지적재산권</div>
+          <div class="vc-lbl">사업 매수·매각 포트폴리오 기획</div>
+          <div class="vc-desc">산정 기준 데이터화</div>
+        </div>
+      </div>
+      <div class="vc-bottom">
+        <div class="vc-cred">
+          <span class="vc-cred-ico">📋</span>
+          <div class="vc-cred-body">
+            <strong>재무 데이터 기반</strong>
+            <span>실제 수집된 수익·비용 데이터를 근거로 산출한 평균 예상값</span>
+          </div>
+        </div>
+        <div class="vc-cred">
+          <span class="vc-cred-ico">🤖</span>
+          <div class="vc-cred-body">
+            <strong>AI 자동화 분석 시스템</strong>
+            <span>비용 구조 진단부터 마케팅 전략 도출까지 AI가 자동 실행</span>
+          </div>
+        </div>
+        <div class="vc-cred">
+          <span class="vc-cred-ico">🎯</span>
+          <div class="vc-cred-body">
+            <strong>단계별 핵심 성과 지표 성과 검증</strong>
+            <span>6개월·12개월 마일스톤 추적으로 성과 투명하게 증명</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 5: JOURNEY ══ -->
+  <section class="slide" data-slide="5">
+    <div class="s-tag">GROWTH ROADMAP · 개인/법인사업자 성장 경로</div>
+    <div class="s-title" style="font-size:clamp(20px,3.4vw,38px)">대표님의 성장 로드맵, 텐베거 파트너스가 함께 실행합니다</div>
+    <div class="jrn-outer">
+      <div class="jrn-stages">
+        <div class="jrn-stage">
+          <div class="jrn-card" style="--sc:#3A5470">
+            <span class="jrn-ico">👔</span>
+            <div class="jrn-step">STAGE 01</div>
+            <div class="jrn-ttl">근로자</div>
+            <div class="jrn-desc">노동 소득<br>시간 = 돈</div>
+          </div>
+        </div>
+        <div class="jrn-arr">›</div>
+        <div class="jrn-stage">
+          <div class="jrn-card" style="--sc:#1A8CFF">
+            <span class="jrn-ico">🏪</span>
+            <div class="jrn-step">STAGE 02</div>
+            <div class="jrn-ttl">소상공인</div>
+            <div class="jrn-desc">개인사업자 운영<br>사업 시스템 구축</div>
+          </div>
+        </div>
+        <div class="jrn-arr">›</div>
+        <div class="jrn-stage">
+          <div class="jrn-card" style="--sc:#A78BFA">
+            <span class="jrn-ico">🚀</span>
+            <div class="jrn-step">STAGE 03</div>
+            <div class="jrn-ttl">사업가</div>
+            <div class="jrn-desc">법인전환 · 확장<br>레버리지 구축</div>
+          </div>
+        </div>
+        <div class="jrn-arr">›</div>
+        <div class="jrn-stage">
+          <div class="jrn-card" style="--sc:#FFB300">
+            <span class="jrn-ico">📊</span>
+            <div class="jrn-step">STAGE 04</div>
+            <div class="jrn-ttl">투자자</div>
+            <div class="jrn-desc">자본 운용<br>수동 소득</div>
+          </div>
+        </div>
+        <div class="jrn-arr">›</div>
+        <div class="jrn-stage apex">
+          <div class="jrn-card" style="--sc:#00CFFF">
+            <span class="jrn-ico">🏛</span>
+            <div class="jrn-step">YOUR DIRECTOR</div>
+            <div class="jrn-ttl">텐베거 파트너스</div>
+            <div class="jrn-desc">로드맵으로 대표님과<br>함께 직접 실행<br><span style="font-size:9px;opacity:.7">모든 것을 전담 · 사업에만 집중</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="jrn-cd">
+        <div class="jrn-cd-head">
+          <div class="jrn-cd-tag">CAPITAL DIRECTOR · 7대 전담 솔루션</div>
+          <div class="jrn-cd-title">대표님은 사업에만 집중 — <em>사업전략팀으로 텐베거 파트너스를 선택하세요</em></div>
+        </div>
+        <div class="jrn-cd-svcs">
+          <div class="jrn-svc"><span class="jrn-svc-ico">📊</span>재무</div>
+          <div class="jrn-svc"><span class="jrn-svc-ico">🧾</span>세무</div>
+          <div class="jrn-svc"><span class="jrn-svc-ico">⚖️</span>법률</div>
+          <div class="jrn-svc"><span class="jrn-svc-ico">🤖</span>데이터 분석</div>
+          <div class="jrn-svc"><span class="jrn-svc-ico">📣</span>마케팅</div>
+          <div class="jrn-svc"><span class="jrn-svc-ico">👥</span>인사관리</div>
+          <div class="jrn-svc"><span class="jrn-svc-ico">🏦</span>자산관리</div>
+          <div class="jrn-svc"><span class="jrn-svc-ico">🤝</span>영업</div>
+          <div class="jrn-svc"><span class="jrn-svc-ico">🤖</span>AI에이전트 개발</div>
+        </div>
+        <div class="jrn-cd-foot">
+          근로자 → 소상공인 → 사업가 → 투자자의 모든 단계를 로드맵으로 설계하고<br>
+          <strong>텐베거 파트너스가 대표님과 함께 기획하고 성장을 실행합니다</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 6: SERVICES ══ -->
+  <section class="slide" data-slide="6">
+    <div class="s-tag">SERVICE STRUCTURE · 단계별 파트너십 서비스</div>
+    <div class="s-title" style="font-size:clamp(22px,3.4vw,40px)">혁신을 선점하세요</div>
+    <div class="svc-wrap">
+      <div class="svc-gate">
+        <div class="svc-gate-ttl">함께 전략을 기획하고 실행하는 기업의 혁신을 주도하는 비즈니스 파트너</div>
+        <div class="svc-gate-sub">
+          <strong>텐베거 파트너스의 자산 관리 디렉팅을 요청하세요.</strong><br>
+          사업자와 텐베거 파트너스가 동일한 목표를 향해 신뢰를 쌓아가며 함께 목표를 달성합니다.
+        </div>
+      </div>
+      <div class="svc-cols">
+        <div class="svc-col free" style="--sc:#00E676">
+          <div class="svc-col-head">
+            <div class="svc-badge">FREE</div>
+            <div class="svc-col-ttl">무료 솔루션</div>
+            <div class="svc-col-sub">무료 사업 진단 서비스</div>
+          </div>
+          <div class="svc-list">
+            <div class="svc-item">고정비 절감 컨설팅</div>
+            <div class="svc-item">사업·개인 자산관리 컨설팅</div>
+            <div class="svc-item">슈퍼바이저 솔루션 제공</div>
+          </div>
+        </div>
+        <div class="svc-col paid" style="--sc:#00CFFF">
+          <div class="svc-col-head">
+            <div class="svc-badge">PREMIUM</div>
+            <div class="svc-col-ttl">유료 경영 지원 솔루션</div>
+            <div class="svc-col-sub">혁신을 만들어가는 비즈니스 파트너</div>
+          </div>
+          <div class="svc-list two">
+            <div class="svc-item">사업 자금 컨설팅</div>
+            <div class="svc-item">맞춤형 사업 기획</div>
+            <div class="svc-item">수익성 개선 솔루션</div>
+            <div class="svc-item">프렌차이즈화</div>
+            <div class="svc-item">권리금 양수·양도</div>
+            <div class="svc-item">법인사업자 전환</div>
+            <div class="svc-item">기업·개인 회생</div>
+            <div class="svc-item">상속 및 가업승계</div>
+            <div class="svc-item">부동산 컨설팅</div>
+            <div class="svc-item">법률 서비스</div>
+            <div class="svc-item">제휴 마케팅</div>
+            <div class="svc-item">광고 마케팅</div>
+            <div class="svc-item">영업기회 발굴</div>
+            <div class="svc-item">사업 합병·매각</div>
+            <div class="svc-item">사업 파이프라인 구조 설계</div>
+            <div class="svc-item">AI에이전트 개발</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 7: TARGET ══ -->
+  <section class="slide" data-slide="7">
+    <div class="s-tag">WHO WE HELP · 이런 분께 필요합니다</div>
+    <div class="s-title" style="font-size:clamp(20px,3.2vw,36px)">지금 이 상황이라면, 텐베거 파트너스가 필요합니다</div>
+    <div class="tgt-wrap">
+      <div class="tgt-grid">
+        <div class="tgt-card" style="--sc:#00E676">
+          <span class="tgt-ico">💸</span>
+          <div class="tgt-ttl">열심히 일하는데 통장이 항상 비어있다</div>
+          <div class="tgt-desc">매출은 있는데 정작 내 손에 남는 건 없다. 고정비가 문제인지, 구조가 문제인지 파악조차 안 된다.</div>
+          <div class="tgt-tag">고정비 절감 · 재무 분석</div>
+          <div class="tgt-cta">→ 지금 무료 진단 받아보세요</div>
+        </div>
+        <div class="tgt-card" style="--sc:#FFB300">
+          <span class="tgt-ico">👥</span>
+          <div class="tgt-ttl">직원이 늘수록 왜 더 힘들어질까</div>
+          <div class="tgt-desc">매출이 올랐는데 인건비·임대료만 늘어 순수익은 오히려 감소. 구조적 수익성 개선이 시급한 시점이다.</div>
+          <div class="tgt-tag">수익성 개선 · 인사관리</div>
+          <div class="tgt-cta">→ 수익 구조 분석이 필요합니다</div>
+        </div>
+        <div class="tgt-card" style="--sc:#1A8CFF">
+          <span class="tgt-ico">🤖</span>
+          <div class="tgt-ttl">경쟁사는 AI로 앞서가는데 나만 뒤처지는 것 같다</div>
+          <div class="tgt-desc">반복 업무, 고객 응대, 데이터 분석에 AI를 접목하고 싶지만 어디서부터 시작해야 할지 막막하다.</div>
+          <div class="tgt-tag">AI에이전트 개발 · 데이터 분석</div>
+          <div class="tgt-cta">→ AI 도입 전략을 설계해드립니다</div>
+        </div>
+        <div class="tgt-card" style="--sc:#A78BFA">
+          <span class="tgt-ico">🚀</span>
+          <div class="tgt-ttl">사업은 잘 되는데 확장했다가 망할까봐 두렵다</div>
+          <div class="tgt-desc">2호점·가맹·온라인 확장을 고민 중이지만 리스크 관리와 자금 계획을 혼자 감당하기 어렵다.</div>
+          <div class="tgt-tag">사업 기획 · 리스크 관리 · 자금</div>
+          <div class="tgt-cta">→ 확장 로드맵을 함께 설계합니다</div>
+        </div>
+        <div class="tgt-card" style="--sc:#FF3D3D">
+          <span class="tgt-ico">🏪</span>
+          <div class="tgt-ttl">10년 일했는데 권리금 제대로 못 받고 나갈 것 같다</div>
+          <div class="tgt-desc">사업을 정리하거나 매각하고 싶지만 적정 권리금 산정 기준도, 인수자 협상 방법도 막막하다.</div>
+          <div class="tgt-tag">사업재산권 분석 · 권리금 양도</div>
+          <div class="tgt-cta">→ 사업 가치를 데이터로 증명합니다</div>
+        </div>
+        <div class="tgt-card" style="--sc:#00CFFF">
+          <span class="tgt-ico">🧾</span>
+          <div class="tgt-ttl">세금이 너무 많다. 법인이 맞는지 개인이 맞는지 모르겠다</div>
+          <div class="tgt-desc">매출이 오를수록 세금 부담이 커진다. 최적 법인 구조 설계와 절세 전략이 필요한 시점이다.</div>
+          <div class="tgt-tag">법인전환 · 세무 · 재무 설계</div>
+          <div class="tgt-cta">→ 구조 최적화 진단을 받아보세요</div>
+        </div>
+      </div>
+      <div class="tgt-bottom">
+        위 항목 중 하나라도 해당된다면 — <strong>텐베거 파트너스의 무료 사업 진단</strong>으로 지금 바로 시작하세요
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 8: CTA ══ -->
+  <section class="slide" data-slide="8">
+    <div class="cta-outer">
+      <div class="s-tag" style="margin-bottom:0">GET STARTED · 지금 바로 시작하세요</div>
+      <div class="cta-box">
+        <div class="cta-tag">FREE CONSULTATION</div>
+        <div class="cta-title">30분 무료 경영 진단</div>
+        <div class="cta-sub">지금 신청하시면 현재 비용 구조 분석 및<br>절감 가능 금액을 즉시 산출해 드립니다</div>
+        <div class="cta-feats">
+          <div class="cta-feat">12개월 재무 데이터 기반 즉시 분석</div>
+          <div class="cta-feat">고정비 절감 항목 및 금액 정밀 산출</div>
+          <div class="cta-feat">5대 리스크 체크리스트 무료 제공</div>
+          <div class="cta-feat">맞춤형 4단계 실행 로드맵 설계</div>
+        </div>
+        <button class="cta-btn">무료 상담 신청하기 →</button>
+        <div class="cta-foot">TEN-BAGGER PARTNERS · DATA-DRIVEN CONSULTING · 2026</div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /pres -->
+
+<!-- BOTTOM NAV -->
+<div class="nav-bar">
+  <div class="nav-dots" id="navDots"></div>
+  <div class="nav-hint" id="navHint">← → SPACE</div>
+  <div class="nav-btns">
+    <button class="nbtn" id="btnPrev">←</button>
+    <button class="nbtn" id="btnNext">→</button>
+  </div>
+</div>
+
+<script>
+/* ── PARTICLES ── */
+var bgc=document.getElementById('bgc');
+var bx=bgc.getContext('2d');
+var pts=[];
+function rsz(){bgc.width=innerWidth;bgc.height=innerHeight;}
+rsz();addEventListener('resize',rsz);
+for(var i=0;i<55;i++)pts.push({
+  x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+  vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,
+  r:Math.random()*1.4+.4,o:Math.random()*.22+.05});
+function drawPts(){
+  bx.clearRect(0,0,bgc.width,bgc.height);
+  pts.forEach(function(p){
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0)p.x=bgc.width;if(p.x>bgc.width)p.x=0;
+    if(p.y<0)p.y=bgc.height;if(p.y>bgc.height)p.y=0;
+    bx.beginPath();bx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    bx.fillStyle='rgba(0,207,255,'+p.o+')';bx.fill();});
+  requestAnimationFrame(drawPts);}
+drawPts();
+
+/* ── SLIDE ENGINE ── */
+var slides=document.querySelectorAll('.slide');
+var N=slides.length,cur=0,busy=false;
+var titles=['사업의 10배 성장','THE PROBLEM','OUR SOLUTION','OUR PROCESS','DATA-DRIVEN RESULTS','CAPITAL DIRECTOR','SERVICE STRUCTURE','WHO WE HELP','GET STARTED'];
+
+/* build dots */
+var dotsEl=document.getElementById('navDots');
+for(var i=0;i<N;i++){
+  var d=document.createElement('div');
+  d.className='ndot'+(i===0?' on':'');
+  d.dataset.i=i;
+  d.addEventListener('click',(function(idx){return function(){go(idx);};})(i));
+  dotsEl.appendChild(d);}
+
+function updateUI(){
+  document.getElementById('progress').style.width=((cur+1)/N*100)+'%';
+  document.getElementById('slideNum').textContent=('0'+(cur+1)).slice(-2)+' / '+('0'+N).slice(-2);
+  document.getElementById('barTitle').textContent=titles[cur]||'PORTFOLIO';
+  document.querySelectorAll('.ndot').forEach(function(d,i){d.classList.toggle('on',i===cur);});}
+
+/* counter animation */
+var cntDone={};
+function runCounters(idx){
+  if(cntDone[idx])return;cntDone[idx]=true;
+  slides[idx].querySelectorAll('.cnt').forEach(function(el){
+    var to=parseInt(el.dataset.to);
+    var t0=performance.now(),dur=1300;
+    (function tick(ts){
+      var p=Math.min(1,(ts-t0)/dur),e=1-Math.pow(1-p,3);
+      el.textContent=Math.round(e*to).toLocaleString('ko-KR');
+      if(p<1)requestAnimationFrame(tick);
+    })(performance.now());});}
+
+function go(next){
+  if(busy||next===cur||next<0||next>=N)return;
+  busy=true;
+  var dir=next>cur?1:-1;
+  var from=slides[cur],to=slides[next];
+  /* prepare */
+  to.style.cssText='display:flex;opacity:0;transform:translateX('+(dir*105)+'%);transition:none';
+  void to.offsetWidth;
+  /* animate */
+  var T='opacity .65s ease,transform .7s cubic-bezier(.77,0,.18,1)';
+  from.style.transition=T;to.style.transition=T;
+  from.style.transform='translateX('+(-dir*105)+'%)';from.style.opacity='0';
+  to.style.transform='translateX(0)';to.style.opacity='1';
+  setTimeout(function(){
+    from.style.cssText='display:none';
+    to.classList.add('act');
+    cur=next;busy=false;
+    updateUI();runCounters(cur);
+  },720);}
+
+function goNext(){go(cur+1,1);}
+function goPrev(){go(cur-1,-1);}
+
+document.getElementById('btnNext').addEventListener('click',goNext);
+document.getElementById('btnPrev').addEventListener('click',goPrev);
+document.getElementById('pres').addEventListener('click',function(e){
+  if(e.target.closest('.nbtn,.ndot,.cta-btn'))return;goNext();});
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();goNext();}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();goPrev();}});
+var tx=0;
+document.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',function(e){
+  var dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>50)dx<0?goNext():goPrev();});
+
+/* init */
+updateUI();
+</script>
+</body>
+</html>

@@ -1,0 +1,2327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>경영 브리핑 · 텐베거 파트너스</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#06080F;--panel:#0A0E1A;--panel2:#080C16;
+      --cyan:#00CFFF;--cyan-dim:rgba(0,207,255,.12);
+      --green:#00E676;--red:#FF3D3D;--amber:#FFB300;--purple:#A78BFA;
+      --text:#C8D6E8;--dim:#3A5470;--dim2:#1E3248;
+      --border:rgba(0,207,255,.15);--border-hi:rgba(0,207,255,.5);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Noto Sans KR',-apple-system,sans-serif;
+      background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;
+      min-height:100vh;padding-bottom:44px}
+    /* scanline overlay */
+    body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
+      background:repeating-linear-gradient(transparent 0,transparent 3px,rgba(0,0,0,.06) 3px,rgba(0,0,0,.06) 4px)}
+
+    /* ── LOADING ── */
+    #ls{position:fixed;inset:0;background:var(--bg);z-index:9999;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+    #ls .sp{width:34px;height:34px;border:2px solid rgba(0,207,255,.15);
+      border-top-color:var(--cyan);border-radius:50%;animation:spin .7s linear infinite}
+    #ls .sm{font-size:11px;color:var(--dim);letter-spacing:3px;font-family:'Share Tech Mono',monospace}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* ── PANEL ── */
+    .panel{position:relative;background:var(--panel);border:1px solid var(--border);padding:1rem}
+    .panel::before{content:'';position:absolute;top:-1px;left:-1px;width:12px;height:12px;
+      border-top:2px solid var(--cyan);border-left:2px solid var(--cyan);pointer-events:none}
+    .panel::after{content:'';position:absolute;bottom:-1px;right:-1px;width:12px;height:12px;
+      border-bottom:2px solid var(--cyan);border-right:2px solid var(--cyan);pointer-events:none}
+    .panel-label{font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;
+      color:var(--cyan);opacity:.6;margin-bottom:.6rem;font-family:'Share Tech Mono',monospace}
+
+    /* ── TOP BAR ── */
+    .bar{position:sticky;top:0;z-index:900;height:50px;
+      background:rgba(6,8,15,.97);border-bottom:1px solid var(--border);
+      display:flex;align-items:center;gap:1rem;padding:0 1.25rem}
+    .bar-logo{font-size:11px;font-weight:900;letter-spacing:2.5px;color:var(--cyan);
+      text-transform:uppercase;white-space:nowrap;display:flex;align-items:center;gap:8px}
+    .bar-logo::before{content:'';display:inline-block;width:18px;height:18px;
+      border:2px solid var(--cyan);border-radius:3px;transform:rotate(8deg);flex-shrink:0}
+    .bar-sep{width:1px;height:20px;background:var(--dim2);flex-shrink:0}
+    .bar-biz{font-size:13px;font-weight:700;color:#fff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .bar-meta{font-size:11px;color:var(--dim);white-space:nowrap;display:flex;gap:12px}
+    .bar-clock{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--cyan);
+      white-space:nowrap;border:1px solid var(--border);padding:3px 10px;border-radius:3px}
+    .bar-print{font-size:11px;font-weight:700;color:var(--dim);background:none;
+      border:1px solid var(--dim2);border-radius:3px;padding:4px 10px;cursor:pointer;
+      font-family:inherit;transition:all .2s;white-space:nowrap}
+    .bar-print:hover{color:var(--cyan);border-color:var(--border)}
+
+    /* ── MAIN WRAP ── */
+    .main-wrap{padding:8px 8px 4px}
+    .live-tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:2px;
+      background:var(--red);color:#fff;padding:2px 6px;border-radius:2px;
+      animation:blink 1.4s ease-in-out infinite}
+    .hot-tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:2px;
+      background:var(--amber);color:#000;padding:2px 6px;border-radius:2px}
+    .ok-tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:1.5px;
+      background:rgba(0,230,118,.2);color:var(--green);padding:2px 6px;border-radius:2px;
+      border:1px solid rgba(0,230,118,.3)}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+
+    /* ── KPI ROW ── */
+    .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:4px}
+    @media(max-width:640px){.kpi-row{grid-template-columns:repeat(2,1fr)}}
+    .kpi-card{padding:1rem 1.1rem;background:var(--panel);border:1px solid var(--border);
+      cursor:pointer;transition:border-color .25s,background .25s;position:relative;overflow:hidden}
+    .kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+      background:linear-gradient(90deg,var(--cyan),transparent);opacity:.5}
+    .kpi-card:hover{border-color:var(--border-hi);background:var(--panel2)}
+    .kpi-card.pulse::after{content:'';position:absolute;inset:0;border:1px solid var(--cyan);
+      animation:kpulse .5s ease forwards}
+    @keyframes kpulse{from{opacity:.8}to{opacity:0;transform:scale(1.05)}}
+    .kpi-lbl{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+      color:var(--dim);margin-bottom:.5rem;font-family:'Share Tech Mono',monospace}
+    .kpi-val{font-size:clamp(22px,3vw,32px);font-weight:900;line-height:1;
+      color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.5px;
+      text-shadow:0 0 20px rgba(255,255,255,.15)}
+    .kpi-chg{font-size:12px;font-weight:700;margin-top:.5rem;display:flex;align-items:center;gap:5px}
+    .up{color:var(--green)}.dn{color:var(--red)}
+    .kpi-spark{height:28px;margin-top:.5rem}
+    canvas.spark{width:100%;height:28px;display:block}
+
+    /* ── CONTENT GRID ── */
+    .content-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:4px;margin-bottom:4px}
+    @media(max-width:900px){.content-grid{grid-template-columns:1fr}}
+
+    /* ── CHART PANEL ── */
+    .chart-legend{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:.75rem}
+    .leg{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--dim)}
+    .leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+    .leg-line{width:18px;height:2px;flex-shrink:0;border-radius:2px}
+    .chart-wrap{position:relative}
+    canvas#fc{width:100%;display:block;cursor:crosshair}
+    .ctip{position:absolute;background:rgba(6,8,15,.97);color:var(--text);padding:11px 14px;
+      border-radius:3px;font-size:11.5px;pointer-events:none;opacity:0;transition:opacity .12s;
+      white-space:nowrap;z-index:10;line-height:1.9;min-width:210px;
+      border:1px solid var(--border);border-top:2px solid var(--cyan)}
+    .ctip.on{opacity:1}
+    .ctip .t-month{font-size:12px;font-weight:900;color:var(--cyan);margin-bottom:5px;
+      padding-bottom:5px;border-bottom:1px solid var(--border)}
+    .ctip .t-row{display:flex;justify-content:space-between;gap:18px}
+    .ctip .t-sub{font-size:10px;color:var(--dim);margin-top:2px;padding-left:12px;line-height:1.7}
+
+    /* Q-stats below chart */
+    .q-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:4px}
+    @media(max-width:500px){.q-grid{grid-template-columns:repeat(2,1fr)}}
+    .q-block{background:var(--panel2);border:1px solid var(--dim2);padding:.85rem .9rem;
+      border-top:2px solid var(--qc,#00CFFF);position:relative}
+    .q-lbl{font-size:8px;font-weight:800;letter-spacing:2px;color:var(--qc,#00CFFF);
+      margin-bottom:.5rem;font-family:'Share Tech Mono',monospace}
+    .q-rev{font-size:clamp(16px,2.2vw,22px);font-weight:900;color:#fff;font-variant-numeric:tabular-nums;
+      letter-spacing:-.5px;text-shadow:0 0 18px rgba(255,255,255,.1)}
+    .q-p{font-size:13px;font-weight:800;margin-top:5px}
+    .q-p.up{color:var(--green)}.q-p.dn{color:var(--red)}
+    .q-pct{font-size:10px;color:var(--dim);margin-top:2px}
+    .q-delta{font-size:10px;margin-top:4px;font-weight:700;opacity:.85}
+    .q-delta.up{color:var(--green)}.q-delta.dn{color:var(--red)}.q-delta.flat{color:var(--dim)}
+
+    /* ── SOLUTIONS PANEL ── */
+    .sol-panel{overflow:hidden}
+    .sol-scroll{overflow-y:auto;max-height:420px}
+    .sol-scroll::-webkit-scrollbar{width:3px}
+    .sol-scroll::-webkit-scrollbar-track{background:transparent}
+    .sol-scroll::-webkit-scrollbar-thumb{background:var(--dim2);border-radius:2px}
+    .sol-item{border-bottom:1px solid var(--dim2);cursor:pointer;transition:background .2s}
+    .sol-item:hover{background:rgba(0,207,255,.04)}
+    .sol-item.open{background:rgba(0,207,255,.06)}
+    .sol-hd{display:grid;grid-template-columns:32px 38px 1fr 54px 20px;
+      align-items:center;gap:.6rem;padding:.8rem .5rem}
+    .sol-num{font-size:10px;font-weight:800;color:var(--dim);
+      font-family:'Share Tech Mono',monospace}
+    .sol-ico{width:34px;height:34px;border-radius:7px;display:flex;align-items:center;
+      justify-content:center;font-size:17px;flex-shrink:0}
+    .sol-info .sol-ttl{font-size:12.5px;font-weight:800;color:#fff}
+    .sol-info .sol-sub{font-size:10px;color:var(--dim);line-height:1.4;margin-top:1px}
+    .sol-score-wrap{text-align:right}
+    .sol-pct-num{font-size:14px;font-weight:900;color:#fff;font-variant-numeric:tabular-nums}
+    .sol-bar{height:3px;background:var(--dim2);border-radius:2px;margin-top:4px}
+    .sol-fill{height:100%;border-radius:2px;width:0;transition:width 1.2s cubic-bezier(.22,.68,0,1.2)}
+    .sol-arrow{font-size:10px;color:var(--dim);transition:transform .3s}
+    .sol-item.open .sol-arrow{transform:rotate(90deg)}
+    /* Accordion body */
+    .sol-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.22,.68,0,1.2)}
+    .sol-item.open .sol-body{max-height:220px}
+    .sol-actions{padding:.2rem .5rem .8rem 1.2rem;list-style:none}
+    .sol-act{font-size:11.5px;color:var(--dim);line-height:1.65;padding:.3rem 0;
+      border-bottom:1px solid var(--dim2);display:flex;align-items:flex-start;gap:.6rem;
+      opacity:0;transform:translateX(-6px)}
+    .sol-act:last-child{border:none}
+    .sol-act .act-arr{color:var(--cyan);font-size:10px;flex-shrink:0;margin-top:3px}
+    .sol-item.open .sol-act:nth-child(1){transition:opacity .3s .06s,transform .3s .06s;opacity:1;transform:none}
+    .sol-item.open .sol-act:nth-child(2){transition:opacity .3s .12s,transform .3s .12s;opacity:1;transform:none}
+    .sol-item.open .sol-act:nth-child(3){transition:opacity .3s .18s,transform .3s .18s;opacity:1;transform:none}
+    .sol-item.open .sol-act:nth-child(4){transition:opacity .3s .24s,transform .3s .24s;opacity:1;transform:none}
+
+    /* ── BOTTOM GRID ── */
+    .bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:4px}
+    @media(max-width:700px){.bottom-grid{grid-template-columns:1fr}}
+
+    /* Lifecycle */
+    .lc-stages{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:.75rem}
+    .stg{font-size:10px;font-weight:700;color:var(--dim);padding:.3rem .7rem;
+      border:1px solid var(--dim2);border-radius:3px;transition:all .3s}
+    .stg.cur{color:var(--cyan);border-color:var(--border);
+      background:var(--cyan-dim);font-weight:900}
+    svg#lsvg{width:100%;height:auto;overflow:visible}
+
+    /* Roadmap */
+    .rm-grid{display:flex;flex-direction:column;gap:3px}
+    .rm-step{background:var(--panel2);border:1px solid var(--dim2);padding:.75rem .9rem;
+      border-left:2px solid var(--rc,#00CFFF);transition:border-color .25s,background .25s;cursor:default}
+    .rm-step:hover{background:rgba(0,207,255,.05);border-left-color:var(--cyan)}
+    .rm-ph{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+      color:var(--rc,#00CFFF);margin-bottom:.35rem;font-family:'Share Tech Mono',monospace}
+    .rm-ttl{font-size:13px;font-weight:800;color:#fff;margin-bottom:.25rem}
+    .rm-desc{font-size:11px;color:var(--dim);line-height:1.6}
+
+    /* ── TICKER ── */
+    .ticker{position:fixed;bottom:0;left:0;right:0;height:40px;z-index:900;
+      background:rgba(6,8,15,.98);border-top:1px solid rgba(255,61,61,.25);
+      display:flex;align-items:center;overflow:hidden}
+    .ticker-lbl{flex-shrink:0;font-size:9px;font-weight:900;letter-spacing:2px;
+      color:#000;background:var(--red);padding:3px 10px;height:100%;
+      display:flex;align-items:center;white-space:nowrap;font-family:'Share Tech Mono',monospace}
+    .ticker-track{display:flex;align-items:center;height:100%;overflow:hidden;flex:1}
+    .ticker-inner{display:flex;align-items:center;white-space:nowrap;
+      font-size:12px;color:var(--dim);font-family:'Share Tech Mono',monospace;
+      animation:scrolltick 55s linear infinite;padding-right:0}
+    @keyframes scrolltick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .tick-item{margin-right:2.5rem;display:inline-flex;align-items:center;gap:.5rem}
+    .tick-sep{color:var(--red);margin-right:2.5rem}
+
+    /* ── FADE ── */
+    .fu{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+    .fu.vis{opacity:1;transform:none}
+
+    /* ── SOLUTIONS v2 ── */
+    .sol-hd{display:grid;grid-template-columns:28px 34px 1fr auto 20px;
+      align-items:center;gap:.6rem;padding:.8rem .5rem}
+    .sol-item.open .sol-body{max-height:700px}
+    .sol-tag{font-size:8px;font-weight:900;letter-spacing:1.5px;padding:2px 7px;border-radius:2px;
+      border:1px solid var(--tc,#00CFFF);color:var(--tc,#00CFFF);white-space:nowrap;flex-shrink:0;font-family:'Share Tech Mono',monospace}
+    .sol-body-inner{padding:.3rem .5rem .9rem 1rem}
+    /* fixed cost table */
+    .sol-tbl{width:100%;border-collapse:collapse;margin-top:.2rem}
+    .sol-tbl th{font-size:8px;font-weight:800;letter-spacing:1.5px;color:var(--dim);text-align:right;
+      padding:4px 6px 4px 0;font-family:'Share Tech Mono',monospace;border-bottom:1px solid var(--dim2)}
+    .sol-tbl th:first-child{text-align:left}
+    .sol-tbl td{font-size:11px;padding:5px 6px 5px 0;border-bottom:1px solid rgba(30,50,72,.5);
+      vertical-align:middle;text-align:right;font-family:'Share Tech Mono',monospace}
+    .sol-tbl td:first-child{text-align:left;font-family:'Noto Sans KR',-apple-system,sans-serif;color:var(--text)}
+    .sol-tbl .cur-v{color:var(--dim)}.sol-tbl .tgt-v{color:var(--cyan)}.sol-tbl .sav-v{color:var(--green);font-weight:800}
+    .sol-tbl tfoot td{padding-top:7px;font-weight:800;border-bottom:none;color:#fff}
+    .sol-tbl tfoot .sav-v{color:var(--green);font-size:13px}
+    .sol-tbl .arr-v{color:var(--dim);font-size:9px}
+    /* fixed cost inputs */
+    .fc-inp{background:var(--bg);border:1px solid var(--dim2);color:var(--cyan);
+      font-family:'Share Tech Mono',monospace;font-size:12px;font-weight:700;
+      padding:3px 6px;border-radius:3px;width:66px;text-align:right;outline:none;
+      -moz-appearance:textfield;appearance:textfield;transition:border-color .2s,background .2s}
+    .fc-inp::-webkit-inner-spin-button,.fc-inp::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+    .fc-inp:focus{border-color:var(--cyan);background:rgba(0,207,255,.06)}
+    .fc-inp:hover:not(:focus){border-color:var(--border)}
+    /* savings summary box */
+    .fc-total-box{margin-top:.85rem;padding:.75rem 1.1rem;
+      background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.2);border-radius:4px;
+      display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+    .fc-total-lbl{font-size:9px;font-weight:800;letter-spacing:2px;
+      color:rgba(0,230,118,.55);font-family:'Share Tech Mono',monospace;text-transform:uppercase}
+    .fc-total-ann{font-size:10px;color:rgba(0,230,118,.5);
+      font-family:'Share Tech Mono',monospace;margin-top:3px;letter-spacing:.5px}
+    .fc-total-val{font-size:22px;font-weight:900;color:var(--green);
+      font-variant-numeric:tabular-nums;line-height:1;white-space:nowrap;
+      text-shadow:0 0 24px rgba(0,230,118,.4)}
+    /* risk list */
+    .sol-risk-list{display:flex;flex-direction:column;gap:4px;margin-top:.3rem}
+    .sol-risk-item{display:flex;align-items:flex-start;gap:8px;padding:6px 8px;
+      border-radius:4px;background:var(--panel2);border:1px solid var(--dim2)}
+    .sol-risk-item.r-alert{border-color:rgba(255,61,61,.3);background:rgba(255,61,61,.04)}
+    .sol-risk-item.r-warn{border-color:rgba(255,179,0,.2);background:rgba(255,179,0,.03)}
+    .sol-risk-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:3px}
+    .sol-risk-lbl{font-size:11.5px;font-weight:700;color:#fff}
+    .sol-risk-desc{font-size:10px;color:var(--dim);margin-top:2px;line-height:1.5}
+    .sol-risk-bdg{font-size:8px;font-weight:900;letter-spacing:1px;padding:2px 6px;border-radius:2px;
+      margin-left:auto;flex-shrink:0;align-self:center;font-family:'Share Tech Mono',monospace;white-space:nowrap}
+    .sol-risk-bdg.ok{background:rgba(0,230,118,.12);color:var(--green);border:1px solid rgba(0,230,118,.3)}
+    .sol-risk-bdg.alert{background:rgba(255,61,61,.12);color:var(--red);border:1px solid rgba(255,61,61,.3)}
+    .sol-risk-bdg.warn{background:rgba(255,179,0,.1);color:var(--amber);border:1px solid rgba(255,179,0,.3)}
+    /* rights */
+    .sol-rights-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6rem}
+    .sol-gw-val{font-size:15px;font-weight:900;color:var(--cyan);font-variant-numeric:tabular-nums}
+    .sol-gw-lbl{font-size:9px;color:var(--dim);margin-top:1px;font-family:'Share Tech Mono',monospace}
+    .sol-factor-list{display:flex;flex-direction:column;gap:6px}
+    .sol-factor-row{display:flex;align-items:center;gap:8px}
+    .sol-factor-name{font-size:10px;color:var(--dim);width:82px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .sol-factor-track{flex:1;height:4px;background:var(--dim2);border-radius:2px;overflow:hidden}
+    .sol-factor-fill{height:100%;border-radius:2px;width:0;transition:width 1s cubic-bezier(.22,.68,0,1.2)}
+    .sol-factor-sc{font-size:10px;font-weight:800;color:var(--text);font-family:'Share Tech Mono',monospace;width:24px;text-align:right;flex-shrink:0}
+    .sol-factor-note{font-size:9px;color:var(--dim);width:96px;flex-shrink:0;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .sol-lease{margin-top:.6rem;padding:.5rem .7rem;background:var(--panel2);border:1px solid var(--dim2);border-left:2px solid var(--amber);font-size:10.5px;color:var(--dim);line-height:1.65}
+    .sol-lease strong{color:var(--amber)}
+
+    /* ── CHART TABS (s1) ── */
+    .s1-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem;flex-wrap:wrap;gap:6px}
+    .s1-head .panel-label{margin-bottom:0}
+    .fc-tabs{display:flex;flex-shrink:0}
+    .fc-tab{font-size:9px;font-weight:800;letter-spacing:1.5px;padding:3px 12px;cursor:pointer;
+      color:var(--dim);background:var(--panel2);border:1px solid var(--dim2);
+      font-family:'Share Tech Mono',monospace;transition:all .2s;outline:none}
+    .fc-tab:first-child{border-radius:3px 0 0 3px}
+    .fc-tab:last-child{border-radius:0 3px 3px 0}
+    .fc-tab:not(:first-child){border-left:none}
+    .fc-tab.active{background:var(--cyan-dim);color:var(--cyan);border-color:var(--border)}
+    .fc-tab:hover:not(.active){color:var(--text)}
+
+    /* ── ROADMAP ENHANCED ── */
+    .rm-full{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+    @media(max-width:800px){.rm-full{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:500px){.rm-full{grid-template-columns:1fr}}
+    .rmc{background:var(--panel2);border:1px solid var(--dim2);padding:.9rem 1rem;
+      border-top:2px solid var(--rc,#00CFFF);position:relative;transition:all .2s;
+      cursor:default;display:flex;flex-direction:column}
+    .rmc:hover{background:rgba(0,207,255,.03)}
+    .rmc.rmc-on{box-shadow:0 0 22px rgba(0,207,255,.08)}
+    .rmc-bdg{position:absolute;top:.65rem;right:.65rem;font-size:8px;font-weight:900;letter-spacing:1px;
+      padding:1px 6px;border-radius:2px;font-family:'Share Tech Mono',monospace;white-space:nowrap}
+    .rmc-bdg.s-act{background:rgba(0,207,255,.15);color:var(--cyan);border:1px solid var(--border)}
+    .rmc-bdg.s-done{background:rgba(0,230,118,.12);color:var(--green);border:1px solid rgba(0,230,118,.3)}
+    .rmc-bdg.s-up{background:var(--panel);color:var(--dim);border:1px solid var(--dim2)}
+    .rmc-ph{font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+      color:var(--rc,#00CFFF);margin-bottom:.3rem;font-family:'Share Tech Mono',monospace;margin-top:.1rem}
+    .rmc-ttl{font-size:13px;font-weight:900;color:#fff;margin-bottom:.3rem}
+    .rmc-desc{font-size:10.5px;color:var(--dim);line-height:1.6;margin-bottom:.55rem;flex:1}
+    .rmc-kpis{display:flex;flex-direction:column;gap:3px;margin-bottom:.6rem}
+    .rmc-kpi{font-size:10px;color:var(--dim);display:flex;align-items:flex-start;gap:5px;line-height:1.45}
+    .rmc-kpi::before{content:'';width:4px;height:4px;min-width:4px;border-radius:50%;
+      background:var(--rc,#00CFFF);margin-top:4px;flex-shrink:0}
+    .rmc-prog{height:3px;background:var(--dim2);border-radius:2px;overflow:hidden}
+    .rmc-prog-fill{height:100%;border-radius:2px;background:var(--rc,#00CFFF);width:0;
+      transition:width 1.4s cubic-bezier(.22,.68,0,1.2)}
+
+    /* ── BREAK-EVEN ── */
+    /* BE tabs */
+    .be-tabs{display:flex;gap:0;margin-bottom:10px}
+    .be-tab{font-size:9px;font-weight:800;letter-spacing:1.5px;padding:4px 14px;cursor:pointer;
+      color:var(--dim);background:var(--panel2);border:1px solid var(--dim2);
+      font-family:'Share Tech Mono',monospace;transition:all .2s;outline:none}
+    .be-tab:first-child{border-radius:3px 0 0 3px}
+    .be-tab:last-child{border-radius:0 3px 3px 0;border-left:none}
+    .be-tab.active{background:var(--cyan-dim);color:var(--cyan);border-color:var(--border)}
+    .be-tab:hover:not(.active){color:var(--text)}
+    .invest-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+    .invest-lbl{font-size:10px;color:var(--dim);font-family:'Share Tech Mono',monospace;letter-spacing:1px}
+    .invest-inp{background:var(--bg);border:1px solid var(--border);color:var(--cyan);
+      font-family:'Share Tech Mono',monospace;font-size:13px;font-weight:700;
+      padding:3px 8px;border-radius:3px;width:90px;outline:none;text-align:right}
+    .invest-inp:focus{border-color:var(--cyan)}
+    .invest-unit{font-size:10px;color:var(--dim);font-family:'Share Tech Mono',monospace}
+    .invest-info{font-size:10px;font-weight:700;color:var(--green);font-family:'Share Tech Mono',monospace;
+      letter-spacing:1px;margin-left:auto;white-space:nowrap}
+    #beCanvas{width:100%;display:block;margin-top:2px}
+    .be-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px}
+    .be-leg{display:flex;align-items:center;gap:5px;font-size:9px;font-family:'Share Tech Mono',monospace;
+      color:var(--dim);letter-spacing:.5px}
+    .be-leg::before{content:'';width:10px;height:3px;border-radius:2px;flex-shrink:0;background:var(--lc)}
+
+    /* ── BIZ SEARCH ── */
+    .biz-search-bar{background:rgba(6,8,15,.98);border-bottom:1px solid var(--border);padding:6px 1.25rem;display:flex;align-items:center;gap:10px;position:sticky;top:50px;z-index:890}
+    .biz-search-ico{font-size:12px;color:var(--dim);flex-shrink:0}
+    .biz-search-input{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);
+      font-family:'Noto Sans KR',sans-serif;font-size:12px;padding:5px 10px;border-radius:3px;
+      outline:none;min-width:0}
+    .biz-search-input:focus{border-color:var(--cyan);color:#fff}
+    .biz-search-input::placeholder{color:var(--dim)}
+    .biz-search-input::-webkit-input-placeholder{color:var(--dim)}
+    .biz-search-wrap{position:relative;flex:1}
+    .biz-list-drop{position:absolute;top:100%;left:0;right:0;background:rgba(10,14,26,.98);
+      border:1px solid var(--border);border-top:none;border-radius:0 0 4px 4px;z-index:999;
+      max-height:200px;overflow-y:auto;display:none}
+    .biz-list-drop.open{display:block}
+    .biz-list-item{padding:8px 12px;font-size:12px;color:var(--text);cursor:pointer;
+      border-bottom:1px solid var(--dim2)}
+    .biz-list-item:hover{background:var(--cyan-dim);color:var(--cyan)}
+    .biz-search-btn{font-size:11px;font-weight:700;color:#fff;background:var(--cyan-dim);
+      border:1px solid var(--border);border-radius:3px;padding:5px 14px;cursor:pointer;
+      font-family:inherit;white-space:nowrap;flex-shrink:0}
+    .biz-search-btn:hover{background:rgba(0,207,255,.2)}
+    .projected-note{font-size:9px;font-weight:700;letter-spacing:1px;background:rgba(255,179,0,.15);
+      color:var(--amber);border:1px solid rgba(255,179,0,.3);padding:2px 8px;border-radius:2px;
+      white-space:nowrap;font-family:'Share Tech Mono',monospace;display:none}
+    .projected-note.on{display:inline-block}
+
+    /* ── 고객정보 모달 ── */
+    .ci-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:900;display:none;align-items:center;justify-content:center}
+    .ci-overlay.on{display:flex}
+    .ci-modal{background:#0A0E1A;border:1px solid rgba(0,207,255,.3);border-radius:8px;width:min(500px,95vw);padding:28px 28px 24px;box-shadow:0 0 40px rgba(0,207,255,.15)}
+    .ci-title{font-size:13px;font-weight:700;letter-spacing:2px;color:var(--cyan);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+    .ci-title svg{width:16px;height:16px;fill:none;stroke:var(--cyan);stroke-width:2}
+    .ci-row{margin-bottom:14px}
+    .ci-label{font-size:10px;font-weight:700;letter-spacing:1.5px;color:#8892A0;margin-bottom:5px;text-transform:uppercase}
+    .ci-input{width:100%;background:#06080F;border:1px solid rgba(0,207,255,.2);border-radius:4px;padding:9px 12px;color:#E0E8F0;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;transition:border-color .2s}
+    .ci-input:focus{border-color:var(--cyan)}
+    .ci-consent{background:rgba(255,179,0,.06);border:1px solid rgba(255,179,0,.2);border-radius:4px;padding:12px;margin:18px 0;font-size:11px;color:#C0C8D0;line-height:1.6}
+    .ci-consent strong{color:var(--amber);display:block;margin-bottom:4px}
+    .ci-check-row{display:flex;align-items:flex-start;gap:8px;margin-top:10px}
+    .ci-check-row input[type=checkbox]{margin-top:2px;accent-color:var(--cyan);width:14px;height:14px;flex-shrink:0}
+    .ci-check-row label{font-size:11px;color:#A0A8B4;cursor:pointer;line-height:1.5}
+    .ci-btn-row{display:flex;gap:8px;margin-top:20px;justify-content:flex-end}
+    .ci-btn-cancel{background:transparent;border:1px solid rgba(255,255,255,.15);color:#8892A0;padding:8px 18px;border-radius:4px;font-size:12px;cursor:pointer;font-family:inherit}
+    .ci-btn-save{background:var(--cyan);color:#000;padding:8px 20px;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;border:none;font-family:inherit;letter-spacing:.5px}
+    .ci-btn-save:disabled{background:#334;color:#667;cursor:not-allowed}
+    .ci-status{font-size:11px;text-align:right;margin-top:8px;min-height:16px}
+
+    /* ── 재무입력 드로어 ── */
+    .dtm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:950;display:none;align-items:flex-end;justify-content:center}
+    .dtm-overlay.on{display:flex}
+    .dtm-drawer{background:#0A0E1A;border-top:2px solid var(--cyan);border-left:1px solid var(--border);border-right:1px solid var(--border);width:100%;max-width:920px;max-height:92vh;display:flex;flex-direction:column;border-radius:10px 10px 0 0;overflow:hidden}
+    .dtm-hd{display:flex;align-items:center;gap:12px;padding:12px 18px;background:#06080F;border-bottom:1px solid var(--border);flex-shrink:0}
+    .dtm-hd-title{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--cyan);text-transform:uppercase;font-family:'Share Tech Mono',monospace}
+    .dtm-hd-sub{font-size:11px;color:#8892A0;flex:1}
+    .dtm-close-btn{background:rgba(255,61,61,.12);border:1px solid rgba(255,61,61,.3);color:#FF5555;width:26px;height:26px;border-radius:5px;cursor:pointer;font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center}
+    .dtm-prog-bar{display:flex;align-items:center;gap:10px;padding:7px 18px;background:#080C16;border-bottom:1px solid var(--border);flex-shrink:0}
+    .dtm-prog-track{flex:1;height:3px;background:rgba(0,207,255,.1);border-radius:2px;overflow:hidden}
+    .dtm-prog-fill{height:100%;background:var(--cyan);border-radius:2px;transition:width .4s;width:0%}
+    .dtm-prog-txt{font-size:10px;font-weight:700;color:var(--cyan);white-space:nowrap;font-family:'Share Tech Mono',monospace}
+    .dtm-scroll{overflow-y:auto;flex:1;padding:14px 18px 18px}
+    .dtm-invest-sec{background:#080C16;border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:14px}
+    .dtm-invest-ttl{font-size:10px;font-weight:800;color:var(--amber);letter-spacing:.5px;margin-bottom:10px}
+    .dtm-invest-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .dtm-flabel{font-size:10px;font-weight:700;color:#8892A0;margin-bottom:5px;letter-spacing:.5px}
+    .dtm-fw{display:flex;align-items:center;gap:6px}
+    .dtm-fw input{flex:1;min-width:0;padding:7px 9px;border:1px solid rgba(0,207,255,.18);border-radius:5px;font-size:13px;font-family:inherit;background:#06080F;color:#E0E8F0;outline:none;transition:border-color .2s}
+    .dtm-fw input:focus{border-color:var(--cyan)}
+    .dtm-fw .u{font-size:11px;color:#6B7280;white-space:nowrap}
+    .dtm-qtabs{display:flex;background:#080C16;border-bottom:1px solid var(--border);padding:0 8px;flex-shrink:0;overflow-x:auto}
+    .dtm-qtab{padding:10px 15px;font-size:12px;font-weight:700;color:#6B7280;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:5px;transition:all .2s}
+    .dtm-qtab.active{color:var(--cyan);border-bottom-color:var(--cyan)}
+    .dtm-qdone{width:13px;height:13px;background:#00E676;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;color:#000;font-weight:700}
+    .dtm-qcont{display:none;padding:12px 0 4px}
+    .dtm-qcont.active{display:block}
+    .dtm-qlbl{font-size:10px;font-weight:700;color:#3A5470;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+    .dtm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    @media(max-width:640px){.dtm-grid{grid-template-columns:1fr}}
+    .dtm-mc{background:#06080F;border:1px solid rgba(0,207,255,.12);border-radius:7px;overflow:hidden;transition:border-color .2s}
+    .dtm-mc.has-data{border-color:rgba(0,207,255,.45)}
+    .dtm-mc-hd{background:#080C16;padding:7px 11px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(0,207,255,.08)}
+    .dtm-mc-lbl{font-size:13px;font-weight:800;color:#C8D6E8}
+    .dtm-copy-btn{font-size:10px;font-weight:600;color:var(--cyan);background:rgba(0,207,255,.07);border:1px solid rgba(0,207,255,.2);border-radius:4px;padding:2px 7px;cursor:pointer}
+    .dtm-mc-body{padding:9px 11px}
+    .dtm-f{margin-bottom:7px}
+    .dtm-flbl{font-size:10px;font-weight:700;color:#6B7280;margin-bottom:4px}
+    .dtm-iw{display:flex;align-items:center;gap:5px}
+    .dtm-iw input[type=number]{flex:1;min-width:0;padding:6px 8px;border:1px solid rgba(0,207,255,.15);border-radius:4px;font-size:13px;font-family:inherit;background:#06080F;color:#E0E8F0;outline:none;transition:border-color .2s;-moz-appearance:textfield;appearance:textfield}
+    .dtm-iw input[type=number]:focus{border-color:var(--cyan)}
+    .dtm-iw .u{font-size:11px;color:#6B7280;white-space:nowrap}
+    .dtm-rate{display:flex;align-items:center;gap:5px}
+    .dtm-rate input[type=range]{flex:1;-webkit-appearance:none;height:3px;background:rgba(0,207,255,.18);border-radius:2px;cursor:pointer}
+    .dtm-rate input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--cyan);cursor:pointer}
+    .dtm-rate input[type=number]{width:54px;padding:5px 6px;border:1px solid rgba(0,207,255,.15);border-radius:4px;font-size:12px;text-align:center;font-family:inherit;background:#06080F;color:#E0E8F0;outline:none;-moz-appearance:textfield;appearance:textfield}
+    .dtm-rate input[type=number]:focus{border-color:var(--cyan)}
+    .dtm-hr{border:none;border-top:1px dashed rgba(0,207,255,.08);margin:6px 0}
+    .dtm-sec-lbl{font-size:10px;font-weight:700;color:#1E3248;letter-spacing:.5px;margin-bottom:5px}
+    .dtm-calc{background:#080C16;border-radius:5px;padding:7px 10px;margin-top:7px}
+    .dtm-calc-row{display:flex;justify-content:space-between;align-items:center;padding:2px 0}
+    .dtm-calc-k{font-size:10px;color:#6B7280;font-weight:600}
+    .dtm-calc-v{font-size:12px;font-weight:800;color:#C8D6E8}
+    .dtm-calc-hr{border:none;border-top:1px solid rgba(0,207,255,.08);margin:3px 0}
+    .dtm-other-sec{margin-top:5px}
+    .dtm-other-tog{cursor:pointer;user-select:none;display:flex;align-items:center;gap:6px;padding:5px 0;border-top:1px dashed rgba(0,207,255,.08);font-size:10px;font-weight:700;color:#6B7280}
+    .dtm-other-tog:hover{color:var(--cyan)}
+    .dtm-other-sum{font-size:10px;font-weight:700;color:var(--cyan);background:rgba(0,207,255,.07);padding:1px 6px;border-radius:7px;margin-left:auto}
+    .dtm-other-body{padding:4px 0 3px;display:none}
+    .dtm-other-item{display:flex;align-items:center;gap:4px;margin-bottom:5px}
+    .dtm-o-name{flex:1;min-width:0;padding:5px 7px;border:1px solid rgba(0,207,255,.15);border-radius:4px;font-size:12px;font-family:inherit;background:#06080F;color:#E0E8F0;outline:none}
+    .dtm-o-name:focus{border-color:var(--cyan)}
+    .dtm-o-amt{width:60px;padding:5px 6px;border:1px solid rgba(0,207,255,.15);border-radius:4px;font-size:12px;text-align:right;font-family:inherit;background:#06080F;color:#E0E8F0;outline:none;-moz-appearance:textfield;appearance:textfield}
+    .dtm-o-amt::-webkit-inner-spin-button,.dtm-o-amt::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+    .dtm-o-amt:focus{border-color:var(--cyan)}
+    .dtm-o-del{background:none;border:none;color:#FF5555;font-size:16px;cursor:pointer;padding:0 2px;line-height:1;flex-shrink:0}
+    .dtm-add-item{width:100%;padding:5px;border:1px dashed rgba(0,207,255,.2);border-radius:4px;background:none;color:var(--cyan);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s}
+    .dtm-add-item:hover{background:rgba(0,207,255,.06)}
+    /* 매입 항목 헤더 */
+    .dtm-coi-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .dtm-coi-ttl{font-size:10px;font-weight:800;color:var(--amber);letter-spacing:.5px}
+    .dtm-coi-sum{font-size:10px;font-weight:700;color:var(--amber);background:rgba(255,179,0,.1);padding:2px 8px;border-radius:5px;white-space:nowrap}
+    .dtm-footer{display:flex;align-items:center;gap:12px;padding:11px 18px;background:#06080F;border-top:1px solid var(--border);flex-shrink:0}
+    .dtm-footer-sum{flex:1;font-size:11px;color:#6B7280;line-height:1.6}
+    .dtm-footer-sum strong{font-size:13px}
+    .dtm-save-btn{background:var(--cyan);color:#000;border:none;border-radius:6px;padding:10px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:.5px;white-space:nowrap}
+    .dtm-save-btn:disabled{background:#1E3248;color:#3A5470;cursor:not-allowed}
+    .dtm-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#0A0E1A;border:1px solid var(--cyan);color:var(--cyan);padding:8px 18px;border-radius:6px;font-size:12px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:1100;white-space:nowrap}
+    .dtm-toast.on{opacity:1}
+
+    /* ── DIRECTOR STRIP ── */
+    .dir-strip{background:linear-gradient(90deg,rgba(0,207,255,.06),rgba(167,139,250,.04),rgba(0,207,255,.06));
+      border-bottom:1px solid var(--border);padding:7px 1.25rem;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+    .dir-agent{display:flex;align-items:center;gap:8px;padding:4px 12px;border-radius:20px;
+      background:rgba(0,207,255,.08);border:1px solid rgba(0,207,255,.2)}
+    .dir-agent-ico{font-size:14px}
+    .dir-agent-name{font-size:10px;font-weight:800;color:var(--cyan);letter-spacing:1.5px;font-family:'Share Tech Mono',monospace}
+    .dir-agent-sub{font-size:9px;color:var(--dim);margin-top:1px}
+    .dir-human{display:flex;align-items:center;gap:8px;padding:4px 12px;border-radius:20px;
+      background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2)}
+    .dir-human-ico{font-size:14px}
+    .dir-human-name{font-size:10px;font-weight:800;color:#A78BFA;letter-spacing:1.5px;font-family:'Share Tech Mono',monospace}
+    .dir-human-sub{font-size:9px;color:var(--dim);margin-top:1px}
+    .dir-stage-bar{display:flex;align-items:center;gap:0;margin-left:auto}
+    .dir-stage-item{font-size:9px;font-weight:700;padding:3px 10px;border:1px solid var(--dim2);color:var(--dim);
+      font-family:'Share Tech Mono',monospace;letter-spacing:1px;cursor:default;
+      border-right:none;transition:all .3s}
+    .dir-stage-item:first-child{border-radius:3px 0 0 3px}
+    .dir-stage-item:last-child{border-right:1px solid var(--dim2);border-radius:0 3px 3px 0}
+    .dir-stage-item.cur{background:rgba(0,207,255,.12);color:var(--cyan);border-color:var(--border)}
+
+    /* ── WELCOME STATE ── */
+    .welcome-state{display:flex;flex-direction:column;align-items:center;justify-content:center;
+      min-height:60vh;text-align:center;padding:3rem 2rem;gap:1.2rem}
+    .welcome-ico{font-size:52px;opacity:.3}
+    .welcome-title{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.5px}
+    .welcome-sub{font-size:13px;color:var(--dim);line-height:1.7;max-width:400px}
+    .welcome-hint{font-size:11px;color:rgba(0,207,255,.5);font-family:'Share Tech Mono',monospace;letter-spacing:2px}
+
+    /* ── AI INSIGHT ── */
+    .ai-insight{background:linear-gradient(135deg,rgba(10,14,26,.98),rgba(6,8,15,.98));
+      border:1px solid rgba(0,207,255,.15);border-top:2px solid var(--cyan);
+      padding:1.1rem 1.25rem;margin-bottom:4px;position:relative;overflow:hidden}
+    .ai-insight::before{content:'';position:absolute;top:0;right:0;width:200px;height:200px;
+      background:radial-gradient(circle,rgba(0,207,255,.04),transparent 70%);pointer-events:none}
+    .ai-insight-hd{display:flex;align-items:center;gap:10px;margin-bottom:.9rem}
+    .ai-insight-badge{font-size:8px;font-weight:900;letter-spacing:2px;padding:3px 9px;
+      background:rgba(0,207,255,.12);color:var(--cyan);border:1px solid var(--border);
+      border-radius:2px;font-family:'Share Tech Mono',monospace}
+    .ai-insight-title{font-size:11px;font-weight:700;color:var(--dim);letter-spacing:.5px}
+    .ai-insight-ts{font-size:9px;color:var(--dim);margin-left:auto;font-family:'Share Tech Mono',monospace}
+    .ai-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    @media(max-width:700px){.ai-cards{grid-template-columns:1fr}}
+    .ai-card-group{display:flex;flex-direction:column;gap:5px}
+    .ai-card-group-lbl{font-size:9px;font-weight:800;letter-spacing:2px;color:var(--dim);
+      font-family:'Share Tech Mono',monospace;margin-bottom:2px;text-transform:uppercase}
+    .ai-card{padding:9px 12px;border-radius:4px;border-left:3px solid var(--ac,#FF3D3D);
+      background:rgba(255,61,61,.04);display:flex;align-items:flex-start;gap:9px}
+    .ai-card.opp{border-left-color:var(--ac,#00E676);background:rgba(0,230,118,.04)}
+    .ai-card-ico{font-size:15px;flex-shrink:0;margin-top:1px}
+    .ai-card-title{font-size:12px;font-weight:800;color:#fff;margin-bottom:2px}
+    .ai-card-desc{font-size:10.5px;color:var(--dim);line-height:1.55}
+    .ai-card-val{font-size:10px;font-weight:700;margin-top:4px;font-family:'Share Tech Mono',monospace}
+
+    /* ── QUARTERLY SUMMARY (replaces q-grid) ── */
+    .q-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:4px}
+    @media(max-width:500px){.q-summary{grid-template-columns:repeat(2,1fr)}}
+    .q-card{background:var(--panel2);border:1px solid var(--dim2);border-top:2px solid var(--qc,#00CFFF);padding:1rem 1rem;position:relative}
+    .q-card-lbl{font-size:8px;font-weight:800;letter-spacing:2px;color:var(--qc,#00CFFF);margin-bottom:.6rem;font-family:'Share Tech Mono',monospace}
+    .q-card-rev{font-size:clamp(18px,2.5vw,26px);font-weight:900;color:#fff;line-height:1;letter-spacing:-.5px;margin-bottom:.35rem}
+    .q-card-profit{font-size:13px;font-weight:800}
+    .q-card-margin{font-size:10px;color:var(--dim);margin-top:3px}
+    .q-card-delta{font-size:9px;font-weight:700;margin-top:5px;padding:2px 6px;border-radius:3px;display:inline-block}
+    .q-card-delta.up{background:rgba(0,230,118,.1);color:var(--green)}
+    .q-card-delta.dn{background:rgba(255,61,61,.1);color:var(--red)}
+    .q-card-delta.flat{color:var(--dim)}
+
+    /* ── ROADMAP v2 ── */
+    .rm-v2{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+    @media(max-width:900px){.rm-v2{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.rm-v2{grid-template-columns:1fr}}
+    .rm-col{background:var(--panel2);border:1px solid var(--dim2);border-top:2px solid var(--rc,#00CFFF);
+      display:flex;flex-direction:column;gap:0;overflow:hidden}
+    .rm-col-hd{padding:.8rem .9rem .6rem;border-bottom:1px solid var(--dim2)}
+    .rm-col-ph{font-size:8px;font-weight:800;letter-spacing:2px;color:var(--rc,#00CFFF);margin-bottom:.25rem;font-family:'Share Tech Mono',monospace}
+    .rm-col-ttl{font-size:14px;font-weight:900;color:#fff;margin-bottom:.2rem}
+    .rm-col-desc{font-size:10px;color:var(--dim);line-height:1.55}
+    .rm-col-bdg{display:inline-block;font-size:8px;font-weight:900;letter-spacing:1px;padding:2px 7px;
+      border-radius:2px;margin-top:.4rem;font-family:'Share Tech Mono',monospace}
+    .rm-col-bdg.s-act{background:rgba(0,207,255,.12);color:var(--cyan);border:1px solid var(--border)}
+    .rm-col-bdg.s-up{background:var(--panel);color:var(--dim);border:1px solid var(--dim2)}
+    .rm-actions{padding:.7rem .9rem;flex:1}
+    .rm-actions-lbl{font-size:8px;font-weight:800;letter-spacing:1.5px;color:var(--dim);
+      font-family:'Share Tech Mono',monospace;margin-bottom:.5rem;text-transform:uppercase}
+    .rm-action-item{display:flex;align-items:flex-start;gap:6px;padding:.3rem 0;
+      border-bottom:1px solid rgba(30,50,72,.4);font-size:11px;color:var(--dim);line-height:1.5}
+    .rm-action-item:last-child{border-bottom:none}
+    .rm-action-item::before{content:'›';color:var(--rc,#00CFFF);font-size:10px;flex-shrink:0;margin-top:1px}
+    .rm-note-area{padding:.7rem .9rem;border-top:1px solid var(--dim2);background:rgba(0,0,0,.2)}
+    .rm-note-lbl{font-size:8px;font-weight:800;letter-spacing:1.5px;color:var(--amber);
+      font-family:'Share Tech Mono',monospace;margin-bottom:.4rem;display:flex;align-items:center;gap:5px}
+    .rm-note-lbl::before{content:'✏️';font-style:normal}
+    .rm-note-input{width:100%;background:rgba(255,179,0,.04);border:1px solid rgba(255,179,0,.2);
+      border-radius:4px;padding:7px 9px;color:var(--text);font-size:11px;font-family:inherit;
+      resize:none;outline:none;min-height:58px;line-height:1.55;transition:border-color .2s}
+    .rm-note-input:focus{border-color:rgba(255,179,0,.5);background:rgba(255,179,0,.06)}
+    .rm-note-input::placeholder{color:var(--dim);font-size:10px}
+    .rm-note-save{font-size:10px;font-weight:700;color:var(--amber);background:none;
+      border:1px solid rgba(255,179,0,.25);border-radius:3px;padding:3px 10px;cursor:pointer;
+      font-family:inherit;margin-top:5px;transition:all .2s}
+    .rm-note-save:hover{background:rgba(255,179,0,.08)}
+    .rm-note-saved{font-size:9px;color:rgba(0,230,118,.6);margin-top:4px;font-family:'Share Tech Mono',monospace;display:none}
+    .rm-prog{height:2px;background:var(--dim2);overflow:hidden}
+    .rm-prog-fill{height:100%;background:var(--rc,#00CFFF);width:0;transition:width 1.4s cubic-bezier(.22,.68,0,1.2)}
+
+    /* ── PRINT ── */
+    @media print{
+      .bar-print,.ticker,#ls{display:none!important}
+      .panel,.kpi-card,.q-block,.rm-step{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .fu{opacity:1!important;transform:none!important}
+      body::after{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<div id="ls"><div class="sp"></div><div class="sm">System Loading...</div></div>
+
+<!-- TOP BAR -->
+<header class="bar">
+  <div class="bar-logo">TEN-BAGGER</div>
+  <div class="bar-sep"></div>
+  <div class="bar-biz" id="barBiz">—</div>
+  <div class="bar-meta" id="barMeta"></div>
+  <div class="bar-clock" id="clock">--:--:--</div>
+  <button class="bar-print" onclick="window.print()">🖨</button>
+</header>
+
+<!-- BIZ SEARCH BAR -->
+<div class="biz-search-bar" id="bizSearchBar">
+  <span class="biz-search-ico">🔍</span>
+  <div class="biz-search-wrap">
+    <input type="text" id="bizSearchInput" class="biz-search-input"
+           placeholder="상호명으로 검색..." autocomplete="off"
+           oninput="onBizSearch()" onkeydown="if(event.key==='Enter')doBizLoad()">
+    <div class="biz-list-drop" id="bizListDrop"></div>
+  </div>
+  <button class="biz-search-btn" onclick="doBizLoad()">조회 →</button>
+  <span class="projected-note" id="projectedNote">예상 데이터</span>
+</div>
+
+<!-- DIRECTOR STRIP -->
+<div class="dir-strip" id="dirStrip" style="display:none">
+  <div class="dir-agent">
+    <span class="dir-agent-ico">🤖</span>
+    <div>
+      <div class="dir-agent-name">AI DIRECTOR</div>
+      <div class="dir-agent-sub" id="dirAIStatus">분석 대기 중</div>
+    </div>
+  </div>
+  <div class="dir-human">
+    <span class="dir-human-ico">🤝</span>
+    <div>
+      <div class="dir-human-name">BUSINESS DIRECTOR</div>
+      <div class="dir-human-sub" id="dirHumanName">텐베거 파트너스</div>
+    </div>
+  </div>
+  <div class="dir-stage-bar" id="dirStageBar">
+    <div class="dir-stage-item">수집</div>
+    <div class="dir-stage-item">분석</div>
+    <div class="dir-stage-item">전략</div>
+    <div class="dir-stage-item">실행</div>
+  </div>
+</div>
+
+<div class="main-wrap" id="mainWrap">
+
+  <!-- WELCOME STATE (shown before data) -->
+  <div class="welcome-state" id="welcomeState">
+    <div class="welcome-ico">📊</div>
+    <div class="welcome-title">경영 분석 대시보드</div>
+    <div class="welcome-sub">상호명을 검색하거나 재무 데이터를 입력하면<br>AI가 경영 전반을 분석하고 실행 로드맵을 제공합니다</div>
+    <div class="welcome-hint">⬆ 위 검색창에서 사업체를 조회하거나 · 📊 재무 입력으로 시작하세요</div>
+    <button class="fc-tab" style="background:rgba(0,230,118,.1);border-color:rgba(0,230,118,.35);color:#00E676;padding:8px 20px;font-size:11px;border-radius:4px;margin-top:.5rem" onclick="DT.openModal()">📊 재무 데이터 입력하기</button>
+  </div>
+
+  <!-- DASHBOARD (hidden until data loaded) -->
+  <div id="dashboard" style="display:none">
+
+    <!-- AI INSIGHT -->
+    <div class="ai-insight fu" id="aiInsight">
+      <div class="ai-insight-hd">
+        <span class="ai-insight-badge">🤖 AI ANALYSIS</span>
+        <span class="ai-insight-title">경영 현황 진단 · 핵심 인사이트</span>
+        <span class="ai-insight-ts" id="aiInsightTs">—</span>
+      </div>
+      <div class="ai-cards" id="aiCards"></div>
+    </div>
+
+    <!-- KPI ROW -->
+    <div class="kpi-row fu" id="kpiRow"></div>
+
+    <!-- CHART + SOLUTIONS -->
+    <div class="content-grid">
+      <!-- Chart panel -->
+      <div class="panel fu" id="s1">
+        <div class="s1-head">
+          <div class="panel-label" id="s1Label">Financial Trend · 월별 재무 현황</div>
+          <div class="fc-tabs">
+            <button class="fc-tab active" data-view="trend" onclick="setFCTab('trend')">추세</button>
+            <button class="fc-tab" data-view="monthly" onclick="setFCTab('monthly')">비용 분석</button>
+            <button class="fc-tab" data-view="cumulative" onclick="setFCTab('cumulative')">손익분기</button>
+          </div>
+          <button class="fc-tab" style="background:rgba(0,207,255,.12);border-color:rgba(0,207,255,.4);color:var(--cyan);margin-left:8px" onclick="openClientModal()">👤 고객정보</button>
+          <button class="fc-tab" style="background:rgba(0,230,118,.08);border-color:rgba(0,230,118,.3);color:#00E676;margin-left:4px" onclick="DT.openModal()">📊 재무입력</button>
+        </div>
+        <div id="trendView">
+          <div class="chart-legend">
+            <div class="leg"><span class="leg-dot" style="background:#1A8CFF"></span>매출</div>
+            <div class="leg"><span class="leg-dot" style="background:#FF6B35"></span>총비용</div>
+            <div class="leg"><span class="leg-line" style="background:#00E676"></span>순수익</div>
+          </div>
+          <div class="chart-wrap"><canvas id="fc"></canvas><div class="ctip" id="tip"></div></div>
+          <div class="q-summary fu" id="qStats"></div>
+        </div>
+        <div id="beView" style="display:none">
+          <div class="invest-row" id="investRow" style="display:none">
+            <span class="invest-lbl">투자금</span>
+            <input type="number" id="investInput" class="invest-inp" value="5000" step="100" min="0" oninput="redrawBE()">
+            <span class="invest-unit">만원</span>
+            <span class="invest-lbl" style="margin-left:8px">인테리어</span>
+            <input type="number" id="interiorInput" class="invest-inp" value="0" step="100" min="0" oninput="redrawBE()">
+            <span class="invest-unit">만원</span>
+            <span class="invest-info" id="beInfo">—</span>
+          </div>
+          <canvas id="beCanvas"></canvas>
+          <div class="be-legend" id="beLegend"></div>
+        </div>
+      </div>
+
+      <!-- Solutions panel -->
+      <div class="panel sol-panel fu" id="s2">
+        <div class="panel-label">핵심 전략 · Solutions <span class="hot-tag" style="margin-left:6px">3 AREAS</span></div>
+        <div class="sol-scroll" id="solList"></div>
+      </div>
+    </div>
+
+    <!-- ROADMAP -->
+    <div class="panel fu" id="s3" style="margin-bottom:4px">
+      <div class="panel-label" style="margin-bottom:.8rem">실행 로드맵 · 디렉터 Action Plan <span class="ok-tag" style="margin-left:6px">4 PHASES</span></div>
+      <div class="rm-v2" id="rmGrid"></div>
+    </div>
+
+  </div><!-- /dashboard -->
+
+</div>
+
+<!-- 재무 데이터 입력 드로어 -->
+<div class="dtm-overlay" id="dtm_overlay" onclick="if(event.target===this)DT.closeModal()">
+  <div class="dtm-drawer">
+    <div class="dtm-hd">
+      <span class="dtm-hd-title">📊 재무 데이터 입력</span>
+      <span class="dtm-hd-sub" id="dt_bizYear">—</span>
+      <button class="dtm-close-btn" onclick="DT.closeModal()">✕</button>
+    </div>
+
+    <!-- 본인 확인 레이어 -->
+    <div id="dt_verifyLayer" style="display:none;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;gap:1rem;background:#06080F;flex:1">
+      <div style="font-size:32px">🔐</div>
+      <div style="font-size:14px;font-weight:800;color:#fff;letter-spacing:-.3px">본인 확인 후 이용 가능합니다</div>
+      <div style="font-size:11px;color:var(--dim);text-align:center;line-height:1.6" id="dt_verifyMsg">등록된 상호명과 사업자등록번호를 입력해 주세요.</div>
+      <div style="width:100%;max-width:340px;display:flex;flex-direction:column;gap:10px;margin-top:.5rem">
+        <div>
+          <div style="font-size:10px;font-weight:700;color:#8892A0;letter-spacing:1px;margin-bottom:5px">상호명</div>
+          <input id="dt_verBiz" class="ci-input" type="text" placeholder="등록된 상호명 입력"
+                 onkeydown="if(event.key==='Enter')DT.verifyAccess()">
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:700;color:#8892A0;letter-spacing:1px;margin-bottom:5px">사업자등록번호</div>
+          <input id="dt_verBrn" class="ci-input" type="text" placeholder="000-00-00000" maxlength="12"
+                 oninput="fmtBrn(this)" onkeydown="if(event.key==='Enter')DT.verifyAccess()">
+        </div>
+        <div id="dt_verErr" style="font-size:11px;color:#FF5555;min-height:16px;text-align:center"></div>
+        <button onclick="DT.verifyAccess()" style="background:var(--cyan);color:#000;border:none;border-radius:6px;padding:11px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:.5px">확인</button>
+        <button onclick="openClientModal();DT.closeModal()" style="background:none;border:1px solid rgba(0,207,255,.25);color:var(--cyan);border-radius:6px;padding:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">
+          처음 이용 · 고객정보 먼저 등록하기
+        </button>
+      </div>
+    </div>
+
+    <!-- 실제 재무 입력 영역 -->
+    <div id="dt_mainLayer" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+    <div class="dtm-prog-bar">
+      <div class="dtm-prog-track"><div class="dtm-prog-fill" id="dt_progressFill"></div></div>
+      <span class="dtm-prog-txt" id="dt_progressTxt">0/12 완료</span>
+    </div>
+    <div class="dtm-scroll">
+      <div class="dtm-invest-sec">
+        <div class="dtm-invest-ttl">💰 사업 초기 투자 정보</div>
+        <div class="dtm-invest-row">
+          <div>
+            <div class="dtm-flabel">총 투자금</div>
+            <div class="dtm-fw"><input type="number" id="dt_investAmt" min="0" placeholder="0" oninput="DT.saveInvestLocal()"><span class="u">만원</span></div>
+          </div>
+          <div>
+            <div class="dtm-flabel">인테리어비용</div>
+            <div class="dtm-fw"><input type="number" id="dt_interiorAmt" min="0" placeholder="0" oninput="DT.saveInvestLocal()"><span class="u">만원</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="dtm-qtabs" id="dt_qTabs"></div>
+      <div id="dt_qContents"></div>
+    </div>
+    <div class="dtm-footer">
+      <div class="dtm-footer-sum">
+        <div><span id="dt_revLabel">연간 총매출</span>: <strong id="dt_totalRevEl" style="color:var(--cyan)">—</strong></div>
+        <div><span id="dt_profLabel">연간 순수익</span>: <strong id="dt_totalProfitEl" style="color:#00E676">—</strong></div>
+      </div>
+      <button class="dtm-save-btn" id="dt_saveBtn" onclick="DT.saveAll()">저장하기</button>
+    </div>
+    </div><!-- /dt_mainLayer -->
+  </div>
+</div>
+<div class="dtm-toast" id="dt_toast"></div>
+<iframe id="dt_gs_iframe" name="dt_gs_iframe" style="display:none" onload="DT.onIframeLoad()"></iframe>
+
+<!-- 고객정보 모달 -->
+<div class="ci-overlay" id="ciOverlay" onclick="if(event.target===this)closeClientModal()">
+  <div class="ci-modal">
+    <div class="ci-title">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      고객 정보 입력
+    </div>
+    <div class="ci-row">
+      <div class="ci-label">상호명 *</div>
+      <input class="ci-input" id="ci_biz" type="text" placeholder="○○○ 카페">
+    </div>
+    <div class="ci-row">
+      <div class="ci-label">사업자등록번호 *</div>
+      <input class="ci-input" id="ci_brn" type="text" placeholder="000-00-00000" maxlength="12"
+             oninput="fmtBrn(this)">
+    </div>
+    <div class="ci-row">
+      <div class="ci-label">대표자명 *</div>
+      <input class="ci-input" id="ci_name" type="text" placeholder="홍길동">
+    </div>
+    <div class="ci-row">
+      <div class="ci-label">전화번호</div>
+      <input class="ci-input" id="ci_tel" type="tel" placeholder="010-0000-0000" maxlength="13"
+             oninput="fmtTel(this)">
+    </div>
+    <div class="ci-row">
+      <div class="ci-label">주소</div>
+      <input class="ci-input" id="ci_addr" type="text" placeholder="서울시 마포구 ...">
+    </div>
+    <div class="ci-consent">
+      <strong>📋 개인정보 수집·이용 동의</strong>
+      수집된 고객정보는 텐베거파트너스가 엄격한 기준으로 관리되고 관련 업무에만 사용됩니다.
+      컨설팅에 필요한 고객정보동의서 작성을 요청드립니다.
+      <div class="ci-check-row">
+        <input type="checkbox" id="ci_consent">
+        <label for="ci_consent">위 내용을 확인하였으며, 개인정보 수집·이용에 동의합니다.</label>
+      </div>
+    </div>
+    <div class="ci-btn-row">
+      <button class="ci-btn-cancel" onclick="closeClientModal()">취소</button>
+      <button class="ci-btn-save" id="ciBtnSave" onclick="saveClient()">저장</button>
+    </div>
+    <div class="ci-status" id="ciStatus"></div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-lbl">AI REPORT</div>
+  <div class="ticker-track">
+    <div class="ticker-inner" id="tickerInner"></div>
+  </div>
+</div>
+
+<script>
+/* ═══ CONFIG ═══ */
+var SHEET_ID='1khU2HGxoy1qb5rrIqhkj68tESSb79IdF4fWIBmkxUJg';
+var GAS_URL='https://script.google.com/macros/s/AKfycbzlAZSNWjtf8LjT15nK7En6ZXEKN-HMtzYvSEGqOyUYYvJqfAhA03UXY9mV4jzwXFZMkw/exec';
+
+/* ═══ BASE DATA TEMPLATE ═══ */
+var _emptyMonths=[];for(var _i=1;_i<=12;_i++)_emptyMonths.push({m:_i,rev:0,cRate:0,cogs:0,rent:0,labor:0,util:0,mkt:0,other:0});
+var D={
+  biz:{name:'',type:'',addr:'',years:0,emp:0,date:String(new Date().getFullYear()-1)},
+  fin:{months:_emptyMonths},
+  _hasData:false,
+  sol:{
+    fixedCosts:[],
+    risks:[
+      {item:'대인배상책임보험', ok:false, level:2, desc:'고객·제3자 사고 배상 미비 — 즉시 가입 필요'},
+      {item:'화재·재물보험',   ok:false, level:1, desc:'시설 화재 손해 보상 여부 확인 필요'},
+      {item:'근로자 산재보험', ok:false, level:1, desc:'직원 업무재해 대비 가입 여부 확인'},
+      {item:'제조물배상보험',  ok:false, level:1, desc:'업종에 따른 배상 위험 점검 필요'},
+      {item:'영업중단보험',    ok:false, level:1, desc:'재난·화재 시 영업손실 대비 검토 필요'}
+    ],
+    rights:{
+      goodwillLow:0, goodwillHigh:0,
+      renewalMonthsLeft:0,
+      factors:[
+        {name:'월평균 순수익', score:0, note:'재무 데이터 자동 산출'},
+        {name:'상권·입지',    score:0, note:'데이터 입력 후 산출'},
+        {name:'잔여 임대기간',score:0, note:'데이터 입력 후 산출'},
+        {name:'고객 충성도',  score:0, note:'데이터 입력 후 산출'},
+        {name:'시설 상태',    score:0, note:'데이터 입력 후 산출'}
+      ]
+    }
+  },
+  lc:{stage:2,
+    road:[
+      {ph:"1~3개월",clr:"#1A8CFF",ttl:"현황 분석 및 즉시 실행",status:"active",progress:0,
+       desc:"재무 데이터 수집 완료 후 AI 분석 기반 고정비 절감 즉시 실행",
+       actions:["재무 데이터 입력 및 AI 분석 완료","고정비 항목별 절감 협상 진행","리스크 보험 즉시 가입 처리"]},
+      {ph:"3~6개월",clr:"#A78BFA",ttl:"매출 성장 전략",status:"upcoming",progress:0,
+       desc:"마케팅 채널 최적화 · 객단가 향상 · 재방문율 개선",
+       actions:["네이버 플레이스 SEO 최적화","멤버십·스탬프 프로그램 설계 및 론칭","SNS/광고 채널 ROI 분석 및 재편"]},
+      {ph:"6~12개월",clr:"#00E676",ttl:"수익 구조 고도화",status:"upcoming",progress:0,
+       desc:"세무 최적화 · 이익률 개선 · 권리금 데이터 축적 시작",
+       actions:["간이/일반과세 전환 검토 및 세무 정리","순이익률 목표치 달성 점검","권리금 산정용 수익 데이터 체계화"]},
+      {ph:"12개월+",clr:"#FFB300",ttl:"확장 및 자산화",status:"upcoming",progress:0,
+       desc:"임대차 재협상 · 법인전환 검토 · 사업권 자산화",
+       actions:["임대차 재계약 협상 (10~15% 인하 목표)","법인전환 또는 2호점 진출 전략 수립","영업권·권리금 매도/매수 포트폴리오 기획"]}
+    ]}
+};
+
+/* ═══ DERIVED ═══ */
+function derive(months){
+  return months.map(function(m){
+    /* cogs: 매입항목 직접 합산값 우선, 없으면 cRate % 역산 */
+    var cogs=m.cogs!=null?m.cogs:m.rev*(m.cRate||0)/100;
+    var tc=cogs+(m.rent||0)+(m.labor||0)+(m.util||0)+(m.mkt||0)+(m.other||0);
+    return Object.assign({},m,{cogs:cogs,totalCost:tc,netProfit:m.rev-tc});
+  });
+}
+
+/* ═══ DATA LOADING ═══ */
+var urlP=new URLSearchParams(location.search);
+var BIZ_PARAM=urlP.get('biz');
+var YEAR_PARAM=urlP.get('year')||(new Date().getFullYear()-1);
+
+function loadFromSheets(biz,year,cb){
+  var n='_gbiz_'+Date.now();window[n]=function(res){delete window[n];
+    try{var c=res.table.cols.map(function(x){return x.label||x.id;});
+      var r=res.table.rows.map(function(row){var o={};row.c.forEach(function(cell,j){o[c[j]]=cell?cell.v:null;});return o;});
+      cb(null,r.find(function(x){return x['상호명']===biz;})||{});}catch(e){cb(null,{});}};
+  var s=document.createElement('script');s.onerror=function(){cb(null,{});};
+  s.src='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:json;responseHandler:'+n+'&t='+Date.now();
+  document.body.appendChild(s);}
+
+function loadFinancials(biz,year,cb){
+  var n='_gfin_'+Date.now();window[n]=function(res){delete window[n];
+    try{var c=res.table.cols.map(function(x){return x.label||x.id;});
+      var rows=res.table.rows.map(function(row){var o={};row.c.forEach(function(cell,j){o[c[j]]=cell?cell.v:null;});return o;});
+      var row=rows.find(function(x){return x['상호명']===biz&&String(x['연도'])===String(year);});
+      if(!row){cb(null,null);return;}
+      var months=[];
+      for(var m=1;m<=12;m++){months.push({m:m,
+        rev:parseFloat(row[m+'월매출'])||0,cRate:parseFloat(row[m+'월원가율'])||30,
+        rent:parseFloat(row[m+'월임대료'])||0,labor:parseFloat(row[m+'월인건비'])||0,
+        util:parseFloat(row[m+'월공과금'])||0,mkt:parseFloat(row[m+'월마케팅'])||0,
+        other:parseFloat(row[m+'월기타'])||0});}
+      cb(null,months);}catch(e){cb(null,null);}};
+  var s=document.createElement('script');s.onerror=function(){cb(null,null);};
+  s.src='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:json;responseHandler:'+n+'&sheet='+encodeURIComponent('재무데이터')+'&t='+Date.now();
+  document.body.appendChild(s);}
+
+function applyBasicData(r){if(!r)return;
+  if(r['상호명']){D.biz.name=r['상호명'];D._hasData=true;}
+  if(r['업종'])D.biz.type=r['업종'];
+  if(r['주소'])D.biz.addr=r['주소'];if(r['영업기간'])D.biz.years=r['영업기간'];if(r['직원수'])D.biz.emp=r['직원수'];
+  var cr=parseFloat(r['원가율'])||30;D.sol[2]&&(D.sol[2].pct=cr>45?88:cr>35?72:58);
+  /* Load affiliate fixed cost items from index.html submission */
+  var fcMap=[
+    {item:'인터넷',      key:'fcInternet'},
+    {item:'TV·IPTV',    key:'fcTV'},
+    {item:'POS·키오스크', key:'fcPOS'},
+    {item:'CCTV·보안',  key:'fcCCTV'},
+    {item:'가전렌탈',    key:'fcAppliance'},
+    {item:'정수기렌탈', key:'fcWater'},
+    {item:'사업자보험', key:'fcInsurance'},
+    {item:'광고비',      key:'fcAds'}
+  ];
+  var fcLoaded=fcMap.filter(function(f){return parseFloat(r[f.key])>0;})
+    .map(function(f){
+      var cur=parseFloat(r[f.key])||0;
+      return {item:f.item, current:cur, target:Math.round(cur*0.75)};
+    });
+  if(fcLoaded.length>0){
+    /* Prepend rent/labor if available */
+    var fixedBase=[];
+    if(parseFloat(r['임대료(만원)'])>0) fixedBase.push({item:'임대료',current:parseFloat(r['임대료(만원)']),target:Math.round(parseFloat(r['임대료(만원)'])*0.9)});
+    if(parseFloat(r['인건비(만원)'])>0) fixedBase.push({item:'인건비',current:parseFloat(r['인건비(만원)']),target:parseFloat(r['인건비(만원)'])});
+    D.sol.fixedCosts=fixedBase.concat(fcLoaded);
+  }
+}
+
+function applyFinancialData(m){
+  if(!m||m.length===0)return;
+  /* Count months with actual revenue */
+  var filled=m.filter(function(x){return x.rev>0;});
+  if(filled.length>0&&filled.length<12){
+    /* Fill missing months with quarterly average */
+    var avgRev=filled.reduce(function(s,x){return s+x.rev;},0)/filled.length;
+    var avgCRate=filled.reduce(function(s,x){return s+(x.cRate||30);},0)/filled.length;
+    var avgRent=filled.reduce(function(s,x){return s+(x.rent||0);},0)/filled.length;
+    var avgLabor=filled.reduce(function(s,x){return s+(x.labor||0);},0)/filled.length;
+    var avgUtil=filled.reduce(function(s,x){return s+(x.util||0);},0)/filled.length;
+    var avgMkt=filled.reduce(function(s,x){return s+(x.mkt||0);},0)/filled.length;
+    var avgOther=filled.reduce(function(s,x){return s+(x.other||0);},0)/filled.length;
+    m=m.map(function(mo){
+      if(mo.rev>0)return mo;
+      return {m:mo.m,rev:Math.round(avgRev),cRate:Math.round(avgCRate),
+              rent:Math.round(avgRent),labor:Math.round(avgLabor),
+              util:Math.round(avgUtil),mkt:Math.round(avgMkt),other:Math.round(avgOther)};
+    });
+    D._isProjected=true;
+    D._filledMonths=filled.length;
+    var pNote=document.getElementById('projectedNote');
+    if(pNote){pNote.classList.add('on');pNote.title=filled.length+'개월 데이터 기반 예상치';}
+  } else {
+    D._isProjected=false;
+    var pNote=document.getElementById('projectedNote');
+    if(pNote)pNote.classList.remove('on');
+  }
+  D.fin.months=m;
+  D._hasData=true;
+}
+
+/* ═══ UTILS ═══ */
+var fmt=function(n){return n.toLocaleString('ko-KR');};
+/* 금액 표시: 1억 미만 → 1,234만원 / 1억 이상 → X억 Y,XXX만원 */
+function fmtAmt(n){
+  n=Math.round(n);
+  if(n<0)return '-'+fmtAmt(-n);
+  if(n===0)return '0만원';
+  if(n>=10000){
+    var e=Math.floor(n/10000),r=n%10000;
+    return r>0?e+'억 '+r.toLocaleString('ko-KR')+'만원':e+'억원';
+  }
+  return n.toLocaleString('ko-KR')+'만원';
+}
+function counter(el,target,dur,sfx){
+  var useFmt=sfx==='만원';
+  var t0=null;(function tick(ts){if(!t0)t0=ts;
+    var p=Math.min((ts-t0)/dur,1),e=1-Math.pow(1-p,3);
+    var v=Math.round(e*target);
+    el.textContent=useFmt?fmtAmt(v):fmt(v)+sfx;
+    if(p<1)requestAnimationFrame(tick);
+  })(performance.now());}
+function hexRgb(hex){return[parseInt(hex.slice(1,3),16),parseInt(hex.slice(3,5),16),parseInt(hex.slice(5,7),16)];}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}});},{threshold:.08});
+
+/* ═══ CLOCK ═══ */
+function startClock(){
+  function upd(){
+    var now=new Date();
+    document.getElementById('clock').textContent=
+      String(now.getHours()).padStart(2,'0')+':'+
+      String(now.getMinutes()).padStart(2,'0')+':'+
+      String(now.getSeconds()).padStart(2,'0');
+  }upd();setInterval(upd,1000);}
+
+/* ═══ HEADER ═══ */
+function initHeader(){
+  var b=D.biz;
+  if(b.name)document.title=b.name+' · 경영 브리핑';
+  document.getElementById('barBiz').textContent=b.name||'대시보드';
+  var meta=[];
+  if(b.type)meta.push('<span>'+b.type+'</span>');
+  if(b.years)meta.push('<span>영업 '+b.years+'년차</span>');
+  if(b.date)meta.push('<span>'+b.date+'년 분석</span>');
+  document.getElementById('barMeta').innerHTML=meta.join('');
+}
+
+/* ═══ DIRECTOR STRIP ═══ */
+function initDirectorStrip(){
+  var strip=document.getElementById('dirStrip');
+  if(!strip||!D._hasData)return;
+  strip.style.display='flex';
+  /* AI status */
+  var dm=derive(D.fin.months);
+  var filled=dm.filter(function(m){return m.rev>0;}).length;
+  var aiEl=document.getElementById('dirAIStatus');
+  if(aiEl)aiEl.textContent=filled>0?filled+'개월 데이터 분석 완료':'데이터 없음 — 입력 필요';
+  /* Stage indicator */
+  var stages=document.querySelectorAll('#dirStageBar .dir-stage-item');
+  var stageIdx=filled===0?0:filled<12?1:3;
+  stages.forEach(function(s,i){s.classList.toggle('cur',i===stageIdx);});
+}
+
+/* ═══ KPI ═══ */
+function initKPI(){
+  var dm=derive(D.fin.months);
+  var totRev=dm.reduce(function(s,m){return s+m.rev;},0);
+  var totP=dm.reduce(function(s,m){return s+m.netProfit;},0);
+  var totCost=dm.reduce(function(s,m){return s+m.totalCost;},0);
+  var margin=totRev>0?Math.round(totP/totRev*100):0;
+  /* 전반기 vs 후반기 비교 */
+  var h1Rev=dm.slice(0,6).reduce(function(s,m){return s+m.rev;},0);
+  var h2Rev=dm.slice(6).reduce(function(s,m){return s+m.rev;},0);
+  var hDelta=h1Rev>0?Math.round((h2Rev-h1Rev)/h1Rev*100):0;
+  var isProj=D._isProjected;
+  var kpis=[
+    {lbl:isProj?"예상 연매출":"연간 총매출",
+     val:fmtAmt(totRev),
+     chg:isProj?'예상치 ('+D._filledMonths+'개월 기반)':hDelta>=0?'▲ 하반기 +'+hDelta+'%':'▼ 하반기 '+hDelta+'%',
+     up:hDelta>=0,tag:isProj?'hot':null},
+    {lbl:"평균 이익률",
+     val:margin+'%',
+     chg:margin>=15?'건전 — 목표치 달성':margin>=10?'양호 — 추가 개선 가능':'개선 필요',
+     up:margin>=15,tag:margin>=15?'ok':margin>=10?null:'hot'},
+    {lbl:"연간 순수익",
+     val:fmtAmt(Math.abs(Math.round(totP))),
+     chg:totP>0?'흑자 경영':'적자 — 즉시 구조 개선 필요',
+     up:totP>0,tag:totP<0?'hot':null},
+    {lbl:"연간 총비용",
+     val:fmtAmt(totCost),
+     chg:totRev>0?'비용 비율 '+Math.round(totCost/totRev*100)+'%':'—',
+     up:totRev>0&&totCost/totRev<0.85,tag:null}
+  ];
+  document.getElementById('kpiRow').innerHTML=kpis.map(function(k,i){
+    var tag=k.tag==='live'?'<span class="live-tag">LIVE</span>':
+            k.tag==='hot'?'<span class="hot-tag">ALERT</span>':
+            k.tag==='ok'?'<span class="ok-tag">OK</span>':'';
+    return '<div class="kpi-card" onclick="pulsKPI(this)" tabindex="0">'
+      +'<div class="kpi-lbl">'+k.lbl+'</div>'
+      +'<div class="kpi-val">'+k.val+'</div>'
+      +'<div class="kpi-chg '+(k.up?'up':'dn')+'">'+k.chg+' '+tag+'</div>'
+      +'</div>';
+  }).join('');}
+
+window.pulsKPI=function(el){
+  el.classList.remove('pulse');void el.offsetWidth;el.classList.add('pulse');
+  setTimeout(function(){el.classList.remove('pulse');},500);}
+
+/* ═══ QUARTERLY STATS ═══ */
+function initQStats(){
+  var dm=derive(D.fin.months);
+  var qC=['#1A8CFF','#A78BFA','#00E676','#FFB300'];
+  var qN=['1분기','2분기','3분기','4분기'];
+  var qRevs=[],qProfs=[];
+  for(var q=0;q<4;q++){
+    var qM=dm.slice(q*3,(q+1)*3);
+    qRevs.push(qM.reduce(function(s,m){return s+m.rev;},0));
+    qProfs.push(qM.reduce(function(s,m){return s+m.netProfit;},0));
+  }
+  var html='';
+  for(var q=0;q<4;q++){
+    var qR=qRevs[q],qP=qProfs[q];
+    var qPct=qR>0?Math.round(qP/qR*100):0;
+    var delta='';
+    if(q>0&&qRevs[q-1]>0){
+      var d=qR-qRevs[q-1],dpct=Math.round(d/qRevs[q-1]*100);
+      delta='<span class="q-card-delta '+(d>0?'up':d<0?'dn':'flat')+'">전분기 '+(d>0?'▲':'▼')+' '+Math.abs(dpct)+'%</span>';
+    }
+    html+='<div class="q-card" style="--qc:'+qC[q]+'">'
+      +'<div class="q-card-lbl">'+qN[q]+'</div>'
+      +'<div class="q-card-rev">'+fmtAmt(Math.round(qR))+'</div>'
+      +'<div class="q-card-profit '+(qP>=0?'up':'dn')+'">'+(qP>=0?'+':'')+fmtAmt(Math.abs(Math.round(qP)))+'</div>'
+      +'<div class="q-card-margin">이익률 '+qPct+'%</div>'
+      +delta
+      +'</div>';
+  }
+  document.getElementById('qStats').innerHTML=html;
+}
+
+/* ═══ CHART ═══ */
+function initChart(){
+  var canvas=document.getElementById('fc'),cont=canvas.parentElement;
+  var tip=document.getElementById('tip');
+  var dm=derive(D.fin.months);
+  var hovM=-1,animDone=false;
+  var qN=['1분기','2분기','3분기','4분기'];
+
+  function resize(){var dpr=devicePixelRatio||1,w=cont.clientWidth,h=Math.max(200,Math.min(320,w*.36));
+    canvas.width=w*dpr;canvas.height=h*dpr;canvas.style.width=w+'px';canvas.style.height=h+'px';}
+
+  function draw(prog){
+    var dpr=devicePixelRatio||1,ctx=canvas.getContext('2d');
+    var W=canvas.width,H=canvas.height,PL=54*dpr,PR=14*dpr,PT=48*dpr,PB=36*dpr;
+    var cW=W-PL-PR,cH=H-PT-PB;
+    ctx.clearRect(0,0,W,H);
+    var N=12,monthW=cW/N;
+    var barW=monthW*.26,barGap=barW*.22,groupW=barW*2+barGap;
+    var posV=dm.flatMap(function(m){return[m.rev,m.totalCost];});
+    var netV=dm.map(function(m){return m.netProfit;});
+    var maxV=Math.max.apply(null,posV)*1.18||1;
+    var minV=Math.min.apply(null,netV);if(minV>0)minV=0;else minV*=1.15;
+    var scale=cH/(maxV-minV),zeroY=PT+cH-(-minV)*scale;
+
+    /* Quarter bg */
+    for(var q=0;q<4;q++){
+      if(q%2===0){ctx.fillStyle='rgba(26,140,255,.04)';ctx.fillRect(PL+q*3*monthW,PT-36*dpr,monthW*3,cH+36*dpr);}
+    }
+    /* Quarter labels */
+    ctx.textAlign='center';
+    for(var q=0;q<4;q++){
+      var qX=PL+(q*3+1.5)*monthW;
+      ctx.font='bold '+(9.5*dpr)+'px \'Noto Sans KR\',sans-serif';
+      ctx.fillStyle=q%2===0?'#1A8CFF':'rgba(58,84,112,.8)';
+      ctx.fillText(qN[q],qX,PT-26*dpr);
+      var qM=dm.slice(q*3,(q+1)*3),qR=qM.reduce(function(s,m){return s+m.rev;},0);
+      ctx.font=(8.5*dpr)+'px \'Share Tech Mono\',monospace';
+      ctx.fillStyle='rgba(200,214,232,.25)';
+      ctx.fillText(fmt(Math.round(qR))+'만',qX,PT-12*dpr);
+      if(q>0){var sx=PL+q*3*monthW;ctx.beginPath();ctx.moveTo(sx,PT-38*dpr);ctx.lineTo(sx,PT+cH);
+        ctx.strokeStyle='rgba(0,207,255,.06)';ctx.lineWidth=1*dpr;ctx.setLineDash([3*dpr,4*dpr]);ctx.stroke();ctx.setLineDash([]);}
+    }
+    /* Grid */
+    ctx.font=(8*dpr)+'px \'Share Tech Mono\',monospace';
+    for(var i=0;i<=4;i++){var val=maxV*i/4,gy=zeroY-val*scale;
+      if(gy<PT||gy>PT+cH)continue;
+      ctx.beginPath();ctx.moveTo(PL,gy);ctx.lineTo(W-PR,gy);
+      ctx.strokeStyle=i===0?'rgba(0,207,255,.15)':'rgba(255,255,255,.03)';
+      ctx.lineWidth=(i===0?1.5:1)*dpr;ctx.stroke();
+      ctx.fillStyle='#3A5470';ctx.textAlign='right';ctx.fillText(fmt(Math.round(val)),PL-5*dpr,gy+4*dpr);}
+    if(minV<0){ctx.beginPath();ctx.moveTo(PL,zeroY);ctx.lineTo(W-PR,zeroY);
+      ctx.strokeStyle='rgba(255,61,61,.2)';ctx.lineWidth=1.5*dpr;ctx.stroke();}
+    /* Month labels */
+    ctx.textAlign='center';ctx.fillStyle='#3A5470';ctx.font=(8.5*dpr)+'px sans-serif';
+    for(var i=0;i<N;i++){ctx.fillText((i+1)+'M',PL+(i+.5)*monthW,H-8*dpr);}
+
+    /* BARS — revenue + totalCost only */
+    var BARS=[{key:'rev',clr:'#1A8CFF'},{key:'totalCost',clr:'#FFB300'}];
+    dm.forEach(function(m,i){
+      var cx=PL+(i+.5)*monthW,gx=cx-groupW/2,isHov=hovM===i;
+      BARS.forEach(function(bar,j){
+        var val=m[bar.key],bH=val*scale*prog;if(bH<1)return;
+        var bX=gx+j*(barW+barGap),y=zeroY-bH,r=Math.min(3*dpr,bH*.4);
+        ctx.beginPath();ctx.moveTo(bX+r,y);ctx.lineTo(bX+barW-r,y);
+        ctx.quadraticCurveTo(bX+barW,y,bX+barW,y+r);
+        ctx.lineTo(bX+barW,y+bH);ctx.lineTo(bX,y+bH);ctx.lineTo(bX,y+r);
+        ctx.quadraticCurveTo(bX,y,bX+r,y);ctx.closePath();
+        ctx.fillStyle=isHov?bar.clr:bar.clr+'99';ctx.fill();});
+      if(isHov){ctx.fillStyle='rgba(0,207,255,.04)';ctx.fillRect(PL+i*monthW,PT,monthW,cH);}
+    });
+
+    /* PROFIT LINE */
+    ctx.beginPath();var lStarted=false;
+    dm.forEach(function(m,i){
+      var cx=PL+(i+.5)*monthW,py=zeroY-m.netProfit*scale*prog;
+      if(!lStarted){ctx.moveTo(cx,py);lStarted=true;}else ctx.lineTo(cx,py);
+    });
+    ctx.strokeStyle='#00E676';ctx.lineWidth=2*dpr;ctx.lineJoin='round';ctx.stroke();
+    /* Line dots */
+    dm.forEach(function(m,i){
+      var cx=PL+(i+.5)*monthW,py=zeroY-m.netProfit*scale*prog;
+      var isHov=hovM===i;
+      ctx.beginPath();ctx.arc(cx,py,isHov?5*dpr:3*dpr,0,Math.PI*2);
+      ctx.fillStyle=m.netProfit>=0?'#00E676':'#FF3D3D';ctx.fill();
+      if(isHov){ctx.strokeStyle='#fff';ctx.lineWidth=1.5*dpr;ctx.stroke();}
+    });
+    /* Profit area fill */
+    ctx.beginPath();lStarted=false;
+    dm.forEach(function(m,i){
+      var cx=PL+(i+.5)*monthW,py=zeroY-m.netProfit*scale*prog;
+      if(!lStarted){ctx.moveTo(cx,py);lStarted=true;}else ctx.lineTo(cx,py);
+    });
+    ctx.lineTo(PL+(N-.5)*monthW,zeroY);ctx.lineTo(PL+.5*monthW,zeroY);ctx.closePath();
+    var grad=canvas.getContext('2d').createLinearGradient(0,0,0,H);
+    grad.addColorStop(0,'rgba(0,230,118,.18)');grad.addColorStop(1,'rgba(0,230,118,.01)');
+    ctx.fillStyle=grad;ctx.fill();}
+
+  function animate(){var t0=null;(function tick(ts){
+    if(!t0)t0=ts;var p=Math.min((ts-t0)/980,1),ease=1-Math.pow(1-p,3);
+    resize();draw(ease);if(p<1)requestAnimationFrame(tick);
+    else{animDone=true;canvas.addEventListener('mousemove',onMM);canvas.addEventListener('mouseleave',onML);
+      window.addEventListener('resize',function(){resize();draw(1);});}
+  })(performance.now());}
+
+  var cio=new IntersectionObserver(function(e){if(e[0].isIntersecting){animate();cio.disconnect();}},{threshold:.15});
+  cio.observe(canvas);
+
+  function getIdx(e){var dpr=devicePixelRatio||1,r=canvas.getBoundingClientRect();
+    var mx=(e.clientX-r.left)*dpr,PL=54*dpr,cW=canvas.width-PL-14*dpr;
+    var idx=Math.floor((mx-PL)/(cW/12));return idx>=0&&idx<12?idx:-1;}
+  function onMM(e){var idx=getIdx(e);if(idx<0){onML();return;}if(idx===hovM)return;hovM=idx;
+    var m=dm[idx];
+    tip.innerHTML='<div class="t-month">'+m.m+'월 상세 내역</div>'
+      +'<div class="t-row"><span style="color:#1A8CFF">▌</span><span>매출</span><strong>'+fmtAmt(m.rev)+'</strong></div>'
+      +'<div class="t-row"><span style="color:#FFB300">▌</span><span>매입총액</span><strong>'+fmtAmt(Math.round(m.totalCost))+'</strong></div>'
+      +'<div class="t-sub">원가 '+fmtAmt(Math.round(m.cogs))+' · 임대 '+fmtAmt(m.rent||0)+' · 인건비 '+fmtAmt(m.labor||0)+' · 공과금 '+fmtAmt(m.util||0)+' · 마케팅 '+fmtAmt(m.mkt||0)+' · 기타 '+fmtAmt(m.other||0)+'</div>'
+      +'<div class="t-row" style="margin-top:4px"><span style="color:'+(m.netProfit>=0?'#00E676':'#FF3D3D')+'">▌</span><span>순수익</span><strong style="color:'+(m.netProfit>=0?'#00E676':'#FF3D3D')+'">'+(m.netProfit>=0?'+':'')+fmtAmt(Math.abs(Math.round(m.netProfit)))+'</strong></div>'
+      +'<div class="t-sub">이익률 '+(m.rev>0?Math.round(m.netProfit/m.rev*100):0)+'%</div>';
+    tip.classList.add('on');var r=canvas.getBoundingClientRect();
+    var tx=e.clientX-r.left,ty=e.clientY-r.top;
+    tip.style.left=(tx>r.width*.55?tx-tip.offsetWidth-10:tx+10)+'px';
+    tip.style.top=Math.max(0,ty-30)+'px';
+    if(animDone){resize();draw(1);}}
+  function onML(){hovM=-1;tip.classList.remove('on');if(animDone){resize();draw(1);}}}
+
+/* ═══ SOLUTIONS ═══ */
+function renderFixedCosts(costs){
+  var totalCur=0,totalTgt=0;
+  costs.forEach(function(r){totalCur+=r.current;totalTgt+=r.target;});
+  var totalSave=totalCur-totalTgt;
+  var rows=costs.map(function(r,i){
+    var save=r.current-r.target;
+    var saveClr=save>0?'var(--green)':save<0?'var(--red)':'var(--dim)';
+    return '<tr>'
+      +'<td>'+r.item+'</td>'
+      +'<td><input type="number" id="fc_cur_'+i+'" class="fc-inp" value="'+r.current
+        +'" min="0" step="1" oninput="calcFC()"></td>'
+      +'<td class="arr-v">→</td>'
+      +'<td><input type="number" id="fc_tgt_'+i+'" class="fc-inp" value="'+r.target
+        +'" min="0" step="1" oninput="calcFC()"></td>'
+      +'<td id="fc_sav_'+i+'" class="sav-v" style="color:'+saveClr+'">'
+        +(save>0?'-':save<0?'+':'')+fmt(Math.abs(save))+'만</td>'
+      +'</tr>';
+  }).join('');
+  return '<table class="sol-tbl">'
+    +'<thead><tr><th>항목</th><th>현재(만)</th><th></th><th>목표(만)</th><th>절감액</th></tr></thead>'
+    +'<tbody>'+rows+'</tbody>'
+    +'<tfoot><tr>'
+    +'<td style="font-size:10px;color:var(--dim);font-family:\'Share Tech Mono\',monospace">월 합계</td>'
+    +'<td id="fc_total_cur" class="cur-v">'+fmt(totalCur)+'</td>'
+    +'<td></td>'
+    +'<td id="fc_total_tgt" class="tgt-v">'+fmt(totalTgt)+'</td>'
+    +'<td></td>'
+    +'</tr></tfoot>'
+    +'</table>'
+    +'<div class="fc-total-box">'
+    +'<div>'
+    +'<div class="fc-total-lbl">월 절감 가능액</div>'
+    +'<div class="fc-total-ann" id="fc_annual_save">연간 환산 -'+fmt(Math.round(totalSave*12))+'만원</div>'
+    +'</div>'
+    +'<div id="fc_total_save" class="fc-total-val">-'+fmt(Math.round(totalSave))+'만원/월</div>'
+    +'</div>';}
+
+window.calcFC=function(){
+  var n=D.sol.fixedCosts.length,totalCur=0,totalTgt=0;
+  for(var i=0;i<n;i++){
+    var cEl=document.getElementById('fc_cur_'+i),tEl=document.getElementById('fc_tgt_'+i);
+    if(!cEl||!tEl)continue;
+    var cur=parseFloat(cEl.value)||0,tgt=parseFloat(tEl.value)||0;
+    var save=cur-tgt;
+    totalCur+=cur;totalTgt+=tgt;
+    var sEl=document.getElementById('fc_sav_'+i);
+    if(sEl){
+      sEl.textContent=(save>0?'-':save<0?'+':'')+fmt(Math.round(Math.abs(save)))+'만';
+      sEl.style.color=save>0?'var(--green)':save<0?'var(--red)':'var(--dim)';}}
+  var totalSave=totalCur-totalTgt;
+  var annual=Math.round(totalSave*12);
+  var tcEl=document.getElementById('fc_total_cur');
+  var ttEl=document.getElementById('fc_total_tgt');
+  var tsEl=document.getElementById('fc_total_save');
+  var taEl=document.getElementById('fc_annual_save');
+  if(tcEl)tcEl.textContent=fmt(Math.round(totalCur));
+  if(ttEl)ttEl.textContent=fmt(Math.round(totalTgt));
+  if(tsEl){
+    var sign=totalSave>0?'-':totalSave<0?'+':'';
+    tsEl.textContent=sign+fmt(Math.round(Math.abs(totalSave)))+'만원/월';
+    tsEl.style.color=totalSave>0?'var(--green)':totalSave<0?'var(--red)':'var(--text)';
+    tsEl.style.textShadow=totalSave>0?'0 0 24px rgba(0,230,118,.4)':'none';}
+  if(taEl){
+    taEl.textContent='연간 환산 '+(totalSave>0?'-':totalSave<0?'+':'')+fmt(Math.abs(annual))+'만원';
+    taEl.style.color=totalSave>0?'rgba(0,230,118,.55)':totalSave<0?'rgba(255,61,61,.55)':'var(--dim)';}
+  var subEl=document.querySelector('#si0 .sol-sub');
+  if(subEl&&totalSave>0)subEl.textContent='즉시 실행 — 월 '+fmt(Math.round(totalSave))+'만원 절감 가능';};
+
+function renderRisks(risks){
+  return '<div class="sol-risk-list">'+risks.map(function(r){
+    var lvl=r.ok?'ok':(r.level===2?'alert':'warn');
+    var dot=r.ok?'#00E676':r.level===2?'#FF3D3D':'#FFB300';
+    var bdg=r.ok?'준비됨':r.level===2?'즉시필요':'권장';
+    return '<div class="sol-risk-item r-'+lvl+'">'
+      +'<div class="sol-risk-dot" style="background:'+dot+'"></div>'
+      +'<div style="flex:1"><div class="sol-risk-lbl">'+r.item+'</div>'
+      +'<div class="sol-risk-desc">'+r.desc+'</div></div>'
+      +'<span class="sol-risk-bdg '+lvl+'">'+bdg+'</span></div>';
+  }).join('')+'</div>';}
+
+function renderRights(rights,avgNet){
+  var factors=rights.factors.map(function(f,i){
+    var clr=f.score>=75?'#00E676':f.score>=50?'#FFB300':'#FF3D3D';
+    return '<div class="sol-factor-row">'
+      +'<div class="sol-factor-name">'+f.name+'</div>'
+      +'<div class="sol-factor-track"><div class="sol-factor-fill" data-score="'+f.score+'" style="background:'+clr+'"></div></div>'
+      +'<div class="sol-factor-sc">'+f.score+'</div>'
+      +'<div class="sol-factor-note">'+f.note+'</div></div>';
+  }).join('');
+  return '<div class="sol-rights-hd">'
+    +'<div><div class="sol-gw-val">'+fmt(rights.goodwillLow)+'~'+fmt(rights.goodwillHigh)+'만원</div>'
+    +'<div class="sol-gw-lbl">추정 권리금 범위</div></div>'
+    +'<div style="text-align:right"><div style="font-size:9px;color:var(--dim);font-family:\'Share Tech Mono\',monospace">월평균 순수익</div>'
+    +'<div style="font-size:13px;font-weight:900;color:'+(avgNet>=0?'var(--green)':'var(--red)')+'">'+fmt(avgNet)+'만원</div></div></div>'
+    +'<div class="sol-factor-list">'+factors+'</div>'
+    +'<div class="sol-lease">계약갱신청구권 잔여 <strong>'+rights.renewalMonthsLeft+'개월</strong> · '
+    +'향후 인수자 유치까지 수익 데이터 축적 필요 · 권리금 회수 방해 행위 법적 대응 절차 사전 준비 권장</div>';}
+
+function initSolutions(){
+  var s=D.sol;
+  var dm=derive(D.fin.months);
+  var filled=dm.filter(function(m){return m.rev>0;});
+  var avgNet=filled.length>0?Math.round(filled.reduce(function(a,m){return a+m.netProfit;},0)/filled.length):0;
+  s.rights.factors[0].score=Math.min(100,Math.max(0,Math.round(avgNet/500*60+20)));
+  s.rights.goodwillLow=avgNet>0?Math.round(avgNet*18):0;
+  s.rights.goodwillHigh=avgNet>0?Math.round(avgNet*24):0;
+  /* fixedCosts 자동 생성 (없으면 재무데이터에서) */
+  if(s.fixedCosts.length===0&&filled.length>0){
+    var af=filled;
+    var avgR=Math.round(af.reduce(function(s,m){return s+(m.rent||0);},0)/af.length);
+    var avgL=Math.round(af.reduce(function(s,m){return s+(m.labor||0);},0)/af.length);
+    var avgU=Math.round(af.reduce(function(s,m){return s+(m.util||0);},0)/af.length);
+    var avgM=Math.round(af.reduce(function(s,m){return s+(m.mkt||0);},0)/af.length);
+    if(avgR>0)s.fixedCosts.push({item:'임대료',current:avgR,target:Math.round(avgR*.9)});
+    if(avgL>0)s.fixedCosts.push({item:'인건비',current:avgL,target:avgL});
+    if(avgU>0)s.fixedCosts.push({item:'공과금',current:avgU,target:Math.round(avgU*.85)});
+    if(avgM>0)s.fixedCosts.push({item:'마케팅비',current:avgM,target:avgM});
+  }
+  var totalSave=s.fixedCosts.reduce(function(a,r){return a+(r.current-r.target);},0);
+  var okCnt=s.risks.filter(function(r){return r.ok;}).length;
+  var secs=[
+    {num:'01',ico:'✂️',clr:'#00E676',ttl:'고정비 절감',
+     sub:totalSave>0?'즉시 실행 — 월 '+fmt(totalSave)+'만원 절감 가능':'재무 데이터 기반 분석 진행',
+     tag:'PRIORITY',tc:'#00E676',
+     body:s.fixedCosts.length>0?renderFixedCosts(s.fixedCosts):'<div style="padding:1rem;text-align:center;color:var(--dim);font-size:11px">재무 입력 후 자동 분석됩니다</div>'},
+    {num:'02',ico:'🛡',clr:'#FFB300',ttl:'리스크 관리',
+     sub:'사업 영위 안전망 · '+okCnt+'/'+s.risks.length+' 준비됨',
+     tag:okCnt<s.risks.length?'ACTION':'OK',tc:okCnt<s.risks.length?'#FF3D3D':'#00E676',
+     body:renderRisks(s.risks)},
+    {num:'03',ico:'🏪',clr:'#A78BFA',ttl:'사업재산권 분석',
+     sub:avgNet>0?'추정 권리금 '+fmt(s.rights.goodwillLow)+'~'+fmt(s.rights.goodwillHigh)+'만원':'수익 데이터 기반 권리금 산정',
+     tag:'ASSET',tc:'#A78BFA',body:renderRights(s.rights,avgNet)}
+  ];
+  document.getElementById('solList').innerHTML=secs.map(function(sec,i){
+    var rgb=hexRgb(sec.clr);
+    return '<div class="sol-item" id="si'+i+'">'
+      +'<div class="sol-hd" onclick="toggleSol('+i+')">'
+      +'<div class="sol-num">'+sec.num+'</div>'
+      +'<div class="sol-ico" style="background:rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+',.15)">'+sec.ico+'</div>'
+      +'<div class="sol-info"><div class="sol-ttl">'+sec.ttl+'</div><div class="sol-sub">'+sec.sub+'</div></div>'
+      +'<span class="sol-tag" style="--tc:'+sec.tc+'">'+sec.tag+'</span>'
+      +'<div class="sol-arrow">›</div></div>'
+      +'<div class="sol-body"><div class="sol-body-inner">'+sec.body+'</div></div>'
+      +'</div>';
+  }).join('');}
+
+window.toggleSol=function(i){
+  document.querySelectorAll('.sol-item').forEach(function(item,idx){
+    if(idx===i){
+      var opening=!item.classList.contains('open');
+      item.classList.toggle('open');
+      if(opening){
+        item.querySelectorAll('.sol-factor-fill').forEach(function(f,j){
+          setTimeout(function(){f.style.width=f.dataset.score+'%';},j*80+120);});}
+    }else{item.classList.remove('open');}
+  });};
+
+/* ═══ BREAK-EVEN ═══ */
+window.setFCTab=function(view){
+  document.querySelectorAll('.fc-tab').forEach(function(t){t.classList.toggle('active',t.dataset.view===view);});
+  var lbl={trend:'Financial Trend · 분기별 재무 현황',monthly:'월별 비용 분석 · Cost Breakdown',cumulative:'손익분기점 분석 · Break-Even'};
+  var el=document.getElementById('s1Label');if(el)el.textContent=lbl[view]||'';
+  document.getElementById('trendView').style.display=(view==='trend')?'':'none';
+  document.getElementById('beView').style.display=(view!=='trend')?'':'none';
+  if(view!=='trend'){requestAnimationFrame(function(){window.redrawBE();});}};
+function initBreakevenChart(){}
+window.redrawBE=function(){
+  var tab=document.querySelector('.fc-tab.active');
+  var view=tab?tab.dataset.view:'monthly';
+  if(view==='trend')return;
+  var invest=(parseInt(document.getElementById('investInput').value)||0)
+            +(parseInt(document.getElementById('interiorInput').value)||0);
+  if(invest<=0)invest=5000;
+  drawBE(derive(D.fin.months),invest,view);};
+function drawBE(dm,invest,mode){
+  var canvas=document.getElementById('beCanvas');if(!canvas)return;
+  if(!mode)mode='monthly';
+  var iRow=document.getElementById('investRow');
+  if(iRow)iRow.style.display=(mode==='cumulative')?'flex':'none';
+  var leg=document.getElementById('beLegend');
+  if(leg){if(mode==='monthly'){
+    leg.innerHTML='<div class="be-leg" style="--lc:#F59E0B">매입비</div>'
+      +'<div class="be-leg" style="--lc:#A78BFA">인건비</div>'
+      +'<div class="be-leg" style="--lc:#1A8CFF">운영비</div>'
+      +'<div class="be-leg" style="--lc:#00E676">순수익</div>'
+      +'<div class="be-leg" style="--lc:#00CFFF">총매출선</div>';
+  }else{
+    leg.innerHTML='<div class="be-leg" style="--lc:#00E676">플러스 구간</div>'
+      +'<div class="be-leg" style="--lc:#FF3D3D">마이너스 구간</div>'
+      +'<div class="be-leg" style="--lc:rgba(0,207,255,.5)">BEP 기준선</div>';}}
+  var dpr=window.devicePixelRatio||1;
+  var W=canvas.parentElement.clientWidth;
+  var H=260;
+  canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);
+  canvas.style.width=W+'px';canvas.style.height=H+'px';
+  var ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  var PAD={t:18,b:6,l:52,r:10};
+  var cW=W-PAD.l-PAD.r;
+  var n=dm.length,barW=cW/n,barGap=Math.max(2,barW*0.1);
+  // cumulative data (shared by both modes)
+  var cumArr=[],cum=-invest;
+  for(var i=0;i<n;i++){cum+=dm[i].netProfit;cumArr.push(cum);}
+  var minCum=Math.min(-invest,Math.min.apply(null,cumArr));
+  var maxCum=Math.max(0,Math.max.apply(null,cumArr));
+  var cumRange=maxCum-minCum||1;
+  var bepX=null,bepMon=-1;
+  for(var i=0;i<n;i++){
+    if(cumArr[i]>=0){
+      var prev=(i===0)?-invest:cumArr[i-1];
+      bepX=PAD.l+i*barW+(-prev)/(cumArr[i]-prev)*barW;bepMon=i+1;break;}}
+  var infoEl=document.getElementById('beInfo');
+  if(infoEl){if(bepMon>0){infoEl.textContent='BEP '+bepMon+'개월';infoEl.style.color='#00E676';}
+    else{infoEl.textContent='BEP 미달성';infoEl.style.color='#FF3D3D';}}
+  if(window._beAnim)cancelAnimationFrame(window._beAnim);
+  var t0=null;
+
+  if(mode==='monthly'){
+    // ── MONTHLY MODE: full-height stacked cost bars + revenue line ──
+    var padB=24,baseY=H-padB,topInner=baseY-PAD.t;
+    var maxTop=0;dm.forEach(function(m){maxTop=Math.max(maxTop,m.rev,m.totalCost);});
+    if(!maxTop)maxTop=1;
+    var topScale=topInner*0.9/maxTop;
+    function frameM(ts){
+      if(!t0)t0=ts;var prog=Math.min(1,(ts-t0)/1200),p=1-Math.pow(1-prog,3);
+      ctx.clearRect(0,0,W,H);
+      ctx.font='8px "Share Tech Mono",monospace';
+      for(var g=1;g<=4;g++){
+        var gv=maxTop*g/4,gy=baseY-gv*topScale;
+        if(gy<PAD.t)continue;
+        ctx.beginPath();ctx.moveTo(PAD.l,gy);ctx.lineTo(W-PAD.r,gy);
+        ctx.strokeStyle='rgba(0,207,255,.04)';ctx.lineWidth=1;ctx.stroke();
+        ctx.fillStyle='rgba(58,84,112,.7)';ctx.textAlign='right';
+        ctx.fillText(fmt(Math.round(gv)),PAD.l-4,gy+3);}
+      dm.forEach(function(m,i){
+        var bx=PAD.l+i*barW+barGap,bw=barW-barGap*2,stack=0;
+        function seg(val,clr){if(val<=0)return;var h=val*topScale*p;ctx.fillStyle=clr;ctx.fillRect(bx,baseY-stack-h,bw,h);stack+=h;}
+        seg(m.cogs,'#F59E0B');seg(m.labor,'#A78BFA');
+        seg((m.rent||0)+(m.util||0)+(m.mkt||0)+(m.other||0),'#1A8CFF');
+        var revY=baseY-m.rev*topScale*p,costY=baseY-stack;
+        if(costY>revY){var g2=ctx.createLinearGradient(0,revY,0,costY);g2.addColorStop(0,'rgba(0,230,118,.3)');g2.addColorStop(1,'rgba(0,230,118,.06)');ctx.fillStyle=g2;ctx.fillRect(bx,revY,bw,costY-revY);}
+        else if(costY<revY){ctx.fillStyle='rgba(255,61,61,.35)';ctx.fillRect(bx,costY,bw,revY-costY);}
+        ctx.fillStyle='rgba(58,84,112,.65)';ctx.textAlign='center';ctx.font='7px "Share Tech Mono",monospace';
+        ctx.fillText((i+1)+'M',PAD.l+(i+.5)*barW,H-8);});
+      ctx.beginPath();
+      dm.forEach(function(m,i){var cx=PAD.l+(i+.5)*barW,ry=baseY-m.rev*topScale*p;i===0?ctx.moveTo(cx,ry):ctx.lineTo(cx,ry);});
+      ctx.strokeStyle='#00CFFF';ctx.lineWidth=1.5;ctx.lineJoin='round';ctx.stroke();
+      dm.forEach(function(m,i){ctx.beginPath();ctx.arc(PAD.l+(i+.5)*barW,baseY-m.rev*topScale*p,2,0,Math.PI*2);ctx.fillStyle='#00CFFF';ctx.fill();});
+      if(prog<1)window._beAnim=requestAnimationFrame(frameM);}
+    window._beAnim=requestAnimationFrame(frameM);
+
+  }else{
+    // ── CUMULATIVE MODE: full-height P&L recovery line ──
+    var botTop2=PAD.t,botInner2=H-PAD.t-PAD.b-20;
+    function vToY(v){return botTop2+(1-(v-minCum)/cumRange)*botInner2;}
+    var zeroY=vToY(0),zf=(zeroY-botTop2)/botInner2;
+    function frameC(ts){
+      if(!t0)t0=ts;var prog=Math.min(1,(ts-t0)/1200),p=1-Math.pow(1-prog,3);
+      ctx.clearRect(0,0,W,H);
+      ctx.font='8px "Share Tech Mono",monospace';
+      // Grid
+      [minCum,maxCum/2,maxCum].forEach(function(v){
+        if(v>maxCum||v<minCum)return;
+        var gy=vToY(v);
+        ctx.beginPath();ctx.moveTo(PAD.l,gy);ctx.lineTo(W-PAD.r,gy);
+        ctx.strokeStyle='rgba(0,207,255,.04)';ctx.lineWidth=1;ctx.stroke();
+        ctx.fillStyle='rgba(58,84,112,.7)';ctx.textAlign='right';
+        ctx.fillText(fmt(Math.round(v)),PAD.l-4,gy+3);});
+      // Zero line
+      ctx.beginPath();ctx.moveTo(PAD.l,zeroY);ctx.lineTo(W-PAD.r,zeroY);
+      ctx.strokeStyle='rgba(0,207,255,.25)';ctx.lineWidth=1;ctx.setLineDash([4,4]);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle='rgba(0,207,255,.55)';ctx.textAlign='right';ctx.fillText('0',PAD.l-4,zeroY+3);
+      // Cumulative line points
+      var cpts=[{x:PAD.l,v:-invest}];
+      var vis=Math.round(n*p);
+      for(var i=0;i<vis;i++)cpts.push({x:PAD.l+(i+1)*barW,v:cumArr[i]});
+      if(cpts.length>=2){
+        ctx.beginPath();ctx.moveTo(cpts[0].x,zeroY);
+        cpts.forEach(function(pt){ctx.lineTo(pt.x,vToY(pt.v));});
+        ctx.lineTo(cpts[cpts.length-1].x,zeroY);ctx.closePath();
+        var ag=ctx.createLinearGradient(0,botTop2,0,botTop2+botInner2);
+        ag.addColorStop(0,'rgba(0,230,118,.1)');ag.addColorStop(Math.min(zf,.99),'rgba(0,230,118,.05)');
+        ag.addColorStop(Math.min(zf+.001,1),'rgba(255,61,61,.05)');ag.addColorStop(1,'rgba(255,61,61,.18)');
+        ctx.fillStyle=ag;ctx.fill();
+        for(var i=1;i<cpts.length;i++){
+          ctx.beginPath();ctx.moveTo(cpts[i-1].x,vToY(cpts[i-1].v));ctx.lineTo(cpts[i].x,vToY(cpts[i].v));
+          ctx.strokeStyle=cpts[i-1].v>=0?'#00E676':'#FF3D3D';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.stroke();}}
+      // Start dot + label
+      ctx.beginPath();ctx.arc(PAD.l,vToY(-invest),4,0,Math.PI*2);ctx.fillStyle='#FF3D3D';ctx.fill();
+      ctx.fillStyle='rgba(200,214,232,.7)';ctx.textAlign='right';
+      ctx.fillText('-'+fmt(invest),PAD.l-4,vToY(-invest)+3);
+      // Month tick labels
+      ctx.fillStyle='rgba(58,84,112,.65)';ctx.textAlign='center';ctx.font='7px "Share Tech Mono",monospace';
+      for(var i=0;i<n;i++){
+        var tx=PAD.l+(i+.5)*barW,ty=botTop2+botInner2+14;
+        ctx.fillText((i+1)+'M',tx,ty);
+        ctx.beginPath();ctx.moveTo(PAD.l+(i+1)*barW,botTop2+botInner2);ctx.lineTo(PAD.l+(i+1)*barW,botTop2+botInner2+4);
+        ctx.strokeStyle='rgba(58,84,112,.3)';ctx.lineWidth=1;ctx.stroke();}
+      // BEP marker
+      if(bepX!==null&&prog>0.98){
+        ctx.beginPath();ctx.moveTo(bepX,botTop2);ctx.lineTo(bepX,botTop2+botInner2+4);
+        ctx.strokeStyle='rgba(0,230,118,.4)';ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.stroke();ctx.setLineDash([]);
+        ctx.beginPath();ctx.arc(bepX,zeroY,5,0,Math.PI*2);ctx.fillStyle='#00E676';ctx.fill();
+        ctx.beginPath();ctx.arc(bepX,zeroY,2.5,0,Math.PI*2);ctx.fillStyle='#0A0E1A';ctx.fill();
+        ctx.fillStyle='rgba(0,230,118,.9)';ctx.textAlign='center';
+        ctx.font='bold 9px "Share Tech Mono",monospace';ctx.fillText('BEP',bepX,zeroY-12);}
+      if(prog<1)window._beAnim=requestAnimationFrame(frameC);}
+    window._beAnim=requestAnimationFrame(frameC);}
+}
+
+/* ═══ TICKER ═══ */
+function initTicker(){
+  var dm=derive(D.fin.months);
+  var totRev=dm.reduce(function(s,m){return s+m.rev;},0);
+  var totP=dm.reduce(function(s,m){return s+m.netProfit;},0);
+  var margin=totRev>0?Math.round(totP/totRev*100):0;
+  var b=D.biz;
+  var nameStr=b.name?b.name+' · ':'';
+  var items=[
+    '[AI ANALYSIS] '+nameStr+b.date+'년 재무 분석 완료',
+    '연간 총매출 '+fmtAmt(Math.round(totRev))+' · 분기별 추세 분석 완료',
+    '평균 이익률 '+margin+'% — '+(margin>=15?'[OK] 기준치 충족':'[ALERT] 구조 개선 필요'),
+    '소상공인진흥공단 저금리 대출 신청 적격 여부 검토 권장',
+    '고정비 최적화 실행 시 연간 수익 개선 여지 존재',
+    '세무 최적화 완료 시 이익률 추가 개선 가능',
+    '[DIRECTOR ACTION] 실행 로드맵 기반 방문 컨설팅 준비'
+  ];
+  var sep='<span class="tick-sep"> ·· </span>';
+  var html=items.map(function(t){return '<span class="tick-item">'+t+'</span>';}).join(sep);
+  var el=document.getElementById('tickerInner');
+  if(el)el.innerHTML=html+sep+html;}
+
+/* ═══ AI INSIGHT ═══ */
+function initAIInsight(){
+  var dm=derive(D.fin.months);
+  var filled=dm.filter(function(m){return m.rev>0;});
+  if(filled.length===0)return;
+  var totRev=dm.reduce(function(s,m){return s+m.rev;},0);
+  var totP=dm.reduce(function(s,m){return s+m.netProfit;},0);
+  var margin=totRev>0?totP/totRev*100:0;
+  var avgCRate=filled.reduce(function(s,m){return s+(m.rev>0?m.cogs/m.rev*100:0);},0)/filled.length;
+  var avgRent=filled.reduce(function(s,m){return s+(m.rent||0);},0)/filled.length;
+  var avgLabor=filled.reduce(function(s,m){return s+(m.labor||0);},0)/filled.length;
+  var avgMkt=filled.reduce(function(s,m){return s+(m.mkt||0);},0)/filled.length;
+  var avgRev=filled.reduce(function(s,m){return s+m.rev;},0)/filled.length;
+  /* 전반기/후반기 성장 */
+  var h1=dm.slice(0,6).reduce(function(s,m){return s+m.rev;},0);
+  var h2=dm.slice(6).reduce(function(s,m){return s+m.rev;},0);
+  var growthPct=h1>0?Math.round((h2-h1)/h1*100):0;
+  /* 비수기 파악 */
+  var minMon=dm.reduce(function(a,m){return m.rev>0&&m.rev<(a.rev||9e9)?m:a},{});
+  var maxMon=dm.reduce(function(a,m){return m.rev>a.rev?m:a},{rev:0});
+  /* 고정비 부담 */
+  var fixedAvg=(avgRent+avgLabor)/avgRev*100;
+  /* 헛점 */
+  var issues=[];
+  if(margin<10)issues.push({ico:'📉',title:'낮은 이익률 · '+margin.toFixed(1)+'%',
+    desc:'업종 평균(15~20%) 대비 수익성이 낮습니다. 매입 원가율 '+avgCRate.toFixed(1)+'% 점검과 고정비 구조 재편이 필요합니다.',
+    val:'목표: +5%p 개선 시 연 '+fmtAmt(Math.round(totRev*0.05))+' 순수익 증가',clr:'#FF3D3D'});
+  else if(margin<15)issues.push({ico:'⚠️',title:'이익률 개선 여지 · '+margin.toFixed(1)+'%',
+    desc:'안정권이나 추가 최적화로 20% 이상 달성이 가능합니다. 비용 구조 세부 점검을 권장합니다.',
+    val:'목표 20% 달성 시 연 '+fmtAmt(Math.round(totRev*0.05))+' 추가 수익',clr:'#FFB300'});
+  if(fixedAvg>50)issues.push({ico:'🏗',title:'고정비 과부담 · 매출比 '+Math.round(fixedAvg)+'%',
+    desc:'임대료+인건비가 매출의 '+Math.round(fixedAvg)+'%를 차지합니다. 임대 재협상 또는 인력 효율화가 시급합니다.',
+    val:'10% 절감 시 월 '+fmtAmt(Math.round((avgRent+avgLabor)*0.1))+' 현금흐름 개선',clr:'#FF3D3D'});
+  if(growthPct<0)issues.push({ico:'📊',title:'하반기 매출 하락 · '+growthPct+'%',
+    desc:'상반기 대비 하반기 매출이 감소했습니다. 계절성 요인 외 구조적 원인 점검이 필요합니다.',
+    val:'하반기 회복 목표 설정 필요',clr:'#FFB300'});
+  /* 최대 2개 */
+  issues=issues.slice(0,2);
+  if(issues.length===0)issues.push({ico:'✅',title:'수익 구조 양호',
+    desc:'현재 이익률은 컨설팅 기준치를 충족하고 있습니다. 성장 가속화 전략으로 전환할 시점입니다.',
+    val:'현 구조 유지 + 매출 확대 전략 권장',clr:'#00E676'});
+  /* 기회 */
+  var opps=[];
+  if(avgMkt/avgRev*100<5)opps.push({ico:'📣',title:'마케팅 투자 확대',
+    desc:'마케팅비 비율이 매출의 '+Math.round(avgMkt/avgRev*100)+'%로 업종 평균(5~8%) 하회합니다. 네이버 플레이스·SNS 최적화로 매출 10~15% 성장이 가능합니다.',
+    val:'월 마케팅비 +'+fmtAmt(Math.round(avgRev*0.02))+' 투자 시 매출 +10% 기대',clr:'#00E676'});
+  if(minMon.rev>0)opps.push({ico:'📅',title:'비수기 집중 관리 · '+minMon.m+'월',
+    desc:minMon.m+'월 매출이 연중 최저('+fmtAmt(minMon.rev)+')입니다. 시즌 프로모션·멤버십 프로그램으로 비수기 매출 방어가 핵심 과제입니다.',
+    val:'비수기 10% 개선 시 연 '+fmtAmt(Math.round(minMon.rev*0.1*4))+' 추가 매출',clr:'#A78BFA'});
+  opps.push({ico:'🏪',title:'권리금 데이터 축적',
+    desc:'수익 데이터 누적으로 권리금 협상력이 강화됩니다. 월 순수익 데이터를 체계화하면 적정 권리금 산정 근거를 확보할 수 있습니다.',
+    val:'현 수익 기준 권리금 추정 +30~50% 협상 여지',clr:'#1A8CFF'});
+  opps=opps.slice(0,2);
+  var issueHtml=issues.map(function(c){
+    return '<div class="ai-card" style="--ac:'+c.clr+'">'
+      +'<div class="ai-card-ico">'+c.ico+'</div>'
+      +'<div><div class="ai-card-title">'+c.title+'</div>'
+      +'<div class="ai-card-desc">'+c.desc+'</div>'
+      +'<div class="ai-card-val" style="color:'+c.clr+'">'+c.val+'</div></div>'
+      +'</div>';
+  }).join('');
+  var oppHtml=opps.map(function(c){
+    return '<div class="ai-card opp" style="--ac:'+c.clr+'">'
+      +'<div class="ai-card-ico">'+c.ico+'</div>'
+      +'<div><div class="ai-card-title">'+c.title+'</div>'
+      +'<div class="ai-card-desc">'+c.desc+'</div>'
+      +'<div class="ai-card-val" style="color:'+c.clr+'">'+c.val+'</div></div>'
+      +'</div>';
+  }).join('');
+  var container=document.getElementById('aiCards');
+  if(container)container.innerHTML=
+    '<div class="ai-card-group"><div class="ai-card-group-lbl">⚡ 경영 헛점 · 즉시 개선 필요</div>'+issueHtml+'</div>'
+    +'<div class="ai-card-group"><div class="ai-card-group-lbl">🚀 성장 기회 · 디렉터 실행 영역</div>'+oppHtml+'</div>';
+  var ts=document.getElementById('aiInsightTs');
+  if(ts)ts.textContent=new Date().toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+
+/* ═══ ROADMAP v2 ═══ */
+function initRoadmap(){
+  var biz=D.biz.name||'';
+  var road=D.lc.road;
+  var labels={active:'진행중',upcoming:'예정',done:'완료'};
+  var html=road.map(function(r,i){
+    var cls='s-'+(r.status==='active'?'act':'up');
+    var acts=(r.actions||r.kpis||[]).map(function(a){
+      return '<div class="rm-action-item">'+a+'</div>';
+    }).join('');
+    /* load saved note */
+    var savedNote='';
+    try{var k='rmNote_'+biz+'_'+i;savedNote=localStorage.getItem(k)||'';}catch(e){}
+    var savedBadge=savedNote?'<span style="font-size:9px;color:rgba(0,230,118,.5);margin-left:6px">저장됨</span>':'';
+    return '<div class="rm-col" style="--rc:'+r.clr+'">'
+      +'<div class="rm-col-hd">'
+      +'<div class="rm-col-ph">'+r.ph+'</div>'
+      +'<div class="rm-col-ttl">'+r.ttl+'</div>'
+      +'<div class="rm-col-desc">'+r.desc+'</div>'
+      +'<span class="rm-col-bdg '+cls+'">'+labels[r.status||'upcoming']+'</span>'
+      +'</div>'
+      +'<div class="rm-actions">'
+      +'<div class="rm-actions-lbl">디렉터 실행 항목</div>'
+      +acts
+      +'</div>'
+      +'<div class="rm-note-area">'
+      +'<div class="rm-note-lbl">사업자 의견 및 현황'+savedBadge+'</div>'
+      +'<textarea class="rm-note-input" id="rmNote'+i+'" placeholder="이 단계에 대한 현황, 질문, 의견을 자유롭게 입력하세요...">'+savedNote+'</textarea>'
+      +'<button class="rm-note-save" onclick="saveRmNote('+i+')">저장</button>'
+      +'<div class="rm-note-saved" id="rmNoteSaved'+i+'">✓ 저장되었습니다</div>'
+      +'</div>'
+      +'<div class="rm-prog"><div class="rm-prog-fill" data-w="'+r.progress+'"></div></div>'
+      +'</div>';
+  }).join('');
+  var el=document.getElementById('rmGrid');
+  if(el)el.innerHTML=html;
+  /* animate progress bars */
+  setTimeout(function(){
+    document.querySelectorAll('.rm-prog-fill').forEach(function(f){
+      f.style.width=(f.dataset.w||0)+'%';});
+  },400);
+}
+
+window.saveRmNote=function(i){
+  var biz=D.biz.name||'';
+  var ta=document.getElementById('rmNote'+i);
+  if(!ta)return;
+  try{localStorage.setItem('rmNote_'+biz+'_'+i,ta.value);}catch(e){}
+  var sv=document.getElementById('rmNoteSaved'+i);
+  if(sv){sv.style.display='block';setTimeout(function(){sv.style.display='none';},2000);}
+};
+
+/* ═══ INIT ═══ */
+function showDashboard(){
+  document.getElementById('welcomeState').style.display='none';
+  document.getElementById('dashboard').style.display='block';
+}
+function initAll(){
+  document.getElementById('ls').style.display='none';
+  startClock();
+  if(D._hasData||D.biz.name){
+    showDashboard();
+    initHeader();initDirectorStrip();initAIInsight();initKPI();initQStats();
+    initChart();initSolutions();initBreakevenChart();initRoadmap();initTicker();
+    document.querySelectorAll('.fu').forEach(function(el){io.observe(el);});
+  }
+}
+
+/* ═══ BIZ SEARCH ═══ */
+var _bizList=[];
+var _selectedBiz='';
+
+function loadBizList(cb){
+  if(_bizList.length>0){if(cb)cb(_bizList);return;}
+  var n='_gbizlist_'+Date.now();window[n]=function(res){delete window[n];
+    try{
+      var c=res.table.cols.map(function(x){return x.label||x.id;});
+      var rows=res.table.rows.map(function(row){var o={};row.c.forEach(function(cell,j){o[c[j]]=cell?cell.v:null;});return o;});
+      _bizList=rows.map(function(r){return r['상호명']||'';}).filter(function(x){return x;});
+      _bizList=[...new Set(_bizList)]; // deduplicate
+      if(cb)cb(_bizList);
+    }catch(e){if(cb)cb([]);}};
+  var s=document.createElement('script');s.onerror=function(){if(cb)cb([]);};
+  s.src='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:json;responseHandler:'+n+'&t='+Date.now();
+  document.body.appendChild(s);
+}
+
+function onBizSearch(){
+  var val=(document.getElementById('bizSearchInput').value||'').trim();
+  var drop=document.getElementById('bizListDrop');
+  if(!val){drop.classList.remove('open');return;}
+  loadBizList(function(list){
+    var filtered=list.filter(function(b){return b.indexOf(val)>=0;}).slice(0,8);
+    if(filtered.length===0){drop.classList.remove('open');return;}
+    drop.innerHTML=filtered.map(function(b){
+      return '<div class="biz-list-item" onclick="selectBiz(\''+encodeURIComponent(b)+'\')">'+b+'</div>';
+    }).join('');
+    drop.classList.add('open');
+  });
+}
+
+function selectBiz(enc){
+  var name=decodeURIComponent(enc);
+  document.getElementById('bizSearchInput').value=name;
+  _selectedBiz=name;
+  document.getElementById('bizListDrop').classList.remove('open');
+}
+
+function doBizLoad(){
+  var name=_selectedBiz||document.getElementById('bizSearchInput').value.trim();
+  if(!name){return;}
+  _selectedBiz=name;
+  document.getElementById('barBiz').textContent=name+'  (로딩 중…)';
+  D.biz.name=name;D._isProjected=false;D._hasData=true;
+  /* reset UI for re-search */
+  document.getElementById('dashboard').style.display='none';
+  document.getElementById('welcomeState').style.display='none';
+  var done=0;
+  function check(){if(++done>=2)initAll();}
+  loadFromSheets(name,YEAR_PARAM,function(e,r){applyBasicData(r||{});check();});
+  loadFinancials(name,YEAR_PARAM,function(e,m){
+    if(m){applyFinancialData(m);}
+    else if(DT&&DT.loadLocalToBoard){DT.loadLocalToBoard(name,YEAR_PARAM);}
+    check();
+  });
+}
+
+/* Close dropdown on outside click */
+document.addEventListener('click',function(e){
+  var drop=document.getElementById('bizListDrop');
+  if(drop&&!drop.contains(e.target)&&e.target.id!=='bizSearchInput') drop.classList.remove('open');
+});
+
+function loadInvestFromLocal(biz){
+  try{
+    var raw=localStorage.getItem('invest_'+biz);
+    if(!raw)return;
+    var inv=JSON.parse(raw);
+    var iEl=document.getElementById('investInput');
+    var nEl=document.getElementById('interiorInput');
+    if(iEl&&inv.invest)  iEl.value=inv.invest;
+    if(nEl&&inv.interior)nEl.value=inv.interior;
+  }catch(e){}
+}
+
+(function start(){
+  /* 로딩 스피너 숨기기 */
+  document.getElementById('ls').style.display='none';
+  startClock();
+  if(!BIZ_PARAM){
+    /* 검색 전: welcome state 표시 */
+    return;
+  }
+  D.biz.date=YEAR_PARAM;D._hasData=true;var done=0;
+  function check(){if(++done>=2){loadInvestFromLocal(BIZ_PARAM);initAll();}}
+  loadFromSheets(BIZ_PARAM,YEAR_PARAM,function(e,r){applyBasicData(r);check();});
+  loadFinancials(BIZ_PARAM,YEAR_PARAM,function(e,m){
+    if(m){applyFinancialData(m);}
+    else if(DT&&DT.loadLocalToBoard){DT.loadLocalToBoard(BIZ_PARAM,YEAR_PARAM);}
+    check();
+  });
+})();
+
+/* ═══ 재무 데이터 입력 드로어 (DT namespace) ═══ */
+var DT=(function(){
+  var _oi={},_coi={},_id=0,BIZ='',YEAR='';
+  var QQ=[{q:1,n:'1분기',m:[1,2,3]},{q:2,n:'2분기',m:[4,5,6]},{q:3,n:'3분기',m:[7,8,9]},{q:4,n:'4분기',m:[10,11,12]}];
+  var FF=[{k:'rent',l:'임대료'},{k:'labor',l:'인건비'},{k:'util',l:'공과금'},{k:'mkt',l:'마케팅비'}];
+  /* 매입 세무 기본 항목 */
+  var COI_PRESET=['재료비','상품 대금','외주·용역비'];
+  function g(id){return document.getElementById('dt_'+id);}
+  function gv(id){return parseFloat(g(id)&&g(id).value)||0;}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+  function openModal(){
+    BIZ=D.biz.name||document.getElementById('bizSearchInput').value.trim()||'';
+    if(!D.biz.name&&BIZ)D.biz.name=BIZ;
+    YEAR=D.biz.date||new Date().getFullYear();
+    var s=g('bizYear');if(s)s.textContent=(BIZ||'사업체')+' · '+YEAR+'년 재무 현황';
+    document.getElementById('dtm_overlay').classList.add('on');
+    /* 본인 확인: localStorage에 고객정보가 있는지 체크 */
+    var stored=null;
+    try{if(BIZ)stored=JSON.parse(localStorage.getItem('client_'+BIZ)||'null');}catch(e){}
+    if(stored&&stored.brn){
+      /* 등록된 사업자번호 있음 → 확인 레이어 표시 */
+      _showVerify(BIZ,stored.brn);
+    } else {
+      /* 미등록 → 바로 진입 (첫 이용) */
+      _showMain();
+    }
+  }
+  function _showVerify(biz,brn){
+    document.getElementById('dt_verifyLayer').style.display='flex';
+    document.getElementById('dt_mainLayer').style.display='none';
+    var bizEl=document.getElementById('dt_verBiz');
+    var brnEl=document.getElementById('dt_verBrn');
+    var errEl=document.getElementById('dt_verErr');
+    var msgEl=document.getElementById('dt_verifyMsg');
+    if(bizEl){bizEl.value=biz||'';bizEl.readOnly=!!(biz);}
+    if(brnEl)brnEl.value='';
+    if(errEl)errEl.textContent='';
+    if(msgEl)msgEl.textContent='보안을 위해 사업자등록번호를 다시 입력해 주세요.';
+    setTimeout(function(){if(brnEl)brnEl.focus();},200);
+  }
+  function _showMain(){
+    document.getElementById('dt_verifyLayer').style.display='none';
+    document.getElementById('dt_mainLayer').style.display='flex';
+    buildUI();restoreLocal();
+  }
+  function verifyAccess(){
+    var inputBiz=(document.getElementById('dt_verBiz').value||'').trim();
+    var inputBrn=(document.getElementById('dt_verBrn').value||'').replace(/\D/g,'');
+    var errEl=document.getElementById('dt_verErr');
+    /* 저장된 정보 */
+    var lookupBiz=inputBiz||BIZ;
+    var stored=null;
+    try{stored=JSON.parse(localStorage.getItem('client_'+lookupBiz)||'null');}catch(e){}
+    if(!stored||!stored.brn){errEl.textContent='등록된 고객정보가 없습니다. 아래 버튼으로 먼저 등록해주세요.';return;}
+    var storedBrn=(stored.brn||'').replace(/\D/g,'');
+    if(!inputBrn){errEl.textContent='사업자등록번호를 입력해 주세요.';return;}
+    /* 상호명 일치 확인 */
+    if(inputBiz&&inputBiz!==lookupBiz){errEl.textContent='상호명이 일치하지 않습니다.';return;}
+    /* 사업자번호 일치 확인 */
+    if(inputBrn!==storedBrn){errEl.textContent='사업자등록번호가 일치하지 않습니다. 다시 확인해 주세요.';return;}
+    /* 인증 성공 */
+    BIZ=lookupBiz;
+    if(!D.biz.name)D.biz.name=BIZ;
+    var s=g('bizYear');if(s)s.textContent=BIZ+' · '+YEAR+'년 재무 현황';
+    errEl.textContent='';
+    _showMain();
+  }
+  function closeModal(){
+    document.getElementById('dtm_overlay').classList.remove('on');
+    /* 확인 레이어 초기화 */
+    var errEl=document.getElementById('dt_verErr');if(errEl)errEl.textContent='';
+  }
+
+  function buildUI(){
+    var te=g('qTabs'),ce=g('qContents');
+    if(!te||te.children.length>0)return;
+    QQ.forEach(function(q,qi){
+      var tab=document.createElement('div');
+      tab.className='dtm-qtab'+(qi===0?' active':'');
+      tab.id='dt_qtab-'+q.q;
+      tab.innerHTML=q.n+'<span class="dtm-qdone" id="dt_qdone-'+q.q+'" style="display:none">✓</span>';
+      tab.onclick=(function(n){return function(){showQ(n);};})(q.q);
+      te.appendChild(tab);
+      var co=document.createElement('div');
+      co.className='dtm-qcont'+(qi===0?' active':'');
+      co.id='dt_qcont-'+q.q;
+      co.innerHTML='<div class="dtm-qlbl">'+q.n+' ('+q.m[0]+'~'+q.m[2]+'월)</div>';
+      var gr=document.createElement('div');gr.className='dtm-grid';
+      q.m.forEach(function(m){gr.appendChild(buildCard(m));});
+      co.appendChild(gr);ce.appendChild(co);
+    });
+  }
+
+  function buildCard(m){
+    var card=document.createElement('div');
+    card.className='dtm-mc';card.id='dt_mc-'+m;
+    var cpBtn=m>1?'<button class="dtm-copy-btn" onclick="DT.copyPrev('+m+')">← 전달 복사</button>':'<span style="font-size:10px;color:#1E3248">직접 입력</span>';
+    var fixRows=FF.map(function(f){
+      return '<div class="dtm-f"><div class="dtm-flbl">'+f.l+'</div>'
+        +'<div class="dtm-iw"><input type="number" id="dt_m'+m+'_'+f.k+'" min="0" placeholder="0" oninput="DT.calc('+m+')">'
+        +'<span class="u">만원</span></div></div>';
+    }).join('');
+    var otherHtml=
+      '<div class="dtm-other-sec">'
+      +'<div class="dtm-other-tog" onclick="DT.toggleOther('+m+')">'
+      +'<span id="dt_oico-'+m+'" style="font-size:9px;color:#1E3248">▶</span>기타 고정비'
+      +'<span class="dtm-other-sum" id="dt_osum-'+m+'">0원</span>'
+      +'</div>'
+      +'<div class="dtm-other-body" id="dt_obody-'+m+'">'
+      +'<div id="dt_olist-'+m+'"></div>'
+      +'<button class="dtm-add-item" onclick="DT.addOther('+m+')">+ 항목 추가</button>'
+      +'</div></div>';
+    /* 매입 항목 섹션 */
+    var coiHtml=
+      '<div style="margin-bottom:8px">'
+      +'<div class="dtm-coi-hd">'
+      +'<span class="dtm-coi-ttl">📦 매입 항목 (세무 기준)</span>'
+      +'<span class="dtm-coi-sum" id="dt_cisum-'+m+'">—</span>'
+      +'</div>'
+      +'<div id="dt_cilist-'+m+'"></div>'
+      +'<button class="dtm-add-item" onclick="DT.addCoi('+m+')" style="margin-top:4px">+ 매입 항목 추가</button>'
+      +'</div>';
+    card.innerHTML=
+      '<div class="dtm-mc-hd"><span class="dtm-mc-lbl">'+m+'월</span>'+cpBtn+'</div>'
+      +'<div class="dtm-mc-body">'
+      +'<div class="dtm-f"><div class="dtm-flbl">매출 <span style="color:#FF5555;font-size:9px">*</span></div>'
+      +'<div class="dtm-iw"><input type="number" id="dt_m'+m+'_rev" min="0" placeholder="0" oninput="DT.calc('+m+')">'
+      +'<span class="u">만원</span></div></div>'
+      +'<hr class="dtm-hr">'
+      +coiHtml
+      +'<hr class="dtm-hr"><div class="dtm-sec-lbl">고정비 항목</div>'
+      +fixRows+otherHtml
+      +'<div class="dtm-calc">'
+      +'<div class="dtm-calc-row"><span class="dtm-calc-k">매입 합계</span><span class="dtm-calc-v" id="dt_cvcogs-'+m+'">—</span></div>'
+      +'<div class="dtm-calc-row"><span class="dtm-calc-k">원가율</span><span class="dtm-calc-v" id="dt_cvrate2-'+m+'">—</span></div>'
+      +'<hr class="dtm-calc-hr">'
+      +'<div class="dtm-calc-row"><span class="dtm-calc-k">총비용</span><span class="dtm-calc-v" id="dt_cvcost-'+m+'">—</span></div>'
+      +'<div class="dtm-calc-row"><span class="dtm-calc-k">순수익</span><span class="dtm-calc-v" id="dt_cvprof-'+m+'">—</span></div>'
+      +'<div class="dtm-calc-row"><span class="dtm-calc-k">이익률</span><span class="dtm-calc-v" id="dt_cvrate-'+m+'">—</span></div>'
+      +'</div></div>';
+    /* 매입 기본 항목 초기화 */
+    _coi[m]=COI_PRESET.map(function(n){return{id:++_id,name:n,amt:0,preset:true};});
+    setTimeout(function(){renderCoi(m);},0);
+    return card;
+  }
+
+  /* ── 매입 항목 (COI) ── */
+  function calcCoi(m){var s=0;(_coi[m]||[]).forEach(function(it){s+=parseFloat(it.amt)||0;});return s;}
+  function renderCoi(m){
+    var le=document.getElementById('dt_cilist-'+m),se=document.getElementById('dt_cisum-'+m);
+    if(!le)return;
+    var h=(_coi[m]||[]).map(function(it){
+      return '<div class="dtm-other-item" id="dt_ci-'+it.id+'">'
+        +'<input class="dtm-o-name" type="text" placeholder="항목명" value="'+esc(it.name)+'"'
+        +(it.preset?' style="color:rgba(255,179,0,.8)"':'')+' oninput="DT.ciName('+m+','+it.id+',this.value)">'
+        +'<div style="display:flex;align-items:center;gap:3px">'
+        +'<input class="dtm-o-amt" type="number" min="0" placeholder="0" value="'+esc(it.amt||'')+'"'
+        +' oninput="DT.ciAmt('+m+','+it.id+',this.value)" style="width:78px">'
+        +'<span style="font-size:10px;color:#6B7280">만원</span>'
+        +'</div>'
+        +'<button class="dtm-o-del" onclick="DT.delCoi('+m+','+it.id+')">×</button>'
+        +'</div>';
+    }).join('');
+    le.innerHTML=h;
+    var total=calcCoi(m),rev=gv('m'+m+'_rev');
+    var rate=rev>0?Math.round(total/rev*100):0;
+    if(se)se.textContent=fmtAmt(total)+' (원가율 '+rate+'%)';
+  }
+  function addCoi(m){
+    if(!_coi[m])_coi[m]=[];var id=++_id;
+    _coi[m].push({id:id,name:'',amt:0,preset:false});renderCoi(m);
+    var ne=document.getElementById('dt_ci-'+id);
+    if(ne){var inp=ne.querySelector('.dtm-o-name');if(inp)inp.focus();}
+    calc(m);
+  }
+  function delCoi(m,id){
+    if(!_coi[m])return;_coi[m]=_coi[m].filter(function(it){return it.id!==id;});renderCoi(m);calc(m);
+  }
+  function ciName(m,id,v){(_coi[m]||[]).forEach(function(it){if(it.id===id)it.name=v;});}
+  function ciAmt(m,id,v){
+    (_coi[m]||[]).forEach(function(it){if(it.id===id)it.amt=parseFloat(v)||0;});
+    renderCoi(m);calc(m);
+  }
+
+  /* ── 기타 고정비 (OTHER) ── */
+  function toggleOther(m){
+    var b=document.getElementById('dt_obody-'+m),ic=document.getElementById('dt_oico-'+m);
+    if(!b)return;var open=b.style.display==='block';
+    b.style.display=open?'none':'block';if(ic)ic.textContent=open?'▶':'▼';
+  }
+  /* calcOther: 원(₩) 단위 반환. 만원 계산 시 /10000 */
+  function calcOther(m){var s=0;(_oi[m]||[]).forEach(function(it){s+=parseFloat(it.amt)||0;});return s;}
+  function renderOther(m){
+    var le=document.getElementById('dt_olist-'+m),se=document.getElementById('dt_osum-'+m);
+    if(!le)return;
+    var h=(_oi[m]||[]).map(function(it){
+      var dv=it.amt>0?it.amt.toLocaleString('ko-KR'):'';
+      return '<div class="dtm-other-item" id="dt_oi-'+it.id+'">'
+        +'<input class="dtm-o-name" type="text" placeholder="항목명" value="'+esc(it.name)+'" oninput="DT.oName('+m+','+it.id+',this.value)">'
+        +'<div style="display:flex;align-items:center;gap:3px">'
+        +'<input class="dtm-o-amt" type="text" inputmode="numeric" placeholder="0" value="'+esc(dv)+'"'
+        +' onfocus="this.value=this.value.replace(/,/g,\'\')"'
+        +' onblur="var n=parseInt(this.value.replace(/[^0-9]/g,\'\'))||0;this.value=n>0?n.toLocaleString(\'ko-KR\'):\'\'"'
+        +' oninput="DT.oAmtRaw('+m+','+it.id+',this.value)" style="width:100px;text-align:right">'
+        +'<span style="font-size:10px;color:#6B7280;white-space:nowrap">원</span>'
+        +'</div>'
+        +'<button class="dtm-o-del" onclick="DT.delOther('+m+','+it.id+')">×</button>'
+        +'</div>';
+    }).join('');
+    le.innerHTML=h;
+    var s=calcOther(m),man=s/10000;
+    if(se)se.textContent=s.toLocaleString('ko-KR')+'원 ('+(man===Math.floor(man)?man:man.toFixed(1))+'만원)';
+  }
+  function addOther(m){
+    if(!_oi[m])_oi[m]=[];var id=++_id;
+    _oi[m].push({id:id,name:'',amt:0});renderOther(m);
+    var b=document.getElementById('dt_obody-'+m),ic=document.getElementById('dt_oico-'+m);
+    if(b)b.style.display='block';if(ic)ic.textContent='▼';
+    var ne=document.getElementById('dt_oi-'+id);
+    if(ne){var inp=ne.querySelector('.dtm-o-name');if(inp)inp.focus();}
+    calc(m);
+  }
+  function delOther(m,id){
+    if(!_oi[m])return;_oi[m]=_oi[m].filter(function(it){return it.id!==id;});renderOther(m);calc(m);
+  }
+  function oName(m,id,v){(_oi[m]||[]).forEach(function(it){if(it.id===id)it.name=v;});}
+  function oAmt(m,id,v){(_oi[m]||[]).forEach(function(it){if(it.id===id)it.amt=parseFloat(v)||0;});renderOther(m);calc(m);}
+  function oAmtRaw(m,id,v){
+    var raw=parseInt(String(v).replace(/[^0-9]/g,''))||0;
+    (_oi[m]||[]).forEach(function(it){if(it.id===id)it.amt=raw;});
+    var se=document.getElementById('dt_osum-'+m);
+    if(se){var s=calcOther(m),man=s/10000;se.textContent=s.toLocaleString('ko-KR')+'원 ('+(man===Math.floor(man)?man:man.toFixed(1))+'만원)';}
+    calc(m);
+  }
+
+  /* INVEST */
+  function saveInvestLocal(){
+    try{localStorage.setItem('invest_'+BIZ,JSON.stringify({
+      invest:parseFloat(g('investAmt')&&g('investAmt').value)||0,
+      interior:parseFloat(g('interiorAmt')&&g('interiorAmt').value)||0
+    }));}catch(e){}
+  }
+
+  /* CALC */
+  function calc(m){
+    var rev=gv('m'+m+'_rev');
+    var cogs=calcCoi(m);  /* 매입 합계 (만원) */
+    var cr=rev>0?Math.round(cogs/rev*100):0;
+    var rent=gv('m'+m+'_rent'),labor=gv('m'+m+'_labor'),
+        util=gv('m'+m+'_util'),mkt=gv('m'+m+'_mkt'),other=calcOther(m)/10000;
+    var cost=cogs+rent+labor+util+mkt+other;
+    var net=rev-cost,margin=rev>0?net/rev*100:0;
+    var cgsEl=document.getElementById('dt_cvcogs-'+m);
+    var cr2El=document.getElementById('dt_cvrate2-'+m);
+    var ce=document.getElementById('dt_cvcost-'+m);
+    var pe=document.getElementById('dt_cvprof-'+m);
+    var re=document.getElementById('dt_cvrate-'+m);
+    if(cgsEl)cgsEl.textContent=fmtAmt(Math.round(cogs));
+    if(cr2El){cr2El.textContent=cr+'%';cr2El.style.color=cr<=50?'#00E676':cr<=70?'#FFB300':'#FF3D3D';}
+    if(ce)ce.textContent=fmtAmt(Math.round(cost));
+    if(pe){pe.textContent=(net>=0?'+':'')+fmtAmt(Math.abs(Math.round(net)));pe.style.color=net>=0?'#00E676':'#FF3D3D';}
+    if(re){re.textContent=margin.toFixed(1)+'%';re.style.color=margin>=10?'#00E676':margin>=0?'#FFB300':'#FF3D3D';}
+    var card=document.getElementById('dt_mc-'+m);if(card)card.classList.toggle('has-data',rev>0);
+    updateProg();updateTotals();
+  }
+  function updateProg(){
+    var f=0;for(var m=1;m<=12;m++){if(gv('m'+m+'_rev')>0)f++;}
+    var fill=g('progressFill'),txt=g('progressTxt');
+    if(fill)fill.style.width=Math.round(f/12*100)+'%';if(txt)txt.textContent=f+'/12 완료';
+    QQ.forEach(function(q){
+      var done=q.m.every(function(m){return gv('m'+m+'_rev')>0;});
+      var b=document.getElementById('dt_qdone-'+q.q);if(b)b.style.display=done?'flex':'none';
+    });
+  }
+  function updateTotals(){
+    var tr=0,tp=0,filled=0;
+    for(var m=1;m<=12;m++){
+      var rev=gv('m'+m+'_rev'),cogs=calcCoi(m),
+          rent=gv('m'+m+'_rent'),labor=gv('m'+m+'_labor'),
+          util=gv('m'+m+'_util'),mkt=gv('m'+m+'_mkt'),other=calcOther(m)/10000;
+      if(rev>0)filled++;
+      tr+=rev;tp+=rev-(cogs+rent+labor+util+mkt+other);
+    }
+    var rl=g('revLabel'),pl=g('profLabel');
+    if(filled>0&&filled<12){
+      if(rl)rl.textContent='매출 합계 ('+filled+'/12개월)';
+      if(pl)pl.textContent='순수익 합계 ('+filled+'/12개월)';
+    } else {
+      if(rl)rl.textContent='연간 총매출';
+      if(pl)pl.textContent='연간 순수익';
+    }
+    var re=g('totalRevEl'),pe=g('totalProfitEl');
+    if(re)re.textContent=tr>0?fmtAmt(Math.round(tr)):'—';
+    if(pe){pe.textContent=tr>0?(tp>=0?'+':'')+fmtAmt(Math.abs(Math.round(tp))):'—';pe.style.color=tp>=0?'#00E676':'#FF3D3D';}
+  }
+  function copyPrev(m){
+    if(m<=1)return;var p=m-1;
+    FF.forEach(function(f){var pe=g('m'+p+'_'+f.k),ce=g('m'+m+'_'+f.k);if(pe&&ce&&pe.value)ce.value=pe.value;});
+    _coi[m]=(_coi[p]||[]).map(function(it){return{id:++_id,name:it.name,amt:it.amt,preset:it.preset};});
+    renderCoi(m);
+    _oi[m]=(_oi[p]||[]).map(function(it){return{id:++_id,name:it.name,amt:it.amt};});
+    renderOther(m);calc(m);showToast((m-1)+'월 데이터 복사 완료');
+  }
+  function showQ(q){
+    document.querySelectorAll('.dtm-qtab').forEach(function(t){t.classList.remove('active');});
+    document.querySelectorAll('.dtm-qcont').forEach(function(c){c.classList.remove('active');});
+    var tab=document.getElementById('dt_qtab-'+q),cont=document.getElementById('dt_qcont-'+q);
+    if(tab)tab.classList.add('active');if(cont)cont.classList.add('active');
+  }
+
+  /* SAVE */
+  var _saving=false;
+  function saveAll(){
+    if(_saving)return;
+    var f=0;for(var m=1;m<=12;m++){if(gv('m'+m+'_rev')>0)f++;}
+    if(f===0){showToast('최소 1개월 이상 매출을 입력해 주세요');return;}
+    _saving=true;var btn=g('saveBtn');if(btn){btn.disabled=true;btn.textContent='저장 중...';}
+    var ld={};
+    for(var m=1;m<=12;m++){
+      var rev=gv('m'+m+'_rev'),cogs=calcCoi(m);
+      var autoCRate=rev>0?Math.round(cogs/rev*100):0;
+      ld['m'+m]={rev:rev,cRate:autoCRate,cogs:cogs,
+        rent:gv('m'+m+'_rent'),labor:gv('m'+m+'_labor'),util:gv('m'+m+'_util'),mkt:gv('m'+m+'_mkt'),
+        coiItems:(_coi[m]||[]).map(function(it){return{name:it.name,amt:it.amt,preset:it.preset};}),
+        otherItems:(_oi[m]||[]).map(function(it){return{name:it.name,amt:it.amt};})};
+    }
+    try{localStorage.setItem('fin_'+BIZ+'_'+YEAR,JSON.stringify({saved:new Date().toISOString(),data:ld}));}catch(e){}
+    saveInvestLocal();
+    var form=document.createElement('form');
+    form.method='GET';form.action=GAS_URL;form.target='dt_gs_iframe';form.style.display='none';
+    var flds={action:'saveFinancials',bizName:BIZ,year:YEAR,invest:gv('investAmt'),interior:gv('interiorAmt')};
+    for(var m=1;m<=12;m++){
+      var rev2=gv('m'+m+'_rev'),cogs2=calcCoi(m),cr2=rev2>0?Math.round(cogs2/rev2*100):0;
+      flds['m'+m+'_rev']=rev2;flds['m'+m+'_cRate']=cr2;
+      flds['m'+m+'_rent']=gv('m'+m+'_rent');flds['m'+m+'_labor']=gv('m'+m+'_labor');
+      flds['m'+m+'_util']=gv('m'+m+'_util');flds['m'+m+'_mkt']=gv('m'+m+'_mkt');
+      flds['m'+m+'_other']=calcOther(m)/10000;
+      flds['m'+m+'_otherDetail']=JSON.stringify((_coi[m]||[]).concat(_oi[m]||[]));
+    }
+    Object.keys(flds).forEach(function(k){var inp=document.createElement('input');inp.type='hidden';inp.name=k;inp.value=flds[k];form.appendChild(inp);});
+    document.body.appendChild(form);form.submit();document.body.removeChild(form);
+    setTimeout(function(){
+      showToast('✅ '+BIZ+' '+YEAR+'년 재무 저장 완료');
+      try{
+        var months=[];
+        for(var m=1;m<=12;m++){
+          var rev3=gv('m'+m+'_rev'),cogs3=calcCoi(m),cr3=rev3>0?Math.round(cogs3/rev3*100):0;
+          months.push({m:m,rev:rev3,cRate:cr3,cogs:cogs3,
+            rent:gv('m'+m+'_rent'),labor:gv('m'+m+'_labor'),util:gv('m'+m+'_util'),
+            mkt:gv('m'+m+'_mkt'),other:calcOther(m)/10000});}
+        applyFinancialData(months);initAll();
+      }catch(e){}
+      _saving=false;if(btn){btn.disabled=false;btn.textContent='저장하기';}
+      setTimeout(closeModal,1500);
+    },1800);
+  }
+  function onIframeLoad(){}
+
+  /* RESTORE */
+  function restoreLocal(){
+    try{
+      var iv=localStorage.getItem('invest_'+BIZ);
+      if(iv){var inv=JSON.parse(iv);var iEl=g('investAmt'),nEl=g('interiorAmt');
+        if(iEl&&inv.invest)iEl.value=inv.invest;if(nEl&&inv.interior)nEl.value=inv.interior;}
+      var raw=localStorage.getItem('fin_'+BIZ+'_'+YEAR);if(!raw)return;
+      var sv=JSON.parse(raw);if(!sv.data)return;var d=sv.data;
+      for(var m=1;m<=12;m++){
+        var md=d['m'+m];if(!md)continue;
+        ['rev','rent','labor','util','mkt'].forEach(function(k){var el=g('m'+m+'_'+k);if(el&&md[k]!=null)el.value=md[k];});
+        if(md.coiItems&&md.coiItems.length){
+          _coi[m]=md.coiItems.map(function(it){return{id:++_id,name:it.name,amt:it.amt,preset:it.preset||false};});
+          renderCoi(m);
+        } else if(md.cogs!=null){
+          /* 항목 없이 cogs 직접 저장된 경우 — 기본 항목 1개로 복원 */
+          _coi[m]=[{id:++_id,name:'매입합계',amt:md.cogs,preset:false}];
+          renderCoi(m);
+        }
+        if(md.otherItems&&md.otherItems.length){_oi[m]=md.otherItems.map(function(it){return{id:++_id,name:it.name,amt:it.amt};});renderOther(m);}
+        calc(m);
+      }
+      showToast('이전 저장 데이터를 불러왔습니다');
+    }catch(e){}
+  }
+  function showToast(msg){
+    var t=document.getElementById('dt_toast');if(!t)return;
+    t.textContent=msg;t.classList.add('on');setTimeout(function(){t.classList.remove('on');},2500);
+  }
+
+  /* 페이지 로드 시 localStorage → 대시보드 직접 반영 (cogs 포함) */
+  function loadLocalToBoard(biz,year){
+    try{
+      var raw=localStorage.getItem('fin_'+biz+'_'+year);if(!raw)return false;
+      var sv=JSON.parse(raw);if(!sv.data)return false;var d=sv.data;
+      var months=[];
+      for(var m=1;m<=12;m++){
+        var md=d['m'+m]||{};
+        var cogsVal=md.cogs!=null?md.cogs:
+          (md.coiItems?md.coiItems.reduce(function(s,it){return s+(parseFloat(it.amt)||0);},0):
+           (md.rev||0)*(md.cRate||0)/100);
+        months.push({m:m,
+          rev:md.rev||0,cRate:md.cRate||0,cogs:cogsVal,
+          rent:md.rent||0,labor:md.labor||0,util:md.util||0,
+          mkt:md.mkt||0,other:md.other||0});
+      }
+      applyFinancialData(months);return true;
+    }catch(e){return false;}
+  }
+
+  return{openModal:openModal,closeModal:closeModal,verifyAccess:verifyAccess,calc:calc,
+    copyPrev:copyPrev,showQ:showQ,toggleOther:toggleOther,addOther:addOther,delOther:delOther,
+    oName:oName,oAmt:oAmt,oAmtRaw:oAmtRaw,
+    addCoi:addCoi,delCoi:delCoi,ciName:ciName,ciAmt:ciAmt,
+    saveInvestLocal:saveInvestLocal,saveAll:saveAll,onIframeLoad:onIframeLoad,
+    loadLocalToBoard:loadLocalToBoard};
+})();
+
+/* ═══ 고객 정보 모달 ═══ */
+function fmtBrn(el){
+  var v=el.value.replace(/\D/g,'');
+  if(v.length>5) v=v.slice(0,3)+'-'+v.slice(3,5)+'-'+v.slice(5,10);
+  else if(v.length>3) v=v.slice(0,3)+'-'+v.slice(3);
+  el.value=v;
+}
+function fmtTel(el){
+  var v=el.value.replace(/\D/g,'');
+  if(v.length>7) v=v.slice(0,3)+'-'+v.slice(3,7)+'-'+v.slice(7,11);
+  else if(v.length>3) v=v.slice(0,3)+'-'+v.slice(3);
+  el.value=v;
+}
+function openClientModal(){
+  var biz=D.biz.name||'';
+  // 상호명 자동 채우기
+  document.getElementById('ci_biz').value=biz;
+  try{
+    var saved=localStorage.getItem('client_'+biz);
+    if(saved){
+      var d=JSON.parse(saved);
+      document.getElementById('ci_biz').value=d.biz||biz;
+      document.getElementById('ci_brn').value=d.brn||'';
+      document.getElementById('ci_name').value=d.ceoName||'';
+      document.getElementById('ci_tel').value=d.tel||'';
+      document.getElementById('ci_addr').value=d.addr||'';
+      document.getElementById('ci_consent').checked=!!(d.consent);
+    }
+  }catch(e){}
+  document.getElementById('ciStatus').textContent='';
+  document.getElementById('ciOverlay').classList.add('on');
+}
+function closeClientModal(){
+  document.getElementById('ciOverlay').classList.remove('on');
+}
+function saveClient(){
+  var biz=document.getElementById('ci_biz').value.trim();
+  var brn=document.getElementById('ci_brn').value.trim();
+  var ceoName=document.getElementById('ci_name').value.trim();
+  var tel=document.getElementById('ci_tel').value.trim();
+  var addr=document.getElementById('ci_addr').value.trim();
+  var consent=document.getElementById('ci_consent').checked;
+  var statusEl=document.getElementById('ciStatus');
+  var btn=document.getElementById('ciBtnSave');
+  if(!biz){statusEl.style.color='#FF5555';statusEl.textContent='상호명을 입력해 주세요.';return;}
+  if(!brn||!ceoName){statusEl.style.color='#FF5555';statusEl.textContent='사업자등록번호와 대표자명은 필수입니다.';return;}
+  if(!consent){statusEl.style.color='#FF5555';statusEl.textContent='개인정보 수집·이용에 동의해주세요.';return;}
+  btn.disabled=true;btn.textContent='저장 중...';statusEl.textContent='';
+  var params=new URLSearchParams({
+    action:'saveClient',
+    biz:biz,
+    brn:brn,
+    ceoName:ceoName,
+    tel:tel,
+    addr:addr,
+    consent:'Y',
+    savedAt:new Date().toISOString()
+  });
+  fetch(GAS_URL+'?'+params.toString())
+    .then(function(r){return r.text();})
+    .then(function(text){
+      try{
+        var res=JSON.parse(text);
+        if(res.success){
+          statusEl.style.color='#00E676';
+          statusEl.textContent='✅ 저장되었습니다.';
+          // 로컬에도 캐시
+          try{localStorage.setItem('client_'+biz,JSON.stringify({biz:biz,brn:brn,ceoName:ceoName,tel:tel,addr:addr,consent:true}));}catch(e){}
+          setTimeout(closeClientModal,1200);
+        } else {
+          statusEl.style.color='#FF5555';
+          statusEl.textContent='오류: '+(res.error||'저장 실패');
+        }
+      }catch(e){
+        statusEl.style.color='#FF5555';
+        statusEl.textContent='응답 파싱 오류 — GAS 재배포 필요';
+      }
+    })
+    .catch(function(err){
+      statusEl.style.color='#FF5555';
+      statusEl.textContent='네트워크 오류: '+err.message;
+    })
+    .finally(function(){
+      btn.disabled=false;btn.textContent='저장';
+    });
+}
+</script>
+</body>
+</html>
