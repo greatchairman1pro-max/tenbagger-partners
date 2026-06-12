@@ -1,0 +1,64 @@
+{
+  "date": "2026-06-13",
+  "agent": "technical",
+  "title": "코스피 2일 연속 상승 종목",
+  "market_summary": "코스피 현황 한줄",
+  "stocks": [
+    {
+      "name": "039030",
+      "code": "039030",
+      "price": 612000,
+      "day1": 15.07,
+      "day2": 21.43,
+      "total": 36.5,
+      "volume_ratio": 0.0,
+      "signal": "기술적 신호"
+    },
+    {
+      "name": "051600",
+      "code": "051600",
+      "price": 63900,
+      "day1": 5.23,
+      "day2": 29.61,
+      "total": 34.84,
+      "volume_ratio": 0.0,
+      "signal": "기술적 신호"
+    },
+    {
+      "name": "403870",
+      "code": "403870",
+      "price": 71500,
+      "day1": 3.58,
+      "day2": 30.0,
+      "total": 33.58,
+      "volume_ratio": 0.0,
+      "signal": "기술적 신호"
+    },
+    {
+      "name": "042700",
+      "code": "042700",
+      "price": 361000,
+      "day1": 7.78,
+      "day2": 24.05,
+      "total": 31.83,
+      "volume_ratio": 0.0,
+      "signal": "기술적 신호"
+    },
+    {
+      "name": "357780",
+      "code": "357780",
+      "price": 441500,
+      "day1": 4.87,
+      "day2": 24.37,
+      "total": 29.24,
+      "volume_ratio": 0.0,
+      "signal": "기술적 신호"
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}

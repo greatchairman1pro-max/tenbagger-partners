@@ -1,0 +1,81 @@
+{
+  "date": "2026-06-13",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 기술",
+    "reasons": [
+      "나스닥 상위 종목 중 ARM, INTC, KLAC, AMD, QCOM 등 반도체 및 기술 관련 종목이 상승",
+      "이들 종목은 기술 발전과 산업 성장에 기여"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "ARM",
+      "ticker": "ARM",
+      "price": 380.81,
+      "change": 11.27
+    },
+    {
+      "name": "ONTO",
+      "ticker": "ONTO",
+      "price": 323.88,
+      "change": 6.7
+    },
+    {
+      "name": "INTC",
+      "ticker": "INTC",
+      "price": 124.57,
+      "change": 6.51
+    },
+    {
+      "name": "KLAC",
+      "ticker": "KLAC",
+      "price": 254.54,
+      "change": 5.55
+    },
+    {
+      "name": "AMD",
+      "ticker": "AMD",
+      "price": 511.57,
+      "change": 4.73
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 322500,
+      "change": 7.86
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "LG이노텍",
+      "code": "011070",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "DB하이텍",
+      "code": "000990",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "한국전자홀딩스",
+      "code": "034200",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 나스닥과 코스피의 상승 종목을 분석",
+    "body": "나스닥의 상위 종목은 대부분 반도체 및 기술 관련 종목으로, 이들 종목은 기술 발전과 산업 성장에 기여",
+    "conclusion": "코스피의 상위 종목 중에도 반도체 및 기술 관련 종목이 상승하고 있어, 기술 발전과 산업 성장이 지속될 것으로 예상"
+  }
+}
