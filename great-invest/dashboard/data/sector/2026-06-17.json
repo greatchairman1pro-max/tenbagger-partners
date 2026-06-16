@@ -1,0 +1,153 @@
+{
+  "date": "2026-06-17",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "기술",
+      "stocks": [
+        {
+          "name": "Roblox",
+          "ticker": "RBLX",
+          "price": 49.34,
+          "change": 8.06
+        },
+        {
+          "name": "Moderna",
+          "ticker": "MRNA",
+          "price": 55.4,
+          "change": 6.27
+        },
+        {
+          "name": "Celh",
+          "ticker": "CELH",
+          "price": 30.01,
+          "change": 4.42
+        }
+      ]
+    },
+    {
+      "sector": "금융",
+      "stocks": [
+        {
+          "name": "Sofi",
+          "ticker": "SOFI",
+          "price": 17.71,
+          "change": 3.39
+        },
+        {
+          "name": "Paypal",
+          "ticker": "PYPL",
+          "price": 43.65,
+          "change": 2.73
+        },
+        {
+          "name": "Gilead",
+          "ticker": "GILD",
+          "price": 127.23,
+          "change": 2.36
+        }
+      ]
+    },
+    {
+      "sector": "서비스",
+      "stocks": [
+        {
+          "name": "Nu",
+          "ticker": "NU",
+          "price": 12.72,
+          "change": 2.33
+        },
+        {
+          "name": "MercadoLibre",
+          "ticker": "MELI",
+          "price": 1674.08,
+          "change": 1.68
+        },
+        {
+          "name": "Airbnb",
+          "ticker": "ABNB",
+          "price": 141.2,
+          "change": 1.61
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "제조",
+      "stocks": [
+        {
+          "name": "회사명1",
+          "code": "097780",
+          "price": 1348,
+          "change": 306.02
+        },
+        {
+          "name": "회사명2",
+          "code": "079550",
+          "price": 1002000,
+          "change": 18.58
+        },
+        {
+          "name": "회사명3",
+          "code": "403870",
+          "price": 83500,
+          "change": 16.78
+        }
+      ]
+    },
+    {
+      "sector": "정보통신",
+      "stocks": [
+        {
+          "name": "회사명4",
+          "code": "085620",
+          "price": 32250,
+          "change": 12.57
+        },
+        {
+          "name": "회사명5",
+          "code": "329180",
+          "price": 714000,
+          "change": 9.85
+        },
+        {
+          "name": "회사명6",
+          "code": "206950",
+          "price": 1749,
+          "change": 9.52
+        }
+      ]
+    },
+    {
+      "sector": "서비스",
+      "stocks": [
+        {
+          "name": "회사명7",
+          "code": "009830",
+          "price": 42200,
+          "change": 9.04
+        },
+        {
+          "name": "회사명8",
+          "code": "047050",
+          "price": 65300,
+          "change": 9.02
+        },
+        {
+          "name": "회사명9",
+          "code": "272210",
+          "price": 106400,
+          "change": 6.93
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}

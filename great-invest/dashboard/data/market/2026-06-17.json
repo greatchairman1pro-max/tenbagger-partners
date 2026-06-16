@@ -1,0 +1,81 @@
+{
+  "date": "2026-06-17",
+  "agent": "market",
+  "theme": {
+    "name": "기술과 바이오",
+    "reasons": [
+      "미국 상승 종목 중 RBLX, MRNA, PYPL 등 기술과 바이오 관련 종목이 많다",
+      "코스피 상위 200 종목에서도 기술과 바이오 관련 종목이 상승률 상위에 위치한다"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Roblox Corporation",
+      "ticker": "RBLX",
+      "price": 49.34,
+      "change": 8.06
+    },
+    {
+      "name": "Moderna Inc",
+      "ticker": "MRNA",
+      "price": 55.4,
+      "change": 6.27
+    },
+    {
+      "name": "Celsius Holdings Inc",
+      "ticker": "CELH",
+      "price": 30.01,
+      "change": 4.42
+    },
+    {
+      "name": "SoFi Technologies Inc",
+      "ticker": "SOFI",
+      "price": 17.71,
+      "change": 3.39
+    },
+    {
+      "name": "PayPal Holdings Inc",
+      "ticker": "PYPL",
+      "price": 43.65,
+      "change": 2.73
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 2382000,
+      "change": 4.11
+    },
+    {
+      "name": "LG전자",
+      "code": "066570",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "엔씨소프트",
+      "code": "036570",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "한화시스템",
+      "code": "272210",
+      "price": 106400,
+      "change": 6.93
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "기술과 바이오 관련 종목이 최근 상승률 상위에 위치하고 있다",
+    "body": "미국과 한국의 주식 시장에서 기술과 바이오 관련 종목이 상승률 상위에 위치하고 있다. 이는 기술과 바이오 관련 산업이 최근 급성장하고 있기 때문이다",
+    "conclusion": "기술과 바이오 관련 종목은 최근 상승률 상위에 위치하고 있지만, 주식 시장은 예측이 어려우므로 투자에慎重해야 한다"
+  }
+}
