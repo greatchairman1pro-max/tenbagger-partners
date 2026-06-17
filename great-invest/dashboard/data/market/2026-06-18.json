@@ -1,0 +1,81 @@
+{
+  "date": "2026-06-18",
+  "agent": "market",
+  "theme": {
+    "name": "기술 및 바이오",
+    "reasons": [
+      "미국 상승 종목 중 MRNA, ARM, ACMR 등 기술 및 바이오 관련 종목이 많음",
+      "코스피 상위 200 종목 중에도 기술 및 바이오 관련 종목이 상승"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Moderna",
+      "ticker": "MRNA",
+      "price": 61.8,
+      "change": 11.55
+    },
+    {
+      "name": "Hood",
+      "ticker": "HOOD",
+      "price": 105.2,
+      "change": 8.78
+    },
+    {
+      "name": "Wolfspeed",
+      "ticker": "WOLF",
+      "price": 48.69,
+      "change": 8.2
+    },
+    {
+      "name": "ARM Holdings",
+      "ticker": "ARM",
+      "price": 418.88,
+      "change": 5.69
+    },
+    {
+      "name": "ACM Research",
+      "ticker": "ACMR",
+      "price": 96.19,
+      "change": 5.49
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 86300,
+      "change": 10.36
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 2521000,
+      "change": 5.84
+    },
+    {
+      "name": "LG전자",
+      "code": "066570",
+      "price": 70800,
+      "change": 5.2
+    },
+    {
+      "name": "한화시스템",
+      "code": "272210",
+      "price": 446500,
+      "change": 4.94
+    },
+    {
+      "name": "엔씨소프트",
+      "code": "036570",
+      "price": 266500,
+      "change": 2.11
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "미국 나스닥 상위 200 종목과 코스피 상위 200 종목을 분석",
+    "body": "미국 상승 종목 중 기술 및 바이오 관련 종목이 많았으며, 코스피 상위 200 종목 중에도 기술 및 바이오 관련 종목이 상승",
+    "conclusion": "기술 및 바이오 관련 종목이 최근 상승세를 보이고 있으며, 투자자들은 이러한 종목에 관심을 가질 필요가 있음"
+  }
+}
