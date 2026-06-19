@@ -1,0 +1,81 @@
+{
+  "date": "2026-06-20",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 기술",
+    "reasons": [
+      "반도체 산업의 성장",
+      "기술 발전"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "WOLF",
+      "ticker": "WOLF",
+      "price": 57.41,
+      "change": 17.91
+    },
+    {
+      "name": "ACMR",
+      "ticker": "ACMR",
+      "price": 109.87,
+      "change": 14.22
+    },
+    {
+      "name": "AOSL",
+      "ticker": "AOSL",
+      "price": 48.04,
+      "change": 11.33
+    },
+    {
+      "name": "INTC",
+      "ticker": "INTC",
+      "price": 133.99,
+      "change": 10.64
+    },
+    {
+      "name": "SMCI",
+      "ticker": "SMCI",
+      "price": 30.66,
+      "change": 10.37
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 2764000,
+      "change": 2.94
+    },
+    {
+      "name": "LG이노텍",
+      "code": "011070",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "DB하이텍",
+      "code": "000990",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "에스앤에스텍",
+      "code": "042660",
+      "price": 128400,
+      "change": 2.64
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 미국 나스닥 상위 200 종목 중 상승률 상위 종목을 분석했습니다.",
+    "body": "반도체 및 기술 테마가 강세를 보였으며, 코스피 상위 200 종목 중에서도 관련 종목들이 상승했습니다.",
+    "conclusion": "본 분석은 참고용으로만 사용하시고, 투자 결정은 전문가와 상담하시기 바랍니다."
+  }
+}

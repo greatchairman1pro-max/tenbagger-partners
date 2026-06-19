@@ -1,0 +1,153 @@
+{
+  "date": "2026-06-20",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "반도체",
+      "stocks": [
+        {
+          "name": "WOLF",
+          "ticker": "WOLF",
+          "price": 57.41,
+          "change": 17.91
+        },
+        {
+          "name": "INTC",
+          "ticker": "INTC",
+          "price": 133.99,
+          "change": 10.64
+        },
+        {
+          "name": "MU",
+          "ticker": "MU",
+          "price": 1133.99,
+          "change": 8.7
+        }
+      ]
+    },
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "ACMR",
+          "ticker": "ACMR",
+          "price": 109.87,
+          "change": 14.22
+        },
+        {
+          "name": "DIOD",
+          "ticker": "DIOD",
+          "price": 119.46,
+          "change": 9.8
+        },
+        {
+          "name": "KLAC",
+          "ticker": "KLAC",
+          "price": 259.56,
+          "change": 8.73
+        }
+      ]
+    },
+    {
+      "sector": "소프트웨어",
+      "stocks": [
+        {
+          "name": "AOSL",
+          "ticker": "AOSL",
+          "price": 48.04,
+          "change": 11.33
+        },
+        {
+          "name": "SMCI",
+          "ticker": "SMCI",
+          "price": 30.66,
+          "change": 10.37
+        },
+        {
+          "name": "MPWR",
+          "ticker": "MPWR",
+          "price": 1563.7,
+          "change": 7.97
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "제조업",
+      "stocks": [
+        {
+          "name": "회사명1",
+          "code": "085620",
+          "price": 34550,
+          "change": 7.97
+        },
+        {
+          "name": "회사명2",
+          "code": "036570",
+          "price": 277000,
+          "change": 7.16
+        },
+        {
+          "name": "회사명3",
+          "code": "032830",
+          "price": 497000,
+          "change": 5.97
+        }
+      ]
+    },
+    {
+      "sector": "서비스업",
+      "stocks": [
+        {
+          "name": "회사명4",
+          "code": "206950",
+          "price": 1706,
+          "change": 5.7
+        },
+        {
+          "name": "회사명5",
+          "code": "034730",
+          "price": 724000,
+          "change": 5.39
+        },
+        {
+          "name": "회사명6",
+          "code": "290650",
+          "price": 84500,
+          "change": 5.36
+        }
+      ]
+    },
+    {
+      "sector": "금융업",
+      "stocks": [
+        {
+          "name": "회사명7",
+          "code": "299660",
+          "price": 2760,
+          "change": 5.34
+        },
+        {
+          "name": "회사명8",
+          "code": "278280",
+          "price": 42850,
+          "change": 5.02
+        },
+        {
+          "name": "회사명9",
+          "code": "086280",
+          "price": 222500,
+          "change": 4.95
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
