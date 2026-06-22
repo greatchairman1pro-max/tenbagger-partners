@@ -1,0 +1,81 @@
+{
+  "date": "2026-06-23",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 기술",
+    "reasons": [
+      "나스닥 상위 종목 중 반도체 및 기술 관련 종목이 많은 것으로 보임",
+      "SMCI, SMTC, CIEN, MU, LRCX, INTC 등이 반도체 및 기술 관련 종목임"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "SMCI",
+      "ticker": "SMCI",
+      "price": 35.46,
+      "change": 15.66
+    },
+    {
+      "name": "SMTC",
+      "ticker": "SMTC",
+      "price": 174.73,
+      "change": 10.43
+    },
+    {
+      "name": "VICR",
+      "ticker": "VICR",
+      "price": 365.53,
+      "change": 10.31
+    },
+    {
+      "name": "CIEN",
+      "ticker": "CIEN",
+      "price": 460.33,
+      "change": 7.5
+    },
+    {
+      "name": "MU",
+      "ticker": "MU",
+      "price": 1211.38,
+      "change": 6.82
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 2919000,
+      "change": 5.61
+    },
+    {
+      "name": "메리츠금융지주",
+      "code": "138040",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "삼성SDI",
+      "code": "006400",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "DB하이텍",
+      "code": "000990",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 나스닥과 코스피의 상승 종목을 분석해봄",
+    "body": "나스닥 상위 종목 중 반도체 및 기술 관련 종목이 많은 것으로 보임. 이에 따라 코스피 상위 200 종목 중 반도체 및 기술 관련 종목을 선별해봄",
+    "conclusion": "오늘의 분석 결과, 반도체 및 기술 관련 종목이 나스닥과 코스피에서 상승률이 높은 것으로 보임. 하지만 이는 단기적인 분석 결과이므로 투자 결정 시에는 더욱慎重하게 고려해야 함"
+  }
+}
