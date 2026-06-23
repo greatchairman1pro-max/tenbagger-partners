@@ -1,0 +1,117 @@
+{
+  "date": "2026-06-24",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "통신",
+      "stocks": [
+        {
+          "name": "CHTR",
+          "ticker": "CHTR",
+          "price": 131.75,
+          "change": 4.95
+        },
+        {
+          "name": "TMUS",
+          "ticker": "TMUS",
+          "price": 184.57,
+          "change": 2.5
+        }
+      ]
+    },
+    {
+      "sector": "소프트웨어",
+      "stocks": [
+        {
+          "name": "EBAY",
+          "ticker": "EBAY",
+          "price": 108.97,
+          "change": 3.84
+        },
+        {
+          "name": "NOW",
+          "ticker": "NOW",
+          "price": 95.94,
+          "change": 3.15
+        },
+        {
+          "name": "ZM",
+          "ticker": "ZM",
+          "price": 86.44,
+          "change": 2.5
+        }
+      ]
+    },
+    {
+      "sector": "의료",
+      "stocks": [
+        {
+          "name": "MRNA",
+          "ticker": "MRNA",
+          "price": 61.0,
+          "change": 2.79
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "282330",
+          "code": "282330",
+          "price": 116800,
+          "change": 8.15
+        },
+        {
+          "name": "055550",
+          "code": "055550",
+          "price": 97700,
+          "change": 0.21
+        }
+      ]
+    },
+    {
+      "sector": "제조",
+      "stocks": [
+        {
+          "name": "252670",
+          "code": "252670",
+          "price": 76,
+          "change": 22.58
+        },
+        {
+          "name": "206950",
+          "code": "206950",
+          "price": 1500,
+          "change": 3.38
+        }
+      ]
+    },
+    {
+      "sector": "서비스",
+      "stocks": [
+        {
+          "name": "072130",
+          "code": "072130",
+          "price": 4885,
+          "change": 3.28
+        },
+        {
+          "name": "097780",
+          "code": "097780",
+          "price": 1364,
+          "change": 1.19
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
