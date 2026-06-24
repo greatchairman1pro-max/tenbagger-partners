@@ -1,0 +1,153 @@
+{
+  "date": "2026-06-25",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "기술",
+      "stocks": [
+        {
+          "name": "Shopify",
+          "ticker": "SHOP",
+          "price": 114.17,
+          "change": 6.03
+        },
+        {
+          "name": "Uber",
+          "ticker": "UBER",
+          "price": 73.85,
+          "change": 6.0
+        },
+        {
+          "name": "MercadoLibre",
+          "ticker": "MELI",
+          "price": 1659.57,
+          "change": 4.79
+        }
+      ]
+    },
+    {
+      "sector": "서비스",
+      "stocks": [
+        {
+          "name": "GTLB",
+          "ticker": "GTLB",
+          "price": 28.27,
+          "change": 4.7
+        },
+        {
+          "name": "HUBS",
+          "ticker": "HUBS",
+          "price": 180.73,
+          "change": 4.29
+        },
+        {
+          "name": "LYFT",
+          "ticker": "LYFT",
+          "price": 14.4,
+          "change": 4.2
+        }
+      ]
+    },
+    {
+      "sector": "여행",
+      "stocks": [
+        {
+          "name": "ETSY",
+          "ticker": "ETSY",
+          "price": 78.02,
+          "change": 4.18
+        },
+        {
+          "name": "ABNB",
+          "ticker": "ABNB",
+          "price": 144.4,
+          "change": 4.0
+        },
+        {
+          "name": "DASH",
+          "ticker": "DASH",
+          "price": 177.93,
+          "change": 3.74
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 340500,
+          "change": 9.84
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 2621000,
+          "change": 2.58
+        },
+        {
+          "name": "LG전자",
+          "code": "066570",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "제조",
+      "stocks": [
+        {
+          "name": "현대차",
+          "code": "005380",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "기아",
+          "code": "000270",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "포스코",
+          "code": "005490",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "통신",
+      "stocks": [
+        {
+          "name": "KT",
+          "code": "030200",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "SK텔레콤",
+          "code": "017670",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "LG유플러스",
+          "code": "032640",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}

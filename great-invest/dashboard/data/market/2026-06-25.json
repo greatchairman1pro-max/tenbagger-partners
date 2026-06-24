@@ -1,0 +1,81 @@
+{
+  "date": "2026-06-25",
+  "agent": "market",
+  "theme": {
+    "name": "기술 및 서비스",
+    "reasons": [
+      "클라우드 서비스 수요 증가",
+      "모바일 및 온라인 플랫폼 확대"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Shopify",
+      "ticker": "SHOP",
+      "price": 114.17,
+      "change": 6.03
+    },
+    {
+      "name": "Uber",
+      "ticker": "UBER",
+      "price": 73.85,
+      "change": 6.0
+    },
+    {
+      "name": "MercadoLibre",
+      "ticker": "MELI",
+      "price": 1659.57,
+      "change": 4.79
+    },
+    {
+      "name": "GitLab",
+      "ticker": "GTLB",
+      "price": 28.27,
+      "change": 4.7
+    },
+    {
+      "name": "HubSpot",
+      "ticker": "HUBS",
+      "price": 180.73,
+      "change": 4.29
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 340500,
+      "change": 9.84
+    },
+    {
+      "name": "NAVER",
+      "code": "035420",
+      "price": 402000,
+      "change": 5.45
+    },
+    {
+      "name": "카카오",
+      "code": "035720",
+      "price": 74000,
+      "change": 3.45
+    },
+    {
+      "name": "SK텔레콤",
+      "code": "017670",
+      "price": 266500,
+      "change": 2.15
+    },
+    {
+      "name": "현대차",
+      "code": "005380",
+      "price": 186000,
+      "change": 1.93
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "테마 분석",
+    "body": "기술 및 서비스 테마의 상승",
+    "conclusion": "테마와 연관된 종목 선정"
+  }
+}
