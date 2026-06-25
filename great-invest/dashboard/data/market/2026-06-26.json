@@ -1,0 +1,81 @@
+{
+  "date": "2026-06-26",
+  "agent": "market",
+  "theme": {
+    "name": "반도체",
+    "reasons": [
+      "반도체 업체의 실적 호조",
+      "신제품 출시로 수요 증가"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Micron Technology",
+      "ticker": "MU",
+      "price": 1213.56,
+      "change": 15.74
+    },
+    {
+      "name": "Applied Materials",
+      "ticker": "AMAT",
+      "price": 668.0,
+      "change": 13.42
+    },
+    {
+      "name": "Alpha and Omega Semiconductor",
+      "ticker": "AOSL",
+      "price": 45.7,
+      "change": 8.86
+    },
+    {
+      "name": "KLA Corporation",
+      "ticker": "KLAC",
+      "price": 258.8,
+      "change": 7.62
+    },
+    {
+      "name": "Lam Research",
+      "ticker": "LRCX",
+      "price": 401.82,
+      "change": 7.21
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 358500,
+      "change": 5.29
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 2917000,
+      "change": 11.29
+    },
+    {
+      "name": "메디아나",
+      "code": "032830",
+      "price": 447000,
+      "change": 3.23
+    },
+    {
+      "name": "에스앤에스텍",
+      "code": "108920",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "디바이스이엔지",
+      "code": "323410",
+      "price": 20450,
+      "change": 2.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 나스닥과 코스피의 상승 종목을 분석했습니다.",
+    "body": "반도체 업체의 실적 호조와 신제품 출시로 수요 증가로 반도체 테마가 상승했습니다. 이에 따라 코스피 상위 200 종목 중 반도체 관련 종목을 선별했습니다.",
+    "conclusion": "본 분석은 참고용으로만 사용하시고, 투자 결정은 전문가와 상담하시기 바랍니다."
+  }
+}
