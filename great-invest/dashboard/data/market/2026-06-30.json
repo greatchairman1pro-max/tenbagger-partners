@@ -1,0 +1,81 @@
+{
+  "date": "2026-06-30",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 기술",
+    "reasons": [
+      "나스닥 상위 종목 중 반도체 및 기술 관련 종목이 많음",
+      "KLAC, AMAT, LRCX 등 반도체 관련 종목의 상승"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "RBLX",
+      "ticker": "RBLX",
+      "price": 54.34,
+      "change": 14.26
+    },
+    {
+      "name": "ACMR",
+      "ticker": "ACMR",
+      "price": 118.88,
+      "change": 13.76
+    },
+    {
+      "name": "VICR",
+      "ticker": "VICR",
+      "price": 366.79,
+      "change": 12.19
+    },
+    {
+      "name": "KLAC",
+      "ticker": "KLAC",
+      "price": 278.39,
+      "change": 11.97
+    },
+    {
+      "name": "AMAT",
+      "ticker": "AMAT",
+      "price": 694.64,
+      "change": 10.82
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "LG이노텍",
+      "code": "011070",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "DB하이텍",
+      "code": "000990",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "에스앤에스텍",
+      "code": "112330",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 나스닥과 코스피의 상승 종목을 분석해봅니다.",
+    "body": "나스닥 상위 종목 중 반도체 및 기술 관련 종목이 많습니다. KLAC, AMAT, LRCX 등 반도체 관련 종목의 상승이 두드러집니다. 이러한 테마와 연관된 코스피 상위 200 종목 5개를 선별해봅니다.",
+    "conclusion": "반도체 및 기술 관련 종목의 상승이 나스닥과 코스피의 상승을 주도하고 있습니다. 이러한 테마와 연관된 종목에 투자하는 것이 좋을 것입니다."
+  }
+}
