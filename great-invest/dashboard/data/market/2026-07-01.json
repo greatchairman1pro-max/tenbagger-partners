@@ -1,0 +1,81 @@
+{
+  "date": "2026-07-01",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 관련 기술",
+    "reasons": [
+      "나스닥 상위 종목 중 반도체 관련 회사들이 상승",
+      "기술 발전과 수요 증가로 인한 성장"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "AMBA",
+      "ticker": "AMBA",
+      "price": 85.8,
+      "change": 28.04
+    },
+    {
+      "name": "WOLF",
+      "ticker": "WOLF",
+      "price": 48.25,
+      "change": 9.06
+    },
+    {
+      "name": "COHU",
+      "ticker": "COHU",
+      "price": 73.91,
+      "change": 8.5
+    },
+    {
+      "name": "KLAC",
+      "ticker": "KLAC",
+      "price": 301.71,
+      "change": 8.38
+    },
+    {
+      "name": "AMD",
+      "ticker": "AMD",
+      "price": 580.91,
+      "change": 7.68
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 334000,
+      "change": 3.41
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 2650000,
+      "change": 0.84
+    },
+    {
+      "name": "LG이노텍",
+      "code": "011070",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "에스케이텔레콤",
+      "code": "017670",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "네이버",
+      "code": "035420",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 나스닥과 코스피의 주가 동향을 분석해 보았습니다.",
+    "body": "나스닥 상위 종목 중 반도체 관련 회사들이 상승하였으며, 이와 관련된 코스피 종목들도 상승했습니다. 기술 발전과 수요 증가로 인한 성장이 주된 이유입니다.",
+    "conclusion": "본 분석은 참고용으로만 제공되며, 투자 결정에 참고하실 때는 각종 정보와 전문가 의견을 충분히 고려하시기 바랍니다."
+  }
+}
