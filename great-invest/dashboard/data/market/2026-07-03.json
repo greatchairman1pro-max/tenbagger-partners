@@ -1,0 +1,81 @@
+{
+  "date": "2026-07-03",
+  "agent": "market",
+  "theme": {
+    "name": "바이오 및 기술",
+    "reasons": [
+      "바이오 기술의 발전",
+      "기술 산업의 성장"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Moderna",
+      "ticker": "MRNA",
+      "price": 79.76,
+      "change": 10.01
+    },
+    {
+      "name": "VRTX",
+      "ticker": "VRTX",
+      "price": 528.04,
+      "change": 6.03
+    },
+    {
+      "name": "ISRG",
+      "ticker": "ISRG",
+      "price": 426.01,
+      "change": 5.87
+    },
+    {
+      "name": "ETSY",
+      "ticker": "ETSY",
+      "price": 76.97,
+      "change": 5.68
+    },
+    {
+      "name": "AAPL",
+      "ticker": "AAPL",
+      "price": 308.63,
+      "change": 4.84
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성바이오로직스",
+      "code": "207940",
+      "price": 83100,
+      "change": 11.99
+    },
+    {
+      "name": "셀트리온",
+      "code": "068270",
+      "price": 194200,
+      "change": 7.47
+    },
+    {
+      "name": "한미약품",
+      "code": "128940",
+      "price": 436000,
+      "change": 3.32
+    },
+    {
+      "name": "대웅제약",
+      "code": "069620",
+      "price": 265000,
+      "change": 3.72
+    },
+    {
+      "name": "유한양행",
+      "code": "000100",
+      "price": 173000,
+      "change": 3.53
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘의 주식 시장은 바이오 및 기술 산업의 성장이 주도했습니다.",
+    "body": "미국 나스닥 상위 200 종목 중 상승률 상위 5개의 종목은 모두 바이오 및 기술 산업과 관련이 있습니다. 이러한 산업의 성장은 코스피 상위 200 종목에서도 반영되었습니다.",
+    "conclusion": "본 분석는 순수한 정보 제공을 목적으로 하며, 투자 자문을 대체하지 않습니다. 투자 전 반드시 전문가의 자문을 받으세요."
+  }
+}
