@@ -1,0 +1,81 @@
+{
+  "date": "2026-07-04",
+  "agent": "market",
+  "theme": {
+    "name": "바이오 및 기술",
+    "reasons": [
+      "바이오 기술의 발전",
+      "기술의 발전으로 인한 산업 성장"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Moderna",
+      "ticker": "MRNA",
+      "price": 79.76,
+      "change": 10.01
+    },
+    {
+      "name": "VRTX",
+      "ticker": "VRTX",
+      "price": 528.04,
+      "change": 6.03
+    },
+    {
+      "name": "ISRG",
+      "ticker": "ISRG",
+      "price": 426.01,
+      "change": 5.87
+    },
+    {
+      "name": "ETSY",
+      "ticker": "ETSY",
+      "price": 76.97,
+      "change": 5.68
+    },
+    {
+      "name": "AAPL",
+      "ticker": "AAPL",
+      "price": 308.63,
+      "change": 4.84
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 309500,
+      "change": 8.22
+    },
+    {
+      "name": "셀트리온",
+      "code": "068270",
+      "price": 183600,
+      "change": 3.96
+    },
+    {
+      "name": "SK바이오사이언스",
+      "code": "302440",
+      "price": 142200,
+      "change": 3.45
+    },
+    {
+      "name": "한미약품",
+      "code": "128940",
+      "price": 461500,
+      "change": 5.85
+    },
+    {
+      "name": "삼성SDI",
+      "code": "006400",
+      "price": 644000,
+      "change": 3.23
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘의 주식 시장은 바이오 및 기술 관련 종목의 상승으로 특징지어졌습니다.",
+    "body": "미국 나스닥 시장에서는 Moderna, VRTX, ISRG 등 바이오 기술 관련 종목들이 상승률 상위에 올랐습니다. 한국 코스피 시장에서도 삼성전자, 셀트리온, 한미약품 등 기술 및 바이오 관련 종목들이 상승했습니다.",
+    "conclusion": "오늘의 주식 시장 분석을 통해 바이오 및 기술 관련 종목들의 상승이 주목할 만하다는 것을 알 수 있습니다. 그러나 주식 시장은 예측이 어려우므로 투자 전 충분한 분석과 연구가 필요합니다."
+  }
+}
