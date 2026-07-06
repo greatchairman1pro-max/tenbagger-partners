@@ -1,0 +1,153 @@
+{
+  "date": "2026-07-07",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "IT",
+      "stocks": [
+        {
+          "name": "테슬라",
+          "ticker": "TSLA",
+          "price": 419.77,
+          "change": 6.69
+        },
+        {
+          "name": "AMD",
+          "ticker": "AMD",
+          "price": 552.05,
+          "change": 6.61
+        },
+        {
+          "name": "NTAP",
+          "ticker": "NTAP",
+          "price": 163.55,
+          "change": 6.08
+        }
+      ]
+    },
+    {
+      "sector": "기술",
+      "stocks": [
+        {
+          "name": "QCOM",
+          "ticker": "QCOM",
+          "price": 186.48,
+          "change": 5.8
+        },
+        {
+          "name": "OKTA",
+          "ticker": "OKTA",
+          "price": 148.6,
+          "change": 5.08
+        },
+        {
+          "name": "MPWR",
+          "ticker": "MPWR",
+          "price": 1346.13,
+          "change": 4.5
+        }
+      ]
+    },
+    {
+      "sector": "소프트웨어",
+      "stocks": [
+        {
+          "name": "HOOD",
+          "ticker": "HOOD",
+          "price": 117.55,
+          "change": 4.28
+        },
+        {
+          "name": "SYNA",
+          "ticker": "SYNA",
+          "price": 124.21,
+          "change": 3.92
+        },
+        {
+          "name": "FTNT",
+          "ticker": "FTNT",
+          "price": 162.35,
+          "change": 3.9
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 318000,
+          "change": 2.75
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000810",
+          "price": 674000,
+          "change": 5.64
+        },
+        {
+          "name": "LG전자",
+          "code": "066570",
+          "price": 44750,
+          "change": 4.68
+        }
+      ]
+    },
+    {
+      "sector": "제조",
+      "stocks": [
+        {
+          "name": "현대차",
+          "code": "005380",
+          "price": 502000,
+          "change": 2.03
+        },
+        {
+          "name": "기아차",
+          "code": "000270",
+          "price": 160700,
+          "change": 5.72
+        },
+        {
+          "name": "포스코",
+          "code": "005490",
+          "price": 161100,
+          "change": 2.87
+        }
+      ]
+    },
+    {
+      "sector": "서비스",
+      "stocks": [
+        {
+          "name": "NAVER",
+          "code": "035420",
+          "price": 39150,
+          "change": 2.35
+        },
+        {
+          "name": "카카오",
+          "code": "035720",
+          "price": 356500,
+          "change": 2.3
+        },
+        {
+          "name": "신한지주",
+          "code": "055550",
+          "price": 11740,
+          "change": 2.26
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
