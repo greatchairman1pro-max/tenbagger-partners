@@ -1,0 +1,153 @@
+{
+  "date": "2026-07-08",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "헬스케어",
+      "stocks": [
+        {
+          "name": "Gilead Sciences",
+          "ticker": "GILD",
+          "price": 136.36,
+          "change": 5.21
+        },
+        {
+          "name": "Regeneron Pharmaceuticals",
+          "ticker": "REGN",
+          "price": 676.23,
+          "change": 4.07
+        },
+        {
+          "name": "Alnylam Pharmaceuticals",
+          "ticker": "ALNY",
+          "price": 321.59,
+          "change": 2.73
+        }
+      ]
+    },
+    {
+      "sector": "기술",
+      "stocks": [
+        {
+          "name": "HubSpot",
+          "ticker": "HUBS",
+          "price": 205.2,
+          "change": 5.86
+        },
+        {
+          "name": "Workday",
+          "ticker": "WDAY",
+          "price": 143.65,
+          "change": 4.1
+        },
+        {
+          "name": "Atlassian",
+          "ticker": "TEAM",
+          "price": 88.39,
+          "change": 3.38
+        }
+      ]
+    },
+    {
+      "sector": "소비자 서비스",
+      "stocks": [
+        {
+          "name": "Etsy",
+          "ticker": "ETSY",
+          "price": 77.59,
+          "change": 3.37
+        },
+        {
+          "name": "Intuit",
+          "ticker": "INTU",
+          "price": 281.17,
+          "change": 3.32
+        },
+        {
+          "name": "Uber Technologies",
+          "ticker": "UBER",
+          "price": 74.33,
+          "change": 2.64
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "IT",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "NAVER",
+          "code": "035420",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "제약",
+      "stocks": [
+        {
+          "name": "셀트리온",
+          "code": "068760",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "한미약품",
+          "code": "128940",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "유한양행",
+          "code": "000100",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "금융",
+      "stocks": [
+        {
+          "name": "KB금융",
+          "code": "105560",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "신한지주",
+          "code": "055550",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "하나금융지주",
+          "code": "086790",
+          "price": 126900,
+          "change": 1.68
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
