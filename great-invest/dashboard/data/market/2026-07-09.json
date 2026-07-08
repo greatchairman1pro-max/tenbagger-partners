@@ -1,0 +1,81 @@
+{
+  "date": "2026-07-09",
+  "agent": "market",
+  "theme": {
+    "name": "기술 및 반도체",
+    "reasons": [
+      "나스닥 상위 종목 중 NVDA, AVGO 등 기술 및 반도체 관련 종목이 상승",
+      "미국 기술 및 반도체 산업의 성장"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Alibaba Group",
+      "ticker": "BABA",
+      "price": 108.98,
+      "change": 11.05
+    },
+    {
+      "name": "Alpha and Omega Semiconductor",
+      "ticker": "AOSL",
+      "price": 37.37,
+      "change": 7.48
+    },
+    {
+      "name": "Super Micro Computer",
+      "ticker": "SMCI",
+      "price": 28.17,
+      "change": 7.31
+    },
+    {
+      "name": "Ciena Corporation",
+      "ticker": "CIEN",
+      "price": 440.97,
+      "change": 5.27
+    },
+    {
+      "name": "Baidu",
+      "ticker": "BIDU",
+      "price": 117.62,
+      "change": 4.93
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "LG전자",
+      "code": "066570",
+      "price": 195800,
+      "change": 3.54
+    },
+    {
+      "name": "한화테크윈",
+      "code": "012450",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "DB하이텍",
+      "code": "000990",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 나스닥과 코스피의 상승 종목을 분석했습니다.",
+    "body": "나스닥 상위 종목 중 기술 및 반도체 관련 종목이 상승했습니다. 코스피 상위 200 종목 중에서도 기술 및 반도체 관련 종목을 선별했습니다.",
+    "conclusion": "기술 및 반도체 산업은 성장하고 있으며, 관련 종목에 투자하는 것이 좋을 수 있습니다. 그러나 투자에는 항상 위험이 수반되므로, 투자 전 충분한 연구와 분석이 필요합니다."
+  }
+}
