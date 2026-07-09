@@ -1,0 +1,81 @@
+{
+  "date": "2026-07-10",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 관련 기술",
+    "reasons": [
+      "나스닥 상위 종목 중 반도체 및 관련 기술 업체가 많음",
+      "코스피 상위 종목에서도 관련 업체들의 상승이 두드러짐"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "ARM",
+      "ticker": "ARM",
+      "price": 327.87,
+      "change": 9.2
+    },
+    {
+      "name": "ONTO",
+      "ticker": "ONTO",
+      "price": 317.02,
+      "change": 8.77
+    },
+    {
+      "name": "ACMR",
+      "ticker": "ACMR",
+      "price": 106.04,
+      "change": 8.13
+    },
+    {
+      "name": "KLIC",
+      "ticker": "KLIC",
+      "price": 111.39,
+      "change": 6.87
+    },
+    {
+      "name": "SMTC",
+      "ticker": "SMTC",
+      "price": 137.5,
+      "change": 6.72
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 2186000,
+      "change": 5.3
+    },
+    {
+      "name": "메가스터디교육",
+      "code": "215200",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "디앤디",
+      "code": "214150",
+      "price": 50100,
+      "change": 5.25
+    },
+    {
+      "name": "삼성SDI",
+      "code": "006400",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 나스닥과 코스피의 상승 종목을 분석해봅니다.",
+    "body": "나스닥 상위 종목은 반도체 및 관련 기술 업체들이 많았습니다. 코스피 상위 종목에서도 관련 업체들의 상승이 두드러졌습니다.",
+    "conclusion": "이러한 분석 결과는 참고용으로만 사용하시고, 투자 결정에 참고하실 때는 전문가의 의견을 반드시听聞하시길 바랍니다."
+  }
+}
