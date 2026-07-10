@@ -1,0 +1,141 @@
+{
+  "date": "2026-07-11",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "IT",
+      "stocks": [
+        {
+          "name": "META",
+          "ticker": "META",
+          "price": 669.21,
+          "change": 5.97
+        },
+        {
+          "name": "NVDA",
+          "ticker": "NVDA",
+          "price": 210.96,
+          "change": 4.03
+        },
+        {
+          "name": "AMD",
+          "ticker": "AMD",
+          "price": 557.89,
+          "change": 2.04
+        }
+      ]
+    },
+    {
+      "sector": "전자상거래",
+      "stocks": [
+        {
+          "name": "ETSY",
+          "ticker": "ETSY",
+          "price": 81.05,
+          "change": 4.28
+        },
+        {
+          "name": "MELI",
+          "ticker": "MELI",
+          "price": 1852.22,
+          "change": 2.46
+        },
+        {
+          "name": "PYPL",
+          "ticker": "PYPL",
+          "price": 46.32,
+          "change": 2.21
+        }
+      ]
+    },
+    {
+      "sector": "의료기기",
+      "stocks": [
+        {
+          "name": "DXCM",
+          "ticker": "DXCM",
+          "price": 74.96,
+          "change": 2.66
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "IT",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "LG이노텍",
+          "code": "011070",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "제약",
+      "stocks": [
+        {
+          "name": "셀트리온",
+          "code": "068760",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "한미약품",
+          "code": "128940",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "유한양행",
+          "code": "000100",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "통신",
+      "stocks": [
+        {
+          "name": "KT",
+          "code": "030200",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "SK텔레콤",
+          "code": "017670",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "LG유플러스",
+          "code": "032640",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}

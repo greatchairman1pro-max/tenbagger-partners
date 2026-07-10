@@ -1,0 +1,81 @@
+{
+  "date": "2026-07-11",
+  "agent": "market",
+  "theme": {
+    "name": "기술 및 온라인 서비스",
+    "reasons": [
+      "미국 상승 종목 중 기술 관련 회사들이 많음",
+      "온라인 서비스 관련 회사들이 상승"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "META",
+      "ticker": "META",
+      "price": 669.21,
+      "change": 5.97
+    },
+    {
+      "name": "ETSY",
+      "ticker": "ETSY",
+      "price": 81.05,
+      "change": 4.28
+    },
+    {
+      "name": "NVDA",
+      "ticker": "NVDA",
+      "price": 210.96,
+      "change": 4.03
+    },
+    {
+      "name": "TMUS",
+      "ticker": "TMUS",
+      "price": 187.61,
+      "change": 3.38
+    },
+    {
+      "name": "DXCM",
+      "ticker": "DXCM",
+      "price": 74.96,
+      "change": 2.66
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "NAVER",
+      "code": "035420",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "카카오",
+      "code": "035720",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "현대차",
+      "code": "005380",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK텔레콤",
+      "code": "017670",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "테마 분석을 통해 미국과 한국의 기술 및 온라인 서비스 관련 주식의 상승을 살펴봄",
+    "body": "미국 상승 종목 중 기술 관련 회사들이 많았으며, 한국의 코스피 상위 200 종목 중에서도 기술 및 온라인 서비스 관련 회사들이 상승했다는 점을 확인할 수 있음",
+    "conclusion": "테마 분석을 통해 미국과 한국의 기술 및 온라인 서비스 관련 주식의 상승을 확인하였으며, 향후에도 이러한 테마가 주목받을 수 있을 것으로 예상됨. 본 내용은 참고용으로만 제공되며, 투자 자문을 위한 것이 아님을 밝힙니다."
+  }
+}
