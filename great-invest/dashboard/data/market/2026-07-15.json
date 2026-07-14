@@ -1,0 +1,81 @@
+{
+  "date": "2026-07-15",
+  "agent": "market",
+  "theme": {
+    "name": "サイバーセキュリティ",
+    "reasons": [
+      "クラウドセキュリティの需要増加",
+      "サイバー攻撃の増加"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "CrowdStrike",
+      "ticker": "CRWD",
+      "price": 210.73,
+      "change": 12.14
+    },
+    {
+      "name": "Okta",
+      "ticker": "OKTA",
+      "price": 154.62,
+      "change": 10.81
+    },
+    {
+      "name": "Zscaler",
+      "ticker": "ZS",
+      "price": 152.09,
+      "change": 7.24
+    },
+    {
+      "name": "Semtech",
+      "ticker": "SMTC",
+      "price": 141.36,
+      "change": 6.97
+    },
+    {
+      "name": "Palo Alto Networks",
+      "ticker": "PANW",
+      "price": 352.89,
+      "change": 6.84
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 263000,
+      "change": 3.34
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 1913000,
+      "change": 3.69
+    },
+    {
+      "name": "한화시스템",
+      "code": "012450",
+      "price": 47300,
+      "change": 2.17
+    },
+    {
+      "name": "LG이노텍",
+      "code": "011070",
+      "price": 197000,
+      "change": 1.47
+    },
+    {
+      "name": "케이씨텍",
+      "code": "247460",
+      "price": 43300,
+      "change": 1.18
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "サイバーセキュリティ 테마가 최근 나스닥 상위 200 종목 중 상승률 상위에 랭크되었습니다.",
+    "body": "クラウドセキュリティ의 필요성과 사이버 공격의 증가로 인해 관련 주가가 상승하고 있습니다. 이러한 테마와 연관된 코스피 상위 200 종목 5개를 선별했습니다.",
+    "conclusion": "테마와 연관된 종목을 분석하여 투자 전략을 수립하는 것이 중요합니다. 본 콘텐츠는 투자 자문을 위한 것이 아닙니다."
+  }
+}
