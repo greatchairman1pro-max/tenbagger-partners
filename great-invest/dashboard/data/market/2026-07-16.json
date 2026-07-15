@@ -1,0 +1,81 @@
+{
+  "date": "2026-07-16",
+  "agent": "market",
+  "theme": {
+    "name": "기술 및 금융",
+    "reasons": [
+      "기술 및 금융 관련 종목의 상승",
+      "디지털화 및 온라인 서비스의 증가"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "PayPal",
+      "ticker": "PYPL",
+      "price": 55.52,
+      "change": 17.2
+    },
+    {
+      "name": "Bill.com",
+      "ticker": "BILL",
+      "price": 44.63,
+      "change": 7.88
+    },
+    {
+      "name": "Alibaba",
+      "ticker": "BABA",
+      "price": 117.69,
+      "change": 4.78
+    },
+    {
+      "name": "Roblox",
+      "ticker": "RBLX",
+      "price": 57.07,
+      "change": 4.77
+    },
+    {
+      "name": "Apple",
+      "ticker": "AAPL",
+      "price": 327.5,
+      "change": 4.01
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 279500,
+      "change": 6.27
+    },
+    {
+      "name": "카카오",
+      "code": "035720",
+      "price": 0,
+      "change": 0
+    },
+    {
+      "name": "NAVER",
+      "code": "035420",
+      "price": 0,
+      "change": 0
+    },
+    {
+      "name": "현대차",
+      "code": "005380",
+      "price": 0,
+      "change": 0
+    },
+    {
+      "name": "SK텔레콤",
+      "code": "017670",
+      "price": 0,
+      "change": 0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "기술 및 금융 관련 종목의 상승",
+    "body": "디지털화 및 온라인 서비스의 증가로 인해 기술 및 금융 관련 종목이 상승하고 있습니다. 미국의 나스닥 상위 종목을 분석한 결과, PayPal, Bill.com, Alibaba, Roblox, Apple 등이 상승률 상위에 위치하고 있습니다. 이러한 종목들의 공통 테마는 기술 및 금융이며, 디지털화 및 온라인 서비스의 증가로 인해 이러한 종목들이 상승하고 있습니다. 한국의 코스피 상위 200 종목 중에서 이러한 테마와 연관된 종목으로는 삼성전자, 카카오, NAVER, 현대차, SK텔레콤 등이 있습니다.",
+    "conclusion": "기술 및 금융 관련 종목의 상승은 디지털화 및 온라인 서비스의 증가로 인해 발생하고 있으며, 이러한 종목들은 앞으로도 상승할 가능성이 있습니다. 그러나 주식 시장은 예측이 어려우므로 투자에慎重히 접근해야 합니다."
+  }
+}
