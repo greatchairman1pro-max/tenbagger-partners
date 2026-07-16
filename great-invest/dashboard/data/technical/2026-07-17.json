@@ -1,0 +1,64 @@
+{
+  "date": "2026-07-17",
+  "agent": "technical",
+  "title": "코스피 2일 연속 상승 종목",
+  "market_summary": "코스피 상위 200 종목 중 2일 연속 상승 종목 현황",
+  "stocks": [
+    {
+      "name": "회사명1",
+      "code": 96770,
+      "price": 121400,
+      "day1": 11.53,
+      "day2": 3.76,
+      "total": 15.3,
+      "volume_ratio": 0.0,
+      "signal": "상승"
+    },
+    {
+      "name": "회사명2",
+      "code": 75580,
+      "price": 12170,
+      "day1": 6.6,
+      "day2": 6.2,
+      "total": 12.8,
+      "volume_ratio": 0.0,
+      "signal": "상승"
+    },
+    {
+      "name": "회사명3",
+      "code": 42660,
+      "price": 86700,
+      "day1": 6.77,
+      "day2": 5.73,
+      "total": 12.5,
+      "volume_ratio": 0.0,
+      "signal": "상승"
+    },
+    {
+      "name": "회사명4",
+      "code": 810,
+      "price": 701000,
+      "day1": 5.25,
+      "day2": 6.05,
+      "total": 11.31,
+      "volume_ratio": 0.0,
+      "signal": "상승"
+    },
+    {
+      "name": "회사명5",
+      "code": 10950,
+      "price": 144900,
+      "day1": 6.85,
+      "day2": 3.21,
+      "total": 10.05,
+      "volume_ratio": 0.0,
+      "signal": "상승"
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
