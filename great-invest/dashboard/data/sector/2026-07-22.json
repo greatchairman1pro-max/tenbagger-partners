@@ -1,0 +1,153 @@
+{
+  "date": "2026-07-22",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "반도체",
+      "stocks": [
+        {
+          "name": "ACMR",
+          "ticker": "ACMR",
+          "price": 95.27,
+          "change": 15.45
+        },
+        {
+          "name": "MU",
+          "ticker": "MU",
+          "price": 970.82,
+          "change": 12.17
+        },
+        {
+          "name": "AMD",
+          "ticker": "AMD",
+          "price": 544.43,
+          "change": 8.11
+        }
+      ]
+    },
+    {
+      "sector": "기술",
+      "stocks": [
+        {
+          "name": "COIN",
+          "ticker": "COIN",
+          "price": 175.85,
+          "change": 9.61
+        },
+        {
+          "name": "SMTC",
+          "ticker": "SMTC",
+          "price": 137.84,
+          "change": 9.5
+        },
+        {
+          "name": "COHU",
+          "ticker": "COHU",
+          "price": 56.22,
+          "change": 9.06
+        }
+      ]
+    },
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "INTC",
+          "ticker": "INTC",
+          "price": 105.45,
+          "change": 8.64
+        },
+        {
+          "name": "AMBA",
+          "ticker": "AMBA",
+          "price": 71.3,
+          "change": 8.52
+        },
+        {
+          "name": "KLIC",
+          "ticker": "KLIC",
+          "price": 108.54,
+          "change": 8.47
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 259000,
+          "change": 6.15
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 1836000,
+          "change": 4.08
+        },
+        {
+          "name": "LG전자",
+          "code": "066570",
+          "price": 173200,
+          "change": 3.59
+        }
+      ]
+    },
+    {
+      "sector": "제조",
+      "stocks": [
+        {
+          "name": "현대차",
+          "code": "005380",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "기아",
+          "code": "000270",
+          "price": 144600,
+          "change": 3.29
+        },
+        {
+          "name": "현대모비스",
+          "code": "012330",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "반도체",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 259000,
+          "change": 6.15
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 1836000,
+          "change": 4.08
+        },
+        {
+          "name": "메리츠证券",
+          "code": "288360",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
