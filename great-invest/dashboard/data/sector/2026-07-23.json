@@ -1,0 +1,153 @@
+{
+  "date": "2026-07-23",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "반도체",
+      "stocks": [
+        {
+          "name": "SMCI",
+          "ticker": "SMCI",
+          "price": 30.56,
+          "change": 19.84
+        },
+        {
+          "name": "NVDA",
+          "ticker": "NVDA",
+          "price": 212.06,
+          "change": 2.3
+        },
+        {
+          "name": "AMD",
+          "ticker": "AMD",
+          "price": 552.33,
+          "change": 1.45
+        }
+      ]
+    },
+    {
+      "sector": "통신",
+      "stocks": [
+        {
+          "name": "AVGO",
+          "ticker": "AVGO",
+          "price": 396.81,
+          "change": 2.67
+        },
+        {
+          "name": "QCOM",
+          "ticker": "QCOM",
+          "price": 175.63,
+          "change": 1.23
+        },
+        {
+          "name": "MCHP",
+          "ticker": "MCHP",
+          "price": 85.02,
+          "change": 1.97
+        }
+      ]
+    },
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "CELH",
+          "ticker": "CELH",
+          "price": 28.47,
+          "change": 1.61
+        },
+        {
+          "name": "MRVL",
+          "ticker": "MRVL",
+          "price": 210.99,
+          "change": 1.46
+        },
+        {
+          "name": "DIOD",
+          "ticker": "DIOD",
+          "price": 95.01,
+          "change": 1.34
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "LG전자",
+          "code": "066570",
+          "price": 182700,
+          "change": 5.48
+        }
+      ]
+    },
+    {
+      "sector": "제약",
+      "stocks": [
+        {
+          "name": "셀트리온",
+          "code": "068270",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "한미약품",
+          "code": "128940",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "유한양행",
+          "code": "000100",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "통신",
+      "stocks": [
+        {
+          "name": "KT",
+          "code": "030200",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "SK텔레콤",
+          "code": "017670",
+          "price": 94100,
+          "change": 10.58
+        },
+        {
+          "name": "LG유플러스",
+          "code": "032640",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
