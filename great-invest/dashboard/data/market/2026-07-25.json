@@ -1,0 +1,81 @@
+{
+  "date": "2026-07-25",
+  "agent": "market",
+  "theme": {
+    "name": "클라우드 및 소프트웨어",
+    "reasons": [
+      "클라우드 기반 서비스 수요 증가",
+      "소프트웨어 산업 성장"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Atlassian Corporation",
+      "ticker": "TEAM",
+      "price": 86.88,
+      "change": 8.4
+    },
+    {
+      "name": "HubSpot",
+      "ticker": "HUBS",
+      "price": 204.89,
+      "change": 7.83
+    },
+    {
+      "name": "ServiceNow",
+      "ticker": "NOW",
+      "price": 98.78,
+      "change": 7.44
+    },
+    {
+      "name": "DocuSign",
+      "ticker": "DOCU",
+      "price": 50.44,
+      "change": 7.23
+    },
+    {
+      "name": "Adobe",
+      "ticker": "ADBE",
+      "price": 225.11,
+      "change": 6.1
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "카카오",
+      "code": "035720",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "엔씨소프트",
+      "code": "036570",
+      "price": 228000,
+      "change": 1.33
+    },
+    {
+      "name": "한글과컴퓨터",
+      "code": "011200",
+      "price": 21650,
+      "change": 3.1
+    },
+    {
+      "name": "웹케시",
+      "code": "052690",
+      "price": 99100,
+      "change": 3.12
+    },
+    {
+      "name": "이노션",
+      "code": null,
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "클라우드 및 소프트웨어 테마의 상승",
+    "body": "클라우드 기반 서비스 수요 증가와 소프트웨어 산업 성장이 미국과 한국의 주식 시장에 미치는 영향",
+    "conclusion": "클라우드 및 소프트웨어 테마의 상승은 미국과 한국의 주식 시장에서 중요한 역할을 하고 있으며, 관련 종목들의 성장 가능성이 높아 보인다."
+  }
+}
