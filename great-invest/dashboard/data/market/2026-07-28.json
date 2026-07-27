@@ -1,0 +1,81 @@
+{
+  "date": "2026-07-28",
+  "agent": "market",
+  "theme": {
+    "name": "클라우드 및 기술",
+    "reasons": [
+      "클라우드 서비스 수요 증가",
+      "기술 발전 가속화"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Shopify",
+      "ticker": "SHOP",
+      "price": 126.88,
+      "change": 11.54
+    },
+    {
+      "name": "Atlassian",
+      "ticker": "TEAM",
+      "price": 95.87,
+      "change": 10.35
+    },
+    {
+      "name": "Workday",
+      "ticker": "WDAY",
+      "price": 147.54,
+      "change": 9.01
+    },
+    {
+      "name": "HubSpot",
+      "ticker": "HUBS",
+      "price": 223.01,
+      "change": 8.84
+    },
+    {
+      "name": "Palantir",
+      "ticker": "PLTR",
+      "price": 131.53,
+      "change": 7.0
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "카카오",
+      "code": "035420",
+      "price": 225000,
+      "change": 8.43
+    },
+    {
+      "name": "엔씨소프트",
+      "code": "036570",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "한화테크윈",
+      "code": "012450",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "삼성SDI",
+      "code": "006400",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK텔레콤",
+      "code": "017670",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "클라우드 및 기술 테마의 상승",
+    "body": "클라우드 서비스 수요 증가와 기술 발전 가속화로 인해 관련 주가가 상승하고 있다.",
+    "conclusion": "테마와 연관된 코스피 상위 200 종목을 선별하여 분석하였다."
+  }
+}
