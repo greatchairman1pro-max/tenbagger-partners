@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>소상공인·중소기업 경영 온보딩 체크리스트 | 텐배거 파트너스</title>
+<meta name="description" content="대표님의 성향과 맞는 사업을 함께 설계하고, 기획·운영 계획을 끝까지 디렉팅합니다. 성장 가능성을 확보하고, 경영 리스크를 파악하고 예방합니다.">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --navy-900:#0C1533;
+  --navy-800:#16255C;
+  --navy-600:#24397F;
+  --navy-400:#4A63B0;
+  --gold:#C9A227;
+  --gold-soft:#FFE45C;
+  --paper:#F6F8FC;
+  --paper-2:#EAEFF9;
+  --line:#D3DCEE;
+  --ink:#141A2B;
+  --ink-soft:#57607A;
+  --maxw:960px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.6}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+section{padding:52px 0}
+.eyebrow{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--navy-400);text-transform:uppercase;margin-bottom:10px}
+h2{font-size:clamp(20px,4vw,28px);font-weight:800;letter-spacing:-.02em;color:var(--navy-800);margin-bottom:8px}
+.sub{color:var(--ink-soft);font-size:15px;margin-bottom:24px}
+
+/* TOP BAR */
+.topbar{background:var(--navy-900);color:#fff;font-size:13px}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:44px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:13.5px}
+.brand-sq{width:8px;height:8px;background:var(--gold);border-radius:2px;flex:none}
+.topbar-r{font-size:12px;color:#8C9AC2}
+
+/* HERO */
+.hero{background:var(--navy-800);color:#fff;padding:52px 0 60px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(201,162,39,.09) 0%,transparent 65%)}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,var(--gold) 0%,var(--gold) 35%,transparent 35%)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--gold-soft);border:1px solid rgba(201,162,39,.35);border-radius:20px;padding:5px 14px;margin-bottom:20px;letter-spacing:.04em}
+.hero-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold-soft);flex:none;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:clamp(26px,5vw,42px);font-weight:800;line-height:1.22;letter-spacing:-.04em;margin-bottom:14px}
+.hero h1 em{font-style:normal;color:var(--gold-soft);display:block}
+.hero .lead{font-size:clamp(14px,2.4vw,15.5px);color:#BCC8E7;max-width:38em;line-height:1.75;margin-bottom:22px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:12.5px;color:#7C8EBD}
+.hero-meta span::before{content:"·";color:var(--gold);margin-right:5px}
+
+/* 3 CRITERIA */
+.criteria{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.crit{background:#fff;border:1px solid var(--line);border-radius:10px;padding:22px 18px 20px;position:relative;overflow:hidden}
+.crit::before{content:attr(data-n);position:absolute;top:12px;right:14px;font-size:34px;font-weight:800;color:var(--paper-2);line-height:1;pointer-events:none}
+.crit h4{font-size:15.5px;font-weight:800;color:var(--navy-800);margin-bottom:8px;line-height:1.45}
+.crit p{font-size:13px;color:var(--ink-soft);line-height:1.7}
+
+/* 6 PILLARS */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.pillar{border-radius:10px;padding:20px 16px;color:#fff}
+.pillar:nth-child(odd){background:var(--navy-800)}
+.pillar:nth-child(even){background:var(--navy-600)}
+.pillar .p-n{font-size:11px;font-weight:700;color:var(--gold-soft);letter-spacing:.1em;margin-bottom:8px}
+.pillar h4{font-size:15px;font-weight:800;margin-bottom:8px;letter-spacing:-.01em}
+.pillar p{font-size:12.5px;color:#BCC8E7;line-height:1.65}
+
+/* METHODS */
+.methods{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.method{background:#fff;border:1px solid var(--line);border-radius:10px;padding:24px 18px;text-align:center}
+.method .m-n{font-size:11px;font-weight:700;color:var(--navy-400);letter-spacing:.1em;margin-bottom:10px}
+.method h4{font-size:18px;font-weight:800;color:var(--navy-800);margin-bottom:10px}
+.method p{font-size:13px;color:var(--ink-soft);line-height:1.7}
+
+/* STEPS */
+.steps-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:24px}
+.step-item{background:#fff;border:1px solid var(--line);border-radius:8px;padding:13px 15px;display:flex;gap:12px;align-items:center}
+.step-n{flex:none;width:38px;height:38px;border-radius:7px;background:var(--navy-800);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;letter-spacing:.02em}
+.step-item:nth-child(even) .step-n{background:var(--navy-600)}
+.step-info h5{font-size:14px;font-weight:800;color:var(--navy-800);margin-bottom:1px}
+.step-period{font-size:11.5px;color:var(--navy-400);font-weight:700}
+
+/* CHECKLIST */
+.cl-progress{background:var(--paper-2);border:1px solid var(--line);border-radius:8px;padding:13px 18px;margin-bottom:24px;display:flex;align-items:center;gap:16px}
+.cl-bar-wrap{flex:1;background:var(--line);border-radius:100px;height:8px;overflow:hidden}
+.cl-bar{height:100%;background:var(--navy-800);border-radius:100px;transition:width .3s}
+.cl-count{font-size:13px;font-weight:700;color:var(--navy-800);white-space:nowrap}
+.cl-group{margin-bottom:8px;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;transition:border-color .2s}
+.cl-group.complete{border-color:rgba(76,175,80,.45)}
+.cl-hdr{background:var(--navy-800);color:#fff;padding:15px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;transition:background .15s}
+.cl-hdr:hover{background:var(--navy-600)}
+.cl-hdr .step-badge{font-size:10px;font-weight:800;background:rgba(255,255,255,.18);border-radius:5px;padding:2px 9px;letter-spacing:.06em;flex:none}
+.cl-hdr-info{flex:1;min-width:0}
+.cl-hdr h4{font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.cl-hdr .step-period{font-size:11px;color:var(--gold-soft);font-weight:700;display:block}
+.cl-hdr-right{display:flex;align-items:center;gap:10px;flex:none}
+.grp-count{font-size:12px;font-weight:700;color:rgba(255,255,255,.65);background:rgba(255,255,255,.1);border-radius:100px;padding:3px 11px;white-space:nowrap;transition:background .2s,color .2s}
+.cl-group.complete .grp-count{background:rgba(76,175,80,.35);color:#A5D6A7}
+.cl-arrow{font-size:14px;color:rgba(255,255,255,.5);transition:transform .25s;line-height:1}
+.cl-group.open .cl-arrow{transform:rotate(90deg)}
+.cl-items-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s ease}
+.cl-group.open .cl-items-wrap{grid-template-rows:1fr}
+.cl-items-inner{overflow:hidden}
+.cl-item{display:flex;align-items:flex-start;gap:12px;padding:11px 18px;border-bottom:1px solid var(--paper-2);cursor:pointer;transition:background .12s;background:#fff}
+.cl-item:last-child{border-bottom:0}
+.cl-item:hover{background:var(--paper)}
+.cl-item.done{background:var(--paper)}
+.cl-cb{width:17px;height:17px;border:2px solid var(--line);border-radius:4px;flex:none;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:var(--navy-800);transition:all .15s}
+.cl-item.done .cl-cb{border-color:var(--navy-800);background:var(--navy-800);color:#fff}
+.cl-n{font-size:11px;font-weight:800;color:var(--navy-400);min-width:22px;margin-top:2px;flex:none}
+.cl-text{font-size:14px;color:var(--ink);line-height:1.55;transition:all .15s}
+.cl-item.done .cl-text{color:var(--ink-soft);text-decoration:line-through;opacity:.7}
+
+/* DIAGNOSIS TABLE */
+.diag-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:#fff;margin-top:20px}
+.diag-table{width:100%;border-collapse:collapse;font-size:14px;min-width:500px}
+.diag-table thead th{background:var(--navy-800);color:#fff;padding:12px 14px;text-align:left;font-weight:700;font-size:13px}
+.diag-table tbody td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-soft)}
+.diag-table tbody tr:nth-child(even){background:var(--paper)}
+.diag-table tbody tr:last-child td{border-bottom:0}
+.diag-table td:first-child{font-weight:800;color:var(--navy-800);white-space:nowrap}
+
+/* CUSTOMER BAR */
+.cust-bar{background:var(--navy-900);padding:36px 0}
+.cust-bar-head{margin-bottom:18px}
+.cust-bar-head .eyebrow{color:var(--gold-soft)}
+.cust-bar-head h2{color:#fff;margin-bottom:4px}
+.cust-bar-head p{color:#8C9AC2;font-size:13.5px}
+.cust-form{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px 20px 16px}
+.cust-inputs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.cust-inputs label{display:block;font-size:12px;font-weight:700;color:#8C9AC2;margin-bottom:5px;letter-spacing:.04em}
+.cust-inputs input{width:100%;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:7px;padding:10px 12px;font-size:14px;color:#fff;font-family:inherit;-webkit-appearance:none;transition:border-color .15s}
+.cust-inputs input::placeholder{color:rgba(255,255,255,.25)}
+.cust-inputs input:focus{outline:none;border-color:var(--gold-soft)}
+.cust-inputs input.active{border-color:#81C784}
+.cust-btns{margin-bottom:12px}
+.btn-start{width:100%;background:var(--gold);color:var(--navy-900);border:0;border-radius:8px;padding:13px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;transition:opacity .15s;letter-spacing:-.02em}
+.btn-start:hover{opacity:.85}
+.btn-start:disabled{opacity:.5;cursor:not-allowed}
+.cust-status{font-size:13px;min-height:18px;padding:0 2px}
+.cust-status.ok{color:#81C784}
+.cust-status.err{color:#EF9A9A}
+.cust-status.info{color:#8C9AC2}
+.sync-badge{display:none;font-size:12px;color:#8C9AC2;margin-top:8px}
+.sync-badge.show{display:block}
+/* SAVE BAR */
+.save-bar{background:#fff;border-top:2px solid var(--line);padding:18px 0;position:sticky;bottom:0;z-index:50;box-shadow:0 -4px 16px rgba(0,0,0,.07)}
+.save-bar .wrap{display:flex;align-items:center;gap:14px;justify-content:flex-end}
+.btn-save{background:var(--navy-800);color:#fff;border:0;border-radius:8px;padding:11px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:background .15s;letter-spacing:-.01em;flex:none}
+.btn-save:hover{background:var(--navy-600)}
+.btn-save:disabled{opacity:.5;cursor:not-allowed}
+.save-msg{font-size:13px;color:var(--ink-soft)}
+.save-msg.ok{color:#4CAF50;font-weight:700}
+.save-msg.err{color:#EF9A9A}
+/* CHECKLIST MEMO */
+.cl-body{flex:1;min-width:0}
+.cl-text{display:block;font-size:14px;color:var(--ink);line-height:1.55;transition:all .15s}
+.cl-item.done .cl-text{color:var(--ink-soft);text-decoration:line-through;opacity:.7}
+.cl-memo{display:block;width:100%;margin-top:6px;padding:5px 9px;background:var(--paper-2);border:1px solid var(--line);border-radius:5px;font-size:12.5px;font-family:inherit;color:var(--ink);resize:none;outline:none;line-height:1.5;overflow:hidden;min-height:28px;transition:border-color .15s}
+.cl-memo:focus{border-color:var(--navy-400);background:#fff}
+.cl-memo::placeholder{color:var(--ink-soft);opacity:.55}
+
+/* DISCLAIMER / FOOTER */
+.disclaimer{background:var(--paper-2);padding:20px 0;font-size:12.5px;color:var(--ink-soft);line-height:1.85}
+footer{background:var(--navy-900);color:#8C9AC2;padding:22px 0;font-size:13px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center}
+footer b{color:#fff}
+
+/* RESPONSIVE */
+@media(max-width:720px){
+  .criteria,.methods{grid-template-columns:1fr}
+  .pillars{grid-template-columns:1fr 1fr}
+  .steps-grid{grid-template-columns:1fr}
+  .cust-inputs,.cust-btns{grid-template-columns:1fr}
+}
+@media(max-width:440px){
+  .pillars{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="brand-sq"></span>텐배거 파트너스 · 경영 디렉팅 본부</div>
+    <div class="topbar-r">Company Cycle Director</div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-badge">PREMIUM DIRECTING · 범용 표준판 v4.2</div>
+    <h1>소상공인 · 중소기업<em>경영 온보딩 체크리스트</em></h1>
+    <p class="lead">대표님의 성향과 맞는 사업을 함께 설계하고, 기획 · 운영 계획을 끝까지 디렉팅합니다.<br>성장 가능성을 확보하고, 경영 리스크를 파악하고 예방하는 것 — 그것이 텐배거 파트너스 총괄 디렉터가 하는 일입니다.</p>
+    <div class="hero-meta">
+      <span>총 94개 항목</span>
+      <span>경영 진단 8개 영역</span>
+      <span>STEP 1 ~ 14</span>
+      <span>실행 · 경영 디렉팅 본부 총괄 디렉터 유성환</span>
+    </div>
+  </div>
+</header>
+
+<!-- 3가지 기준 -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Design Principle</p>
+    <h2>모든 항목은 세 가지 기준으로만 설계했습니다</h2>
+    <p class="sub">성공을 역산하고, 리스크를 줄이고, 성장을 만드는 항목만 담았습니다.</p>
+    <div class="criteria">
+      <div class="crit" data-n="1">
+        <h4>성공을 역산하는<br>텐배거 시스템</h4>
+        <p>성공을 위한 필요충분조건<br>대표님의 명확한 목표 설정</p>
+      </div>
+      <div class="crit" data-n="2">
+        <h4>리스크를 줄이는가</h4>
+        <p>실패 · 경영 악화 요인을 미리 파악하고 예방하는가</p>
+      </div>
+      <div class="crit" data-n="3">
+        <h4>성장을 만드는가</h4>
+        <p>수익을 시스템화하고<br>근로자 → 자영업자 → 사업가 → 투자자 단계를 올려가는가</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6개 지원 축 -->
+<section style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <p class="eyebrow">Support Axis</p>
+    <h2>텐배거 파트너스 경영 디렉팅 본부의 6개 지원 축</h2>
+    <p class="sub">6개 지원 축이 하나의 방향으로 움직입니다. 대표님은 대표님만 하실 수 있는 일에 시간을 쓰시면 됩니다.</p>
+    <div class="pillars">
+      <div class="pillar"><div class="p-n">01</div><h4>사업 설계 디렉팅</h4><p>적합성 검토 · 사업 기획<br>브랜딩 · 사내 규정 · 운영계획서</p></div>
+      <div class="pillar"><div class="p-n">02</div><h4>개업 실행 대행</h4><p>행정 · 인허가<br>인프라 · 채용 · 오픈</p></div>
+      <div class="pillar"><div class="p-n">03</div><h4>고정비 최적화</h4><p>전기 · 통신 · 렌탈<br>매월 나가는 비용 절감</p></div>
+      <div class="pillar"><div class="p-n">04</div><h4>사업 리스크 관리</h4><p>사업자 · 노무<br>대표님 건강 리스크</p></div>
+      <div class="pillar"><div class="p-n">05</div><h4>마케팅 · 고객 자산</h4><p>채널 세팅부터<br>리뷰 · 재방문 루프까지</p></div>
+      <div class="pillar"><div class="p-n">06</div><h4>성장 디렉팅</h4><p>진단 · 체질 개선 · 성장 투자<br>정부지원 · 자금 조달</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 대표님이 직접 하지 않아도 되는 일 -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Execution Method</p>
+    <h2>대표님이 직접 하지 않으셔도 되는 일들</h2>
+    <p class="sub">세 가지 방식으로 채웁니다. 단점은 보완하고, 장점에는 공격적으로 투자합니다.</p>
+    <div class="methods">
+      <div class="method">
+        <div class="m-n">METHOD 01</div>
+        <h4>대행</h4>
+        <p>디렉터가 직접 수행<br>행정 · 인허가 · 견적 비교<br>채널 세팅 · 정부지원 신청</p>
+      </div>
+      <div class="method">
+        <div class="m-n">METHOD 02</div>
+        <h4>인력</h4>
+        <p>채용 · 교육으로 내재화<br>운영 · 응대 · 마감<br>핵심직원 양성</p>
+      </div>
+      <div class="method">
+        <div class="m-n">METHOD 03</div>
+        <h4>전문가</h4>
+        <p>유자격 전문가 연결<br>세무 · 노무 · 법률<br>상표 · 보험</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 STEPS -->
+<section style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <p class="eyebrow">14 Steps · 94 Items</p>
+    <h2>개업부터 성장까지, 14단계로 디렉팅합니다</h2>
+    <p class="sub">모든 기록의 허브인 단톡방을 개설하고, 항목별 진행 여부는 대표님이 직접 확정합니다.</p>
+    <div class="steps-grid">
+      <div class="step-item"><div class="step-n">01</div><div class="step-info"><h5>사업 적합성 검토</h5><span class="step-period">D-90 ~ D-60</span></div></div>
+      <div class="step-item"><div class="step-n">02</div><div class="step-info"><h5>사업 기획 · 수익 시스템 설계</h5><span class="step-period">D-60 ~ D-45</span></div></div>
+      <div class="step-item"><div class="step-n">03</div><div class="step-info"><h5>브랜딩 · 내부 규정 체계</h5><span class="step-period">D-60 ~ D-30</span></div></div>
+      <div class="step-item"><div class="step-n">04</div><div class="step-info"><h5>입지 · 계약</h5><span class="step-period">D-45 ~ D-30</span></div></div>
+      <div class="step-item"><div class="step-n">05</div><div class="step-info"><h5>행정 · 인허가 준비</h5><span class="step-period">D-30 ~ D-21</span></div></div>
+      <div class="step-item"><div class="step-n">06</div><div class="step-info"><h5>인프라 구축 · 고정비 설계</h5><span class="step-period">D-21 ~ D-14</span></div></div>
+      <div class="step-item"><div class="step-n">07</div><div class="step-info"><h5>사업 리스크 관리</h5><span class="step-period">D-21 ~ D-10</span></div></div>
+      <div class="step-item"><div class="step-n">08</div><div class="step-info"><h5>인허가 확정</h5><span class="step-period">D-14 ~ D-10</span></div></div>
+      <div class="step-item"><div class="step-n">09</div><div class="step-info"><h5>인력 구성</h5><span class="step-period">D-14 ~ D-7</span></div></div>
+      <div class="step-item"><div class="step-n">10</div><div class="step-info"><h5>마케팅 · 고객 접점</h5><span class="step-period">D-14 ~ D-Day</span></div></div>
+      <div class="step-item"><div class="step-n">11</div><div class="step-info"><h5>오픈 실행</h5><span class="step-period">D-Day ~ D+7</span></div></div>
+      <div class="step-item"><div class="step-n">12</div><div class="step-info"><h5>경영 진단 — 8개 영역</h5><span class="step-period">D+30 ~</span></div></div>
+      <div class="step-item"><div class="step-n">13</div><div class="step-info"><h5>성장 가속 투자</h5><span class="step-period">진단 후 60~180일</span></div></div>
+      <div class="step-item"><div class="step-n">14</div><div class="step-info"><h5>상시 경영 파트너십</h5><span class="step-period">상시</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 고객 정보 입력 -->
+<section class="cust-bar">
+  <div class="wrap">
+    <div class="cust-bar-head">
+      <p class="eyebrow">Customer</p>
+      <h2>고객 정보 입력</h2>
+      <p>신규 신청은 체크리스트를 초기화하고 새로 시작합니다. 기존 고객은 이전 진행 내역과 메모를 불러옵니다.</p>
+    </div>
+    <div class="cust-form">
+      <div class="cust-inputs">
+        <div>
+          <label for="f-name">신청자 또는 사업자명</label>
+          <input type="text" id="f-name" placeholder="홍길동 / ○○ 사업장" autocomplete="name">
+        </div>
+        <div>
+          <label for="f-phone">연락처</label>
+          <input type="tel" id="f-phone" placeholder="010-0000-0000" autocomplete="tel">
+        </div>
+      </div>
+      <div class="cust-btns">
+        <button class="btn-start" id="btn-start" onclick="doStart()">시작하기</button>
+      </div>
+      <div class="cust-status" id="cust-status"></div>
+      <div class="sync-badge" id="sync-badge"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 체크리스트 -->
+<section id="checklist">
+  <div class="wrap">
+    <p class="eyebrow">Interactive Checklist · 94 Items</p>
+    <h2>경영 온보딩 체크리스트</h2>
+    <p class="sub">항목을 클릭해 완료 처리하세요. 진행 상황은 브라우저에 자동 저장됩니다.</p>
+    <div class="cl-progress">
+      <div class="cl-bar-wrap"><div class="cl-bar" id="cl-bar" style="width:0%"></div></div>
+      <div class="cl-count" id="cl-count">0 / 94 완료</div>
+    </div>
+    <div id="cl-container"></div>
+  </div>
+</section>
+
+<!-- 저장 바 -->
+<div class="save-bar" id="save-bar">
+  <div class="wrap">
+    <span class="save-msg" id="save-msg"></span>
+    <button class="btn-save" id="btn-save" onclick="doSave()">진행 상황 저장</button>
+  </div>
+</div>
+
+<!-- 경영 진단 8개 영역 -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Step 12 · Diagnosis</p>
+    <h2>경영 진단 — 8개 영역</h2>
+    <p class="sub">오픈 30일 시점에 8개 영역으로 진단합니다. 진단은 무료이며, 진단 없이 실행부터 시작하지 않습니다.</p>
+    <div class="diag-wrap">
+      <table class="diag-table">
+        <thead><tr><th style="width:160px">영역</th><th>무엇을 보는가</th></tr></thead>
+        <tbody>
+          <tr><td>① 매출 · 시장</td><td>상권 · 고객 구성 · 객단가 · 재방문율 · 매출 계절성</td></tr>
+          <tr><td>② 고정비 구조</td><td>전기 · 통신 · 임대 · 렌탈 · 보험 · 구독 — 매월 자동으로 나가는 모든 것</td></tr>
+          <tr><td>③ 인허가 · 법규</td><td>현재 영업 형태와 인허가의 정합성 · 시설 변경 미신고 · 법정 의무 이행</td></tr>
+          <tr><td>④ 인력 · 노무</td><td>근로계약 · 임금대장 · 4대보험 · 근속률 · 인건비율</td></tr>
+          <tr><td>⑤ 리스크 · 보장</td><td>사업장 배상 · 화재 · 노무 · 대표 개인 건강</td></tr>
+          <tr><td>⑥ 마케팅 · 고객 자산</td><td>검색 노출 · 리뷰 · 재방문 장치 · 콘텐츠 · 고객 DB</td></tr>
+          <tr><td>⑦ 재무 · 세무</td><td>손익 구조 · 현금흐름 · 세무 공제 · 자금 조달 구조 · 금리</td></tr>
+          <tr><td>⑧ 성장 여력</td><td>확장 가능성 · 표준화 수준 · 대표의 시간 · 브랜드 자산</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<div class="disclaimer">
+  <div class="wrap">
+    본 문서는 텐배거 파트너스(Company Cycle Director)가 소상공인 · 중소기업 경영 지원을 위해 제작한 표준 문서입니다. 업종 · 사업 단계에 따라 항목은 가감하여 운영합니다. 비용 · 제도 · 법령 정보는 2026년 상반기 기준이며 실제 진행 시점에 재확인합니다. 항목별 진행 여부는 대표님이 직접 확정하며, 지금 진행하지 않기로 하신 항목도 언제든 다시 요청하실 수 있습니다.
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div><b>텐배거 파트너스</b> · 경영 디렉팅 본부</div>
+    <div>총괄 디렉터 <b>유성환</b></div>
+  </div>
+</footer>
+
+<script>
+// ── 공용 체크리스트 데이터 ──
+var CHECKLIST_DATA=[
+  {step:1,title:'사업 적합성 검토',period:'D-90 ~ D-60',items:[
+    '대표님 성향 · 강점 · 경력 인터뷰 및 사업 유형 매칭',
+    '목표 수익 역산 — 월 필요 매출 · 손익분기점 개략 계산',
+    '경쟁 상권 · 유사 업종 현장 탐방 (3곳 이상)',
+    '가족 · 주변 동의 및 지원 체계 확인',
+    '자본금 조달 계획 수립 (자기 자금 · 대출 · 정부 지원금)'
+  ]},
+  {step:2,title:'사업 기획 · 수익 시스템 설계',period:'D-60 ~ D-45',items:[
+    '사업 개념서 (1페이지) 작성',
+    '주력 메뉴 · 상품 · 서비스 확정',
+    '가격 정책 및 마진 구조 설계',
+    '월별 매출 목표 · 손익 시뮬레이션',
+    '주요 고객군 (페르소나) 정의',
+    '경쟁사 벤치마킹 — 차별점 3가지 이상',
+    '수익 다각화 구조 설계 (객단가 향상 방법)',
+    '사업 리스크 초기 목록화'
+  ]},
+  {step:3,title:'브랜딩 · 내부 규정 체계',period:'D-60 ~ D-30',items:[
+    '상호명 결정 (특허청 상표 충돌 여부 사전 확인)',
+    '로고 · 브랜드 컬러 · 폰트 확정',
+    '간판 디자인 (오프라인) 또는 대표 이미지 (온라인)',
+    '명함 · 봉투 · 스탬프 등 기본 브랜드 물품 발주',
+    '채용 공고 템플릿 작성',
+    '직원 복무 규정 초안 작성',
+    '위생 · 안전 관리 기준 수립',
+    '현금 · 카드 처리 · 정산 프로세스 정의',
+    '고객 응대 스크립트 · 매뉴얼 초안',
+    '재고 · 발주 기준 설정',
+    '업무 인수인계 체크리스트 작성',
+    '직원 교육 계획 수립',
+    '고객 클레임 처리 절차 수립',
+    '식음료 안전관리계획 수립 (해당 업종)',
+    '업무 보고 · 소통 채널 확정 (단톡방 개설 포함)',
+    'SNS 계정 · 플랫폼 채널 예약 및 기본 정보 입력'
+  ]},
+  {step:4,title:'입지 · 계약',period:'D-45 ~ D-30',items:[
+    '매물 권리금 · 임대 조건 협상',
+    '인테리어 업체 견적 3곳 이상 비교',
+    '임대차 계약서 검토 (특약 사항 포함)',
+    '계약금 납부 및 입점 일정 확정'
+  ]},
+  {step:5,title:'행정 · 인허가 준비',period:'D-30 ~ D-21',items:[
+    '사업자 등록 서류 준비',
+    '업종별 인허가 필요 서류 목록화 및 준비',
+    '소방 안전 점검 · 시설 기준 확인',
+    '위생 교육 수료 (식품위생법 해당 업종)',
+    '건강진단서 발급 (해당 업종)',
+    '점포 인테리어 착공 및 진행 상황 점검',
+    '인허가 신청 예상 처리 기간 확인'
+  ]},
+  {step:6,title:'인프라 구축 · 고정비 설계',period:'D-21 ~ D-14',items:[
+    '인터넷 · 전화 · POS 설치 예약',
+    '전기 · 가스 · 수도 명의 이전 또는 신규 계약',
+    '카드 단말기 · 키오스크 계약',
+    '고정비 전체 목록화 (임대료 · 전기 · 통신 · 렌탈 · 보험 · 구독)',
+    '고정비 최적화 (전기요금 절감 등) 적용 여부 검토',
+    '물품 · 인테리어 최종 납품 · 설치 일정 확정'
+  ]},
+  {step:7,title:'사업 리스크 관리',period:'D-21 ~ D-10',items:[
+    '사업장 화재 · 배상책임보험 가입',
+    '노무 리스크 점검 (근로계약서 · 4대보험 기준)',
+    '대표 건강 · 소득 보장 보험 점검',
+    '비상금 (운전자금 3개월분) 확보 여부 확인',
+    '법적 분쟁 예방을 위한 계약서 · 약관 정비'
+  ]},
+  {step:8,title:'인허가 확정',period:'D-14 ~ D-10',items:[
+    '업종별 인허가 취득 완료 확인',
+    '영업 허가증 · 등록증 수령 및 보관'
+  ]},
+  {step:9,title:'인력 구성',period:'D-14 ~ D-7',items:[
+    '근로계약서 작성 및 서명 완료',
+    '4대보험 취득 신고',
+    '직원 교육 실시 (서비스 · 위생 · 안전)',
+    'POS · 장비 사용법 교육'
+  ]},
+  {step:10,title:'마케팅 · 고객 접점',period:'D-14 ~ D-Day',items:[
+    '네이버 스마트 플레이스 등록 및 정보 입력',
+    '카카오맵 · 구글 지도 등록',
+    '인스타그램 계정 개설 및 기본 피드 구성',
+    '블로그 · 네이버 카페 채널 개설',
+    '배달 플랫폼 입점 (해당 업종)',
+    '오픈 이벤트 기획 및 홍보물 제작',
+    '지역 커뮤니티 · 맘카페 오픈 예고 게시',
+    '인플루언서 · 블로거 방문 협의 (선택)',
+    '오픈 전 촬영 콘텐츠 준비 (음식 · 인테리어 · 인물)',
+    '고객 리뷰 유도 전략 준비 (쿠폰 · 스탬프)',
+    '첫 방문 고객 DB 수집 방법 확정 (앱 · 전화번호)',
+    '오픈 당일 SNS 라이브 · 스토리 예약'
+  ]},
+  {step:11,title:'오픈 실행',period:'D-Day ~ D+7',items:[
+    '오픈 당일 운영 점검 및 현장 디렉팅',
+    '첫 주 일일 매출 · 고객 수 기록',
+    '직원 운영 이슈 및 개선사항 수집',
+    '1주차 고객 피드백 수집 및 즉각 개선'
+  ]},
+  {step:13,title:'성장 가속 투자',period:'진단 후 60~180일',items:[
+    '진단 결과 기반 개선 우선순위 3가지 확정',
+    '매출 부진 원인 분석 및 메뉴 · 상품 조정',
+    '고정비 절감 항목 실행 (전기 · 통신 · 렌탈)',
+    '직원 교육 · 권한 이양 — 대표 의존도 낮추기',
+    '고객 재방문 시스템 구축 (포인트 · 쿠폰 · 앱)',
+    'SNS · 블로그 콘텐츠 정기 발행 루틴 구축',
+    '정부 지원 사업 신청 (소상공인 지원센터)',
+    '사업자 대출 · 신용 관리 구조 점검',
+    '계절성 · 이슈 대응 이벤트 기획',
+    '직원 성과 기준 및 인센티브 체계 수립',
+    '프랜차이즈 · 2호점 · 온라인 확장 가능성 검토',
+    '분기별 손익 검토 및 목표 재설정'
+  ]},
+  {step:14,title:'상시 경영 파트너십',period:'상시',items:[
+    '월 1회 경영 상황 리포트 공유 (디렉터 → 대표)',
+    '분기 고정비 재검토 및 최적화 제안',
+    '정부 지원금 · 보조금 신청 기회 모니터링',
+    '법령 · 규제 변경 사항 모니터링 및 안내',
+    '인력 채용 · 퇴사 시 법적 절차 지원',
+    '마케팅 채널 성과 분석 및 개선 제안',
+    '사업 확장 · 투자 의사결정 시 디렉팅 지원',
+    '대표 개인 자산 관리 · 성장 투자 연계',
+    '연 1회 전체 경영 진단 및 차년도 계획 수립'
+  ]}
+];
+
+// ── 공용 상태 ──
+var memoData = {};
+var currentUser = null;
+
+// ── 고객 관리 ──
+(function(){
+  var SHEET_URL = 'https://script.google.com/macros/s/AKfycbyS4kfmzagHVcnY3u9G-Yj_vAQiUaZnCiFWa5Swge9c92AAxCZpWl9d_w0IZTsczmrTRA/exec';
+  var syncTimer = null;
+  var statusEl  = document.getElementById('cust-status');
+  var syncBadge = document.getElementById('sync-badge');
+  var nameEl    = document.getElementById('f-name');
+  var phoneEl   = document.getElementById('f-phone');
+
+  function setStatus(msg, cls) {
+    statusEl.textContent = msg;
+    statusEl.className   = 'cust-status ' + (cls || '');
+  }
+
+  function getFields() {
+    return { name: nameEl.value.trim(), phone: phoneEl.value.trim() };
+  }
+
+  // 체크리스트 UI 전체 초기화
+  function clearUI() {
+    document.querySelectorAll('.cl-item').forEach(function(el){ el.classList.remove('done'); });
+    document.querySelectorAll('.cl-cb').forEach(function(el){ el.innerHTML = ''; });
+    document.querySelectorAll('.cl-memo').forEach(function(el){ el.value = ''; el.style.height = ''; });
+    memoData = {};
+    localStorage.removeItem('cl-done');
+    localStorage.removeItem('cl-memos');
+    window.updateProgress({});
+  }
+
+  // 서버 JSON으로 체크리스트 + 메모 복원 (legacyCl: 구형 체크리스트 JSON 문자열 폴백)
+  function restoreFromJSON(jsonStr, legacyCl) {
+    var clState = {}, memos = {};
+    try {
+      if (jsonStr) {
+        var d = JSON.parse(jsonStr);
+        clState = d.checklist || {};
+        memos   = d.memos    || {};
+      } else if (legacyCl) {
+        clState = JSON.parse(legacyCl); // 구형: 체크리스트 JSON만 있는 경우
+      }
+    } catch(e) {}
+    try {
+      memoData = memos;
+      localStorage.setItem('cl-done',  JSON.stringify(clState));
+      localStorage.setItem('cl-memos', JSON.stringify(memos));
+      document.querySelectorAll('.cl-item').forEach(function(el){ el.classList.remove('done'); });
+      document.querySelectorAll('.cl-cb').forEach(function(el){ el.innerHTML = ''; });
+      Object.keys(clState).forEach(function(id){
+        var itemEl = document.getElementById('item-' + id);
+        var cbEl   = document.getElementById('cb-'   + id);
+        if (itemEl) { itemEl.classList.add('done'); cbEl.innerHTML = '✓'; }
+      });
+      Object.keys(memos).forEach(function(id){
+        var ta = document.getElementById('memo-' + id);
+        if (ta) { ta.value = memos[id]; autoResize(ta); }
+      });
+      window.updateProgress(clState);
+    } catch(e){}
+  }
+
+  function autoResize(ta) {
+    ta.style.height = 'auto';
+    ta.style.height = ta.scrollHeight + 'px';
+  }
+
+  // 체크한 항목과 메모를 "항목명 : 메모" 형식으로 생성
+  function generateFormatted() {
+    var clState = JSON.parse(localStorage.getItem('cl-done') || '{}');
+    var lines = [];
+    var num = 0;
+    CHECKLIST_DATA.forEach(function(g){
+      g.items.forEach(function(item){
+        num++;
+        var id = 'cl-' + num;
+        if (clState[id]) {
+          var memo = (memoData[id] || '').trim();
+          lines.push(memo ? item + ' : ' + memo : item);
+        }
+      });
+    });
+    return lines.join('\n');
+  }
+
+  // 서버 동기화 (디바운스 2초)
+  function scheduleSync() {
+    if (!currentUser) return;
+    clearTimeout(syncTimer);
+    syncBadge.textContent = '⟳ 저장 중...';
+    syncBadge.className   = 'sync-badge show';
+    syncTimer = setTimeout(function(){
+      var clState   = JSON.parse(localStorage.getItem('cl-done')  || '{}');
+      var memos     = JSON.parse(localStorage.getItem('cl-memos') || '{}');
+      var formatted = generateFormatted();
+      postPlain({
+        action:    'saveChecklist',
+        name:      currentUser.name,
+        phone:     currentUser.phone,
+        checklist: formatted,
+        formatted: formatted,
+        json:      JSON.stringify({ checklist: clState, memos: memos })
+      }).then(function(){
+        syncBadge.textContent = '☁ 저장 완료';
+        setTimeout(function(){ syncBadge.className = 'sync-badge'; }, 2000);
+      }).catch(function(){
+        syncBadge.className = 'sync-badge';
+      });
+    }, 2000);
+  }
+  window._scheduleSync = scheduleSync;
+
+  function postPlain(payload) {
+    return fetch(SHEET_URL, {
+      method:  'POST',
+      mode:    'no-cors',
+      headers: {'Content-Type':'text/plain'},
+      body:    JSON.stringify(payload)
+    });
+  }
+
+  // 이름 + 전화번호 입력 → 기존이면 불러오기, 신규면 등록
+  window.doStart = function() {
+    var f = getFields();
+    if (!f.name)  { nameEl.focus();  return; }
+    if (!f.phone) { phoneEl.focus(); return; }
+    var btn = document.getElementById('btn-start');
+    btn.textContent = '조회 중...'; btn.disabled = true;
+
+    fetch(SHEET_URL + '?action=lookup&name=' + encodeURIComponent(f.name) + '&phone=' + encodeURIComponent(f.phone))
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        btn.textContent = '시작하기'; btn.disabled = false;
+        currentUser = f;
+        clearUI();
+        if (data.found) {
+          restoreFromJSON(data.json, data.checklist);
+          var updated = data.updated || data.timestamp || '';
+          var hasData = data.json || data.checklist;
+          if (hasData) {
+            setStatus('✅ ' + f.name + '님, 이전 진행 내역을 불러왔습니다' + (updated ? ' (' + updated + ')' : '') + '.', 'ok');
+          } else {
+            setStatus('✅ ' + f.name + '님, 확인되었습니다. 체크리스트를 작성해주세요.', 'ok');
+          }
+        } else {
+          postPlain({ name: f.name, phone: f.phone, consent: '' });
+          setStatus('✅ ' + f.name + '님, 신규 등록되었습니다. 체크리스트를 작성해주세요.', 'ok');
+        }
+      })
+      .catch(function(){
+        btn.textContent = '시작하기'; btn.disabled = false;
+        setStatus('❌ 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.', 'err');
+      });
+  };
+
+  // 즉시 저장 (저장 버튼)
+  window.doSave = function() {
+    var saveMsg = document.getElementById('save-msg');
+    var saveBtn = document.getElementById('btn-save');
+    if (!currentUser) {
+      saveMsg.textContent = '먼저 고객 정보를 입력하세요.';
+      saveMsg.className   = 'save-msg err';
+      return;
+    }
+    saveBtn.disabled    = true;
+    saveBtn.textContent = '저장 중...';
+    saveMsg.textContent = '';
+    saveMsg.className   = 'save-msg';
+    clearTimeout(syncTimer);
+    var clState   = JSON.parse(localStorage.getItem('cl-done')  || '{}');
+    var memos     = JSON.parse(localStorage.getItem('cl-memos') || '{}');
+    var formatted = generateFormatted();
+    postPlain({
+      action:    'saveChecklist',
+      name:      currentUser.name,
+      phone:     currentUser.phone,
+      checklist: formatted,
+      formatted: formatted,
+      json:      JSON.stringify({ checklist: clState, memos: memos })
+    }).then(function(){
+      saveMsg.textContent = '✅ 저장 완료';
+      saveMsg.className   = 'save-msg ok';
+      saveBtn.disabled    = false;
+      saveBtn.textContent = '진행 상황 저장';
+      setTimeout(function(){ saveMsg.textContent = ''; saveMsg.className = 'save-msg'; }, 3000);
+    }).catch(function(){
+      saveMsg.textContent = '오류가 발생했습니다. 다시 시도해 주세요.';
+      saveMsg.className   = 'save-msg err';
+      saveBtn.disabled    = false;
+      saveBtn.textContent = '진행 상황 저장';
+    });
+  };
+
+  // 메모 변경 핸들러
+  window.onMemo = function(id, el) {
+    autoResize(el);
+    memoData[id] = el.value;
+    localStorage.setItem('cl-memos', JSON.stringify(memoData));
+    scheduleSync();
+  };
+
+  // 전화번호 자동 포맷 (010-XXXX-XXXX)
+  phoneEl.addEventListener('input', function() {
+    var digits = this.value.replace(/\D/g, '').slice(0, 11);
+    if (digits.length <= 3) {
+      this.value = digits;
+    } else if (digits.length <= 7) {
+      this.value = digits.slice(0, 3) + '-' + digits.slice(3);
+    } else {
+      this.value = digits.slice(0, 3) + '-' + digits.slice(3, 7) + '-' + digits.slice(7);
+    }
+  });
+
+  // 엔터키
+  [nameEl, phoneEl].forEach(function(input){
+    input.addEventListener('keydown', function(e){
+      if (e.key === 'Enter') window.doStart();
+    });
+  });
+})();
+
+// ── 체크리스트 렌더링 ──
+(function(){
+  var TOTAL = 94;
+
+  function renderChecklist(){
+    var con = document.getElementById('cl-container');
+    var num = 0; var html = '';
+    CHECKLIST_DATA.forEach(function(g){
+      var grpId = 'grp-s' + g.step;
+      html += '<div class="cl-group" id="' + grpId + '">';
+      html += '<div class="cl-hdr" onclick="toggleGroup(\'' + grpId + '\')">';
+      html += '<span class="step-badge">STEP ' + g.step + '</span>';
+      html += '<div class="cl-hdr-info"><h4>' + g.title + '</h4><span class="step-period">' + g.period + '</span></div>';
+      html += '<div class="cl-hdr-right"><span class="grp-count" id="grpc-' + grpId + '">0 / ' + g.items.length + '</span><span class="cl-arrow">›</span></div>';
+      html += '</div>';
+      html += '<div class="cl-items-wrap"><div class="cl-items-inner">';
+      g.items.forEach(function(item){
+        num++;
+        var id = 'cl-' + num;
+        html += '<div class="cl-item" id="item-' + id + '">'
+          + '<div class="cl-cb" id="cb-' + id + '" onclick="ck(\'' + id + '\')"></div>'
+          + '<span class="cl-n" onclick="ck(\'' + id + '\')">' + num + '</span>'
+          + '<div class="cl-body">'
+          + '<span class="cl-text" onclick="ck(\'' + id + '\')">' + item + '</span>'
+          + '<textarea class="cl-memo" id="memo-' + id + '" placeholder="메모" rows="1"'
+          + ' oninput="onMemo(\'' + id + '\',this)" onclick="event.stopPropagation()"></textarea>'
+          + '</div></div>';
+      });
+      html += '</div></div></div>';
+    });
+    con.innerHTML = html;
+    window.updateProgress({});
+  }
+
+  window.toggleGroup = function(grpId) {
+    var el = document.getElementById(grpId);
+    if (el) el.classList.toggle('open');
+  };
+
+  window.ck = function(id){
+    var itemEl = document.getElementById('item-' + id);
+    var cbEl   = document.getElementById('cb-'   + id);
+    var done   = itemEl.classList.toggle('done');
+    cbEl.innerHTML = done ? '✓' : '';
+    var saved = JSON.parse(localStorage.getItem('cl-done') || '{}');
+    if (done) saved[id] = 1; else delete saved[id];
+    localStorage.setItem('cl-done', JSON.stringify(saved));
+    window.updateProgress(saved);
+    if (window._scheduleSync) window._scheduleSync();
+  };
+
+  function loadProgress(){
+    var saved = JSON.parse(localStorage.getItem('cl-done')  || '{}');
+    var memos = JSON.parse(localStorage.getItem('cl-memos') || '{}');
+    memoData = memos;
+    Object.keys(saved).forEach(function(id){
+      var itemEl = document.getElementById('item-' + id);
+      var cbEl   = document.getElementById('cb-'   + id);
+      if (itemEl){ itemEl.classList.add('done'); cbEl.innerHTML = '✓'; }
+    });
+    Object.keys(memos).forEach(function(id){
+      var ta = document.getElementById('memo-' + id);
+      if (ta){ ta.value = memos[id]; ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }
+    });
+    window.updateProgress(saved);
+  }
+
+  window.updateProgress = function(saved){
+    var done = Object.keys(saved).length;
+    var pct  = Math.round(done / TOTAL * 100);
+    document.getElementById('cl-bar').style.width = pct + '%';
+    document.getElementById('cl-count').textContent = done + ' / ' + TOTAL + ' 완료';
+    // 그룹별 카운트 업데이트
+    var num = 0;
+    CHECKLIST_DATA.forEach(function(g){
+      var grpId = 'grp-s' + g.step;
+      var grpDone = 0;
+      g.items.forEach(function(){
+        num++;
+        if (saved['cl-' + num]) grpDone++;
+      });
+      var cntEl = document.getElementById('grpc-' + grpId);
+      if (cntEl) cntEl.textContent = grpDone + ' / ' + g.items.length;
+      var grpEl = document.getElementById(grpId);
+      if (grpEl) {
+        if (grpDone === g.items.length) grpEl.classList.add('complete');
+        else grpEl.classList.remove('complete');
+      }
+    });
+  };
+
+  renderChecklist();
+})();
+</script>
+</body>
+</html>
