@@ -1,0 +1,81 @@
+{
+  "date": "2026-07-30",
+  "agent": "market",
+  "theme": {
+    "name": "클라우드 및 소프트웨어",
+    "reasons": [
+      "클라우드 컴퓨팅의 성장",
+      "소프트웨어 산업의 발전"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Intuit",
+      "ticker": "INTU",
+      "price": 333.13,
+      "change": 6.43
+    },
+    {
+      "name": "Adobe",
+      "ticker": "ADBE",
+      "price": 263.43,
+      "change": 5.72
+    },
+    {
+      "name": "HubSpot",
+      "ticker": "HUBS",
+      "price": 251.12,
+      "change": 5.49
+    },
+    {
+      "name": "Datadog",
+      "ticker": "DDOG",
+      "price": 264.2,
+      "change": 5.31
+    },
+    {
+      "name": "Workday",
+      "ticker": "WDAY",
+      "price": 168.01,
+      "change": 5.21
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 138000,
+      "change": 2.11
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 121900,
+      "change": 2.61
+    },
+    {
+      "name": "NAVER",
+      "code": "035420",
+      "price": 344000,
+      "change": 1.25
+    },
+    {
+      "name": "카카오",
+      "code": "035720",
+      "price": 74000,
+      "change": 0.94
+    },
+    {
+      "name": "현대차",
+      "code": "005380",
+      "price": 180000,
+      "change": 0.5
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "클라우드 및 소프트웨어 테마의 성장",
+    "body": "클라우드 컴퓨팅과 소프트웨어 산업의 발전은 최근 몇 년간 급격한 성장을 보이고 있습니다. 이에 따라 관련 종목들의 상승률이 높아지고 있습니다.",
+    "conclusion": "클라우드 및 소프트웨어 테마의 성장은 앞으로도 지속될 것으로 예상되며, 관련 종목들의 투자 가능성을 고려해 볼 수 있습니다."
+  }
+}
