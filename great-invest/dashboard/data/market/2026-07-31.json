@@ -1,0 +1,81 @@
+{
+  "date": "2026-07-31",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 기술",
+    "reasons": [
+      "반도체 산업의 호조",
+      "기술 발전"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "ACMR",
+      "ticker": "ACMR",
+      "price": 78.65,
+      "change": 20.44
+    },
+    {
+      "name": "WOLF",
+      "ticker": "WOLF",
+      "price": 23.79,
+      "change": 18.59
+    },
+    {
+      "name": "MU",
+      "ticker": "MU",
+      "price": 874.66,
+      "change": 18.36
+    },
+    {
+      "name": "COHU",
+      "ticker": "COHU",
+      "price": 46.45,
+      "change": 18.07
+    },
+    {
+      "name": "LRCX",
+      "ticker": "LRCX",
+      "price": 297.72,
+      "change": 17.98
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "LG이노텍",
+      "code": "011070",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "DB하이텍",
+      "code": "000990",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "한국전자홀딩스",
+      "code": "126440",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 나스닥과 코스피의 상승 종목을 분석했습니다.",
+    "body": "반도체 및 기술 테마가 두 시장에서 공통적으로 나타났습니다. 나스닥의 상승률 상위 종목들은 모두 반도체 관련 회사들이었습니다. 코스피에서도 반도체 및 기술 관련 종목들이 상위 200에 포함되어 있었습니다.",
+    "conclusion": "본 분석은 참고용으로만 사용하시고, 투자 결정은 전문가와 상담하시기 바랍니다."
+  }
+}

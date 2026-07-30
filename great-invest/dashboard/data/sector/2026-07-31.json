@@ -1,0 +1,164 @@
+{
+  "date": "2026-07-31",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "반도체",
+      "stocks": [
+        {
+          "name": "ACMR",
+          "ticker": "ACMR",
+          "price": 78.65,
+          "change": 20.44
+        },
+        {
+          "name": "MU",
+          "ticker": "MU",
+          "price": 874.66,
+          "change": 18.36
+        },
+        {
+          "name": "LRCX",
+          "ticker": "LRCX",
+          "price": 297.72,
+          "change": 17.98
+        }
+      ]
+    },
+    {
+      "sector": "소프트웨어",
+      "stocks": [
+        {
+          "name": "MSFT",
+          "ticker": "MSFT",
+          "price": 451.1,
+          "change": 15.51
+        },
+        {
+          "name": "ONTO",
+          "ticker": "ONTO",
+          "price": 250.52,
+          "change": 14.75
+        },
+        {
+          "name": "VICR",
+          "ticker": "VICR",
+          "price": 206.67,
+          "change": 13.08
+        }
+      ]
+    },
+    {
+      "sector": "하드웨어",
+      "stocks": [
+        {
+          "name": "WOLF",
+          "ticker": "WOLF",
+          "price": 23.79,
+          "change": 18.59
+        },
+        {
+          "name": "COHU",
+          "ticker": "COHU",
+          "price": 46.45,
+          "change": 18.07
+        },
+        {
+          "name": "AMD",
+          "ticker": "AMD",
+          "price": 485.39,
+          "change": 13.0
+        }
+      ]
+    },
+    {
+      "sector": "반도체 제조",
+      "stocks": [
+        {
+          "name": "AMAT",
+          "ticker": "AMAT",
+          "price": 501.77,
+          "change": 14.97
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "090430",
+          "price": 134000,
+          "change": 9.93
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000810",
+          "price": 618000,
+          "change": 5.28
+        },
+        {
+          "name": "LG이노텍",
+          "code": "011070",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "제조",
+      "stocks": [
+        {
+          "name": "삼성SDI",
+          "code": "006400",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "LG화학",
+          "code": "051910",
+          "price": 245500,
+          "change": 5.59
+        },
+        {
+          "name": "POSCO",
+          "code": "005490",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "서비스",
+      "stocks": [
+        {
+          "name": "NAVER",
+          "code": "035420",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "카카오",
+          "code": "035720",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "현대차",
+          "code": "005380",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
