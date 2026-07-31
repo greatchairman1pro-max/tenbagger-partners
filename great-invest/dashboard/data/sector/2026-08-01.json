@@ -1,0 +1,153 @@
+{
+  "date": "2026-08-01",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "기술",
+      "stocks": [
+        {
+          "name": "AMBA",
+          "ticker": "AMBA",
+          "price": 86.0,
+          "change": 16.08
+        },
+        {
+          "name": "DXCM",
+          "ticker": "DXCM",
+          "price": 83.45,
+          "change": 11.95
+        },
+        {
+          "name": "FTNT",
+          "ticker": "FTNT",
+          "price": 161.95,
+          "change": 4.99
+        }
+      ]
+    },
+    {
+      "sector": "소비자 서비스",
+      "stocks": [
+        {
+          "name": "AMZN",
+          "ticker": "AMZN",
+          "price": 271.58,
+          "change": 15.32
+        },
+        {
+          "name": "GOOGL",
+          "ticker": "GOOGL",
+          "price": 356.13,
+          "change": 6.73
+        },
+        {
+          "name": "BABA",
+          "ticker": "BABA",
+          "price": 122.25,
+          "change": 5.1
+        }
+      ]
+    },
+    {
+      "sector": "소프트웨어",
+      "stocks": [
+        {
+          "name": "MPWR",
+          "ticker": "MPWR",
+          "price": 1426.03,
+          "change": 8.35
+        },
+        {
+          "name": "SNPS",
+          "ticker": "SNPS",
+          "price": 388.76,
+          "change": 4.41
+        },
+        {
+          "name": "ZM",
+          "ticker": "ZM",
+          "price": 96.07,
+          "change": 4.06
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 262500,
+          "change": 26.81
+        },
+        {
+          "name": "LG전자",
+          "code": "066570",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 1718000,
+          "change": 29.95
+        }
+      ]
+    },
+    {
+      "sector": "제조",
+      "stocks": [
+        {
+          "name": "현대차",
+          "code": "005380",
+          "price": 388000,
+          "change": 10.54
+        },
+        {
+          "name": "기아",
+          "code": "000270",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "포스코",
+          "code": "005490",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "통신",
+      "stocks": [
+        {
+          "name": "SK텔레콤",
+          "code": "017670",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "KT",
+          "code": "030200",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "LG유플러스",
+          "code": "032640",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
