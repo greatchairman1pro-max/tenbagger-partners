@@ -1,0 +1,153 @@
+{
+  "date": "2026-08-06",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "의료",
+      "stocks": [
+        {
+          "name": "AMGN",
+          "ticker": "AMGN",
+          "price": 407.83,
+          "change": 4.57
+        },
+        {
+          "name": "ALNY",
+          "ticker": "ALNY",
+          "price": 228.72,
+          "change": 4.44
+        },
+        {
+          "name": "ISRG",
+          "ticker": "ISRG",
+          "price": 375.2,
+          "change": 1.88
+        }
+      ]
+    },
+    {
+      "sector": "기술",
+      "stocks": [
+        {
+          "name": "NVDA",
+          "ticker": "NVDA",
+          "price": 219.22,
+          "change": 3.43
+        },
+        {
+          "name": "TEAM",
+          "ticker": "TEAM",
+          "price": 113.32,
+          "change": 2.73
+        },
+        {
+          "name": "DASH",
+          "ticker": "DASH",
+          "price": 207.27,
+          "change": 2.42
+        }
+      ]
+    },
+    {
+      "sector": "소비재",
+      "stocks": [
+        {
+          "name": "SHOP",
+          "ticker": "SHOP",
+          "price": 144.24,
+          "change": 16.98
+        },
+        {
+          "name": "MELI",
+          "ticker": "MELI",
+          "price": 1922.57,
+          "change": 1.8
+        },
+        {
+          "name": "ABNB",
+          "ticker": "ABNB",
+          "price": 152.49,
+          "change": 1.71
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "제조업",
+      "stocks": [
+        {
+          "name": "삼성중공업",
+          "code": "009150",
+          "price": 1356000,
+          "change": 14.43
+        },
+        {
+          "name": "현대에이치에스",
+          "code": "336260",
+          "price": 34600,
+          "change": 20.98
+        },
+        {
+          "name": "대우조선해양",
+          "code": "009830",
+          "price": 30150,
+          "change": 12.5
+        }
+      ]
+    },
+    {
+      "sector": "정보통신",
+      "stocks": [
+        {
+          "name": "SK텔레콤",
+          "code": "017670",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "KT",
+          "code": "030200",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "LG유플러스",
+          "code": "032640",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "서비스업",
+      "stocks": [
+        {
+          "name": "신한금융지주",
+          "code": "055550",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "KB금융지주",
+          "code": "105560",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "하나금융지주",
+          "code": "086790",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}

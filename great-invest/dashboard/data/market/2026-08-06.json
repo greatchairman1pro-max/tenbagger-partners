@@ -1,0 +1,81 @@
+{
+  "date": "2026-08-06",
+  "agent": "market",
+  "theme": {
+    "name": "기술 및 바이오 기술",
+    "reasons": [
+      "NVDA의 상승",
+      "AMGN의 바이오 기술"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Shopify",
+      "ticker": "SHOP",
+      "price": 144.24,
+      "change": 16.98
+    },
+    {
+      "name": "Amgen",
+      "ticker": "AMGN",
+      "price": 407.83,
+      "change": 4.57
+    },
+    {
+      "name": "Alnylam Pharmaceuticals",
+      "ticker": "ALNY",
+      "price": 228.72,
+      "change": 4.44
+    },
+    {
+      "name": "NVIDIA",
+      "ticker": "NVDA",
+      "price": 219.22,
+      "change": 3.43
+    },
+    {
+      "name": "Sea Limited",
+      "ticker": "SE",
+      "price": 114.91,
+      "change": 3.11
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 1668000,
+      "change": 5.77
+    },
+    {
+      "name": "LG전자",
+      "code": "066570",
+      "price": 179500,
+      "change": 8.46
+    },
+    {
+      "name": "한화시스템",
+      "code": "272210",
+      "price": 72400,
+      "change": 4.78
+    },
+    {
+      "name": "삼성SDI",
+      "code": "006400",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "테마 분석",
+    "body": "기술 및 바이오 기술의 상승",
+    "conclusion": "결론+면책"
+  }
+}
