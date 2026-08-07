@@ -1,0 +1,153 @@
+{
+  "date": "2026-08-08",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "소프트웨어",
+      "stocks": [
+        {
+          "name": "Atlassian",
+          "ticker": "TEAM",
+          "price": 149.07,
+          "change": 35.31
+        },
+        {
+          "name": "Twilio",
+          "ticker": "TWLO",
+          "price": 241.28,
+          "change": 24.89
+        },
+        {
+          "name": "Wolfspeed",
+          "ticker": "WOLF",
+          "price": 32.87,
+          "change": 19.14
+        }
+      ]
+    },
+    {
+      "sector": "기술",
+      "stocks": [
+        {
+          "name": "Airbnb",
+          "ticker": "ABNB",
+          "price": 178.07,
+          "change": 17.43
+        },
+        {
+          "name": "Celh",
+          "ticker": "CELH",
+          "price": 27.77,
+          "change": 16.83
+        },
+        {
+          "name": "Onto Innovation",
+          "ticker": "ONTO",
+          "price": 308.3,
+          "change": 14.74
+        }
+      ]
+    },
+    {
+      "sector": "기술하드웨어",
+      "stocks": [
+        {
+          "name": "Microchip Technology",
+          "ticker": "MCHP",
+          "price": 84.69,
+          "change": 13.89
+        },
+        {
+          "name": "Palantir Technologies",
+          "ticker": "PLTR",
+          "price": 172.01,
+          "change": 10.32
+        },
+        {
+          "name": "Moderna",
+          "ticker": "MRNA",
+          "price": 59.17,
+          "change": 9.86
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "LG전자",
+          "code": "066570",
+          "price": 185000,
+          "change": 5.59
+        }
+      ]
+    },
+    {
+      "sector": "제약",
+      "stocks": [
+        {
+          "name": "셀트리온",
+          "code": "068270",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "한미약품",
+          "code": "128940",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "유한양행",
+          "code": "000100",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    },
+    {
+      "sector": "운송",
+      "stocks": [
+        {
+          "name": "현대차",
+          "code": "005380",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "기아",
+          "code": "000270",
+          "price": 0,
+          "change": 0.0
+        },
+        {
+          "name": "한국항공우주",
+          "code": "047810",
+          "price": 0,
+          "change": 0.0
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "date": "2026-08-08",
+  "agent": "market",
+  "theme": {
+    "name": "클라우드 및 기술",
+    "reasons": [
+      "클라우드 서비스 수요 증가",
+      "기술 발전으로 인한 성장"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Atlassian Corporation",
+      "ticker": "TEAM",
+      "price": 149.07,
+      "change": 35.31
+    },
+    {
+      "name": "Twilio Inc.",
+      "ticker": "TWLO",
+      "price": 241.28,
+      "change": 24.89
+    },
+    {
+      "name": "Wolfspeed Inc.",
+      "ticker": "WOLF",
+      "price": 32.87,
+      "change": 19.14
+    },
+    {
+      "name": "Airbnb Inc.",
+      "ticker": "ABNB",
+      "price": 178.07,
+      "change": 17.43
+    },
+    {
+      "name": "Celh",
+      "ticker": "CELH",
+      "price": 27.77,
+      "change": 16.83
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "LG전자",
+      "code": "066570",
+      "price": 185000,
+      "change": 5.59
+    },
+    {
+      "name": "네이버",
+      "code": "035420",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "카카오",
+      "code": "035720",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "클라우드 및 기술 테마의 상승",
+    "body": "클라우드 서비스 수요 증가와 기술 발전으로 인한 성장이 주된 이유입니다.",
+    "conclusion": "테마와 연관된 종목들의 상승세가 지속될 것으로 예상됩니다. 본 분석는 참고용으로만 사용하시기 바랍니다."
+  }
+}
