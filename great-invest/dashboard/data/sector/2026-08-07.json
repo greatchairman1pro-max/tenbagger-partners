@@ -1,0 +1,153 @@
+{
+  "date": "2026-08-07",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "기술",
+      "stocks": [
+        {
+          "name": "DIOD",
+          "ticker": "DIOD",
+          "price": 98.72,
+          "change": 15.34
+        },
+        {
+          "name": "MTSI",
+          "ticker": "MTSI",
+          "price": 301.64,
+          "change": 14.49
+        },
+        {
+          "name": "SMTC",
+          "ticker": "SMTC",
+          "price": 134.78,
+          "change": 11.16
+        }
+      ]
+    },
+    {
+      "sector": "통신",
+      "stocks": [
+        {
+          "name": "TMUS",
+          "ticker": "TMUS",
+          "price": 179.97,
+          "change": 3.75
+        },
+        {
+          "name": "PYPL",
+          "ticker": "PYPL",
+          "price": 59.78,
+          "change": 3.19
+        },
+        {
+          "name": "DASH",
+          "ticker": "DASH",
+          "price": 213.26,
+          "change": 2.89
+        }
+      ]
+    },
+    {
+      "sector": "서비스",
+      "stocks": [
+        {
+          "name": "UBER",
+          "ticker": "UBER",
+          "price": 70.47,
+          "change": 3.36
+        },
+        {
+          "name": "FOXA",
+          "ticker": "FOXA",
+          "price": 61.79,
+          "change": 5.3
+        },
+        {
+          "name": "WOLF",
+          "ticker": "WOLF",
+          "price": 27.59,
+          "change": 9.53
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "282330",
+          "code": "282330",
+          "price": 155400,
+          "change": 16.4
+        },
+        {
+          "name": "066970",
+          "code": "066970",
+          "price": 91000,
+          "change": 14.04
+        },
+        {
+          "name": "206950",
+          "code": "206950",
+          "price": 1669,
+          "change": 12.47
+        }
+      ]
+    },
+    {
+      "sector": "제조",
+      "stocks": [
+        {
+          "name": "253450",
+          "code": "253450",
+          "price": 24500,
+          "change": 10.36
+        },
+        {
+          "name": "290650",
+          "code": "290650",
+          "price": 63800,
+          "change": 10.38
+        },
+        {
+          "name": "009830",
+          "code": "009830",
+          "price": 33650,
+          "change": 10.69
+        }
+      ]
+    },
+    {
+      "sector": "금융",
+      "stocks": [
+        {
+          "name": "145020",
+          "code": "145020",
+          "price": 279000,
+          "change": 7.31
+        },
+        {
+          "name": "078340",
+          "code": "078340",
+          "price": 32800,
+          "change": 5.98
+        },
+        {
+          "name": "003670",
+          "code": "003670",
+          "price": 156300,
+          "change": 5.97
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}

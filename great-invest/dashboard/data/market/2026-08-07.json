@@ -1,0 +1,81 @@
+{
+  "date": "2026-08-07",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 기술",
+    "reasons": [
+      "반도체 수요 증가",
+      "기술 발전 가속화"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "DIOD",
+      "ticker": "DIOD",
+      "price": 98.72,
+      "change": 15.34
+    },
+    {
+      "name": "MTSI",
+      "ticker": "MTSI",
+      "price": 301.64,
+      "change": 14.49
+    },
+    {
+      "name": "SMTC",
+      "ticker": "SMTC",
+      "price": 134.78,
+      "change": 11.16
+    },
+    {
+      "name": "WOLF",
+      "ticker": "WOLF",
+      "price": 27.59,
+      "change": 9.53
+    },
+    {
+      "name": "FOXA",
+      "ticker": "FOXA",
+      "price": 61.79,
+      "change": 5.3
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "LG전자",
+      "code": "066570",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "한화테크윈",
+      "code": "012450",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "DB하이텍",
+      "code": "000990",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "테마명은 반도체 및 기술입니다.",
+    "body": "테마와 연관된 코스피 상위 200 종목 5개를 선별했습니다.",
+    "conclusion": "테마와 연관된 종목들은 반도체 및 기술 발전에 따라 수요가 증가할 것으로 예상됩니다. 본 분석는 참고용으로만 사용하시길 바랍니다."
+  }
+}
