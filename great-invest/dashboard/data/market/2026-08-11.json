@@ -1,0 +1,81 @@
+{
+  "date": "2026-08-11",
+  "agent": "market",
+  "theme": {
+    "name": "클라우드 및 사이버 보안",
+    "reasons": [
+      "클라우드 보안 수요 증가",
+      "サイバー 공격 대비 필요성"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Datadog",
+      "ticker": "DDOG",
+      "price": 260.78,
+      "change": 11.48
+    },
+    {
+      "name": "Palo Alto Networks",
+      "ticker": "PANW",
+      "price": 385.04,
+      "change": 5.82
+    },
+    {
+      "name": "Vertex Pharmaceuticals",
+      "ticker": "VRTX",
+      "price": 523.91,
+      "change": 5.61
+    },
+    {
+      "name": "CrowdStrike",
+      "ticker": "CRWD",
+      "price": 225.16,
+      "change": 5.01
+    },
+    {
+      "name": "Spotify",
+      "ticker": "SPOT",
+      "price": 511.82,
+      "change": 4.85
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 81200,
+      "change": 29.92
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 101000,
+      "change": 11.97
+    },
+    {
+      "name": "LG전자",
+      "code": "066570",
+      "price": 1235000,
+      "change": 11.66
+    },
+    {
+      "name": "한화시스템",
+      "code": "272210",
+      "price": 77200,
+      "change": 9.19
+    },
+    {
+      "name": "LG유플러스",
+      "code": "032640",
+      "price": 11780,
+      "change": 8.47
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "클라우드 및 사이버 보안 테마가 주목받고 있습니다.",
+    "body": "클라우드 보안 수요 증가와 사이버 공격 대비 필요성으로 인해 관련 주가가 상승하고 있습니다. 미국의 Datadog, Palo Alto Networks, Vertex Pharmaceuticals, CrowdStrike, Spotify 등이 상승률 상위에 위치하고 있습니다. 이러한 테마와 연관된 코스피 상위 200 종목으로는 삼성전자, SK하이닉스, LG전자, 한화시스템, LG유플러스 등이 있습니다.",
+    "conclusion": "클라우드 및 사이버 보안 테마는 향후에도 주목받을 것으로 예상됩니다. 그러나 투자에는 항상 위험이 수반되므로 투자자들은 신중하게 결정해야 합니다."
+  }
+}

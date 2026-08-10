@@ -1,0 +1,153 @@
+{
+  "date": "2026-08-11",
+  "agent": "sector",
+  "title": "섹터별 강세 종목",
+  "foreign": [
+    {
+      "sector": "소프트웨어",
+      "stocks": [
+        {
+          "name": "Datadog",
+          "ticker": "DDOG",
+          "price": 260.78,
+          "change": 11.48
+        },
+        {
+          "name": "Palo Alto Networks",
+          "ticker": "PANW",
+          "price": 385.04,
+          "change": 5.82
+        },
+        {
+          "name": "Vertex Pharmaceuticals",
+          "ticker": "VRTX",
+          "price": 523.91,
+          "change": 5.61
+        }
+      ]
+    },
+    {
+      "sector": "보안",
+      "stocks": [
+        {
+          "name": "CrowdStrike",
+          "ticker": "CRWD",
+          "price": 225.16,
+          "change": 5.01
+        },
+        {
+          "name": "Zscaler",
+          "ticker": "ZS",
+          "price": 176.68,
+          "change": 4.74
+        },
+        {
+          "name": "GitLab",
+          "ticker": "GTLB",
+          "price": 40.73,
+          "change": 4.52
+        }
+      ]
+    },
+    {
+      "sector": "기술",
+      "stocks": [
+        {
+          "name": "Spotify",
+          "ticker": "SPOT",
+          "price": 511.82,
+          "change": 4.85
+        },
+        {
+          "name": "NetApp",
+          "ticker": "NTAP",
+          "price": 198.72,
+          "change": 4.85
+        },
+        {
+          "name": "MongoDB",
+          "ticker": "MDB",
+          "price": 416.67,
+          "change": 4.48
+        }
+      ]
+    }
+  ],
+  "domestic": [
+    {
+      "sector": "전자",
+      "stocks": [
+        {
+          "name": "삼성전자",
+          "code": "005930",
+          "price": 812,
+          "change": 29.92
+        },
+        {
+          "name": "SK하이닉스",
+          "code": "000660",
+          "price": 101000,
+          "change": 11.97
+        },
+        {
+          "name": "LG전자",
+          "code": "066570",
+          "price": 1235000,
+          "change": 11.66
+        }
+      ]
+    },
+    {
+      "sector": "제약",
+      "stocks": [
+        {
+          "name": "셀트리온",
+          "code": "068270",
+          "price": 10220,
+          "change": 11.09
+        },
+        {
+          "name": "한미약품",
+          "code": "128940",
+          "price": 823000,
+          "change": 11.07
+        },
+        {
+          "name": "유한양행",
+          "code": "000100",
+          "price": 123100,
+          "change": 10.7
+        }
+      ]
+    },
+    {
+      "sector": "통신",
+      "stocks": [
+        {
+          "name": "KT",
+          "code": "030200",
+          "price": 70200,
+          "change": 10.2
+        },
+        {
+          "name": "SK텔레콤",
+          "code": "017670",
+          "price": 357000,
+          "change": 10.02
+        },
+        {
+          "name": "LG유플러스",
+          "code": "032640",
+          "price": 2890,
+          "change": 9.26
+        }
+      ]
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "서론",
+    "body": "본론",
+    "conclusion": "결론+면책"
+  }
+}
