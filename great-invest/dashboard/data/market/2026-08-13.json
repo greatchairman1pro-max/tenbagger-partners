@@ -1,0 +1,81 @@
+{
+  "date": "2026-08-13",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 기술",
+    "reasons": [
+      "나스닥 상위 종목 중 SMCI, CIEN, SMTC, COHU, MU가 반도체 및 기술 관련 회사",
+      "코스피 상위 200 종목 중에도 반도체 및 기술 관련 회사들이 상승"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "SMCI",
+      "ticker": "SMCI",
+      "price": 37.61,
+      "change": 19.02
+    },
+    {
+      "name": "CIEN",
+      "ticker": "CIEN",
+      "price": 432.05,
+      "change": 11.49
+    },
+    {
+      "name": "SMTC",
+      "ticker": "SMTC",
+      "price": 140.0,
+      "change": 6.72
+    },
+    {
+      "name": "COHU",
+      "ticker": "COHU",
+      "price": 56.14,
+      "change": 6.29
+    },
+    {
+      "name": "MU",
+      "ticker": "MU",
+      "price": 911.29,
+      "change": 4.92
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 255500,
+      "change": 6.68
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 1504000,
+      "change": 5.54
+    },
+    {
+      "name": "메가스터디교육",
+      "code": "072810",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "한미반도체",
+      "code": "064350",
+      "price": 146500,
+      "change": 3.61
+    },
+    {
+      "name": "에스앤에스텍",
+      "code": "108920",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 나스닥과 코스피의 상승 종목을 분석해 보았습니다.",
+    "body": "나스닥의 상위 종목 중 SMCI, CIEN, SMTC, COHU, MU가 반도체 및 기술 관련 회사로 나타났습니다. 코스피 상위 200 종목 중에도 반도체 및 기술 관련 회사들이 상승했습니다.",
+    "conclusion": "따라서 오늘의 테마는 반도체 및 기술로 결론지을 수 있습니다. 본 분석는 참고용으로만 사용하시길 바랍니다."
+  }
+}
