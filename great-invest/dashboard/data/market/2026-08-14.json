@@ -1,0 +1,81 @@
+{
+  "date": "2026-08-14",
+  "agent": "market",
+  "theme": {
+    "name": "클라우드 및 소프트웨어",
+    "reasons": [
+      "클라우드 기반 서비스 수요 증가",
+      "디지털 전환 가속화"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "Workday",
+      "ticker": "WDAY",
+      "price": 206.45,
+      "change": 17.78
+    },
+    {
+      "name": "HubSpot",
+      "ticker": "HUBS",
+      "price": 240.51,
+      "change": 14.46
+    },
+    {
+      "name": "DocuSign",
+      "ticker": "DOCU",
+      "price": 64.09,
+      "change": 10.31
+    },
+    {
+      "name": "The Trade Desk",
+      "ticker": "TTD",
+      "price": 14.56,
+      "change": 7.93
+    },
+    {
+      "name": "MongoDB",
+      "ticker": "MDB",
+      "price": 472.29,
+      "change": 7.87
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 268000,
+      "change": 4.89
+    },
+    {
+      "name": "NAVER",
+      "code": "035420",
+      "price": 226500,
+      "change": 5.1
+    },
+    {
+      "name": "카카오",
+      "code": "035720",
+      "price": 0,
+      "change": 0.0
+    },
+    {
+      "name": "SK텔레콤",
+      "code": "017670",
+      "price": 91100,
+      "change": 3.76
+    },
+    {
+      "name": "현대차",
+      "code": "005380",
+      "price": 0,
+      "change": 0.0
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "클라우드 및 소프트웨어 테마의 상승",
+    "body": "클라우드 기반 서비스 수요 증가와 디지털 전환 가속화로 인해 관련 주가가 상승하고 있다.",
+    "conclusion": "클라우드 및 소프트웨어 테마의 상승은 지속될 것으로 예상되며, 관련 주식에 투자하는 것이 좋다. 그러나 투자에는 항상 위험이 수반되므로 투자 전慎重하게 검토해야 한다."
+  }
+}
