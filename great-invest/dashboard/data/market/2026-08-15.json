@@ -1,0 +1,82 @@
+{
+  "date": "2026-08-15",
+  "agent": "market",
+  "theme": {
+    "name": "반도체 및 기술",
+    "reasons": [
+      "NU의 상승",
+      "AMD의 상승",
+      "DIOD의 상승"
+    ]
+  },
+  "us_stocks": [
+    {
+      "name": "NU",
+      "ticker": "NU",
+      "price": 15.23,
+      "change": 9.33
+    },
+    {
+      "name": "AMD",
+      "ticker": "AMD",
+      "price": 514.39,
+      "change": 6.5
+    },
+    {
+      "name": "DIOD",
+      "ticker": "DIOD",
+      "price": 103.48,
+      "change": 6.47
+    },
+    {
+      "name": "SMTC",
+      "ticker": "SMTC",
+      "price": 140.35,
+      "change": 5.07
+    },
+    {
+      "name": "VICR",
+      "ticker": "VICR",
+      "price": 234.74,
+      "change": 3.57
+    }
+  ],
+  "kr_stocks": [
+    {
+      "name": "삼성전자",
+      "code": "005930",
+      "price": 453000,
+      "change": 8.24
+    },
+    {
+      "name": "SK하이닉스",
+      "code": "000660",
+      "price": 1645000,
+      "change": 3.26
+    },
+    {
+      "name": "LG이노텍",
+      "code": "011070",
+      "price": 115000,
+      "change": 5.14
+    },
+    {
+      "name": "DB하이텍",
+      "code": "000990",
+      "price": 29900,
+      "change": 3.82
+    },
+    {
+      "name": "한국전자홀딩스",
+      "code": "009150",
+      "price": 1558000,
+      "change": 3.66
+    }
+  ],
+  "shorts_script": "XO입니다로 시작 60초 대본",
+  "blog": {
+    "intro": "오늘 나스닥과 코스피의 상승 종목을 분석했습니다.",
+    "body": "반도체 및 기술 테마가 강세를 보였습니다. 미국의 NU, AMD, DIOD 등이 상승했습니다. 코스피에서도 삼성전자, SK하이닉스, LG이노텍 등이 상승했습니다.",
+    "conclusion": "반도체 및 기술 테마의 상승은 지속될 수 있습니다. 하지만 시장의 변동성은 매우 높습니다. 투자 전에는 충분한 연구와 분석이 필요합니다."
+  }
+}
